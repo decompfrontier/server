@@ -8,14 +8,14 @@ The source code originated from the original intended release of the "Brave Fron
 in late 2022 which took inspiration from the original GimuFrontier code release back in 2022.
 
 The server is intended to provide a backend replacement for the following servers:
-- api.live.gumi.sg
-- ios21960.bravefrontier.gumi.sg
-- CDN asset server
+- Gimu API Server (DLS and Account)
+- Game Server (gme)
+- CDN Asset server
 
 ## Building
 
 ### Requirements
-- C++11+ compiler
+- C++17 compiler
 - CMake
 - Drogon (use vcpkg on Windows)
 
