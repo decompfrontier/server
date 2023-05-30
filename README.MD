@@ -22,4 +22,4 @@ The server is intended to provide a backend replacement for the following server
 ## Legal
 The code of this project is released under the Affero GNU Public License v3.0+.
 
-This project is not associated, affiliated or sponsed with/by Alim Co., Ltd or gumi Inc.
+This project is not associated, affiliated or sponsored with/by Alim Co., Ltd or gumi Inc.

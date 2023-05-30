@@ -1,0 +1,15 @@
+{
+    "listeners": [
+        {
+            "address": "127.0.0.1",
+            "port": 9960,
+            "https": false
+        }
+    ],
+    "app": {
+        "number_of_threads": 2,
+        "log": {
+            "log_level": "TRACE"
+        }
+    }
+}
