@@ -3,6 +3,7 @@ project(GimuServer)
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(cryptopp CONFIG REQUIRED)
 find_package(Drogon CONFIG REQUIRED)
 
 add_subdirectory(gimuserver)

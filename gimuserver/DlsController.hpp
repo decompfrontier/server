@@ -1,19 +1,19 @@
 #pragma once
 
-#include <drogon/HttpSimpleController.h>
+#include <drogon/HttpController.h>
 
 using namespace drogon;
 
 /**
 * Controller for Gimu Live API game info
-* @note URL: api-sl.bfww.gumi.sg/dls
+* @note URL: api-sl.bfww.gumi.sg
 */
-class DlsController : public drogon::HttpSimpleController<DlsController>
+class DlsController : public drogon::HttpController<DlsController>
 {
 public:
-	void asyncHandleHttpRequest(const drogon::HttpRequestPtr& req, std::function<void(const drogon::HttpResponsePtr&)>&& callback) override;
+	void HandleDls(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
 
-	PATH_LIST_BEGIN
-	PATH_ADD("/dls", Get);
-	PATH_LIST_END
+	METHOD_LIST_BEGIN
+		ADD_METHOD_TO(DlsController::HandleDls, "/dls", Get);
+	METHOD_LIST_END
 };
