@@ -1,0 +1,1 @@
+https://github.com/arves100/gimufrontier/blob/main/gimufrontier/Models/BF_Action/Responses/InitializeResponse.cs

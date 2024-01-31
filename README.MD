@@ -12,12 +12,21 @@ The server is intended to provide a backend replacement for the following server
 - Game Server (gme)
 - CDN Asset server
 
-## Building
+## Structure
 
-### Requirements
-- C++17 compiler
+### game_frontend
+This contains the exporte DLL that will can be used to embed the offline mod server into the game by generating a shared library.
+
+### gimuserver
+This is the actual server source code.
+
+### standalone_frontend
+This is a standalone version of the server primary intended for easy development of the project.
+
+## Requirements
+- C++17+ compiler
 - CMake
-- Drogon (use vcpkg on Windows)
+- vcpkg
 
 ## Legal
 The code of this project is released under the Affero GNU Public License v3.0+.

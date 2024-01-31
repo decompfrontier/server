@@ -5,7 +5,7 @@
 using namespace drogon;
 
 /**
-* Controller for Gimu Live API game info
+* Controller for Gumi Live API game info
 * @note URL: api-sl.bfww.gumi.sg
 */
 class DlsController : public drogon::HttpController<DlsController>

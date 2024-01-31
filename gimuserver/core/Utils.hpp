@@ -5,4 +5,6 @@
 namespace Utils
 {
 	void DumpInfoToDrogon(const drogon::HttpRequestPtr& rq, const std::string& ip);
+	std::string GetDrogonBindHostname();
+	std::string GetDrogonHttpBindHostname();
 }
