@@ -1,6 +1,6 @@
 #include "BfWebController.hpp"
 #include "core/Utils.hpp"
-#include "core/Config.hpp"
+#include "core/System.hpp"
 #include "WebTerms.hpp"
 
 #include <filesystem>
@@ -19,7 +19,7 @@ void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void
 		return;
 	}
 
-	auto path = Config::Instance().GetContentRootPath() + rq->getPath(); // TODO: this will be BROKEN for offline mods!
+	auto path = System::Instance().GetContentRootPath() + rq->getPath();
 
 	if (!fs::exists(path) || fs::is_directory(path))
 	{

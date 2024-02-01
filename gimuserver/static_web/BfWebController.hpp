@@ -18,5 +18,8 @@ public:
 		//ADD_METHOD_TO(BfWebController::HandleDefault, "/", Get);
 		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/bf/web/(.*)", Get);
 		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/content/(.*)", Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "//content/(.*)", Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/mst/(.*)", Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "//mst/(.*)", Get);
 	METHOD_LIST_END
 };

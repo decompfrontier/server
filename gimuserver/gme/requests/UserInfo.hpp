@@ -9,7 +9,21 @@ struct UserInfo : public IRequest
 {
 	const char* getGroupName() const override { return "IKqx1Cn9"; }
 
-	void Deserialize(const Json::Value& v) override
+	std::string mInfo;
+	std::string userID;
+	std::string contactID;
+	GumiLiveInfo gumiInfo;
+	std::string pointerName;
+	int modelChangeCount;
+	std::string deviceName;
+	std::string targetOS;
+	std::string firstDescMstReq;
+	std::string noticeMstListRequest;
+	std::string buildPlatformID;
+	std::string deviceID; // from URLMstRequest
+
+protected:
+	void DeserializeFields(const Json::Value& v, size_t) override
 	{
 		userID = v.get("h7eY3sAK", "").asCString();
 		contactID = v.get("90LWtVUN", "").asCString();
@@ -25,17 +39,5 @@ struct UserInfo : public IRequest
 		gumiInfo.Deserialize(v);
 	}
 
-	std::string mInfo;
-	std::string userID;
-	std::string contactID;
-	GumiLiveInfo gumiInfo;
-	std::string pointerName;
-	int modelChangeCount;
-	std::string deviceName;
-	std::string targetOS;
-	std::string firstDescMstReq;
-	std::string noticeMstListRequest;
-	std::string buildPlatformID;
-	std::string deviceID; // from URLMstRequest
 };
 REQUEST_NS_END

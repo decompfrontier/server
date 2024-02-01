@@ -1,8 +1,8 @@
 #include <drogon/drogon.h>
 #include <cstdio>
 #include <AppVersion.hpp>
-#include <gimuserver/gme/GmeCoder.hpp>
-#include <gimuserver/core/Config.hpp>
+
+#include <gimuserver/core/System.hpp>
 #include <gimuserver/core/Controllers.hpp>
 
 int main()
@@ -13,13 +13,11 @@ int main()
 
     try
     {
-        if (!Config::Instance().Load("./gimuconfig.json"))
+        if (!System::Instance().LoadSystemConfig("./gimuconfig.json"))
         {
             printf("Unable to load server config!\n");
             return -1;
         }
-
-        GmeCoder::Instance().Init();
 
         drogon::app()
             .loadConfigFile("./config.json")

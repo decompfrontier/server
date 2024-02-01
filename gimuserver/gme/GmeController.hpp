@@ -4,6 +4,7 @@
 #include "GmeTypes.hpp"
 #include "GmeHandler.hpp"
 
+using HandlerCreateFunc = std::function< Handler::IHandler* ()>;
 using namespace drogon;
 
 /**
@@ -13,6 +14,8 @@ using namespace drogon;
 class GmeController : public drogon::HttpController<GmeController>
 {
 public:
+	GmeController();
+
 	void HandleGame(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
 
 	METHOD_LIST_BEGIN
@@ -20,8 +23,12 @@ public:
 	METHOD_LIST_END
 
 private:
-	drogon::HttpResponsePtr newGmeOkResponse(const std::string& reqId, const Json::Value& data);
+	void InitializeHandlers();
+
+	inline void InitializeHandler(const std::string& rq, HandlerCreateFunc fnc) { m_handlers.insert_or_assign(rq, fnc); }
+
+	drogon::HttpResponsePtr newGmeOkResponse(const std::string& reqId, const std::string& aesKey, const Json::Value& data);
 	drogon::HttpResponsePtr newGmeErrorResponse(const std::string& reqId, ErrorID errId, ErrorOperation errContinueOp, const std::string& msg);
 
-	GmeHandler m_handler;
+	std::unordered_map<std::string, HandlerCreateFunc> m_handlers;
 };

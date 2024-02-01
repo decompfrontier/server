@@ -1,35 +1,26 @@
 #pragma once
 
 #include "GmeTypes.hpp"
-
-#include <unordered_map>
+#include "GmeRequest.hpp"
 #include <json/value.h>
 
-class GmeHandler;
-typedef bool(GmeHandler::*GmeHandlerFnc)(const Json::Value& body);
+#define HANDLER_NS_BEGIN namespace Handler {
+#define HANDLER_NS_END }
 
-class GmeHandler
+HANDLER_NS_BEGIN
+class IHandler
 {
 public:
-	GmeHandler();
-
 	auto GetErrorId() const { return m_errID; }
 	auto GetErrorContinueOp() const { return m_errOP; }
 	const auto& GetErrorMsg() const { return m_errMsg; }
-	const auto& GetSuccessData() const { return m_out; }
 
-	bool Handle(std::string req, const Json::Value& body);
+	virtual const char* GetAesKey() const = 0;
+	virtual bool Handle(const Json::Value& req, Json::Value& res) = 0;
 
-private:
-	void InitHandlers();
-	inline void Register(std::string name, GmeHandlerFnc fnc) { m_handlers.insert_or_assign(name, fnc); }
-
+protected:
 	std::string m_errMsg;
 	ErrorID m_errID;
-	ErrorOperation m_errOP;
-	Json::Value m_out;
-	std::unordered_map<std::string, GmeHandlerFnc> m_handlers;
-
-	// handlers
-	
+	ErrorOperation m_errOP;	
 };
+HANDLER_NS_END

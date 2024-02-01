@@ -1,8 +1,26 @@
 #include "GmeController.hpp"
-#include "GmeCoder.hpp"
 #include "GmeHandler.hpp"
 #include "core/BfCrypt.hpp"
 #include "core/Utils.hpp"
+
+constexpr const auto GME_HEADER = "F4q6i9xe";
+constexpr const auto GME_BODY = "a3vSYuq2";
+constexpr const auto GME_ERROR = "b5PH6mZa";
+
+constexpr const auto HEADER_CLIENT_ID = "aV6cLn3v";
+constexpr const auto HEADER_REQUEST_ID = "Hhgi79M1";
+
+constexpr const auto ERROR_ID = "3e9aGpus";
+constexpr const auto ERROR_CONTINUE_OP = "iPD12YCr";
+constexpr const auto ERROR_MESSAGE = "ZC0msu2L";
+constexpr const auto ERROR_UNK_1 = "zcJeTx18";
+
+constexpr const auto BODY_JSON = "Kn51uR4Y";
+
+GmeController::GmeController()
+{
+	InitializeHandlers();
+}
 
 void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
@@ -19,7 +37,7 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 		return;
 	}
 
-	auto header = root[JENC("header")];
+	auto header = root[GME_HEADER];
 
 	if (header.isNull())
 	{
@@ -28,7 +46,7 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 		return;
 	}
 
-	auto reqid = header[JENC("request_id")];
+	auto reqid = header[HEADER_REQUEST_ID];
 
 	if (!reqid.isString())
 	{
@@ -38,55 +56,67 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 	}
 
 	std::string encReq = reqid.asCString();
-	auto decReq = GmeCoder::Instance().GetRequestNameFromEncName(encReq);
 
-	if (decReq.empty())
+	auto it = m_handlers.find(encReq);
+
+	if (it == m_handlers.end())
 	{
 		callback(newGmeErrorResponse(encReq, ErrorID::Yes, ErrorOperation::Close, "Unsupported request! Please report this error with the following information:\nRequest:" + encReq));
 		return;
 	}
 
-	auto body = root[JENC("body")];
+	auto q = (it->second)();
+
+	auto body = root[GME_BODY];
 	Json::Value bodyJson;
 
 	if (!body.isNull())
 	{
-		auto enc_json = body[JENC("encrypted_json")];
+		auto enc_json = body[BODY_JSON];
 		if (enc_json.isString())
 		{
-			bodyJson = BfCrypt::DecryptGME(enc_json.asCString(), GmeCoder::Instance().GetAESKeyByDecName(decReq));
+			BfCrypt::DecryptGME(enc_json.asCString(), q->GetAesKey(), bodyJson);
+
+			if (bodyJson.isNull())
+			{
+				callback(newGmeErrorResponse(encReq, ErrorID::Yes, ErrorOperation::Close, "Unsupported decrypt key! Please report this error with the following information:\nRequest:" + encReq));
+				return;
+			}
 		}
 	}
 	
 
-	LOG_TRACE << "GME REQUEST " << decReq << " JSON: " << bodyJson.toStyledString();
+	LOG_TRACE << "GME REQUEST " << encReq << " JSON: " << bodyJson.toStyledString();
 	
-	if (!m_handler.Handle(decReq, bodyJson))
+	Json::Value respJson;
+	bool handleResult = q->Handle(bodyJson, respJson);
+
+	if (!handleResult)
+		callback(newGmeErrorResponse(encReq, q->GetErrorId(), q->GetErrorContinueOp(), q->GetErrorMsg()));
+	else
 	{
-		callback(newGmeErrorResponse(encReq, m_handler.GetErrorId(), m_handler.GetErrorContinueOp(), m_handler.GetErrorMsg()));
-		return;
+		LOG_TRACE << "GME RESPONSE " << encReq << " JSON: " << respJson.toStyledString();
+		callback(newGmeOkResponse(encReq, q->GetAesKey(), respJson));
 	}
 
-	callback(newGmeOkResponse(decReq, m_handler.GetSuccessData()));
+	delete q;
 }
 
-drogon::HttpResponsePtr GmeController::newGmeOkResponse(const std::string& reqId, const Json::Value& data)
+drogon::HttpResponsePtr GmeController::newGmeOkResponse(const std::string& reqId, const std::string& aesKey, const Json::Value& data)
 {
-
 	Json::Value header;
-	header[JENC("client_id")] = "---";
-	header[JENC("request_id")] = GmeCoder::Instance().GetFromDecName(reqId);
-	header[JENC("?_0")] = "{}";
-	header[JENC("?_1")] = 1;
+	header[HEADER_CLIENT_ID] = "---";
+	header[HEADER_REQUEST_ID] = reqId;
 
 	Json::Value gme;
-	gme[JENC("header")] = header;
+	gme[GME_HEADER] = header;
 
 	if (!data.isNull())
-	{ // sometimes it can be null
+	{ 
+		// sometimes it can be null
 		Json::Value body;
-		body[JENC("encrypted_json")] = data; // TODO: CRYPT THE DATA
-		gme[JENC("body")] = BfCrypt::CryptGME(body, GmeCoder::Instance().GetAESKeyByDecName(reqId));
+		body[BODY_JSON] = BfCrypt::CryptGME(data, aesKey);
+		gme[GME_BODY] = body;
 	}
 
 	return HttpResponse::newHttpJsonResponse(gme);
@@ -95,20 +125,18 @@ drogon::HttpResponsePtr GmeController::newGmeOkResponse(const std::string& reqId
 drogon::HttpResponsePtr GmeController::newGmeErrorResponse(const std::string& reqId, ErrorID errId, ErrorOperation errContinueOp, const std::string& msg)
 {
 	Json::Value error;
-	error[JENC("error_id")] = std::to_string(static_cast<int>(errId));
-	error[JENC("error_continue_operation")] = std::to_string(static_cast<int>(errContinueOp));
-	error[JENC("error_message")] = msg;
-	error[JENC("?_2")] = "";
+	error[ERROR_ID] = std::to_string(static_cast<int>(errId));
+	error[ERROR_CONTINUE_OP] = std::to_string(static_cast<int>(errContinueOp));
+	error[ERROR_MESSAGE] = msg;
+	error[ERROR_UNK_1] = "";
 
 	Json::Value header;
-	header[JENC("client_id")] = "---";
-	header[JENC("request_id")] = reqId;
-	header[JENC("?_0")] = "{}";
-	header[JENC("?_1")] = 1;
+	header[HEADER_CLIENT_ID] = "---";
+	header[HEADER_REQUEST_ID] = reqId;
 
 	Json::Value gme;
-	gme[JENC("header")] = header;
-	gme[JENC("error")] = error;
+	gme[GME_HEADER] = header;
+	gme[GME_ERROR] = error;
 
 	return HttpResponse::newHttpJsonResponse(gme);
 }
