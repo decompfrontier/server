@@ -21,17 +21,20 @@ bool System::LoadSystemConfig(const std::string& p)
 
 		const auto& sys = root["system"];
 		const auto& srv = root["server"];
+		const auto& mst = root["mst"];
 
-		m_serverCfg.ParseFromJson(srv);
+		if (!m_serverCfg.ParseFromJson(srv))
+			return false;
+		
 		ParseSystemConfig(sys);
+
+		if (!ParseMstConfig(mst))
+			return false;
 	}
 	catch (const std::exception& ex)
 	{
 		return false;
 	}
-
-	if (!m_mstInfo.LoadTableFromJson(m_mstInfoPath))
-		return false;
 
 	return true;
 }
@@ -39,9 +42,22 @@ bool System::LoadSystemConfig(const std::string& p)
 void System::ParseSystemConfig(const Json::Value& v)
 {
 	m_contentRoot = v["content_root"].asCString();
-	m_mstInfoPath = v["mstinfo_path"].asCString();
 	m_dbPath = v["gme_sqlite_path"].asCString();
 	m_sessionTimeout = size_t(v["session_timeout"].asUInt64());
+}
+
+bool System::ParseMstConfig(const Json::Value& v)
+{
+	if (!m_mstConfig.Info.LoadTableFromJson(v["mstinfo_path"].asCString()))
+		return false;
+
+	if (!m_mstConfig.DailyTask.LoadTableFromJson(v["dailytask_path"].asCString()))
+		return false;
+
+	if (!m_mstConfig.LoginCamp.LoadTableFromJson(v["logincampaign_path"].asCString()))
+		return false;
+
+	return true;
 }
 
 void System::RunMigrations(drogon::orm::DbClientPtr p)

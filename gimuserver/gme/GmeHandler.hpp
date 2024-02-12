@@ -3,9 +3,14 @@
 #include "GmeTypes.hpp"
 #include "GmeRequest.hpp"
 #include "GmeTypes.hpp"
+#include "UserInfo.hpp"
+
 #include <json/value.h>
+
 #include <drogon/HttpResponse.h>
 #include <drogon/Session.h>
+#include <drogon/orm/Result.h>
+#include <drogon/orm/Exception.h>
 
 #define HANDLER_NS_BEGIN namespace Handler {
 #define HANDLER_NS_END }
@@ -19,10 +24,10 @@ class HandlerBase
 public:
 	virtual const char* GetGroupId() const = 0;
 	virtual const char* GetAesKey() const = 0;
-	virtual void Handle(const drogon::SessionPtr& session, DrogonCallback& cb, const Json::Value& req) const = 0;
+	virtual void Handle(UserInfo& session, DrogonCallback cb, const Json::Value& req) const = 0;
 
 protected:
-	void FinishHandling(const drogon::SessionPtr& session, DrogonCallback& cb, const Json::Value& res = Json::Value()) const;
+	void OnError(const drogon::orm::DrogonDbException& e, DrogonCallback cb, ErrorOperation op = ErrorOperation::Close) const;
 };
 HANDLER_NS_END
 

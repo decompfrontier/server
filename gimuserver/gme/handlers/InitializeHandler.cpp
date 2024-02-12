@@ -4,56 +4,115 @@
 #include "gme/requests/UserInfo.hpp"
 #include "gme/response/UserInfo.hpp"
 #include "gme/response/SignalKey.hpp"
+#include "gme/response/ChallengeArenaUserInfo.hpp"
+#include "gme/response/DailyTaskPrizeMst.hpp"
 #include "gme/response/DailyTaskBonusMst.hpp"
+#include "gme/response/NoticeInfo.hpp"
+#include "gme/response/GuildInfo.hpp"
+#include "gme/response/DailyTaskMst.hpp"
+#include "gme/response/DailyLoginRewardsUserInfo.hpp"
 #include "db/DbMacro.hpp"
 
-void Handler::InitializeHandler::Handle(const drogon::SessionPtr& session, DrogonCallback& cb, const Json::Value& req) const
+void Handler::InitializeHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const
 {
 	Request::UserInfo inInfo;
 	inInfo.Deserialize(req);
 
-	Response::UserInfo info;
-
-	// NOTE: A real server would check for the gumi api key, we just hardcode into this so we can always login
-	session->modify<std::string>("session_id", [](std::string& v) { v = "AAAAAAAA"; });
-
 	// TODO: we probably have a lot of stuff missing
-	GME_DB->execSqlAsync("SELECT id, account_id, username, admin FROM users WHERE id=$1",
-		[this, req, &cb, &session](const drogon::orm::Result& result) {
-			Response::UserInfo ti;
-
-			if (result.size() > 0)
-			{
-				int col = 0;
-				auto& sql = result[0];
-				ti.userID = sql[col++].as<std::string>();
-				ti.accountID = sql[col++].as<std::string>();
-				ti.handleName = sql[col++].as<std::string>();
-				ti.debugMode = sql[col++].as<bool>() ? 1 : 0;
-			}
-			else {
-				ti.userID = session->get<std::string>("user_id");
-				ti.handleName = "----";
-				ti.debugMode = false;
-				GME_DB->execSqlSync(
-					"INSERT INTO users("
-					"id, account_id, username, admin"
-					")VALUES ("
-					"$1, $2, $3, $4"
-					");",
-					ti.userID, ti.accountID, ti.handleName, ti.debugMode
-				);
-			}
-
-			Json::Value res;
-			ti.Serialize(res);
-			System::Instance().MstInfo().GetMstData(res);
-			FinishHandling(session, cb, res);
-		},
-		[this, req, &cb, &session](const drogon::orm::DrogonDbException& e) {
-			Utils::SetSessionError(session, ErrorOperation::Close, e.base().what());
-			FinishHandling(session, cb);
-		},
-		session->get<std::string>("user_id")
+	GME_DB->execSqlAsync("SELECT account_id, username, admin FROM users WHERE id=$1",
+		[this, cb, &user](const drogon::orm::Result& res) { OnUserInfoSuccess(res, cb, user); },
+		[this, cb](const drogon::orm::DrogonDbException& e) { OnError(e, cb); },
+		user.info.userID
 	);
+}
+
+void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& result, DrogonCallback cb, UserInfo& user) const
+{
+	if (result.size() > 0)
+	{
+		int col = 0;
+		auto& sql = result[0];
+		user.info.accountID = sql[col++].as<std::string>();
+		user.info.handleName = sql[col++].as<std::string>();
+		user.info.debugMode = sql[col++].as<bool>() ? 1 : 0;
+	}
+	else {
+		user.info.handleName = "----";
+		user.info.debugMode = false;
+		user.info.accountID = Utils::RandomAccountID();
+		//user.PersistInfo();
+	}
+
+	Json::Value res;
+	user.info.Serialize(res); // user info
+
+	const auto& msts = System::Instance().MstConfig();
+
+	msts.Info.GetMstData(res); // mst info
+
+	Response::ChallengeArenaUserInfo ci;
+	ci.unkstr = "n9ZMPC0t"; // rank name?
+	ci.unkstr2 = "F"; // ranking?
+	ci.unkint6 = 1; // ??
+	ci.Serialize(res); // challenge arena info
+
+	Response::DailyTaskBonusMst dailytaskbonus;
+	for (const auto& v : msts.DailyTask.GetTaskBonusTables())
+	{
+		Response::DailyTaskBonusMst::Data d;
+		d.bonusBravePoints = v.points;
+		dailytaskbonus.Mst.emplace_back(d);
+	}
+	dailytaskbonus.Serialize(res); // daily task bonus mst
+
+	Response::DailyTaskPrizeMst dailytaskprizes;
+	for (const auto& v : msts.DailyTask.GetTaskPrizes())
+	{
+		Response::DailyTaskPrizeMst::Data d;
+		d.taskId = v.id;
+		d.taskTitle = v.title;
+		d.taskDesc = v.desc;
+		d.bravePointCost = v.points_cost;
+		d.currentClaimCount = 0; // TODO: add support of this inside the user info
+		d.isMileStonePrize = v.milestone_prize;
+		d.maxClaimCount = v.max_claims;
+		d.presentType = v.present_type;
+		d.targetCount = v.target_count;
+		d.targetId = v.target_id;
+		d.targetParam = v.target_param;
+		d.timeLimit = v.time_limit;
+		dailytaskprizes.Mst.emplace_back(d);
+	}
+	dailytaskprizes.Serialize(res); // daily task prizes mst
+
+	msts.LoginCamp.CopyTo(res); // login campaign mst
+
+	Response::NoticeInfo notices;
+	notices.url = "http://ios21900.bfww.gumi.sg/pages/versioninfo";
+	notices.Serialize(res);
+
+	Response::GuildInfo guild;
+	guild.Serialize(res);
+
+	Response::DailyTaskMst dailyTasks;
+	for (int i = 0; i < 3; i++)
+	{
+		// TODO: we need a daily task table so that we
+		//  can select how many daily tasks we can do
+		Response::DailyTaskMst::Data d;
+		d.typeKey = "AV";
+		d.typeTitle = "Arena Victory";
+		d.typeDescription = "Achieve 3 Victories in The Arena ";
+		d.taskCount = 3;
+		d.taskBravePoints = 20;
+		d.timesCompleted = 1;
+		dailyTasks.Mst.emplace_back(d);
+	}
+	dailyTasks.Serialize(res); // daily taks
+
+	Response::DailyLoginRewardsUserInfo dailyWheel;
+	// TODO: make this configurable
+	dailyWheel.Serialize(res);
+
+	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }

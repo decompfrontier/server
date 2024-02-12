@@ -6,7 +6,7 @@ RESPONSE_NS_BEGIN
 struct UserInfo : public IResponse
 {
 	const char* getGroupName() const override { return "IKqx1Cn9"; }
-	UserInfo() : tutorialStatus(0), tutorialEndFlag(0), modelChangeCount(0)
+	explicit UserInfo() : tutorialStatus(0), tutorialEndFlag(0), modelChangeCount(0)
 		, codeExpireDate(0)
 		, friendInvitationFlag(0), earlyBirdEnd(0), debugMode(0),
 		featureGate(0)

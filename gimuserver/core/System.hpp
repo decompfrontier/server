@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <gimuserver/system/MstInfo.hpp>
+#include <gimuserver/system/MstConfig.hpp>
 #include <gimuserver/system/ServerConfig.hpp>
 #include <gimuserver/db/MigrationManager.hpp>
 
@@ -15,7 +15,7 @@ public:
 	bool LoadSystemConfig(const std::string& path);
 	void RunMigrations(drogon::orm::DbClientPtr ptr);
 
-	const auto& MstInfo() const { return m_mstInfo; }
+	const auto& MstConfig() const { return m_mstConfig; }
 	auto& ServerConfig() { return m_serverCfg; }
 	const auto& GetContentRootPath() const { return m_contentRoot; }
 	const auto& GetDbPath() const { return m_dbPath; }
@@ -23,14 +23,14 @@ public:
 
 private:
 	void ParseSystemConfig(const Json::Value& v);
+	bool ParseMstConfig(const Json::Value& v);
 
 	std::string m_contentRoot;
-	std::string m_mstInfoPath;
 	std::string m_dbPath;
 	size_t m_sessionTimeout;
 
 	::ServerConfig m_serverCfg;
-	::MstInfo m_mstInfo;
+	::MstConfig m_mstConfig;
 
 	MigrationManager m_mg;
 

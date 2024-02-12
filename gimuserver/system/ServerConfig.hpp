@@ -21,5 +21,5 @@ struct ServerConfig
 	std::string Wallpaper;
 	int GameVersion;
 
-	void ParseFromJson(const Json::Value& v);
+	bool ParseFromJson(const Json::Value& v);
 };

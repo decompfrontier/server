@@ -71,9 +71,34 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 			}
 		}
 	}
-	
 
 	LOG_TRACE << "GME REQUEST " << encReq << " JSON: " << bodyJson.toStyledString();
+
+
+	// NOTE: in a real server this shouldn't happen
+	if (m_users.empty())
+	{
+		UserInfo ui;
+		ui.info.userID = HARDCODE_USERID;
+		m_users.insert_or_assign(ui.info.userID, ui);
+	}
+	auto& user = m_users[HARDCODE_USERID];
 	
-	q.Handle(rq->session(), callback, bodyJson);
+	q.Handle(user, callback, bodyJson);
+}
+
+void GmeController::HandleFeatureCheck(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
+{
+	callback(
+		HttpResponse::newNotFoundResponse() // TODO
+	);
+}
+
+void GmeController::HandleServerTime(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
+{
+	callback(
+		HttpResponse::newNotFoundResponse() // TODO
+	);
+		
+		//trantor::Date::date().secondsSinceEpoch();
 }

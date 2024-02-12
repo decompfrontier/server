@@ -2,9 +2,14 @@
     "system":
     {
         "content_root": "./game_content",
-        "mstinfo_path": "./mstinfo.json",
         "gme_sqlite_path": "./gme.sqlite",
         "session_timeout" : 1200
+    },
+    "mst":
+    {
+        "mstinfo_path": "./system/mstinfo.json",
+        "dailytask_path": "./system/dailytask.json",
+        "logincampaign_path": "./system/logincampaign.json"
     },
     "server":
     {

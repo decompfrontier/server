@@ -5,6 +5,8 @@
 #include <gimuserver/core/System.hpp>
 #include <gimuserver/core/Controllers.hpp>
 
+#include <json/value.h>
+
 int main()
 {
     printf("GimuFrontier - C++ Game Server for Brave Frontier\n");
@@ -19,18 +21,18 @@ int main()
             return -1;
         }
 
-#if 0 // TODO: fix!!!
+#if 0
         {
             auto p = drogon::orm::DbClient::newSqlite3Client("filename=" + System::Instance().GetDbPath(), 1);
             System::Instance().RunMigrations(p);
             p->closeAll();
+            return 0;
         }
 #endif
 
         drogon::app()
             .loadConfigFile("./config.json")
             .createDbClient("sqlite3", "", 0, "", "", "", 1, System::Instance().GetDbPath(), "gme", false, "utf-8")
-            .enableSession(System::Instance().GetSessionTimeout())
             .run()
         ;
     }

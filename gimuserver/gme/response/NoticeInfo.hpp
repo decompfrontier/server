@@ -1,0 +1,22 @@
+#pragma once
+
+#include "../GmeRequest.hpp"
+
+RESPONSE_NS_BEGIN
+struct NoticeInfo : public IResponse
+{
+	const char* getGroupName() const override { return "Pj6zDW3m"; }
+
+	uint32_t id;
+	std::string url;
+
+	explicit NoticeInfo() : id(1) {}
+
+protected:
+	void SerializeFields(Json::Value& v, size_t) const override
+	{
+		v["xJNom6i0"] = id;
+		v["jsRoN50z"] = url;
+	}
+};
+RESPONSE_NS_END

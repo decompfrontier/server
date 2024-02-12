@@ -59,9 +59,3 @@ std::string Utils::RandomAccountID()
 
 	return r;
 }
-
-void Utils::SetSessionError(const drogon::SessionPtr& seq, ErrorOperation op, std::string msg)
-{
-	seq->modify<std::string>("error_msg", [msg](std::string& v) { v = msg; });
-	seq->modify<ErrorOperation>("error_op", [op](ErrorOperation& v) { v = op; });
-}

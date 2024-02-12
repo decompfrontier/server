@@ -1,10 +1,13 @@
 #include "GmeHandler.hpp"
 #include "GmeTypes.hpp"
+
 #include <core/BfCrypt.hpp>
 #include <drogon/HttpResponse.h>
 
 drogon::HttpResponsePtr newGmeOkResponse(const std::string& reqId, const std::string& aesKey, const Json::Value& data)
 {
+	LOG_TRACE << "GME RESPONSE " << reqId << " JSON: " << data.toStyledString();
+
 	Json::Value header;
 	header[HEADER_CLIENT_ID] = "---";
 	header[HEADER_REQUEST_ID] = reqId;
@@ -26,8 +29,8 @@ drogon::HttpResponsePtr newGmeOkResponse(const std::string& reqId, const std::st
 drogon::HttpResponsePtr newGmeErrorResponse(const std::string& reqId, ErrorID errId, ErrorOperation errContinueOp, const std::string& msg)
 {
 	Json::Value error;
-	error[ERROR_ID] = std::to_string(static_cast<int>(errId));
-	error[ERROR_CONTINUE_OP] = std::to_string(static_cast<int>(errContinueOp));
+	error[ERROR_ID] = static_cast<int>(errId);
+	error[ERROR_CONTINUE_OP] = static_cast<int>(errContinueOp);
 	error[ERROR_MESSAGE] = msg;
 	error[ERROR_UNK_1] = "";
 
@@ -39,28 +42,12 @@ drogon::HttpResponsePtr newGmeErrorResponse(const std::string& reqId, ErrorID er
 	gme[GME_HEADER] = header;
 	gme[GME_ERROR] = error;
 
+	LOG_TRACE << "ERROR JSON: " << gme.toStyledString();
+
 	return drogon::HttpResponse::newHttpJsonResponse(gme);
 }
 
-void Handler::HandlerBase::FinishHandling(const drogon::SessionPtr& session, DrogonCallback& cb, const Json::Value& res) const
+void Handler::HandlerBase::OnError(const drogon::orm::DrogonDbException& e, DrogonCallback cb, ErrorOperation op) const
 {
-	const auto& errmsg = session->get<std::string>("error_msg");
-	if (!errmsg.empty())
-	{
-		cb(newGmeErrorResponse(
-			GetGroupId(),
-			ErrorID::Yes,
-			session->get<ErrorOperation>("error_op"),
-			errmsg
-		));
-	}
-	else
-	{
-		LOG_TRACE << "GME RESPONSE " << GetGroupId() << " JSON: " << res.toStyledString();
-		cb(newGmeOkResponse(
-			GetGroupId(),
-			GetAesKey(),
-			res
-		));
-	}
+	cb(newGmeErrorResponse(GetGroupId(), ErrorID::Yes, op, e.base().what()));
 }

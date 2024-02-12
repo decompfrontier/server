@@ -7,14 +7,26 @@ struct DailyTaskBonusMst : public IResponse
 {
 	const char* getGroupName() const override { return "p283g07d"; }
 
-	explicit DailyTaskBonusMst() : bonusBravePoints(0) {}
+	struct Data
+	{
+		explicit Data() : bonusBravePoints(0) {}
 
-	uint32_t bonusBravePoints;
+		uint32_t bonusBravePoints;
+
+		void Serialize(Json::Value& v) const
+		{
+			v["k3bD738b"] = bonusBravePoints;
+		}
+	};
+
+	std::vector<Data> Mst;
 
 protected:
-	void SerializeFields(Json::Value& v, size_t) const override
+	size_t getRespCount() const override { return Mst.size(); }
+
+	void SerializeFields(Json::Value& v, size_t i) const override
 	{
-		v["k3bD738b"] = std::to_string(bonusBravePoints);
+		Mst.at(i).Serialize(v);
 	}
 };
 RESPONSE_NS_END

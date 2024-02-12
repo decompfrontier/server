@@ -40,6 +40,12 @@ public:
 
 	virtual void Serialize(Json::Value& v) const
 	{
+		if (getRespCount() == 0)
+		{
+			v[getGroupName()].resize(0);
+			return;
+		}
+
 		for (size_t i = 0; i < getRespCount(); i++)
 		{
 			Json::Value g;
