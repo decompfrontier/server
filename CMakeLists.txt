@@ -10,6 +10,7 @@ set(SERVER_HOME_PAGE "https://decompfrontier.github.io/")
 
 find_package(cryptopp CONFIG REQUIRED)
 find_package(Drogon CONFIG REQUIRED)
+find_package(unofficial-sqlite3 CONFIG REQUIRED)
 
 add_subdirectory(gimuserver)
 add_subdirectory(standalone_frontend)

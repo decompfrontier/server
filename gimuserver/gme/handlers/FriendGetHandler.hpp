@@ -3,10 +3,10 @@
 #include "../GmeHandler.hpp"
 
 HANDLER_NS_BEGIN
-class FriendGetHandler : public IHandler
+class FriendGetHandler : public HandlerBase
 {
 public:
 	const char* GetAesKey() const override { return "EoYuZ2nbImhCU1c0"; }
-	bool Handle(const Json::Value& req, Json::Value& res) override;
+	void Handle(const Json::Value& req) override;
 };
 HANDLER_NS_END

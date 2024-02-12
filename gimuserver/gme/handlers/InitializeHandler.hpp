@@ -4,10 +4,10 @@
 
 HANDLER_NS_BEGIN
 //id: MfZyu1q9
-class InitializeHandler : public IHandler
+class InitializeHandler : public HandlerBase
 {
 public:
 	const char* GetAesKey() const override { return "EmcshnQoDr20TZz1"; }
-	bool Handle(const Json::Value& req, Json::Value& res) override;
+	void Handle(const Json::Value& res) override;
 };
 HANDLER_NS_END

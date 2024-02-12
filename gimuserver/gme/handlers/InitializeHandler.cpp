@@ -3,23 +3,53 @@
 #include "core/System.hpp"
 #include "gme/response/UserInfo.hpp"
 #include "gme/response/SignalKey.hpp"
+#include "gme/requests/UserInfo.hpp"
+#include "db/DbMacro.hpp"
 
-bool Handler::InitializeHandler::Handle(const Json::Value& req, Json::Value& res)
+void Handler::InitializeHandler::Handle(const Json::Value& req)
 {
+	Request::UserInfo inInfo;
+	inInfo.Deserialize(req);
+
 	Response::UserInfo info;
 
-	// TODO: add drogon sqlite framework here...
-	info.userID = "00000000";
-	info.handleName = "Arves100";
-	info.friendID = "000000001";
-	info.Serialize(res);
+	GME_DB->execSqlAsync("SELECT id, account_id, username, admin FROM users",
+		[this](const drogon::orm::Result& result) {
+			Response::UserInfo ti;
 
-	Response::SignalKey key;
-	key.key = "AAAAAAAA";
-	key.Serialize(res);
+			if (result.size() > 0)
+			{
+				int col = 0;
+				auto& sql = result[0];
+				ti.userID = sql[col++].as<std::string>();
+				ti.accountID = sql[col++].as<std::string>();
+				ti.handleName = sql[col++].as<std::string>();
+				ti.debugMode = sql[col++].as<bool>() ? 1 : 0;
+			}
+			else {
+				ti.userID = Utils::RandomUserID();
+				ti.handleName = "----";
+				ti.debugMode = false;
+				GME_DB->execSqlSync(
+					"INSERT INTO users("
+					"id, account_id, username, admin"
+					")VALUES ("
+					"$1, $2, $3, $4"
+					");",
+					ti.userID, ti.accountID, ti.handleName, ti.debugMode
+				);
+			}
 
-	System::Instance().MstInfo().GetMstData(res);
-
-	return true;
+			Json::Value res;
+			ti.Serialize(res);
+			System::Instance().MstInfo().GetMstData(res);
+			FinishHandling(res);
+		},
+		[this](const drogon::orm::DrogonDbException& e) {
+			m_errMsg = e.base().what();
+			m_errID = ErrorID::Yes;
+			FinishHandling();
+		}
+	);
 }
 

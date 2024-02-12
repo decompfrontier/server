@@ -4,7 +4,7 @@
 #include "GmeTypes.hpp"
 #include "GmeHandler.hpp"
 
-using HandlerCreateFunc = std::function< Handler::IHandler* ()>;
+using HandlerCreateFunc = std::function< Handler::HandlerBase* ()>;
 using namespace drogon;
 
 /**
@@ -26,9 +26,6 @@ private:
 	void InitializeHandlers();
 
 	inline void InitializeHandler(const std::string& rq, HandlerCreateFunc fnc) { m_handlers.insert_or_assign(rq, fnc); }
-
-	drogon::HttpResponsePtr newGmeOkResponse(const std::string& reqId, const std::string& aesKey, const Json::Value& data);
-	drogon::HttpResponsePtr newGmeErrorResponse(const std::string& reqId, ErrorID errId, ErrorOperation errContinueOp, const std::string& msg);
 
 	std::unordered_map<std::string, HandlerCreateFunc> m_handlers;
 };

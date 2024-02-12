@@ -1,6 +1,7 @@
 #include "System.hpp"
 #include <json/json.h>
 #include <fstream>
+#include <drogon/HttpAppFramework.h>
 
 bool System::LoadSystemConfig(const std::string& p)
 {
@@ -39,6 +40,12 @@ void System::ParseSystemConfig(const Json::Value& v)
 {
 	m_contentRoot = v["content_root"].asCString();
 	m_mstInfoPath = v["mstinfo_path"].asCString();
+	m_dbPath = v["gme_sqlite_path"].asCString();
+}
+
+void System::RunMigrations()
+{
+	m_mg.RunMigrations("gme");
 }
 
 System System::m_sys;

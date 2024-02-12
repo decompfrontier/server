@@ -3,6 +3,11 @@
 
 using namespace drogon;
 
+static const char alphanum[] =
+"0123456789"
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+"abcdefghijklmnopqrstuvwxyz";
+
 trantor::LogStream& operator<<(trantor::LogStream& stream, const std::unordered_map<std::string, std::string, drogon::utils::internal::SafeStringHash>& map)
 {
 	for (const auto& [k, v] : map)
@@ -33,4 +38,24 @@ std::string Utils::GetDrogonHttpBindHostname()
 	q += GetDrogonBindHostname();
 	q += "/";
 	return q;
+}
+
+std::string Utils::RandomUserID()
+{
+	std::string r;
+
+	for (int i = 0; i < 8; i++)
+		r += alphanum[rand() % (sizeof(alphanum) - 1)];
+
+	return r;
+}
+
+std::string Utils::RandomAccountID()
+{
+	std::string r;
+
+	for (int i = 0; i < 8; i++)
+		r += alphanum[rand() % (sizeof(alphanum) - 1)];
+
+	return r;
 }

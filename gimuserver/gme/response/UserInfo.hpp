@@ -14,7 +14,7 @@ struct UserInfo : public IResponse
 	}
 
 	std::string accountID, userID, friendID;
-	std::string password, handleName, contactID;
+	std::string password, handleName, contactID; // contact id? password?
 	int tutorialStatus; // 0 = have to do?, 4 = don't have to do? 12 = triggerable?
 	int tutorialEndFlag; // what's this
 	int modelChangeCount; // what's this
@@ -24,8 +24,8 @@ struct UserInfo : public IResponse
 	int debugMode;
 	std::string encryptIV; // is this what I think it is?
 	std::string encryptedFriendID; // why?
-	std::string firstDesc;
-	std::string dlcUrl;
+	std::string firstDesc; // ?
+	std::string dlcUrl; // ?
 	int featureGate; // vortex?
 	// "32k0ahkD"
 	std::string serviceRequestEndPointParam; // what's this?

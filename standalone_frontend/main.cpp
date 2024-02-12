@@ -21,8 +21,10 @@ int main()
 
         drogon::app()
             .loadConfigFile("./config.json")
+            .createDbClient("sqlite3", "", 0, "", "", "", 1, System::Instance().GetDbPath(), "gme", false, "utf-8")
             .run();
 
+        System::Instance().RunMigrations();
         LOG_INFO << "Started server!";
     }
     catch (const std::exception& ex)
