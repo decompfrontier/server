@@ -1,0 +1,1187 @@
+{
+  "MSTs": [
+    {
+      "Name": "M_LEVEL_MST",
+      "Description": "",
+      "Version": 19,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_GACHA_MST",
+      "Description": "",
+      "Version": 952,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_DEFINE_MST",
+      "Description": "",
+      "Version": 395,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_UNIT_EXP_PATTERN_MST",
+      "Description": "",
+      "Version": 10,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_TROPHY_GRADE_MST",
+      "Description": "",
+      "Version": 21,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_TROPHY_GROUP_MST",
+      "Description": "",
+      "Version": 22,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_TROPHY_MST",
+      "Description": "",
+      "Version": 25,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_RECIPE_MST",
+      "Description": "",
+      "Version": 163,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_INFORMATION_MST",
+      "Description": "",
+      "Version": 33,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_TOWN_FACILITY_MST",
+      "Description": "",
+      "Version": 69,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_TOWN_FACILITY_LV_MST",
+      "Description": "",
+      "Version": 169,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_TOWN_LOCATION_MST",
+      "Description": "",
+      "Version": 21,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_TOWN_LOCATION_LV_MST",
+      "Description": "",
+      "Version": 21,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_HELP_MST",
+      "Description": "",
+      "Version": 58,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_HELP_SUB_MST",
+      "Description": "",
+      "Version": 56,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_ARENA_RANK_MST",
+      "Description": "",
+      "Version": 25,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_SOUND_MST",
+      "Description": "",
+      "Version": 23,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_NPC_MST",
+      "Description": "",
+      "Version": 19,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_GACHA_EFFECT_MST",
+      "Description": "",
+      "Version": 2736,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_URL_MST",
+      "Description": "",
+      "Version": 123,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_HR_MST",
+      "Description": "",
+      "Version": 72,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_MISSION_ITEM_SET_MST",
+      "Description": "Mission Item Set",
+      "Version": 67,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_MISSION_GRADE_MST",
+      "Description": "",
+      "Version": 67,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_MISSION_MST",
+      "Description": "",
+      "Version": 84,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_MISSION_REWARD_MST",
+      "Description": "",
+      "Version": 84,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_MST",
+      "Description": "",
+      "Version": 289,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_MVP_RANKING_MST",
+      "Description": "",
+      "Version": 67,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "M_FROHUN_RANKING_REWARD_MST",
+      "Description": "",
+      "Version": 90,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_GATE_MST",
+      "Description": "F_GATE_MST",
+      "Version": 95,
+      "Unknown": 1,
+      "SubVersion": 5
+    },
+    {
+      "Name": "F_LAND_MST",
+      "Description": "Trial Mission Table",
+      "Version": 147,
+      "Unknown": 1,
+      "SubVersion": 26
+    },
+    {
+      "Name": "F_AREA_MST",
+      "Description": "Trial Mission Table",
+      "Version": 669,
+      "Unknown": 1,
+      "SubVersion": 411
+    },
+    {
+      "Name": "F_DUNGEON_MST",
+      "Description": "Trial Mission Table",
+      "Version": 1002,
+      "Unknown": 1,
+      "SubVersion": 1532
+    },
+    {
+      "Name": "F_RAID_WORLD_MST",
+      "Description": "F_RAID_WORLD_MST",
+      "Version": 12,
+      "Unknown": 1,
+      "SubVersion": 1
+    },
+    {
+      "Name": "F_RAID_MAP_MST",
+      "Description": "F_RAID_MAP_MST",
+      "Version": 54,
+      "Unknown": 1,
+      "SubVersion": 44
+    },
+    {
+      "Name": "F_RAID_POINT_MST",
+      "Description": "F_RAID_POINT_MST",
+      "Version": 57,
+      "Unknown": 1,
+      "SubVersion": 344
+    },
+    {
+      "Name": "F_RAID_USER_ROUTE_MST",
+      "Description": "F_RAID_USER_ROUTE_MST",
+      "Version": 56,
+      "Unknown": 1,
+      "SubVersion": 4135
+    },
+    {
+      "Name": "F_RAID_BOSS_ROUTE_MST",
+      "Description": "F_RAID_BOSS_ROUTE_MST",
+      "Version": 45,
+      "Unknown": 1,
+      "SubVersion": 347
+    },
+    {
+      "Name": "F_RAID_BOSS_MST",
+      "Description": "F_RAID_BOSS_MST",
+      "Version": 76,
+      "Unknown": 1,
+      "SubVersion": 287
+    },
+    {
+      "Name": "F_RAID_MISSION_MST",
+      "Description": "F_RAID_MISSION_MST",
+      "Version": 396,
+      "Unknown": 1,
+      "SubVersion": 154
+    },
+    {
+      "Name": "F_RAID_BATTLE_GROUP_MST",
+      "Description": "F_RAID_BATTLE_GROUP_MST",
+      "Version": 52,
+      "Unknown": 1,
+      "SubVersion": 11121
+    },
+    {
+      "Name": "F_RAID_PLAYSTYLE_MST",
+      "Description": "F_RAID_PLAYSTYLE_MST",
+      "Version": 6,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_RAID_RC_MST",
+      "Description": "F_RAID_RC_MST",
+      "Version": 11,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_RAID_MISSION_POINT_MST",
+      "Description": "F_RAID_MISSION_POINT_MST",
+      "Version": 77,
+      "Unknown": 1,
+      "SubVersion": 1378
+    },
+    {
+      "Name": "F_RAID_MISSION_CLEAR_CND_MST",
+      "Description": "F_RAID_MISSION_CLEAR_CND_MST",
+      "Version": 71,
+      "Unknown": 1,
+      "SubVersion": 235
+    },
+    {
+      "Name": "F_STAMP_MST",
+      "Description": "",
+      "Version": 8,
+      "Unknown": 1,
+      "SubVersion": 100
+    },
+    {
+      "Name": "F_STAMP_SET_MST",
+      "Description": "F_STAMP_SET_MST",
+      "Version": 10,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_RAID_BOSS_PARTS_MST",
+      "Description": "F_RAID_BOSS_PARTS_MST",
+      "Version": 78,
+      "Unknown": 1,
+      "SubVersion": 865
+    },
+    {
+      "Name": "F_RAID_MISSION_BOSS_MST",
+      "Description": "F_RAID_MISSION_BOSS_MST",
+      "Version": 68,
+      "Unknown": 1,
+      "SubVersion": 264
+    },
+    {
+      "Name": "F_SCENARIO_CATEGORY_MST",
+      "Description": "F_SCENARIO_CATEGORY_MST",
+      "Version": 189,
+      "Unknown": 1,
+      "SubVersion": 119
+    },
+    {
+      "Name": "F_SCENARIO_MST",
+      "Description": "F_SCENARIO_MST",
+      "Version": 308,
+      "Unknown": 1,
+      "SubVersion": 1348
+    },
+    {
+      "Name": "F_CHRONOLOGY_PERIOD_MST",
+      "Description": "F_CHRONOLOGY_PERIOD_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CHRONOLOGY_MST",
+      "Description": "F_CHRONOLOGY_MST",
+      "Version": 3,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CHRONOLOGY_DETAIL_MST",
+      "Description": "F_CHRONOLOGY_DETAIL_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CHRONOLOGY_WORD_MST",
+      "Description": "F_CHRONOLOGY_WORD_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_FROGATE_MST",
+      "Description": "F_FROGATE_MST",
+      "Version": 562,
+      "Unknown": 1,
+      "SubVersion": 94
+    },
+    {
+      "Name": "F_FROGATE_REWARD_MST",
+      "Description": "F_FROGATE_REWARD_MST",
+      "Version": 315,
+      "Unknown": 1,
+      "SubVersion": 1452
+    },
+    {
+      "Name": "F_FROGATE_SUPPORT_MST",
+      "Description": "F_FROGATE_SUPPORT_MST",
+      "Version": 153,
+      "Unknown": 1,
+      "SubVersion": 61
+    },
+    {
+      "Name": "F_FROGATE_AREA_MST",
+      "Description": "F_FROGATE_AREA_MST",
+      "Version": 135,
+      "Unknown": 1,
+      "SubVersion": 3
+    },
+    {
+      "Name": "F_MISSION_NPC_UNIT_MST",
+      "Description": "F_MISSION_NPC_UNIT_MST",
+      "Version": 212,
+      "Unknown": 1,
+      "SubVersion": 228
+    },
+    {
+      "Name": "F_GRAND_MISSION_MST",
+      "Description": "F_GRAND_MISSION_MST",
+      "Version": 127,
+      "Unknown": 1,
+      "SubVersion": 26
+    },
+    {
+      "Name": "F_GRAND_MISSION_END_CND_MST",
+      "Description": "F_GRAND_MISSION_END_CND_MST",
+      "Version": 55,
+      "Unknown": 1,
+      "SubVersion": 46
+    },
+    {
+      "Name": "F_GRAND_MISSION_FLG_MST",
+      "Description": "F_GRAND_MISSION_FLG_MST",
+      "Version": 102,
+      "Unknown": 1,
+      "SubVersion": 1420
+    },
+    {
+      "Name": "F_GRAND_MISSION_REWARD_MST",
+      "Description": "F_GRAND_MISSION_REWARD_MST",
+      "Version": 108,
+      "Unknown": 1,
+      "SubVersion": 371
+    },
+    {
+      "Name": "F_GRAND_MISSION_MAP_MST",
+      "Description": "F_GRAND_MISSION_MAP_MST",
+      "Version": 67,
+      "Unknown": 1,
+      "SubVersion": 28
+    },
+    {
+      "Name": "F_GRAND_MISSION_SPOT_MST",
+      "Description": "F_GRAND_MISSION_SPOT_MST",
+      "Version": 92,
+      "Unknown": 1,
+      "SubVersion": 325
+    },
+    {
+      "Name": "F_GRAND_MISSION_ROUTE_MST",
+      "Description": "F_GRAND_MISSION_ROUTE_MST",
+      "Version": 92,
+      "Unknown": 1,
+      "SubVersion": 357
+    },
+    {
+      "Name": "F_GRAND_MISSION_ICON_MST",
+      "Description": "F_GRAND_MISSION_ICON_MST",
+      "Version": 53,
+      "Unknown": 1,
+      "SubVersion": 118
+    },
+    {
+      "Name": "F_GRAND_MISSION_TREASURE_MST",
+      "Description": "F_GRAND_MISSION_TREASURE_MST",
+      "Version": 43,
+      "Unknown": 1,
+      "SubVersion": 30
+    },
+    {
+      "Name": "F_GRAND_MISSION_EVENT_MST",
+      "Description": "F_GRAND_MISSION_EVENT_MST",
+      "Version": 155,
+      "Unknown": 1,
+      "SubVersion": 965
+    },
+    {
+      "Name": "F_ACHIEVEMENT_SUBJECT_MST",
+      "Description": "F_ACHIEVEMENT_SUBJECT_MST",
+      "Version": 503,
+      "Unknown": 3,
+      "SubVersion": 15173
+    },
+    {
+      "Name": "F_ACHIEVEMENT_TRADE_MST",
+      "Description": "F_ACHIEVEMENT_TRADE_MST",
+      "Version": 432,
+      "Unknown": 4,
+      "SubVersion": 32500
+    },
+    {
+      "Name": "F_ACHIEVEMENT_DELIVER_RATE_MST",
+      "Description": "F_ACHIEVEMENT_DELIVER_RATE_MST",
+      "Version": 18,
+      "Unknown": 1,
+      "SubVersion": 53
+    },
+    {
+      "Name": "F_COLOSSEUM_CLASS_MST",
+      "Description": "F_COLOSSEUM_CLASS_MST",
+      "Version": 8,
+      "Unknown": 1,
+      "SubVersion": 4
+    },
+    {
+      "Name": "F_COLOSSEUM_EXTRA_RULE_MST",
+      "Description": "F_COLOSSEUM_EXTRA_RULE_MST",
+      "Version": 3,
+      "Unknown": 1,
+      "SubVersion": 16
+    },
+    {
+      "Name": "F_COLOSSEUM_FORMATION_MST",
+      "Description": "F_COLOSSEUM_FORMATION_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_COLOSSEUM_SUPPORT_MST",
+      "Description": "F_COLOSSEUM_SUPPORT_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 4
+    },
+    {
+      "Name": "F_UNIT_FE_CATEGORY_MST",
+      "Description": "F_UNIT_FE_CATEGORY_MST",
+      "Version": 543,
+      "Unknown": 1,
+      "SubVersion": 2041
+    },
+    {
+      "Name": "F_UNIT_FE_SKILL_MST",
+      "Description": "F_UNIT_FE_SKILL_MST",
+      "Version": 598,
+      "Unknown": 1,
+      "SubVersion": 5124
+    },
+    {
+      "Name": "F_FE_SKILL_MST",
+      "Description": "F_FE_SKILL_MST",
+      "Version": 618,
+      "Unknown": 1,
+      "SubVersion": 2899
+    },
+    {
+      "Name": "F_SU_ARM_MST",
+      "Description": "F_SU_ARM_MST",
+      "Version": 16,
+      "Unknown": 1,
+      "SubVersion": 23
+    },
+    {
+      "Name": "F_SU_ABILITY_MST",
+      "Description": "F_SU_ABILITY_MST",
+      "Version": 25,
+      "Unknown": 1,
+      "SubVersion": 18
+    },
+    {
+      "Name": "F_SU_ABILITY_LEVEL_MST",
+      "Description": "F_SU_ABILITY_LEVEL_MST",
+      "Version": 29,
+      "Unknown": 1,
+      "SubVersion": 389
+    },
+    {
+      "Name": "F_SU_ABILITY_UP_MST",
+      "Description": "F_SU_ABILITY_UP_MST",
+      "Version": 19,
+      "Unknown": 1,
+      "SubVersion": 668
+    },
+    {
+      "Name": "F_SU_IMG_MST",
+      "Description": "F_SU_IMG_MST",
+      "Version": 15,
+      "Unknown": 1,
+      "SubVersion": 828
+    },
+    {
+      "Name": "F_SU_ARM_LEVEL_MST",
+      "Description": "F_SU_ARM_LEVEL_MST",
+      "Version": 19,
+      "Unknown": 1,
+      "SubVersion": 1440
+    },
+    {
+      "Name": "F_SU_ARM_ELEMENT_MST",
+      "Description": "F_SU_ARM_ELEMENT_MST",
+      "Version": 16,
+      "Unknown": 1,
+      "SubVersion": 276
+    },
+    {
+      "Name": "F_SU_ARM_PASSIVE_MST",
+      "Description": "F_SU_ARM_PASSIVE_MST",
+      "Version": 15,
+      "Unknown": 1,
+      "SubVersion": 163
+    },
+    {
+      "Name": "F_SU_LEVEL_MST",
+      "Description": "F_SU_LEVEL_MST",
+      "Version": 12,
+      "Unknown": 1,
+      "SubVersion": 500
+    },
+    {
+      "Name": "F_SU_ELEMENT_LEVEL_MST",
+      "Description": "F_SU_ELEMENT_LEVEL_MST",
+      "Version": 15,
+      "Unknown": 1,
+      "SubVersion": 600
+    },
+    {
+      "Name": "F_MISSION_EP3_MST",
+      "Description": "F_MISSION_EP3_MST",
+      "Version": 57,
+      "Unknown": 1,
+      "SubVersion": 204
+    },
+    {
+      "Name": "F_UNIT_EP3_MST",
+      "Description": "F_UNIT_EP3_MST",
+      "Version": 9,
+      "Unknown": 1,
+      "SubVersion": 31
+    },
+    {
+      "Name": "F_SHOP_ITEM_MST",
+      "Description": "F_SHOP_ITEM_MST",
+      "Version": 9,
+      "Unknown": 1,
+      "SubVersion": 4
+    },
+    {
+      "Name": "F_SU_EX_SKILL_MST",
+      "Description": "F_SU_EX_SKILL_MST",
+      "Version": 15,
+      "Unknown": 1,
+      "SubVersion": 59
+    },
+    {
+      "Name": "M_DUNGEON_KEY_MST",
+      "Description": "Dungeon Key",
+      "Version": 46,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_MONSTER_CGG",
+      "Description": "",
+      "Version": 8,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_MONSTER_CGS",
+      "Description": "",
+      "Version": 8,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_MONSTER_IMG",
+      "Description": "",
+      "Version": 9,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_UNIT_CGG",
+      "Description": "",
+      "Version": 27,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_UNIT_CGS",
+      "Description": "",
+      "Version": 25,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_UNIT_IMG",
+      "Description": "",
+      "Version": 38,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_SYSTEM_RES",
+      "Description": "",
+      "Version": 11,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_GACHA_BG_IMG",
+      "Description": "",
+      "Version": 13,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_EVENT_FILE",
+      "Description": "",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_SAM",
+      "Description": "",
+      "Version": 38,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_SOUND",
+      "Description": "",
+      "Version": 11,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_PARTICLE",
+      "Description": "",
+      "Version": 7,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CDN",
+      "Description": "CDN Version",
+      "Version": 132,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_UNIT_MST",
+      "Description": "Unit Table",
+      "Version": 1084,
+      "Unknown": 2,
+      "SubVersion": 2291
+    },
+    {
+      "Name": "F_UNIT_COMMENT_MST",
+      "Description": "Unit Comment Table",
+      "Version": 705,
+      "Unknown": 1,
+      "SubVersion": 2282
+    },
+    {
+      "Name": "F_UNIT_EVO_MST",
+      "Description": "Unit Evo",
+      "Version": 597,
+      "Unknown": 1,
+      "SubVersion": 1342
+    },
+    {
+      "Name": "F_UNIT_EVO_CATALYST_COMMENT_MST",
+      "Description": "",
+      "Version": 139,
+      "Unknown": 1,
+      "SubVersion": 125
+    },
+    {
+      "Name": "F_UNIT_EXT_MST",
+      "Description": "F_UNIT_EXT_MST",
+      "Version": 11,
+      "Unknown": 1,
+      "SubVersion": 8
+    },
+    {
+      "Name": "F_UNIT_CGS_MST",
+      "Description": "Unit CGS",
+      "Version": 811,
+      "Unknown": 1,
+      "SubVersion": 2292
+    },
+    {
+      "Name": "F_UNIT_TYPE_MST",
+      "Description": "Unit Type",
+      "Version": 52,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_MISSION_MST",
+      "Description": "Mission Table",
+      "Version": 1118,
+      "Unknown": 2,
+      "SubVersion": 3433
+    },
+    {
+      "Name": "F_SKILL_MST",
+      "Description": "Skill Table",
+      "Version": 1535,
+      "Unknown": 9,
+      "SubVersion": 33381
+    },
+    {
+      "Name": "F_SKILL_LEVEL_MST",
+      "Description": "Skill Level Table",
+      "Version": 1487,
+      "Unknown": 4,
+      "SubVersion": 33381
+    },
+    {
+      "Name": "F_EXTRA_PASSIVE_SKILL_MST",
+      "Description": "F_EXTRA_PASSIVE_SKILL_MST",
+      "Version": 770,
+      "Unknown": 1,
+      "SubVersion": 1560
+    },
+    {
+      "Name": "F_RESOURCE_MST",
+      "Description": "Resource Table",
+      "Version": 3275,
+      "Unknown": 2,
+      "SubVersion": 49342
+    },
+    {
+      "Name": "F_ITEM_MST",
+      "Description": "Item Table",
+      "Version": 1027,
+      "Unknown": 1,
+      "SubVersion": 1668
+    },
+    {
+      "Name": "F_RECIPE_MST",
+      "Description": "Recipe Table",
+      "Version": 345,
+      "Unknown": 1,
+      "SubVersion": 617
+    },
+    {
+      "Name": "F_EFFECT_MST",
+      "Description": "Effect table",
+      "Version": 583,
+      "Unknown": 1,
+      "SubVersion": 8557
+    },
+    {
+      "Name": "F_EFFECT_GROUP_MST",
+      "Description": "Effect Group Table",
+      "Version": 608,
+      "Unknown": 2,
+      "SubVersion": 14290
+    },
+    {
+      "Name": "F_LEADER_SKILL_MST",
+      "Description": "Leader Skill Table",
+      "Version": 749,
+      "Unknown": 1,
+      "SubVersion": 1812
+    },
+    {
+      "Name": "F_HELP_DETAIL_MST",
+      "Description": "Help Detail Table",
+      "Version": 42,
+      "Unknown": 1,
+      "SubVersion": 180
+    },
+    {
+      "Name": "F_MISSION_SCRIPT_MST",
+      "Description": "Mission Script Table",
+      "Version": 288,
+      "Unknown": 1,
+      "SubVersion": 228
+    },
+    {
+      "Name": "F_MEDAL_MST",
+      "Description": "",
+      "Version": 4,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CHLNG_MISSION_MST",
+      "Description": "F_CHLNG_MISSION_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CHLNG_MISSION_GRADE_MST",
+      "Description": "F_CHLNG_MISSION_GRADE_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CHLNG_MISSION_REWARD_MST",
+      "Description": "F_CHLNG_MISSION_REWARD_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_CHLNG_MISSION_ITEM_SET_MST",
+      "Description": "F_CHLNG_MISSION_ITEM_SET_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_TRIAL_MISSION_MST",
+      "Description": "Trial Mission Table",
+      "Version": 72,
+      "Unknown": 1,
+      "SubVersion": 34
+    },
+    {
+      "Name": "F_BANNER_INFO_MST",
+      "Description": "",
+      "Version": 87,
+      "Unknown": 1,
+      "SubVersion": 32
+    },
+    {
+      "Name": "F_RELOAD_FILE_MST",
+      "Description": "RELOAD FILE",
+      "Version": 779,
+      "Unknown": 1,
+      "SubVersion": 562
+    },
+    {
+      "Name": "F_ARENA_EXTRA_RULE_MST",
+      "Description": "F_ARENA_EXTRA_RULE_MST",
+      "Version": 4,
+      "Unknown": 1,
+      "SubVersion": 15
+    },
+    {
+      "Name": "F_MINIGAME_DEFINE_MST",
+      "Description": "F_MINIGAME_DEFINE_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 31
+    },
+    {
+      "Name": "F_MINIGAME_RESOURCE_MST",
+      "Description": "F_MINIGAME_RESOURCE_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 294
+    },
+    {
+      "Name": "F_MINIGAME_BRAVESMASH_LEVEL_MST",
+      "Description": "F_MINIGAME_BRAVESMASH_LEVEL_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 3
+    },
+    {
+      "Name": "F_MINIGAME_BRAVESMASH_MONSTER_GROUP_MST",
+      "Description": "F_MINIGAME_BRAVESMASH_MONSTER_GROUP_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 28
+    },
+    {
+      "Name": "F_MINIGAME_BRAVESMASH_MONSTER_MST",
+      "Description": "F_MINIGAME_BRAVESMASH_MONSTER_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 9
+    },
+    {
+      "Name": "F_MINIGAME_BRAVESMASH_PARTY_DECK_MST",
+      "Description": "F_MINIGAME_BRAVESMASH_PARTY_DECK_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_MINIGAME_BRAVESMASH_POSITION_MST",
+      "Description": "F_MINIGAME_BRAVESMASH_POSITION_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_MINIGAME_SPEEDRUSH_BONUS_MST",
+      "Description": "F_MINIGAME_SPEEDRUSH_BONUS_MST",
+      "Version": 4,
+      "Unknown": 1,
+      "SubVersion": 2
+    },
+    {
+      "Name": "F_MINIGAME_SPEEDRUSH_MONSTER_APPEAR_MST",
+      "Description": "F_MINIGAME_SPEEDRUSH_MONSTER_APPEAR_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 126
+    },
+    {
+      "Name": "F_MINIGAME_SPEEDRUSH_MONSTER_GROUP_MST",
+      "Description": "F_MINIGAME_SPEEDRUSH_MONSTER_GROUP_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 306
+    },
+    {
+      "Name": "F_MINIGAME_SPEEDRUSH_MONSTER_MST",
+      "Description": "F_MINIGAME_SPEEDRUSH_MONSTER_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 25
+    },
+    {
+      "Name": "F_MINIGAME_SPEEDRUSH_PARTY_DECK_MST",
+      "Description": "F_MINIGAME_SPEEDRUSH_PARTY_DECK_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 6
+    },
+    {
+      "Name": "F_MINIGAME_SPEEDRUSH_ROLE_MST",
+      "Description": "F_MINIGAME_SPEEDRUSH_ROLE_MST",
+      "Version": 1,
+      "Unknown": 1,
+      "SubVersion": 94
+    },
+    {
+      "Name": "F_PURCHASE_AGE_LIMIT_MST",
+      "Description": "F_PURCHASE_AGE_LIMIT_MST",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 0
+    },
+    {
+      "Name": "F_FUNCTION_RELEASE_MST",
+      "Description": "F_FUNCTION_RELEASE_MST",
+      "Version": 10,
+      "Unknown": 1,
+      "SubVersion": 12
+    },
+    {
+      "Name": "F_RESOURCE_BASE_MST",
+      "Description": "",
+      "Version": 24,
+      "Unknown": 1,
+      "SubVersion": 2744
+    },
+    {
+      "Name": "F_GUILD_ART_MST",
+      "Description": "",
+      "Version": 6,
+      "Unknown": 1,
+      "SubVersion": 19
+    },
+    {
+      "Name": "F_GUILD_INFO_MST",
+      "Description": "",
+      "Version": 6,
+      "Unknown": 1,
+      "SubVersion": 180
+    },
+    {
+      "Name": "F_GUILD_POINT_EXCHANGE_MST",
+      "Description": "",
+      "Version": 233,
+      "Unknown": 1,
+      "SubVersion": 8784
+    },
+    {
+      "Name": "F_GUILD_SKILL_DETAILS_MST",
+      "Description": "",
+      "Version": 13,
+      "Unknown": 1,
+      "SubVersion": 80
+    },
+    {
+      "Name": "F_GUILD_SKILL_MST",
+      "Description": "",
+      "Version": 2,
+      "Unknown": 1,
+      "SubVersion": 4
+    },
+    {
+      "Name": "F_UNIT_EVO_OMNI_MST",
+      "Description": "F_UNIT_EVO_OMNI_MST",
+      "Version": 94,
+      "Unknown": 1,
+      "SubVersion": 18
+    },
+    {
+      "Name": "F_UNIT_EVO_OMNI_TYPE_MST",
+      "Description": "F_UNIT_EVO_OMNI_TYPE_MST",
+      "Version": 95,
+      "Unknown": 1,
+      "SubVersion": 36
+    },
+    {
+      "Name": "F_UNIT_EVO_OMNI_RECIPE_MST",
+      "Description": "F_UNIT_EVO_OMNI_RECIPE_MST",
+      "Version": 95,
+      "Unknown": 1,
+      "SubVersion": 70
+    },
+    {
+      "Name": "F_PVP_FIXED_SETTINGS_MST",
+      "Description": "",
+      "Version": 72,
+      "Unknown": 1,
+      "SubVersion": 3
+    },
+    {
+      "Name": "F_FGPLUS_ELEMENTAL_LOCK_MST",
+      "Description": "F_FGPLUS_ELEMENTAL_LOCK_MST",
+      "Version": 15,
+      "Unknown": 1,
+      "SubVersion": 8
+    },
+    {
+      "Name": "F_DBB_MST",
+      "Description": "",
+      "Version": 136,
+      "Unknown": 1,
+      "SubVersion": 141
+    },
+    {
+      "Name": "F_RAID_ELEMENTAL_LOCK_MST",
+      "Description": "F_RAID_ELEMENTAL_LOCK_MST",
+      "Version": 22,
+      "Unknown": 1,
+      "SubVersion": 23
+    },
+    {
+      "Name": "F_DBB_BOND_RECIPE_MST",
+      "Description": "",
+      "Version": 10,
+      "Unknown": 1,
+      "SubVersion": 105
+    },
+    {
+      "Name": "F_GACHA_CATEGORY_MST",
+      "Description": "F_GACHA_CATEGORY_MST",
+      "Version": 503,
+      "Unknown": 1,
+      "SubVersion": 380
+    },
+    {
+      "Name": "F_ET_MISSION_MST",
+      "Description": "",
+      "Version": 176,
+      "Unknown": 1,
+      "SubVersion": 460
+    },
+    {
+      "Name": "F_SG_DAILYLOGIN_REWARDS_MST",
+      "Description": "",
+      "Version": 14,
+      "Unknown": 1,
+      "SubVersion": 192
+    },
+    {
+      "Name": "F_UNIT_SELECTOR_GACHA_TICKET_MST",
+      "Description": "F_UNIT_SELECTOR_GACHA_TICKET_MST",
+      "Version": 106,
+      "Unknown": 1,
+      "SubVersion": 16
+    },
+    {
+      "Name": "F_SG_UNIT_TYPE_BONUS_SKILL_MST",
+      "Description": "F_SG_UNIT_TYPE_BONUS_SKILL_MST",
+      "Version": 19,
+      "Unknown": 1,
+      "SubVersion": 24
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+    "system":
+    {
+        "content_root": "./game_content",
+        "mstinfo_path": "./mstinfo.json",
+        "gme_sqlite_path": "./gme.sqlite"
+    },
+    "server":
+    {
+        "wallpaper_banner" : "wallpaper.jpg",
+        "game_version": 21900,
+
+        "start_info": {
+            "unit_count": 10000,
+            "item_count": 10000,
+            "free_gems": 1000,
+            "summon_tickets": 100,
+            "paid_gems": 0,
+            "zel": 100000000,
+            "karma": 100000000,
+            "colosseum_tickets": 1000,
+            "level": 999,
+            "friend_count": 1000
+        }
+    }
+}

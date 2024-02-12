@@ -1,0 +1,18 @@
+{
+    "listeners": [
+        {
+            "address": "127.0.0.1",
+            "port": 9960,
+            "https": false,
+            "use_old_tls": true,
+            "key": "bf.pem",
+            "cert": "bf.crt"
+        }
+    ],
+    "app": {
+        "number_of_threads": 2,
+        "log": {
+            "log_level": "TRACE"
+        }
+    }
+}
