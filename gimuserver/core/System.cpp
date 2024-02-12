@@ -41,11 +41,12 @@ void System::ParseSystemConfig(const Json::Value& v)
 	m_contentRoot = v["content_root"].asCString();
 	m_mstInfoPath = v["mstinfo_path"].asCString();
 	m_dbPath = v["gme_sqlite_path"].asCString();
+	m_sessionTimeout = size_t(v["session_timeout"].asUInt64());
 }
 
-void System::RunMigrations()
+void System::RunMigrations(drogon::orm::DbClientPtr p)
 {
-	m_mg.RunMigrations("gme");
+	m_mg.RunMigrations(p);
 }
 
 System System::m_sys;

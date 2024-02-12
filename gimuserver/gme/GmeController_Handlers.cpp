@@ -3,11 +3,11 @@
 #include "handlers/UserInfoHandler.hpp"
 #include "handlers/FriendGetHandler.hpp"
 
-#define REGISTER(code, name) InitializeHandler(#code, []() -> Handler::IHandler* { return new Handler::##name##Handler(); })
+#define REGISTER(name) InitializeHandler(std::make_shared<Handler::##name##Handler>())
 
 void GmeController::InitializeHandlers()
 {
-	REGISTER(MfZyu1q9, Initialize);
-	REGISTER(cTZ3W2JG, UserInfo);
-	REGISTER(2o4axPIC, FriendGet);
+	REGISTER(Initialize);
+	REGISTER(UserInfo);
+	REGISTER(FriendGet);
 }

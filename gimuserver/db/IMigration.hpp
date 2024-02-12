@@ -8,6 +8,6 @@
 
 struct IMigration
 {
-	virtual void execute() = 0;
+	virtual void execute(drogon::orm::DbClientPtr p) = 0;
 	virtual const char* getName() const = 0;
 };

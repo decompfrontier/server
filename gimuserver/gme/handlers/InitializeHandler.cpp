@@ -1,20 +1,25 @@
 #include "InitializeHandler.hpp"
 #include "core/Utils.hpp"
 #include "core/System.hpp"
+#include "gme/requests/UserInfo.hpp"
 #include "gme/response/UserInfo.hpp"
 #include "gme/response/SignalKey.hpp"
-#include "gme/requests/UserInfo.hpp"
+#include "gme/response/DailyTaskBonusMst.hpp"
 #include "db/DbMacro.hpp"
 
-void Handler::InitializeHandler::Handle(const Json::Value& req)
+void Handler::InitializeHandler::Handle(const drogon::SessionPtr& session, DrogonCallback& cb, const Json::Value& req) const
 {
 	Request::UserInfo inInfo;
 	inInfo.Deserialize(req);
 
 	Response::UserInfo info;
 
-	GME_DB->execSqlAsync("SELECT id, account_id, username, admin FROM users",
-		[this](const drogon::orm::Result& result) {
+	// NOTE: A real server would check for the gumi api key, we just hardcode into this so we can always login
+	session->modify<std::string>("session_id", [](std::string& v) { v = "AAAAAAAA"; });
+
+	// TODO: we probably have a lot of stuff missing
+	GME_DB->execSqlAsync("SELECT id, account_id, username, admin FROM users WHERE id=$1",
+		[this, req, &cb, &session](const drogon::orm::Result& result) {
 			Response::UserInfo ti;
 
 			if (result.size() > 0)
@@ -27,7 +32,7 @@ void Handler::InitializeHandler::Handle(const Json::Value& req)
 				ti.debugMode = sql[col++].as<bool>() ? 1 : 0;
 			}
 			else {
-				ti.userID = Utils::RandomUserID();
+				ti.userID = session->get<std::string>("user_id");
 				ti.handleName = "----";
 				ti.debugMode = false;
 				GME_DB->execSqlSync(
@@ -43,13 +48,12 @@ void Handler::InitializeHandler::Handle(const Json::Value& req)
 			Json::Value res;
 			ti.Serialize(res);
 			System::Instance().MstInfo().GetMstData(res);
-			FinishHandling(res);
+			FinishHandling(session, cb, res);
 		},
-		[this](const drogon::orm::DrogonDbException& e) {
-			m_errMsg = e.base().what();
-			m_errID = ErrorID::Yes;
-			FinishHandling();
-		}
+		[this, req, &cb, &session](const drogon::orm::DrogonDbException& e) {
+			Utils::SetSessionError(session, ErrorOperation::Close, e.base().what());
+			FinishHandling(session, cb);
+		},
+		session->get<std::string>("user_id")
 	);
 }
-

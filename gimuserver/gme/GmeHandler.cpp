@@ -42,13 +42,25 @@ drogon::HttpResponsePtr newGmeErrorResponse(const std::string& reqId, ErrorID er
 	return drogon::HttpResponse::newHttpJsonResponse(gme);
 }
 
-void Handler::HandlerBase::FinishHandling(const Json::Value& res)
+void Handler::HandlerBase::FinishHandling(const drogon::SessionPtr& session, DrogonCallback& cb, const Json::Value& res) const
 {
-	if (m_errID == ErrorID::No)
-		m_drogonCb(newGmeErrorResponse(m_reqId, m_errID, m_errOP, m_errMsg));
+	const auto& errmsg = session->get<std::string>("error_msg");
+	if (!errmsg.empty())
+	{
+		cb(newGmeErrorResponse(
+			GetGroupId(),
+			ErrorID::Yes,
+			session->get<ErrorOperation>("error_op"),
+			errmsg
+		));
+	}
 	else
 	{
-		LOG_TRACE << "GME RESPONSE " << m_reqId << " JSON: " << res.toStyledString();
-		m_drogonCb(newGmeOkResponse(m_reqId, GetAesKey(), res));
+		LOG_TRACE << "GME RESPONSE " << GetGroupId() << " JSON: " << res.toStyledString();
+		cb(newGmeOkResponse(
+			GetGroupId(),
+			GetAesKey(),
+			res
+		));
 	}
 }

@@ -4,7 +4,6 @@
 #include "GmeTypes.hpp"
 #include "GmeHandler.hpp"
 
-using HandlerCreateFunc = std::function< Handler::HandlerBase* ()>;
 using namespace drogon;
 
 /**
@@ -25,7 +24,7 @@ public:
 private:
 	void InitializeHandlers();
 
-	inline void InitializeHandler(const std::string& rq, HandlerCreateFunc fnc) { m_handlers.insert_or_assign(rq, fnc); }
+	inline void InitializeHandler(std::shared_ptr<Handler::HandlerBase>&& p) { m_handlers.insert_or_assign(p->GetGroupId(), p); }
 
-	std::unordered_map<std::string, HandlerCreateFunc> m_handlers;
+	std::unordered_map<std::string, std::shared_ptr<Handler::HandlerBase>> m_handlers;
 };

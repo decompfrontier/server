@@ -1,6 +1,8 @@
 #pragma once
 
 #include <drogon/HttpRequest.h>
+#include <drogon/Session.h>
+#include <gme/GmeTypes.hpp>
 
 namespace Utils
 {
@@ -9,4 +11,5 @@ namespace Utils
 	std::string GetDrogonHttpBindHostname();
 	std::string RandomUserID();
 	std::string RandomAccountID();
+	void SetSessionError(const drogon::SessionPtr& seq, ErrorOperation op, std::string msg);
 }

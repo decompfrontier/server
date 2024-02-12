@@ -13,12 +13,13 @@ public:
 	static System& Instance() { return m_sys; }
 
 	bool LoadSystemConfig(const std::string& path);
-	void RunMigrations();
+	void RunMigrations(drogon::orm::DbClientPtr ptr);
 
 	const auto& MstInfo() const { return m_mstInfo; }
 	auto& ServerConfig() { return m_serverCfg; }
 	const auto& GetContentRootPath() const { return m_contentRoot; }
 	const auto& GetDbPath() const { return m_dbPath; }
+	const auto& GetSessionTimeout() const { return m_sessionTimeout; }
 
 private:
 	void ParseSystemConfig(const Json::Value& v);
@@ -26,6 +27,7 @@ private:
 	std::string m_contentRoot;
 	std::string m_mstInfoPath;
 	std::string m_dbPath;
+	size_t m_sessionTimeout;
 
 	::ServerConfig m_serverCfg;
 	::MstInfo m_mstInfo;

@@ -4,7 +4,7 @@
 #include <core/System.hpp>
 #include <gme/response/UserTeamInfo.hpp>
 
-void Handler::UserInfoHandler::Handle(const Json::Value& req)
+void Handler::UserInfoHandler::Handle(const drogon::SessionPtr& session, DrogonCallback& cb, const Json::Value& req) const
 {
 	auto& p = GME_DB;
 	p->execSqlAsync(
@@ -13,7 +13,7 @@ void Handler::UserInfoHandler::Handle(const Json::Value& req)
 		"free_gems, paid_gems, active_deck, summon_tickets, "
 		"rainbow_coins, colosseum_tickets, active_arena_deck, "
 		"total_brave_points, avail_brave_points"
-		"FROM userinfo", [this](const drogon::orm::Result& result) {
+		"FROM userinfo WHERE id=$1", [this, &session, &cb](const drogon::orm::Result& result) {
 			Response::UserTeamInfo ti;
 
 			if (result.size() > 0)
@@ -43,7 +43,7 @@ void Handler::UserInfoHandler::Handle(const Json::Value& req)
 			else
 			{
 				auto sc = System::Instance().ServerConfig().Start;
-				ti.UserID = Utils::RandomUserID();
+				ti.UserID = session->get<std::string>("user_id");
 				ti.Level = sc.Level;
 				ti.Exp = 0;
 				ti.MaxUnitCount = sc.UnitCount;
@@ -60,11 +60,12 @@ void Handler::UserInfoHandler::Handle(const Json::Value& req)
 
 			Json::Value v;
 			ti.Serialize(v);
-			FinishHandling(v);
+			FinishHandling(session, cb);
 		}, 
-		[this](const drogon::orm::DrogonDbException& e) {
-			m_errMsg = e.base().what();
-			m_errID = ErrorID::Yes;
-			FinishHandling();
-	});
+		[this, &session, &cb](const drogon::orm::DrogonDbException& e) {
+			Utils::SetSessionError(session, ErrorOperation::Close, e.base().what());
+			FinishHandling(session, cb);
+	},
+		session->get<std::string>("user_id")
+	);
 }

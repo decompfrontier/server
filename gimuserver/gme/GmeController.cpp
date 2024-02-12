@@ -52,7 +52,7 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 		return;
 	}
 
-	auto q = (it->second)();
+	const auto& q = *it->second;
 
 	auto body = root[GME_BODY];
 	Json::Value bodyJson;
@@ -62,7 +62,7 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 		auto enc_json = body[BODY_JSON];
 		if (enc_json.isString())
 		{
-			BfCrypt::DecryptGME(enc_json.asCString(), q->GetAesKey(), bodyJson);
+			BfCrypt::DecryptGME(enc_json.asCString(), q.GetAesKey(), bodyJson);
 
 			if (bodyJson.isNull())
 			{
@@ -75,6 +75,5 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 
 	LOG_TRACE << "GME REQUEST " << encReq << " JSON: " << bodyJson.toStyledString();
 	
-	q->Handle(bodyJson);
+	q.Handle(rq->session(), callback, bodyJson);
 }
-

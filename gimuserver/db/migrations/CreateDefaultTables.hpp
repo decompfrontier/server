@@ -6,9 +6,8 @@
 MIGRATION_NS_BEGIN
 struct CreateDefaultTables : public IMigration
 {
-	virtual void execute() override
+	virtual void execute(drogon::orm::DbClientPtr p) override
 	{
-		auto& p = GME_DB;
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS users("
 			"id TEXT PRIMARY KEY,"
