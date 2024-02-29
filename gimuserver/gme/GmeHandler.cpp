@@ -1,12 +1,12 @@
 #include "GmeHandler.hpp"
 #include "GmeTypes.hpp"
-
+#include <core/Utils.hpp>
 #include <core/BfCrypt.hpp>
 #include <drogon/HttpResponse.h>
 
 drogon::HttpResponsePtr newGmeOkResponse(const std::string& reqId, const std::string& aesKey, const Json::Value& data)
 {
-	LOG_TRACE << "GME RESPONSE " << reqId << " JSON: " << data.toStyledString();
+	Utils::AppendJsonResToFile(data, reqId);
 
 	Json::Value header;
 	header[HEADER_CLIENT_ID] = "---";
@@ -41,8 +41,6 @@ drogon::HttpResponsePtr newGmeErrorResponse(const std::string& reqId, ErrorID er
 	Json::Value gme;
 	gme[GME_HEADER] = header;
 	gme[GME_ERROR] = error;
-
-	LOG_TRACE << "ERROR JSON: " << gme.toStyledString();
 
 	return drogon::HttpResponse::newHttpJsonResponse(gme);
 }

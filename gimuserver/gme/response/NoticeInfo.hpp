@@ -6,6 +6,7 @@ RESPONSE_NS_BEGIN
 struct NoticeInfo : public IResponse
 {
 	const char* getGroupName() const override { return "Pj6zDW3m"; }
+	bool isArray() const override { return false; }
 
 	uint32_t id;
 	std::string url;

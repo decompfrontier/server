@@ -11,4 +11,6 @@ namespace Utils
 	std::string GetDrogonHttpBindHostname();
 	std::string RandomUserID();
 	std::string RandomAccountID();
+	void AppendJsonReqToFile(const Json::Value& v, const std::string& group);
+	void AppendJsonResToFile(const Json::Value& v, const std::string& group);
 }

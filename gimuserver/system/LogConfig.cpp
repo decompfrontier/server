@@ -1,0 +1,12 @@
+#include "LogConfig.hpp"
+
+void LogConfig::ParseFromJson(const Json::Value& v)
+{
+	Enable = v["enable"].asBool();
+	if (Enable)
+	{
+		RequestPath = v["request_path"].asCString();
+		ResponsePath = v["response_path"].asCString();
+	}
+}
+

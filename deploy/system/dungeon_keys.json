@@ -1,0 +1,43 @@
+{
+	"dungeon_keys": [
+    {
+      "id": 1,
+      "name": "Metal Key",
+      "dungeon_id": 100600,
+      "thum_img": "metal_king_key.png,metal_king_key_s.png",
+      "open_img": "sp_quest_banner_guerrilla.png",
+      "close_img": "sp_quest_banner_guerrilla_seal.png",
+      "limit_sec": 1800,
+      "possession_limit": 50,
+      "distribute_flag": 1,
+      "usage_pattern": "1:1:Metal Parade!:100600:6/3:1:Super Metal Parade:100601:6/5:3:Mega Metal Parade:100601,100614:6",
+      "state": 1
+    },
+    {
+      "id": 2,
+      "name": "Jewel Key",
+      "dungeon_id": 100650,
+      "thum_img": "jewel_king_key.png,jewel_king_key_s.png",
+      "open_img": "sp_quest_banner_guerrilla_jewel.png",
+      "close_img": "sp_quest_banner_guerrilla_jewel_seal.png",
+      "limit_sec": 1800,
+      "possession_limit": 50,
+      "distribute_flag": 1,
+      "usage_pattern": "1:1:Jewel Parade!:100650:7/3:1:Super Jewel Parade:100651:7/5:3:Mega Jewel Parade:100651,100652:7",
+      "state": 1
+    },
+    {
+      "id": 3,
+      "name": "Imp Key",
+      "dungeon_id": 102720,
+      "thum_img": "yoma_key.png,yoma_key_s.png",
+      "open_img": "sp_quest_banner_evil_3.png",
+      "close_img": "sp_quest_banner_evil_seal_3.png",
+      "limit_sec": 1800,
+      "possession_limit": 50,
+      "distribute_flag": 0,
+      "usage_pattern": "1:0:Garden of Imps:102920:",
+      "state": 1
+    }
+  ]
+}

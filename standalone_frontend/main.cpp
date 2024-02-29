@@ -15,11 +15,7 @@ int main()
 
     try
     {
-        if (!System::Instance().LoadSystemConfig("./gimuconfig.json"))
-        {
-            printf("Unable to load server config!\n");
-            return -1;
-        }
+        System::Instance().LoadSystemConfig("./gimuconfig.json");
 
 #if 0
         {

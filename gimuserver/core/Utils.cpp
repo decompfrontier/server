@@ -1,5 +1,8 @@
 #include "Utils.hpp"
+#include "System.hpp"
 #include <drogon/drogon.h>
+#include <fstream>
+#include <filesystem>
 
 using namespace drogon;
 
@@ -59,3 +62,54 @@ std::string Utils::RandomAccountID()
 
 	return r;
 }
+
+void Utils::AppendJsonReqToFile(const Json::Value& v, const std::string& group)
+{
+	std::string p = System::Instance().LogConfig().RequestPath;
+
+	time_t rawtime;
+	time(&rawtime);
+	struct tm timeinfo;
+	localtime_s(&timeinfo, &rawtime);
+	auto ct = std::ctime(&rawtime);
+
+	p += std::filesystem::path::preferred_separator;
+
+	char buf[100];
+	strftime(buf, sizeof(buf), "%d_%m_%Y-%H_%M_%S", &timeinfo);
+
+	p += group;
+	p += "_";
+	p += buf;
+	p += ".json";
+
+	std::ofstream of(p, std::ofstream::out);
+	of << v.toStyledString().c_str();
+	of.close();
+}
+
+void Utils::AppendJsonResToFile(const Json::Value& v, const std::string& group)
+{
+	std::string p = System::Instance().LogConfig().ResponsePath;
+	
+	time_t rawtime;
+	time(&rawtime);
+	struct tm timeinfo;
+	localtime_s(&timeinfo, &rawtime);
+	auto ct = std::ctime(&rawtime);
+
+	p += std::filesystem::path::preferred_separator;
+
+	char buf[100];
+	strftime(buf, sizeof(buf), "%d_%m_%Y-%H_%M_%S", &timeinfo);
+
+	p += group;
+	p += "_";
+	p += buf;
+	p += ".json";
+
+	std::ofstream of(p, std::ofstream::out);
+	of << v.toStyledString().c_str();
+	of.close();
+}
+

@@ -1,0 +1,8004 @@
+{
+  "progression_info": [
+    {
+      "level": 1,
+      "exp": 0,
+      "energy": 15,
+      "deck_cost": 100,
+      "friend_count": 10,
+      "add_friend_count": 0
+    },
+    {
+      "level": 2,
+      "exp": 20,
+      "energy": 16,
+      "deck_cost": 102,
+      "friend_count": 10,
+      "add_friend_count": 0
+    },
+    {
+      "level": 3,
+      "exp": 40,
+      "energy": 16,
+      "deck_cost": 104,
+      "friend_count": 11,
+      "add_friend_count": 0
+    },
+    {
+      "level": 4,
+      "exp": 70,
+      "energy": 16,
+      "deck_cost": 106,
+      "friend_count": 11,
+      "add_friend_count": 0
+    },
+    {
+      "level": 5,
+      "exp": 110,
+      "energy": 17,
+      "deck_cost": 108,
+      "friend_count": 12,
+      "add_friend_count": 0
+    },
+    {
+      "level": 6,
+      "exp": 160,
+      "energy": 17,
+      "deck_cost": 109,
+      "friend_count": 12,
+      "add_friend_count": 0
+    },
+    {
+      "level": 7,
+      "exp": 220,
+      "energy": 17,
+      "deck_cost": 110,
+      "friend_count": 13,
+      "add_friend_count": 0
+    },
+    {
+      "level": 8,
+      "exp": 290,
+      "energy": 18,
+      "deck_cost": 111,
+      "friend_count": 13,
+      "add_friend_count": 0
+    },
+    {
+      "level": 9,
+      "exp": 370,
+      "energy": 18,
+      "deck_cost": 112,
+      "friend_count": 14,
+      "add_friend_count": 0
+    },
+    {
+      "level": 10,
+      "exp": 460,
+      "energy": 18,
+      "deck_cost": 117,
+      "friend_count": 14,
+      "add_friend_count": 0
+    },
+    {
+      "level": 11,
+      "exp": 690,
+      "energy": 19,
+      "deck_cost": 118,
+      "friend_count": 15,
+      "add_friend_count": 0
+    },
+    {
+      "level": 12,
+      "exp": 966,
+      "energy": 19,
+      "deck_cost": 119,
+      "friend_count": 15,
+      "add_friend_count": 0
+    },
+    {
+      "level": 13,
+      "exp": 1256,
+      "energy": 19,
+      "deck_cost": 120,
+      "friend_count": 16,
+      "add_friend_count": 0
+    },
+    {
+      "level": 14,
+      "exp": 1570,
+      "energy": 20,
+      "deck_cost": 121,
+      "friend_count": 16,
+      "add_friend_count": 0
+    },
+    {
+      "level": 15,
+      "exp": 1899,
+      "energy": 25,
+      "deck_cost": 122,
+      "friend_count": 17,
+      "add_friend_count": 0
+    },
+    {
+      "level": 16,
+      "exp": 2241,
+      "energy": 25,
+      "deck_cost": 123,
+      "friend_count": 17,
+      "add_friend_count": 0
+    },
+    {
+      "level": 17,
+      "exp": 2585,
+      "energy": 26,
+      "deck_cost": 124,
+      "friend_count": 18,
+      "add_friend_count": 0
+    },
+    {
+      "level": 18,
+      "exp": 2933,
+      "energy": 26,
+      "deck_cost": 125,
+      "friend_count": 18,
+      "add_friend_count": 0
+    },
+    {
+      "level": 19,
+      "exp": 3285,
+      "energy": 26,
+      "deck_cost": 126,
+      "friend_count": 19,
+      "add_friend_count": 0
+    },
+    {
+      "level": 20,
+      "exp": 3685,
+      "energy": 27,
+      "deck_cost": 131,
+      "friend_count": 19,
+      "add_friend_count": 0
+    },
+    {
+      "level": 21,
+      "exp": 4089,
+      "energy": 27,
+      "deck_cost": 132,
+      "friend_count": 20,
+      "add_friend_count": 0
+    },
+    {
+      "level": 22,
+      "exp": 4497,
+      "energy": 27,
+      "deck_cost": 133,
+      "friend_count": 20,
+      "add_friend_count": 0
+    },
+    {
+      "level": 23,
+      "exp": 4909,
+      "energy": 28,
+      "deck_cost": 134,
+      "friend_count": 21,
+      "add_friend_count": 0
+    },
+    {
+      "level": 24,
+      "exp": 5325,
+      "energy": 28,
+      "deck_cost": 135,
+      "friend_count": 21,
+      "add_friend_count": 0
+    },
+    {
+      "level": 25,
+      "exp": 5745,
+      "energy": 33,
+      "deck_cost": 136,
+      "friend_count": 22,
+      "add_friend_count": 0
+    },
+    {
+      "level": 26,
+      "exp": 6169,
+      "energy": 34,
+      "deck_cost": 137,
+      "friend_count": 22,
+      "add_friend_count": 0
+    },
+    {
+      "level": 27,
+      "exp": 6597,
+      "energy": 34,
+      "deck_cost": 138,
+      "friend_count": 23,
+      "add_friend_count": 0
+    },
+    {
+      "level": 28,
+      "exp": 7029,
+      "energy": 34,
+      "deck_cost": 139,
+      "friend_count": 23,
+      "add_friend_count": 0
+    },
+    {
+      "level": 29,
+      "exp": 7465,
+      "energy": 35,
+      "deck_cost": 140,
+      "friend_count": 24,
+      "add_friend_count": 0
+    },
+    {
+      "level": 30,
+      "exp": 7915,
+      "energy": 35,
+      "deck_cost": 145,
+      "friend_count": 24,
+      "add_friend_count": 0
+    },
+    {
+      "level": 31,
+      "exp": 8370,
+      "energy": 35,
+      "deck_cost": 146,
+      "friend_count": 25,
+      "add_friend_count": 0
+    },
+    {
+      "level": 32,
+      "exp": 8830,
+      "energy": 36,
+      "deck_cost": 147,
+      "friend_count": 25,
+      "add_friend_count": 0
+    },
+    {
+      "level": 33,
+      "exp": 9295,
+      "energy": 36,
+      "deck_cost": 148,
+      "friend_count": 26,
+      "add_friend_count": 0
+    },
+    {
+      "level": 34,
+      "exp": 9765,
+      "energy": 36,
+      "deck_cost": 149,
+      "friend_count": 26,
+      "add_friend_count": 0
+    },
+    {
+      "level": 35,
+      "exp": 10240,
+      "energy": 42,
+      "deck_cost": 150,
+      "friend_count": 27,
+      "add_friend_count": 0
+    },
+    {
+      "level": 36,
+      "exp": 10720,
+      "energy": 42,
+      "deck_cost": 151,
+      "friend_count": 27,
+      "add_friend_count": 0
+    },
+    {
+      "level": 37,
+      "exp": 11205,
+      "energy": 42,
+      "deck_cost": 152,
+      "friend_count": 28,
+      "add_friend_count": 0
+    },
+    {
+      "level": 38,
+      "exp": 11695,
+      "energy": 43,
+      "deck_cost": 153,
+      "friend_count": 28,
+      "add_friend_count": 0
+    },
+    {
+      "level": 39,
+      "exp": 12190,
+      "energy": 43,
+      "deck_cost": 154,
+      "friend_count": 29,
+      "add_friend_count": 0
+    },
+    {
+      "level": 40,
+      "exp": 12740,
+      "energy": 43,
+      "deck_cost": 159,
+      "friend_count": 29,
+      "add_friend_count": 0
+    },
+    {
+      "level": 41,
+      "exp": 13296,
+      "energy": 44,
+      "deck_cost": 160,
+      "friend_count": 30,
+      "add_friend_count": 0
+    },
+    {
+      "level": 42,
+      "exp": 13858,
+      "energy": 44,
+      "deck_cost": 161,
+      "friend_count": 30,
+      "add_friend_count": 0
+    },
+    {
+      "level": 43,
+      "exp": 14426,
+      "energy": 44,
+      "deck_cost": 162,
+      "friend_count": 31,
+      "add_friend_count": 0
+    },
+    {
+      "level": 44,
+      "exp": 15000,
+      "energy": 45,
+      "deck_cost": 163,
+      "friend_count": 31,
+      "add_friend_count": 0
+    },
+    {
+      "level": 45,
+      "exp": 15580,
+      "energy": 50,
+      "deck_cost": 164,
+      "friend_count": 32,
+      "add_friend_count": 0
+    },
+    {
+      "level": 46,
+      "exp": 16166,
+      "energy": 50,
+      "deck_cost": 165,
+      "friend_count": 32,
+      "add_friend_count": 0
+    },
+    {
+      "level": 47,
+      "exp": 16758,
+      "energy": 51,
+      "deck_cost": 166,
+      "friend_count": 33,
+      "add_friend_count": 0
+    },
+    {
+      "level": 48,
+      "exp": 17356,
+      "energy": 51,
+      "deck_cost": 167,
+      "friend_count": 33,
+      "add_friend_count": 0
+    },
+    {
+      "level": 49,
+      "exp": 17960,
+      "energy": 51,
+      "deck_cost": 168,
+      "friend_count": 34,
+      "add_friend_count": 0
+    },
+    {
+      "level": 50,
+      "exp": 18620,
+      "energy": 52,
+      "deck_cost": 173,
+      "friend_count": 34,
+      "add_friend_count": 0
+    },
+    {
+      "level": 51,
+      "exp": 19286,
+      "energy": 52,
+      "deck_cost": 174,
+      "friend_count": 35,
+      "add_friend_count": 0
+    },
+    {
+      "level": 52,
+      "exp": 19958,
+      "energy": 52,
+      "deck_cost": 175,
+      "friend_count": 35,
+      "add_friend_count": 0
+    },
+    {
+      "level": 53,
+      "exp": 20636,
+      "energy": 53,
+      "deck_cost": 176,
+      "friend_count": 36,
+      "add_friend_count": 0
+    },
+    {
+      "level": 54,
+      "exp": 21320,
+      "energy": 53,
+      "deck_cost": 177,
+      "friend_count": 36,
+      "add_friend_count": 0
+    },
+    {
+      "level": 55,
+      "exp": 22010,
+      "energy": 58,
+      "deck_cost": 178,
+      "friend_count": 37,
+      "add_friend_count": 0
+    },
+    {
+      "level": 56,
+      "exp": 22706,
+      "energy": 59,
+      "deck_cost": 179,
+      "friend_count": 37,
+      "add_friend_count": 0
+    },
+    {
+      "level": 57,
+      "exp": 23408,
+      "energy": 59,
+      "deck_cost": 180,
+      "friend_count": 38,
+      "add_friend_count": 0
+    },
+    {
+      "level": 58,
+      "exp": 24116,
+      "energy": 59,
+      "deck_cost": 181,
+      "friend_count": 38,
+      "add_friend_count": 0
+    },
+    {
+      "level": 59,
+      "exp": 24830,
+      "energy": 60,
+      "deck_cost": 182,
+      "friend_count": 39,
+      "add_friend_count": 0
+    },
+    {
+      "level": 60,
+      "exp": 25580,
+      "energy": 60,
+      "deck_cost": 187,
+      "friend_count": 39,
+      "add_friend_count": 0
+    },
+    {
+      "level": 61,
+      "exp": 26332,
+      "energy": 60,
+      "deck_cost": 188,
+      "friend_count": 40,
+      "add_friend_count": 0
+    },
+    {
+      "level": 62,
+      "exp": 27086,
+      "energy": 61,
+      "deck_cost": 189,
+      "friend_count": 40,
+      "add_friend_count": 0
+    },
+    {
+      "level": 63,
+      "exp": 27842,
+      "energy": 61,
+      "deck_cost": 190,
+      "friend_count": 41,
+      "add_friend_count": 0
+    },
+    {
+      "level": 64,
+      "exp": 28600,
+      "energy": 61,
+      "deck_cost": 191,
+      "friend_count": 41,
+      "add_friend_count": 0
+    },
+    {
+      "level": 65,
+      "exp": 29360,
+      "energy": 67,
+      "deck_cost": 192,
+      "friend_count": 42,
+      "add_friend_count": 0
+    },
+    {
+      "level": 66,
+      "exp": 30122,
+      "energy": 67,
+      "deck_cost": 193,
+      "friend_count": 42,
+      "add_friend_count": 0
+    },
+    {
+      "level": 67,
+      "exp": 30886,
+      "energy": 67,
+      "deck_cost": 194,
+      "friend_count": 43,
+      "add_friend_count": 0
+    },
+    {
+      "level": 68,
+      "exp": 31652,
+      "energy": 68,
+      "deck_cost": 195,
+      "friend_count": 43,
+      "add_friend_count": 0
+    },
+    {
+      "level": 69,
+      "exp": 32420,
+      "energy": 68,
+      "deck_cost": 196,
+      "friend_count": 44,
+      "add_friend_count": 0
+    },
+    {
+      "level": 70,
+      "exp": 33190,
+      "energy": 68,
+      "deck_cost": 201,
+      "friend_count": 44,
+      "add_friend_count": 0
+    },
+    {
+      "level": 71,
+      "exp": 33962,
+      "energy": 69,
+      "deck_cost": 202,
+      "friend_count": 45,
+      "add_friend_count": 0
+    },
+    {
+      "level": 72,
+      "exp": 34736,
+      "energy": 69,
+      "deck_cost": 203,
+      "friend_count": 45,
+      "add_friend_count": 0
+    },
+    {
+      "level": 73,
+      "exp": 35512,
+      "energy": 69,
+      "deck_cost": 204,
+      "friend_count": 46,
+      "add_friend_count": 0
+    },
+    {
+      "level": 74,
+      "exp": 36290,
+      "energy": 70,
+      "deck_cost": 205,
+      "friend_count": 46,
+      "add_friend_count": 0
+    },
+    {
+      "level": 75,
+      "exp": 37070,
+      "energy": 75,
+      "deck_cost": 206,
+      "friend_count": 47,
+      "add_friend_count": 0
+    },
+    {
+      "level": 76,
+      "exp": 37852,
+      "energy": 75,
+      "deck_cost": 207,
+      "friend_count": 47,
+      "add_friend_count": 0
+    },
+    {
+      "level": 77,
+      "exp": 38636,
+      "energy": 76,
+      "deck_cost": 208,
+      "friend_count": 48,
+      "add_friend_count": 0
+    },
+    {
+      "level": 78,
+      "exp": 39422,
+      "energy": 76,
+      "deck_cost": 209,
+      "friend_count": 48,
+      "add_friend_count": 0
+    },
+    {
+      "level": 79,
+      "exp": 40210,
+      "energy": 76,
+      "deck_cost": 210,
+      "friend_count": 49,
+      "add_friend_count": 0
+    },
+    {
+      "level": 80,
+      "exp": 41000,
+      "energy": 77,
+      "deck_cost": 215,
+      "friend_count": 49,
+      "add_friend_count": 0
+    },
+    {
+      "level": 81,
+      "exp": 41792,
+      "energy": 77,
+      "deck_cost": 216,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 82,
+      "exp": 42586,
+      "energy": 77,
+      "deck_cost": 217,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 83,
+      "exp": 43382,
+      "energy": 78,
+      "deck_cost": 218,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 84,
+      "exp": 44180,
+      "energy": 78,
+      "deck_cost": 219,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 85,
+      "exp": 44980,
+      "energy": 84,
+      "deck_cost": 220,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 86,
+      "exp": 45782,
+      "energy": 84,
+      "deck_cost": 221,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 87,
+      "exp": 46586,
+      "energy": 85,
+      "deck_cost": 222,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 88,
+      "exp": 47392,
+      "energy": 85,
+      "deck_cost": 223,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 89,
+      "exp": 48200,
+      "energy": 86,
+      "deck_cost": 224,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 90,
+      "exp": 49010,
+      "energy": 86,
+      "deck_cost": 229,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 91,
+      "exp": 49822,
+      "energy": 87,
+      "deck_cost": 230,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 92,
+      "exp": 50636,
+      "energy": 87,
+      "deck_cost": 231,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 93,
+      "exp": 51452,
+      "energy": 88,
+      "deck_cost": 232,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 94,
+      "exp": 52270,
+      "energy": 88,
+      "deck_cost": 233,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 95,
+      "exp": 53090,
+      "energy": 94,
+      "deck_cost": 234,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 96,
+      "exp": 53912,
+      "energy": 94,
+      "deck_cost": 235,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 97,
+      "exp": 54736,
+      "energy": 95,
+      "deck_cost": 236,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 98,
+      "exp": 55562,
+      "energy": 95,
+      "deck_cost": 237,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 99,
+      "exp": 56390,
+      "energy": 96,
+      "deck_cost": 238,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 100,
+      "exp": 57220,
+      "energy": 96,
+      "deck_cost": 243,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 101,
+      "exp": 58052,
+      "energy": 97,
+      "deck_cost": 244,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 102,
+      "exp": 58886,
+      "energy": 97,
+      "deck_cost": 245,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 103,
+      "exp": 59722,
+      "energy": 97,
+      "deck_cost": 246,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 104,
+      "exp": 60560,
+      "energy": 98,
+      "deck_cost": 246,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 105,
+      "exp": 61400,
+      "energy": 98,
+      "deck_cost": 247,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 106,
+      "exp": 62242,
+      "energy": 98,
+      "deck_cost": 248,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 107,
+      "exp": 63086,
+      "energy": 99,
+      "deck_cost": 248,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 108,
+      "exp": 63932,
+      "energy": 99,
+      "deck_cost": 249,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 109,
+      "exp": 64780,
+      "energy": 99,
+      "deck_cost": 250,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 110,
+      "exp": 65630,
+      "energy": 100,
+      "deck_cost": 250,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 111,
+      "exp": 66482,
+      "energy": 100,
+      "deck_cost": 251,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 112,
+      "exp": 67336,
+      "energy": 100,
+      "deck_cost": 252,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 113,
+      "exp": 68192,
+      "energy": 101,
+      "deck_cost": 252,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 114,
+      "exp": 69050,
+      "energy": 101,
+      "deck_cost": 253,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 115,
+      "exp": 69910,
+      "energy": 101,
+      "deck_cost": 254,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 116,
+      "exp": 70772,
+      "energy": 102,
+      "deck_cost": 254,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 117,
+      "exp": 71636,
+      "energy": 102,
+      "deck_cost": 255,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 118,
+      "exp": 72502,
+      "energy": 102,
+      "deck_cost": 256,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 119,
+      "exp": 73370,
+      "energy": 103,
+      "deck_cost": 256,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 120,
+      "exp": 74240,
+      "energy": 103,
+      "deck_cost": 257,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 121,
+      "exp": 75112,
+      "energy": 103,
+      "deck_cost": 258,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 122,
+      "exp": 75986,
+      "energy": 104,
+      "deck_cost": 258,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 123,
+      "exp": 76862,
+      "energy": 104,
+      "deck_cost": 259,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 124,
+      "exp": 77740,
+      "energy": 104,
+      "deck_cost": 260,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 125,
+      "exp": 78620,
+      "energy": 105,
+      "deck_cost": 260,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 126,
+      "exp": 79502,
+      "energy": 105,
+      "deck_cost": 261,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 127,
+      "exp": 80386,
+      "energy": 105,
+      "deck_cost": 262,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 128,
+      "exp": 81272,
+      "energy": 106,
+      "deck_cost": 262,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 129,
+      "exp": 82160,
+      "energy": 106,
+      "deck_cost": 263,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 130,
+      "exp": 83050,
+      "energy": 106,
+      "deck_cost": 264,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 131,
+      "exp": 83942,
+      "energy": 107,
+      "deck_cost": 264,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 132,
+      "exp": 84836,
+      "energy": 107,
+      "deck_cost": 265,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 133,
+      "exp": 85732,
+      "energy": 107,
+      "deck_cost": 266,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 134,
+      "exp": 86630,
+      "energy": 108,
+      "deck_cost": 266,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 135,
+      "exp": 87530,
+      "energy": 108,
+      "deck_cost": 267,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 136,
+      "exp": 88432,
+      "energy": 108,
+      "deck_cost": 268,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 137,
+      "exp": 89336,
+      "energy": 109,
+      "deck_cost": 268,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 138,
+      "exp": 90242,
+      "energy": 109,
+      "deck_cost": 269,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 139,
+      "exp": 91150,
+      "energy": 109,
+      "deck_cost": 270,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 140,
+      "exp": 92060,
+      "energy": 110,
+      "deck_cost": 270,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 141,
+      "exp": 92972,
+      "energy": 110,
+      "deck_cost": 271,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 142,
+      "exp": 93886,
+      "energy": 110,
+      "deck_cost": 272,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 143,
+      "exp": 94802,
+      "energy": 111,
+      "deck_cost": 272,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 144,
+      "exp": 95720,
+      "energy": 111,
+      "deck_cost": 273,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 145,
+      "exp": 96640,
+      "energy": 111,
+      "deck_cost": 274,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 146,
+      "exp": 97562,
+      "energy": 112,
+      "deck_cost": 274,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 147,
+      "exp": 98486,
+      "energy": 112,
+      "deck_cost": 275,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 148,
+      "exp": 99412,
+      "energy": 112,
+      "deck_cost": 276,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 149,
+      "exp": 100340,
+      "energy": 113,
+      "deck_cost": 276,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 150,
+      "exp": 101270,
+      "energy": 113,
+      "deck_cost": 277,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 151,
+      "exp": 102202,
+      "energy": 113,
+      "deck_cost": 278,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 152,
+      "exp": 103136,
+      "energy": 115,
+      "deck_cost": 278,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 153,
+      "exp": 104072,
+      "energy": 115,
+      "deck_cost": 279,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 154,
+      "exp": 105010,
+      "energy": 115,
+      "deck_cost": 280,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 155,
+      "exp": 105950,
+      "energy": 117,
+      "deck_cost": 280,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 156,
+      "exp": 106892,
+      "energy": 117,
+      "deck_cost": 281,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 157,
+      "exp": 107836,
+      "energy": 117,
+      "deck_cost": 282,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 158,
+      "exp": 108782,
+      "energy": 119,
+      "deck_cost": 282,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 159,
+      "exp": 109730,
+      "energy": 119,
+      "deck_cost": 283,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 160,
+      "exp": 110680,
+      "energy": 119,
+      "deck_cost": 284,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 161,
+      "exp": 111632,
+      "energy": 121,
+      "deck_cost": 284,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 162,
+      "exp": 112586,
+      "energy": 121,
+      "deck_cost": 285,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 163,
+      "exp": 113542,
+      "energy": 121,
+      "deck_cost": 286,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 164,
+      "exp": 114500,
+      "energy": 123,
+      "deck_cost": 286,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 165,
+      "exp": 115460,
+      "energy": 123,
+      "deck_cost": 287,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 166,
+      "exp": 116422,
+      "energy": 123,
+      "deck_cost": 288,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 167,
+      "exp": 117386,
+      "energy": 125,
+      "deck_cost": 288,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 168,
+      "exp": 118352,
+      "energy": 125,
+      "deck_cost": 289,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 169,
+      "exp": 119320,
+      "energy": 125,
+      "deck_cost": 290,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 170,
+      "exp": 120290,
+      "energy": 127,
+      "deck_cost": 290,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 171,
+      "exp": 121262,
+      "energy": 127,
+      "deck_cost": 291,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 172,
+      "exp": 122236,
+      "energy": 127,
+      "deck_cost": 292,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 173,
+      "exp": 123212,
+      "energy": 129,
+      "deck_cost": 292,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 174,
+      "exp": 124190,
+      "energy": 129,
+      "deck_cost": 293,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 175,
+      "exp": 125170,
+      "energy": 129,
+      "deck_cost": 294,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 176,
+      "exp": 126152,
+      "energy": 131,
+      "deck_cost": 294,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 177,
+      "exp": 127136,
+      "energy": 131,
+      "deck_cost": 295,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 178,
+      "exp": 128122,
+      "energy": 131,
+      "deck_cost": 296,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 179,
+      "exp": 129110,
+      "energy": 133,
+      "deck_cost": 296,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 180,
+      "exp": 130100,
+      "energy": 133,
+      "deck_cost": 297,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 181,
+      "exp": 131092,
+      "energy": 133,
+      "deck_cost": 298,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 182,
+      "exp": 132086,
+      "energy": 135,
+      "deck_cost": 298,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 183,
+      "exp": 133082,
+      "energy": 135,
+      "deck_cost": 299,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 184,
+      "exp": 134080,
+      "energy": 135,
+      "deck_cost": 300,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 185,
+      "exp": 135080,
+      "energy": 137,
+      "deck_cost": 300,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 186,
+      "exp": 136082,
+      "energy": 137,
+      "deck_cost": 301,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 187,
+      "exp": 137086,
+      "energy": 137,
+      "deck_cost": 302,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 188,
+      "exp": 138092,
+      "energy": 139,
+      "deck_cost": 302,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 189,
+      "exp": 139100,
+      "energy": 139,
+      "deck_cost": 303,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 190,
+      "exp": 140110,
+      "energy": 139,
+      "deck_cost": 304,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 191,
+      "exp": 141122,
+      "energy": 141,
+      "deck_cost": 304,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 192,
+      "exp": 142136,
+      "energy": 141,
+      "deck_cost": 305,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 193,
+      "exp": 143152,
+      "energy": 141,
+      "deck_cost": 306,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 194,
+      "exp": 144170,
+      "energy": 143,
+      "deck_cost": 306,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 195,
+      "exp": 145190,
+      "energy": 143,
+      "deck_cost": 307,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 196,
+      "exp": 146212,
+      "energy": 143,
+      "deck_cost": 308,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 197,
+      "exp": 147236,
+      "energy": 145,
+      "deck_cost": 308,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 198,
+      "exp": 148262,
+      "energy": 145,
+      "deck_cost": 309,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 199,
+      "exp": 149290,
+      "energy": 145,
+      "deck_cost": 310,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 200,
+      "exp": 150320,
+      "energy": 147,
+      "deck_cost": 310,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 201,
+      "exp": 151352,
+      "energy": 147,
+      "deck_cost": 311,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 202,
+      "exp": 152386,
+      "energy": 147,
+      "deck_cost": 312,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 203,
+      "exp": 153422,
+      "energy": 149,
+      "deck_cost": 312,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 204,
+      "exp": 154460,
+      "energy": 149,
+      "deck_cost": 313,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 205,
+      "exp": 155500,
+      "energy": 149,
+      "deck_cost": 314,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 206,
+      "exp": 156542,
+      "energy": 151,
+      "deck_cost": 314,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 207,
+      "exp": 157586,
+      "energy": 151,
+      "deck_cost": 315,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 208,
+      "exp": 158632,
+      "energy": 151,
+      "deck_cost": 316,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 209,
+      "exp": 159680,
+      "energy": 153,
+      "deck_cost": 316,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 210,
+      "exp": 160730,
+      "energy": 153,
+      "deck_cost": 317,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 211,
+      "exp": 161782,
+      "energy": 153,
+      "deck_cost": 318,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 212,
+      "exp": 162836,
+      "energy": 155,
+      "deck_cost": 318,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 213,
+      "exp": 163892,
+      "energy": 155,
+      "deck_cost": 319,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 214,
+      "exp": 164950,
+      "energy": 155,
+      "deck_cost": 320,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 215,
+      "exp": 166010,
+      "energy": 157,
+      "deck_cost": 320,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 216,
+      "exp": 167072,
+      "energy": 157,
+      "deck_cost": 321,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 217,
+      "exp": 168136,
+      "energy": 157,
+      "deck_cost": 322,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 218,
+      "exp": 169202,
+      "energy": 159,
+      "deck_cost": 322,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 219,
+      "exp": 170270,
+      "energy": 159,
+      "deck_cost": 323,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 220,
+      "exp": 171340,
+      "energy": 159,
+      "deck_cost": 324,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 221,
+      "exp": 172412,
+      "energy": 161,
+      "deck_cost": 324,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 222,
+      "exp": 173486,
+      "energy": 161,
+      "deck_cost": 325,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 223,
+      "exp": 174562,
+      "energy": 161,
+      "deck_cost": 326,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 224,
+      "exp": 175640,
+      "energy": 163,
+      "deck_cost": 326,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 225,
+      "exp": 176720,
+      "energy": 163,
+      "deck_cost": 327,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 226,
+      "exp": 177802,
+      "energy": 163,
+      "deck_cost": 328,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 227,
+      "exp": 178886,
+      "energy": 165,
+      "deck_cost": 328,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 228,
+      "exp": 179972,
+      "energy": 165,
+      "deck_cost": 329,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 229,
+      "exp": 181060,
+      "energy": 165,
+      "deck_cost": 330,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 230,
+      "exp": 182150,
+      "energy": 167,
+      "deck_cost": 330,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 231,
+      "exp": 183242,
+      "energy": 167,
+      "deck_cost": 331,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 232,
+      "exp": 184336,
+      "energy": 167,
+      "deck_cost": 332,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 233,
+      "exp": 185432,
+      "energy": 169,
+      "deck_cost": 332,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 234,
+      "exp": 186530,
+      "energy": 169,
+      "deck_cost": 333,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 235,
+      "exp": 187630,
+      "energy": 169,
+      "deck_cost": 334,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 236,
+      "exp": 188732,
+      "energy": 171,
+      "deck_cost": 334,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 237,
+      "exp": 189836,
+      "energy": 171,
+      "deck_cost": 335,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 238,
+      "exp": 190942,
+      "energy": 171,
+      "deck_cost": 336,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 239,
+      "exp": 192050,
+      "energy": 173,
+      "deck_cost": 336,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 240,
+      "exp": 193160,
+      "energy": 173,
+      "deck_cost": 337,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 241,
+      "exp": 194272,
+      "energy": 173,
+      "deck_cost": 338,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 242,
+      "exp": 195386,
+      "energy": 175,
+      "deck_cost": 338,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 243,
+      "exp": 196502,
+      "energy": 175,
+      "deck_cost": 339,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 244,
+      "exp": 197620,
+      "energy": 175,
+      "deck_cost": 340,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 245,
+      "exp": 198740,
+      "energy": 177,
+      "deck_cost": 340,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 246,
+      "exp": 199862,
+      "energy": 177,
+      "deck_cost": 341,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 247,
+      "exp": 200986,
+      "energy": 177,
+      "deck_cost": 342,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 248,
+      "exp": 202112,
+      "energy": 179,
+      "deck_cost": 342,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 249,
+      "exp": 203240,
+      "energy": 179,
+      "deck_cost": 343,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 250,
+      "exp": 204370,
+      "energy": 179,
+      "deck_cost": 344,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 251,
+      "exp": 205753,
+      "energy": 180,
+      "deck_cost": 344,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 252,
+      "exp": 207139,
+      "energy": 180,
+      "deck_cost": 345,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 253,
+      "exp": 208528,
+      "energy": 180,
+      "deck_cost": 346,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 254,
+      "exp": 209920,
+      "energy": 181,
+      "deck_cost": 346,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 255,
+      "exp": 211315,
+      "energy": 181,
+      "deck_cost": 347,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 256,
+      "exp": 212713,
+      "energy": 181,
+      "deck_cost": 348,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 257,
+      "exp": 214114,
+      "energy": 182,
+      "deck_cost": 348,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 258,
+      "exp": 215518,
+      "energy": 182,
+      "deck_cost": 349,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 259,
+      "exp": 216925,
+      "energy": 182,
+      "deck_cost": 350,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 260,
+      "exp": 218335,
+      "energy": 183,
+      "deck_cost": 350,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 261,
+      "exp": 219748,
+      "energy": 183,
+      "deck_cost": 351,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 262,
+      "exp": 221164,
+      "energy": 183,
+      "deck_cost": 352,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 263,
+      "exp": 222583,
+      "energy": 184,
+      "deck_cost": 352,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 264,
+      "exp": 224005,
+      "energy": 184,
+      "deck_cost": 353,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 265,
+      "exp": 225430,
+      "energy": 184,
+      "deck_cost": 354,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 266,
+      "exp": 226858,
+      "energy": 185,
+      "deck_cost": 354,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 267,
+      "exp": 228289,
+      "energy": 185,
+      "deck_cost": 355,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 268,
+      "exp": 229723,
+      "energy": 185,
+      "deck_cost": 356,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 269,
+      "exp": 231160,
+      "energy": 186,
+      "deck_cost": 356,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 270,
+      "exp": 232600,
+      "energy": 186,
+      "deck_cost": 357,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 271,
+      "exp": 234043,
+      "energy": 186,
+      "deck_cost": 358,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 272,
+      "exp": 235489,
+      "energy": 187,
+      "deck_cost": 358,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 273,
+      "exp": 236938,
+      "energy": 187,
+      "deck_cost": 359,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 274,
+      "exp": 238390,
+      "energy": 187,
+      "deck_cost": 360,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 275,
+      "exp": 239845,
+      "energy": 188,
+      "deck_cost": 360,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 276,
+      "exp": 241303,
+      "energy": 188,
+      "deck_cost": 361,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 277,
+      "exp": 242764,
+      "energy": 188,
+      "deck_cost": 362,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 278,
+      "exp": 244228,
+      "energy": 189,
+      "deck_cost": 362,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 279,
+      "exp": 245695,
+      "energy": 189,
+      "deck_cost": 363,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 280,
+      "exp": 247165,
+      "energy": 189,
+      "deck_cost": 364,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 281,
+      "exp": 248638,
+      "energy": 190,
+      "deck_cost": 364,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 282,
+      "exp": 250114,
+      "energy": 190,
+      "deck_cost": 365,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 283,
+      "exp": 251593,
+      "energy": 190,
+      "deck_cost": 366,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 284,
+      "exp": 253075,
+      "energy": 191,
+      "deck_cost": 366,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 285,
+      "exp": 254560,
+      "energy": 191,
+      "deck_cost": 367,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 286,
+      "exp": 256048,
+      "energy": 191,
+      "deck_cost": 368,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 287,
+      "exp": 257539,
+      "energy": 192,
+      "deck_cost": 368,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 288,
+      "exp": 259033,
+      "energy": 192,
+      "deck_cost": 369,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 289,
+      "exp": 260530,
+      "energy": 192,
+      "deck_cost": 370,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 290,
+      "exp": 262030,
+      "energy": 193,
+      "deck_cost": 370,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 291,
+      "exp": 263533,
+      "energy": 193,
+      "deck_cost": 371,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 292,
+      "exp": 265039,
+      "energy": 193,
+      "deck_cost": 372,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 293,
+      "exp": 266548,
+      "energy": 194,
+      "deck_cost": 372,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 294,
+      "exp": 268060,
+      "energy": 194,
+      "deck_cost": 373,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 295,
+      "exp": 269575,
+      "energy": 194,
+      "deck_cost": 374,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 296,
+      "exp": 271093,
+      "energy": 195,
+      "deck_cost": 374,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 297,
+      "exp": 272614,
+      "energy": 195,
+      "deck_cost": 375,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 298,
+      "exp": 274138,
+      "energy": 195,
+      "deck_cost": 376,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 299,
+      "exp": 275665,
+      "energy": 196,
+      "deck_cost": 376,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 300,
+      "exp": 277195,
+      "energy": 196,
+      "deck_cost": 377,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 301,
+      "exp": 279029,
+      "energy": 196,
+      "deck_cost": 378,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 302,
+      "exp": 280867,
+      "energy": 197,
+      "deck_cost": 378,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 303,
+      "exp": 282709,
+      "energy": 197,
+      "deck_cost": 379,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 304,
+      "exp": 284555,
+      "energy": 197,
+      "deck_cost": 380,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 305,
+      "exp": 286405,
+      "energy": 198,
+      "deck_cost": 380,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 306,
+      "exp": 288259,
+      "energy": 198,
+      "deck_cost": 381,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 307,
+      "exp": 290117,
+      "energy": 198,
+      "deck_cost": 382,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 308,
+      "exp": 291979,
+      "energy": 199,
+      "deck_cost": 382,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 309,
+      "exp": 293845,
+      "energy": 199,
+      "deck_cost": 383,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 310,
+      "exp": 295715,
+      "energy": 199,
+      "deck_cost": 384,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 311,
+      "exp": 297589,
+      "energy": 200,
+      "deck_cost": 384,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 312,
+      "exp": 299467,
+      "energy": 200,
+      "deck_cost": 385,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 313,
+      "exp": 301349,
+      "energy": 200,
+      "deck_cost": 386,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 314,
+      "exp": 303235,
+      "energy": 201,
+      "deck_cost": 386,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 315,
+      "exp": 305125,
+      "energy": 201,
+      "deck_cost": 387,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 316,
+      "exp": 307019,
+      "energy": 201,
+      "deck_cost": 388,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 317,
+      "exp": 308917,
+      "energy": 202,
+      "deck_cost": 388,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 318,
+      "exp": 310819,
+      "energy": 202,
+      "deck_cost": 389,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 319,
+      "exp": 312725,
+      "energy": 202,
+      "deck_cost": 390,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 320,
+      "exp": 314635,
+      "energy": 203,
+      "deck_cost": 390,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 321,
+      "exp": 316549,
+      "energy": 203,
+      "deck_cost": 391,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 322,
+      "exp": 318467,
+      "energy": 203,
+      "deck_cost": 392,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 323,
+      "exp": 320389,
+      "energy": 204,
+      "deck_cost": 392,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 324,
+      "exp": 322315,
+      "energy": 204,
+      "deck_cost": 393,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 325,
+      "exp": 324245,
+      "energy": 204,
+      "deck_cost": 394,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 326,
+      "exp": 326179,
+      "energy": 205,
+      "deck_cost": 394,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 327,
+      "exp": 328117,
+      "energy": 205,
+      "deck_cost": 395,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 328,
+      "exp": 330059,
+      "energy": 205,
+      "deck_cost": 396,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 329,
+      "exp": 332005,
+      "energy": 206,
+      "deck_cost": 396,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 330,
+      "exp": 333955,
+      "energy": 206,
+      "deck_cost": 397,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 331,
+      "exp": 335909,
+      "energy": 206,
+      "deck_cost": 398,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 332,
+      "exp": 337867,
+      "energy": 207,
+      "deck_cost": 398,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 333,
+      "exp": 339829,
+      "energy": 207,
+      "deck_cost": 399,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 334,
+      "exp": 341795,
+      "energy": 207,
+      "deck_cost": 400,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 335,
+      "exp": 343765,
+      "energy": 208,
+      "deck_cost": 400,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 336,
+      "exp": 345739,
+      "energy": 208,
+      "deck_cost": 401,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 337,
+      "exp": 347717,
+      "energy": 208,
+      "deck_cost": 402,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 338,
+      "exp": 349699,
+      "energy": 209,
+      "deck_cost": 402,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 339,
+      "exp": 351685,
+      "energy": 209,
+      "deck_cost": 403,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 340,
+      "exp": 353675,
+      "energy": 209,
+      "deck_cost": 404,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 341,
+      "exp": 355669,
+      "energy": 210,
+      "deck_cost": 404,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 342,
+      "exp": 357667,
+      "energy": 210,
+      "deck_cost": 405,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 343,
+      "exp": 359669,
+      "energy": 210,
+      "deck_cost": 406,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 344,
+      "exp": 361675,
+      "energy": 211,
+      "deck_cost": 406,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 345,
+      "exp": 363685,
+      "energy": 211,
+      "deck_cost": 407,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 346,
+      "exp": 365699,
+      "energy": 211,
+      "deck_cost": 408,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 347,
+      "exp": 367717,
+      "energy": 212,
+      "deck_cost": 408,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 348,
+      "exp": 369739,
+      "energy": 212,
+      "deck_cost": 409,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 349,
+      "exp": 371765,
+      "energy": 212,
+      "deck_cost": 410,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 350,
+      "exp": 373795,
+      "energy": 213,
+      "deck_cost": 410,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 351,
+      "exp": 376180,
+      "energy": 213,
+      "deck_cost": 411,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 352,
+      "exp": 378570,
+      "energy": 213,
+      "deck_cost": 412,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 353,
+      "exp": 380965,
+      "energy": 214,
+      "deck_cost": 412,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 354,
+      "exp": 383365,
+      "energy": 214,
+      "deck_cost": 413,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 355,
+      "exp": 385770,
+      "energy": 214,
+      "deck_cost": 414,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 356,
+      "exp": 388180,
+      "energy": 215,
+      "deck_cost": 414,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 357,
+      "exp": 390595,
+      "energy": 215,
+      "deck_cost": 415,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 358,
+      "exp": 393015,
+      "energy": 215,
+      "deck_cost": 416,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 359,
+      "exp": 395440,
+      "energy": 216,
+      "deck_cost": 416,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 360,
+      "exp": 397870,
+      "energy": 216,
+      "deck_cost": 417,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 361,
+      "exp": 400305,
+      "energy": 216,
+      "deck_cost": 418,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 362,
+      "exp": 402745,
+      "energy": 217,
+      "deck_cost": 418,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 363,
+      "exp": 405190,
+      "energy": 217,
+      "deck_cost": 419,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 364,
+      "exp": 407640,
+      "energy": 217,
+      "deck_cost": 420,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 365,
+      "exp": 410095,
+      "energy": 218,
+      "deck_cost": 420,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 366,
+      "exp": 412555,
+      "energy": 218,
+      "deck_cost": 421,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 367,
+      "exp": 415020,
+      "energy": 218,
+      "deck_cost": 422,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 368,
+      "exp": 417490,
+      "energy": 219,
+      "deck_cost": 422,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 369,
+      "exp": 419965,
+      "energy": 219,
+      "deck_cost": 423,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 370,
+      "exp": 422445,
+      "energy": 219,
+      "deck_cost": 424,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 371,
+      "exp": 424930,
+      "energy": 220,
+      "deck_cost": 424,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 372,
+      "exp": 427420,
+      "energy": 220,
+      "deck_cost": 425,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 373,
+      "exp": 429915,
+      "energy": 220,
+      "deck_cost": 426,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 374,
+      "exp": 432415,
+      "energy": 221,
+      "deck_cost": 426,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 375,
+      "exp": 434920,
+      "energy": 221,
+      "deck_cost": 427,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 376,
+      "exp": 437430,
+      "energy": 221,
+      "deck_cost": 428,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 377,
+      "exp": 439945,
+      "energy": 222,
+      "deck_cost": 428,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 378,
+      "exp": 442465,
+      "energy": 222,
+      "deck_cost": 429,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 379,
+      "exp": 444990,
+      "energy": 222,
+      "deck_cost": 430,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 380,
+      "exp": 447520,
+      "energy": 223,
+      "deck_cost": 430,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 381,
+      "exp": 450055,
+      "energy": 223,
+      "deck_cost": 431,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 382,
+      "exp": 452595,
+      "energy": 223,
+      "deck_cost": 432,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 383,
+      "exp": 455140,
+      "energy": 224,
+      "deck_cost": 432,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 384,
+      "exp": 457690,
+      "energy": 224,
+      "deck_cost": 433,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 385,
+      "exp": 460245,
+      "energy": 224,
+      "deck_cost": 434,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 386,
+      "exp": 462805,
+      "energy": 225,
+      "deck_cost": 434,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 387,
+      "exp": 465370,
+      "energy": 225,
+      "deck_cost": 435,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 388,
+      "exp": 467940,
+      "energy": 225,
+      "deck_cost": 436,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 389,
+      "exp": 470515,
+      "energy": 226,
+      "deck_cost": 436,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 390,
+      "exp": 473095,
+      "energy": 226,
+      "deck_cost": 437,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 391,
+      "exp": 475680,
+      "energy": 226,
+      "deck_cost": 438,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 392,
+      "exp": 478270,
+      "energy": 227,
+      "deck_cost": 438,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 393,
+      "exp": 480865,
+      "energy": 227,
+      "deck_cost": 439,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 394,
+      "exp": 483465,
+      "energy": 227,
+      "deck_cost": 440,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 395,
+      "exp": 486070,
+      "energy": 228,
+      "deck_cost": 440,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 396,
+      "exp": 488680,
+      "energy": 228,
+      "deck_cost": 441,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 397,
+      "exp": 491295,
+      "energy": 228,
+      "deck_cost": 442,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 398,
+      "exp": 493915,
+      "energy": 229,
+      "deck_cost": 442,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 399,
+      "exp": 496540,
+      "energy": 229,
+      "deck_cost": 443,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 400,
+      "exp": 499170,
+      "energy": 229,
+      "deck_cost": 444,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 401,
+      "exp": 502206,
+      "energy": 230,
+      "deck_cost": 444,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 402,
+      "exp": 505248,
+      "energy": 230,
+      "deck_cost": 445,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 403,
+      "exp": 508296,
+      "energy": 230,
+      "deck_cost": 446,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 404,
+      "exp": 511350,
+      "energy": 231,
+      "deck_cost": 446,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 405,
+      "exp": 514410,
+      "energy": 231,
+      "deck_cost": 447,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 406,
+      "exp": 517476,
+      "energy": 231,
+      "deck_cost": 448,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 407,
+      "exp": 520548,
+      "energy": 232,
+      "deck_cost": 448,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 408,
+      "exp": 523626,
+      "energy": 232,
+      "deck_cost": 449,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 409,
+      "exp": 526710,
+      "energy": 232,
+      "deck_cost": 450,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 410,
+      "exp": 529800,
+      "energy": 233,
+      "deck_cost": 450,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 411,
+      "exp": 532896,
+      "energy": 233,
+      "deck_cost": 451,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 412,
+      "exp": 535998,
+      "energy": 233,
+      "deck_cost": 452,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 413,
+      "exp": 539106,
+      "energy": 234,
+      "deck_cost": 452,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 414,
+      "exp": 542220,
+      "energy": 234,
+      "deck_cost": 453,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 415,
+      "exp": 545340,
+      "energy": 234,
+      "deck_cost": 454,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 416,
+      "exp": 548466,
+      "energy": 235,
+      "deck_cost": 454,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 417,
+      "exp": 551598,
+      "energy": 235,
+      "deck_cost": 455,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 418,
+      "exp": 554736,
+      "energy": 235,
+      "deck_cost": 456,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 419,
+      "exp": 557880,
+      "energy": 236,
+      "deck_cost": 456,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 420,
+      "exp": 561030,
+      "energy": 236,
+      "deck_cost": 457,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 421,
+      "exp": 564186,
+      "energy": 236,
+      "deck_cost": 458,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 422,
+      "exp": 567348,
+      "energy": 237,
+      "deck_cost": 458,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 423,
+      "exp": 570516,
+      "energy": 237,
+      "deck_cost": 459,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 424,
+      "exp": 573690,
+      "energy": 237,
+      "deck_cost": 460,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 425,
+      "exp": 576870,
+      "energy": 238,
+      "deck_cost": 460,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 426,
+      "exp": 580056,
+      "energy": 238,
+      "deck_cost": 461,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 427,
+      "exp": 583248,
+      "energy": 238,
+      "deck_cost": 462,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 428,
+      "exp": 586446,
+      "energy": 239,
+      "deck_cost": 462,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 429,
+      "exp": 589650,
+      "energy": 239,
+      "deck_cost": 463,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 430,
+      "exp": 592860,
+      "energy": 239,
+      "deck_cost": 464,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 431,
+      "exp": 596076,
+      "energy": 240,
+      "deck_cost": 464,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 432,
+      "exp": 599298,
+      "energy": 240,
+      "deck_cost": 465,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 433,
+      "exp": 602526,
+      "energy": 240,
+      "deck_cost": 466,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 434,
+      "exp": 605760,
+      "energy": 241,
+      "deck_cost": 466,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 435,
+      "exp": 609000,
+      "energy": 241,
+      "deck_cost": 467,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 436,
+      "exp": 612246,
+      "energy": 241,
+      "deck_cost": 468,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 437,
+      "exp": 615498,
+      "energy": 242,
+      "deck_cost": 468,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 438,
+      "exp": 618756,
+      "energy": 242,
+      "deck_cost": 469,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 439,
+      "exp": 622020,
+      "energy": 242,
+      "deck_cost": 470,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 440,
+      "exp": 625290,
+      "energy": 243,
+      "deck_cost": 470,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 441,
+      "exp": 628566,
+      "energy": 243,
+      "deck_cost": 471,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 442,
+      "exp": 631848,
+      "energy": 243,
+      "deck_cost": 472,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 443,
+      "exp": 635136,
+      "energy": 244,
+      "deck_cost": 472,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 444,
+      "exp": 638430,
+      "energy": 244,
+      "deck_cost": 473,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 445,
+      "exp": 641730,
+      "energy": 244,
+      "deck_cost": 474,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 446,
+      "exp": 645036,
+      "energy": 245,
+      "deck_cost": 474,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 447,
+      "exp": 648348,
+      "energy": 245,
+      "deck_cost": 475,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 448,
+      "exp": 651666,
+      "energy": 245,
+      "deck_cost": 476,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 449,
+      "exp": 654990,
+      "energy": 246,
+      "deck_cost": 476,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 450,
+      "exp": 658320,
+      "energy": 246,
+      "deck_cost": 477,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 451,
+      "exp": 662107,
+      "energy": 246,
+      "deck_cost": 478,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 452,
+      "exp": 665901,
+      "energy": 247,
+      "deck_cost": 478,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 453,
+      "exp": 669702,
+      "energy": 247,
+      "deck_cost": 479,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 454,
+      "exp": 673510,
+      "energy": 247,
+      "deck_cost": 480,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 455,
+      "exp": 677325,
+      "energy": 248,
+      "deck_cost": 480,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 456,
+      "exp": 681147,
+      "energy": 248,
+      "deck_cost": 481,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 457,
+      "exp": 684976,
+      "energy": 248,
+      "deck_cost": 482,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 458,
+      "exp": 688812,
+      "energy": 249,
+      "deck_cost": 482,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 459,
+      "exp": 692655,
+      "energy": 249,
+      "deck_cost": 483,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 460,
+      "exp": 696505,
+      "energy": 249,
+      "deck_cost": 484,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 461,
+      "exp": 700362,
+      "energy": 250,
+      "deck_cost": 484,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 462,
+      "exp": 704226,
+      "energy": 250,
+      "deck_cost": 485,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 463,
+      "exp": 708097,
+      "energy": 250,
+      "deck_cost": 486,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 464,
+      "exp": 711975,
+      "energy": 251,
+      "deck_cost": 486,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 465,
+      "exp": 715860,
+      "energy": 251,
+      "deck_cost": 487,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 466,
+      "exp": 719752,
+      "energy": 251,
+      "deck_cost": 488,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 467,
+      "exp": 723651,
+      "energy": 252,
+      "deck_cost": 488,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 468,
+      "exp": 727557,
+      "energy": 252,
+      "deck_cost": 489,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 469,
+      "exp": 731470,
+      "energy": 252,
+      "deck_cost": 490,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 470,
+      "exp": 735390,
+      "energy": 253,
+      "deck_cost": 490,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 471,
+      "exp": 739317,
+      "energy": 253,
+      "deck_cost": 491,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 472,
+      "exp": 743251,
+      "energy": 253,
+      "deck_cost": 492,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 473,
+      "exp": 747192,
+      "energy": 254,
+      "deck_cost": 492,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 474,
+      "exp": 751140,
+      "energy": 254,
+      "deck_cost": 493,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 475,
+      "exp": 755095,
+      "energy": 254,
+      "deck_cost": 494,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 476,
+      "exp": 759057,
+      "energy": 255,
+      "deck_cost": 494,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 477,
+      "exp": 763026,
+      "energy": 255,
+      "deck_cost": 495,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 478,
+      "exp": 767002,
+      "energy": 255,
+      "deck_cost": 496,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 479,
+      "exp": 770985,
+      "energy": 256,
+      "deck_cost": 496,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 480,
+      "exp": 774975,
+      "energy": 256,
+      "deck_cost": 497,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 481,
+      "exp": 778972,
+      "energy": 256,
+      "deck_cost": 498,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 482,
+      "exp": 782976,
+      "energy": 257,
+      "deck_cost": 498,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 483,
+      "exp": 786987,
+      "energy": 257,
+      "deck_cost": 499,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 484,
+      "exp": 791005,
+      "energy": 257,
+      "deck_cost": 500,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 485,
+      "exp": 795030,
+      "energy": 258,
+      "deck_cost": 500,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 486,
+      "exp": 799062,
+      "energy": 258,
+      "deck_cost": 501,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 487,
+      "exp": 803101,
+      "energy": 258,
+      "deck_cost": 502,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 488,
+      "exp": 807147,
+      "energy": 259,
+      "deck_cost": 502,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 489,
+      "exp": 811200,
+      "energy": 259,
+      "deck_cost": 503,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 490,
+      "exp": 815260,
+      "energy": 259,
+      "deck_cost": 504,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 491,
+      "exp": 819327,
+      "energy": 260,
+      "deck_cost": 504,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 492,
+      "exp": 823401,
+      "energy": 260,
+      "deck_cost": 505,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 493,
+      "exp": 827482,
+      "energy": 260,
+      "deck_cost": 506,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 494,
+      "exp": 831570,
+      "energy": 261,
+      "deck_cost": 506,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 495,
+      "exp": 835665,
+      "energy": 261,
+      "deck_cost": 507,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 496,
+      "exp": 839767,
+      "energy": 261,
+      "deck_cost": 508,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 497,
+      "exp": 843876,
+      "energy": 262,
+      "deck_cost": 508,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 498,
+      "exp": 847992,
+      "energy": 262,
+      "deck_cost": 509,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 499,
+      "exp": 852115,
+      "energy": 262,
+      "deck_cost": 510,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 500,
+      "exp": 856245,
+      "energy": 263,
+      "deck_cost": 510,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 501,
+      "exp": 860883,
+      "energy": 265,
+      "deck_cost": 511,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 502,
+      "exp": 864397,
+      "energy": 265,
+      "deck_cost": 512,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 503,
+      "exp": 867415,
+      "energy": 266,
+      "deck_cost": 512,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 504,
+      "exp": 869935,
+      "energy": 266,
+      "deck_cost": 513,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 505,
+      "exp": 872208,
+      "energy": 266,
+      "deck_cost": 514,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 506,
+      "exp": 874232,
+      "energy": 267,
+      "deck_cost": 514,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 507,
+      "exp": 876007,
+      "energy": 267,
+      "deck_cost": 515,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 508,
+      "exp": 877531,
+      "energy": 267,
+      "deck_cost": 516,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 509,
+      "exp": 879007,
+      "energy": 268,
+      "deck_cost": 516,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 510,
+      "exp": 880435,
+      "energy": 268,
+      "deck_cost": 517,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 511,
+      "exp": 881815,
+      "energy": 268,
+      "deck_cost": 518,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 512,
+      "exp": 883146,
+      "energy": 269,
+      "deck_cost": 518,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 513,
+      "exp": 884429,
+      "energy": 269,
+      "deck_cost": 519,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 514,
+      "exp": 885688,
+      "energy": 269,
+      "deck_cost": 520,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 515,
+      "exp": 886924,
+      "energy": 270,
+      "deck_cost": 520,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 516,
+      "exp": 888137,
+      "energy": 270,
+      "deck_cost": 521,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 517,
+      "exp": 889326,
+      "energy": 270,
+      "deck_cost": 522,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 518,
+      "exp": 890492,
+      "energy": 271,
+      "deck_cost": 522,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 519,
+      "exp": 891634,
+      "energy": 271,
+      "deck_cost": 523,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 520,
+      "exp": 892752,
+      "energy": 271,
+      "deck_cost": 524,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 521,
+      "exp": 893846,
+      "energy": 272,
+      "deck_cost": 524,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 522,
+      "exp": 894916,
+      "energy": 272,
+      "deck_cost": 525,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 523,
+      "exp": 895962,
+      "energy": 272,
+      "deck_cost": 526,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 524,
+      "exp": 896984,
+      "energy": 273,
+      "deck_cost": 526,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 525,
+      "exp": 897982,
+      "energy": 273,
+      "deck_cost": 527,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 526,
+      "exp": 898955,
+      "energy": 273,
+      "deck_cost": 528,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 527,
+      "exp": 899904,
+      "energy": 274,
+      "deck_cost": 528,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 528,
+      "exp": 900828,
+      "energy": 274,
+      "deck_cost": 529,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 529,
+      "exp": 901727,
+      "energy": 274,
+      "deck_cost": 530,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 530,
+      "exp": 902602,
+      "energy": 275,
+      "deck_cost": 530,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 531,
+      "exp": 903452,
+      "energy": 275,
+      "deck_cost": 531,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 532,
+      "exp": 904277,
+      "energy": 275,
+      "deck_cost": 532,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 533,
+      "exp": 905077,
+      "energy": 276,
+      "deck_cost": 532,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 534,
+      "exp": 905851,
+      "energy": 276,
+      "deck_cost": 533,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 535,
+      "exp": 906600,
+      "energy": 276,
+      "deck_cost": 534,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 536,
+      "exp": 907324,
+      "energy": 277,
+      "deck_cost": 534,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 537,
+      "exp": 908022,
+      "energy": 277,
+      "deck_cost": 535,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 538,
+      "exp": 908695,
+      "energy": 277,
+      "deck_cost": 536,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 539,
+      "exp": 909342,
+      "energy": 278,
+      "deck_cost": 536,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 540,
+      "exp": 909963,
+      "energy": 278,
+      "deck_cost": 537,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 541,
+      "exp": 910558,
+      "energy": 278,
+      "deck_cost": 538,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 542,
+      "exp": 911127,
+      "energy": 279,
+      "deck_cost": 538,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 543,
+      "exp": 911670,
+      "energy": 279,
+      "deck_cost": 539,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 544,
+      "exp": 912209,
+      "energy": 279,
+      "deck_cost": 540,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 545,
+      "exp": 912743,
+      "energy": 280,
+      "deck_cost": 540,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 546,
+      "exp": 913273,
+      "energy": 280,
+      "deck_cost": 541,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 547,
+      "exp": 913798,
+      "energy": 280,
+      "deck_cost": 542,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 548,
+      "exp": 914319,
+      "energy": 281,
+      "deck_cost": 542,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 549,
+      "exp": 914835,
+      "energy": 281,
+      "deck_cost": 543,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 550,
+      "exp": 915347,
+      "energy": 281,
+      "deck_cost": 544,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 551,
+      "exp": 915854,
+      "energy": 282,
+      "deck_cost": 544,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 552,
+      "exp": 916356,
+      "energy": 282,
+      "deck_cost": 545,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 553,
+      "exp": 916854,
+      "energy": 282,
+      "deck_cost": 546,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 554,
+      "exp": 917347,
+      "energy": 283,
+      "deck_cost": 546,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 555,
+      "exp": 917835,
+      "energy": 283,
+      "deck_cost": 547,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 556,
+      "exp": 918319,
+      "energy": 283,
+      "deck_cost": 548,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 557,
+      "exp": 918798,
+      "energy": 284,
+      "deck_cost": 548,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 558,
+      "exp": 919272,
+      "energy": 284,
+      "deck_cost": 549,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 559,
+      "exp": 919742,
+      "energy": 284,
+      "deck_cost": 550,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 560,
+      "exp": 920207,
+      "energy": 285,
+      "deck_cost": 550,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 561,
+      "exp": 920667,
+      "energy": 285,
+      "deck_cost": 551,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 562,
+      "exp": 921122,
+      "energy": 285,
+      "deck_cost": 552,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 563,
+      "exp": 921572,
+      "energy": 286,
+      "deck_cost": 552,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 564,
+      "exp": 922018,
+      "energy": 286,
+      "deck_cost": 553,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 565,
+      "exp": 922459,
+      "energy": 286,
+      "deck_cost": 554,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 566,
+      "exp": 922895,
+      "energy": 287,
+      "deck_cost": 554,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 567,
+      "exp": 923326,
+      "energy": 287,
+      "deck_cost": 555,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 568,
+      "exp": 923752,
+      "energy": 287,
+      "deck_cost": 556,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 569,
+      "exp": 924173,
+      "energy": 288,
+      "deck_cost": 556,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 570,
+      "exp": 924589,
+      "energy": 288,
+      "deck_cost": 557,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 571,
+      "exp": 925000,
+      "energy": 288,
+      "deck_cost": 558,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 572,
+      "exp": 925406,
+      "energy": 289,
+      "deck_cost": 558,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 573,
+      "exp": 925807,
+      "energy": 289,
+      "deck_cost": 559,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 574,
+      "exp": 926203,
+      "energy": 289,
+      "deck_cost": 560,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 575,
+      "exp": 926594,
+      "energy": 290,
+      "deck_cost": 560,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 576,
+      "exp": 926980,
+      "energy": 290,
+      "deck_cost": 561,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 577,
+      "exp": 927361,
+      "energy": 290,
+      "deck_cost": 562,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 578,
+      "exp": 927737,
+      "energy": 291,
+      "deck_cost": 562,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 579,
+      "exp": 928108,
+      "energy": 291,
+      "deck_cost": 563,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 580,
+      "exp": 928473,
+      "energy": 291,
+      "deck_cost": 564,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 581,
+      "exp": 928833,
+      "energy": 292,
+      "deck_cost": 564,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 582,
+      "exp": 929188,
+      "energy": 292,
+      "deck_cost": 565,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 583,
+      "exp": 929538,
+      "energy": 292,
+      "deck_cost": 566,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 584,
+      "exp": 929883,
+      "energy": 293,
+      "deck_cost": 566,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 585,
+      "exp": 930222,
+      "energy": 293,
+      "deck_cost": 567,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 586,
+      "exp": 930556,
+      "energy": 293,
+      "deck_cost": 568,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 587,
+      "exp": 930885,
+      "energy": 294,
+      "deck_cost": 568,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 588,
+      "exp": 931208,
+      "energy": 294,
+      "deck_cost": 569,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 589,
+      "exp": 931526,
+      "energy": 294,
+      "deck_cost": 570,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 590,
+      "exp": 931839,
+      "energy": 295,
+      "deck_cost": 570,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 591,
+      "exp": 932146,
+      "energy": 295,
+      "deck_cost": 571,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 592,
+      "exp": 932448,
+      "energy": 295,
+      "deck_cost": 572,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 593,
+      "exp": 932745,
+      "energy": 296,
+      "deck_cost": 572,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 594,
+      "exp": 933041,
+      "energy": 296,
+      "deck_cost": 573,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 595,
+      "exp": 933337,
+      "energy": 296,
+      "deck_cost": 574,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 596,
+      "exp": 933633,
+      "energy": 297,
+      "deck_cost": 574,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 597,
+      "exp": 933929,
+      "energy": 297,
+      "deck_cost": 575,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 598,
+      "exp": 934225,
+      "energy": 297,
+      "deck_cost": 576,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 599,
+      "exp": 934521,
+      "energy": 298,
+      "deck_cost": 576,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 600,
+      "exp": 934817,
+      "energy": 298,
+      "deck_cost": 577,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 601,
+      "exp": 935113,
+      "energy": 298,
+      "deck_cost": 578,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 602,
+      "exp": 935409,
+      "energy": 299,
+      "deck_cost": 578,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 603,
+      "exp": 935704,
+      "energy": 299,
+      "deck_cost": 579,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 604,
+      "exp": 935999,
+      "energy": 299,
+      "deck_cost": 580,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 605,
+      "exp": 936294,
+      "energy": 300,
+      "deck_cost": 580,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 606,
+      "exp": 936589,
+      "energy": 300,
+      "deck_cost": 581,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 607,
+      "exp": 936884,
+      "energy": 300,
+      "deck_cost": 582,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 608,
+      "exp": 937179,
+      "energy": 301,
+      "deck_cost": 582,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 609,
+      "exp": 937474,
+      "energy": 301,
+      "deck_cost": 583,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 610,
+      "exp": 937769,
+      "energy": 301,
+      "deck_cost": 584,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 611,
+      "exp": 938064,
+      "energy": 302,
+      "deck_cost": 584,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 612,
+      "exp": 938358,
+      "energy": 302,
+      "deck_cost": 585,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 613,
+      "exp": 938652,
+      "energy": 302,
+      "deck_cost": 586,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 614,
+      "exp": 938946,
+      "energy": 303,
+      "deck_cost": 586,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 615,
+      "exp": 939240,
+      "energy": 303,
+      "deck_cost": 587,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 616,
+      "exp": 939534,
+      "energy": 303,
+      "deck_cost": 588,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 617,
+      "exp": 939828,
+      "energy": 304,
+      "deck_cost": 588,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 618,
+      "exp": 940122,
+      "energy": 304,
+      "deck_cost": 589,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 619,
+      "exp": 940415,
+      "energy": 304,
+      "deck_cost": 590,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 620,
+      "exp": 940708,
+      "energy": 305,
+      "deck_cost": 590,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 621,
+      "exp": 941001,
+      "energy": 305,
+      "deck_cost": 591,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 622,
+      "exp": 941294,
+      "energy": 305,
+      "deck_cost": 592,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 623,
+      "exp": 941587,
+      "energy": 306,
+      "deck_cost": 592,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 624,
+      "exp": 941880,
+      "energy": 306,
+      "deck_cost": 593,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 625,
+      "exp": 942173,
+      "energy": 306,
+      "deck_cost": 594,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 626,
+      "exp": 942465,
+      "energy": 307,
+      "deck_cost": 594,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 627,
+      "exp": 942757,
+      "energy": 307,
+      "deck_cost": 595,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 628,
+      "exp": 943049,
+      "energy": 307,
+      "deck_cost": 596,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 629,
+      "exp": 943341,
+      "energy": 308,
+      "deck_cost": 596,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 630,
+      "exp": 943633,
+      "energy": 308,
+      "deck_cost": 597,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 631,
+      "exp": 943925,
+      "energy": 308,
+      "deck_cost": 598,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 632,
+      "exp": 944216,
+      "energy": 309,
+      "deck_cost": 598,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 633,
+      "exp": 944507,
+      "energy": 309,
+      "deck_cost": 599,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 634,
+      "exp": 944798,
+      "energy": 309,
+      "deck_cost": 600,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 635,
+      "exp": 945089,
+      "energy": 310,
+      "deck_cost": 600,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 636,
+      "exp": 945380,
+      "energy": 310,
+      "deck_cost": 601,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 637,
+      "exp": 945670,
+      "energy": 310,
+      "deck_cost": 602,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 638,
+      "exp": 945960,
+      "energy": 311,
+      "deck_cost": 602,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 639,
+      "exp": 946250,
+      "energy": 311,
+      "deck_cost": 603,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 640,
+      "exp": 946540,
+      "energy": 311,
+      "deck_cost": 604,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 641,
+      "exp": 946830,
+      "energy": 312,
+      "deck_cost": 604,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 642,
+      "exp": 947120,
+      "energy": 312,
+      "deck_cost": 605,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 643,
+      "exp": 947409,
+      "energy": 312,
+      "deck_cost": 606,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 644,
+      "exp": 947698,
+      "energy": 313,
+      "deck_cost": 606,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 645,
+      "exp": 947987,
+      "energy": 313,
+      "deck_cost": 607,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 646,
+      "exp": 948276,
+      "energy": 313,
+      "deck_cost": 608,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 647,
+      "exp": 948565,
+      "energy": 314,
+      "deck_cost": 608,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 648,
+      "exp": 948853,
+      "energy": 314,
+      "deck_cost": 609,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 649,
+      "exp": 949141,
+      "energy": 314,
+      "deck_cost": 610,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 650,
+      "exp": 949429,
+      "energy": 315,
+      "deck_cost": 610,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 651,
+      "exp": 949717,
+      "energy": 315,
+      "deck_cost": 611,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 652,
+      "exp": 950005,
+      "energy": 315,
+      "deck_cost": 612,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 653,
+      "exp": 950292,
+      "energy": 316,
+      "deck_cost": 612,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 654,
+      "exp": 950579,
+      "energy": 316,
+      "deck_cost": 613,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 655,
+      "exp": 950866,
+      "energy": 316,
+      "deck_cost": 614,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 656,
+      "exp": 951153,
+      "energy": 317,
+      "deck_cost": 614,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 657,
+      "exp": 951439,
+      "energy": 317,
+      "deck_cost": 615,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 658,
+      "exp": 951725,
+      "energy": 317,
+      "deck_cost": 616,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 659,
+      "exp": 952011,
+      "energy": 318,
+      "deck_cost": 616,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 660,
+      "exp": 952297,
+      "energy": 318,
+      "deck_cost": 617,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 661,
+      "exp": 952583,
+      "energy": 318,
+      "deck_cost": 618,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 662,
+      "exp": 952868,
+      "energy": 319,
+      "deck_cost": 618,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 663,
+      "exp": 953153,
+      "energy": 319,
+      "deck_cost": 619,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 664,
+      "exp": 953438,
+      "energy": 319,
+      "deck_cost": 620,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 665,
+      "exp": 953723,
+      "energy": 320,
+      "deck_cost": 620,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 666,
+      "exp": 954007,
+      "energy": 320,
+      "deck_cost": 621,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 667,
+      "exp": 954291,
+      "energy": 320,
+      "deck_cost": 622,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 668,
+      "exp": 954575,
+      "energy": 321,
+      "deck_cost": 622,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 669,
+      "exp": 954859,
+      "energy": 321,
+      "deck_cost": 623,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 670,
+      "exp": 955142,
+      "energy": 321,
+      "deck_cost": 624,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 671,
+      "exp": 955425,
+      "energy": 322,
+      "deck_cost": 624,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 672,
+      "exp": 955708,
+      "energy": 322,
+      "deck_cost": 625,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 673,
+      "exp": 955991,
+      "energy": 322,
+      "deck_cost": 626,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 674,
+      "exp": 956273,
+      "energy": 323,
+      "deck_cost": 626,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 675,
+      "exp": 956555,
+      "energy": 323,
+      "deck_cost": 627,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 676,
+      "exp": 956837,
+      "energy": 323,
+      "deck_cost": 628,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 677,
+      "exp": 957119,
+      "energy": 324,
+      "deck_cost": 628,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 678,
+      "exp": 957400,
+      "energy": 324,
+      "deck_cost": 629,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 679,
+      "exp": 957681,
+      "energy": 324,
+      "deck_cost": 630,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 680,
+      "exp": 957962,
+      "energy": 325,
+      "deck_cost": 630,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 681,
+      "exp": 958243,
+      "energy": 325,
+      "deck_cost": 631,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 682,
+      "exp": 958523,
+      "energy": 325,
+      "deck_cost": 632,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 683,
+      "exp": 958803,
+      "energy": 326,
+      "deck_cost": 632,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 684,
+      "exp": 959083,
+      "energy": 326,
+      "deck_cost": 633,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 685,
+      "exp": 959362,
+      "energy": 326,
+      "deck_cost": 634,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 686,
+      "exp": 959641,
+      "energy": 327,
+      "deck_cost": 634,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 687,
+      "exp": 959920,
+      "energy": 327,
+      "deck_cost": 635,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 688,
+      "exp": 960199,
+      "energy": 327,
+      "deck_cost": 636,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 689,
+      "exp": 960477,
+      "energy": 328,
+      "deck_cost": 636,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 690,
+      "exp": 960755,
+      "energy": 328,
+      "deck_cost": 637,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 691,
+      "exp": 961033,
+      "energy": 328,
+      "deck_cost": 638,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 692,
+      "exp": 961310,
+      "energy": 329,
+      "deck_cost": 638,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 693,
+      "exp": 961587,
+      "energy": 329,
+      "deck_cost": 639,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 694,
+      "exp": 961864,
+      "energy": 329,
+      "deck_cost": 640,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 695,
+      "exp": 962141,
+      "energy": 330,
+      "deck_cost": 640,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 696,
+      "exp": 962417,
+      "energy": 330,
+      "deck_cost": 641,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 697,
+      "exp": 962693,
+      "energy": 330,
+      "deck_cost": 642,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 698,
+      "exp": 962969,
+      "energy": 331,
+      "deck_cost": 642,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 699,
+      "exp": 963244,
+      "energy": 331,
+      "deck_cost": 643,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 700,
+      "exp": 963519,
+      "energy": 331,
+      "deck_cost": 644,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 701,
+      "exp": 963794,
+      "energy": 332,
+      "deck_cost": 644,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 702,
+      "exp": 964068,
+      "energy": 332,
+      "deck_cost": 645,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 703,
+      "exp": 964342,
+      "energy": 332,
+      "deck_cost": 646,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 704,
+      "exp": 964616,
+      "energy": 333,
+      "deck_cost": 646,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 705,
+      "exp": 964890,
+      "energy": 333,
+      "deck_cost": 647,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 706,
+      "exp": 965163,
+      "energy": 333,
+      "deck_cost": 648,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 707,
+      "exp": 965436,
+      "energy": 334,
+      "deck_cost": 648,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 708,
+      "exp": 965709,
+      "energy": 334,
+      "deck_cost": 649,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 709,
+      "exp": 965981,
+      "energy": 334,
+      "deck_cost": 650,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 710,
+      "exp": 966253,
+      "energy": 335,
+      "deck_cost": 650,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 711,
+      "exp": 966525,
+      "energy": 335,
+      "deck_cost": 651,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 712,
+      "exp": 966796,
+      "energy": 335,
+      "deck_cost": 652,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 713,
+      "exp": 967067,
+      "energy": 336,
+      "deck_cost": 652,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 714,
+      "exp": 967338,
+      "energy": 336,
+      "deck_cost": 653,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 715,
+      "exp": 967608,
+      "energy": 336,
+      "deck_cost": 654,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 716,
+      "exp": 967878,
+      "energy": 337,
+      "deck_cost": 654,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 717,
+      "exp": 968148,
+      "energy": 337,
+      "deck_cost": 655,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 718,
+      "exp": 968417,
+      "energy": 337,
+      "deck_cost": 656,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 719,
+      "exp": 968686,
+      "energy": 338,
+      "deck_cost": 656,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 720,
+      "exp": 968955,
+      "energy": 338,
+      "deck_cost": 657,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 721,
+      "exp": 969223,
+      "energy": 338,
+      "deck_cost": 658,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 722,
+      "exp": 969491,
+      "energy": 339,
+      "deck_cost": 658,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 723,
+      "exp": 969759,
+      "energy": 339,
+      "deck_cost": 659,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 724,
+      "exp": 970026,
+      "energy": 339,
+      "deck_cost": 660,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 725,
+      "exp": 970293,
+      "energy": 340,
+      "deck_cost": 660,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 726,
+      "exp": 970559,
+      "energy": 340,
+      "deck_cost": 661,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 727,
+      "exp": 970825,
+      "energy": 340,
+      "deck_cost": 662,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 728,
+      "exp": 971091,
+      "energy": 341,
+      "deck_cost": 662,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 729,
+      "exp": 971356,
+      "energy": 341,
+      "deck_cost": 663,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 730,
+      "exp": 971621,
+      "energy": 341,
+      "deck_cost": 664,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 731,
+      "exp": 971886,
+      "energy": 342,
+      "deck_cost": 664,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 732,
+      "exp": 972150,
+      "energy": 342,
+      "deck_cost": 665,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 733,
+      "exp": 972414,
+      "energy": 342,
+      "deck_cost": 666,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 734,
+      "exp": 972678,
+      "energy": 343,
+      "deck_cost": 666,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 735,
+      "exp": 972941,
+      "energy": 343,
+      "deck_cost": 667,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 736,
+      "exp": 973204,
+      "energy": 343,
+      "deck_cost": 668,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 737,
+      "exp": 973466,
+      "energy": 344,
+      "deck_cost": 668,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 738,
+      "exp": 973728,
+      "energy": 344,
+      "deck_cost": 669,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 739,
+      "exp": 973990,
+      "energy": 344,
+      "deck_cost": 670,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 740,
+      "exp": 974251,
+      "energy": 345,
+      "deck_cost": 670,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 741,
+      "exp": 974512,
+      "energy": 345,
+      "deck_cost": 671,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 742,
+      "exp": 974772,
+      "energy": 345,
+      "deck_cost": 672,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 743,
+      "exp": 975032,
+      "energy": 346,
+      "deck_cost": 672,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 744,
+      "exp": 975292,
+      "energy": 346,
+      "deck_cost": 673,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 745,
+      "exp": 975551,
+      "energy": 346,
+      "deck_cost": 674,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 746,
+      "exp": 975810,
+      "energy": 347,
+      "deck_cost": 674,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 747,
+      "exp": 976068,
+      "energy": 347,
+      "deck_cost": 675,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 748,
+      "exp": 976326,
+      "energy": 347,
+      "deck_cost": 676,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 749,
+      "exp": 976584,
+      "energy": 348,
+      "deck_cost": 676,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 750,
+      "exp": 976841,
+      "energy": 348,
+      "deck_cost": 677,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 751,
+      "exp": 977098,
+      "energy": 348,
+      "deck_cost": 678,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 752,
+      "exp": 977354,
+      "energy": 349,
+      "deck_cost": 678,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 753,
+      "exp": 977610,
+      "energy": 349,
+      "deck_cost": 679,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 754,
+      "exp": 977866,
+      "energy": 349,
+      "deck_cost": 680,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 755,
+      "exp": 978121,
+      "energy": 350,
+      "deck_cost": 680,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 756,
+      "exp": 978376,
+      "energy": 350,
+      "deck_cost": 681,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 757,
+      "exp": 978630,
+      "energy": 350,
+      "deck_cost": 682,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 758,
+      "exp": 978884,
+      "energy": 351,
+      "deck_cost": 682,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 759,
+      "exp": 979138,
+      "energy": 351,
+      "deck_cost": 683,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 760,
+      "exp": 979391,
+      "energy": 351,
+      "deck_cost": 684,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 761,
+      "exp": 979644,
+      "energy": 352,
+      "deck_cost": 684,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 762,
+      "exp": 979896,
+      "energy": 352,
+      "deck_cost": 685,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 763,
+      "exp": 980148,
+      "energy": 352,
+      "deck_cost": 686,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 764,
+      "exp": 980399,
+      "energy": 353,
+      "deck_cost": 686,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 765,
+      "exp": 980650,
+      "energy": 353,
+      "deck_cost": 687,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 766,
+      "exp": 980900,
+      "energy": 353,
+      "deck_cost": 688,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 767,
+      "exp": 981150,
+      "energy": 354,
+      "deck_cost": 688,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 768,
+      "exp": 981400,
+      "energy": 354,
+      "deck_cost": 689,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 769,
+      "exp": 981649,
+      "energy": 354,
+      "deck_cost": 690,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 770,
+      "exp": 981898,
+      "energy": 355,
+      "deck_cost": 690,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 771,
+      "exp": 982146,
+      "energy": 355,
+      "deck_cost": 691,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 772,
+      "exp": 982394,
+      "energy": 355,
+      "deck_cost": 692,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 773,
+      "exp": 982641,
+      "energy": 356,
+      "deck_cost": 692,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 774,
+      "exp": 982888,
+      "energy": 356,
+      "deck_cost": 693,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 775,
+      "exp": 983134,
+      "energy": 356,
+      "deck_cost": 694,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 776,
+      "exp": 983380,
+      "energy": 357,
+      "deck_cost": 694,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 777,
+      "exp": 983626,
+      "energy": 357,
+      "deck_cost": 695,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 778,
+      "exp": 983871,
+      "energy": 357,
+      "deck_cost": 696,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 779,
+      "exp": 984116,
+      "energy": 358,
+      "deck_cost": 696,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 780,
+      "exp": 984360,
+      "energy": 358,
+      "deck_cost": 697,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 781,
+      "exp": 984604,
+      "energy": 358,
+      "deck_cost": 698,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 782,
+      "exp": 984847,
+      "energy": 359,
+      "deck_cost": 698,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 783,
+      "exp": 985090,
+      "energy": 359,
+      "deck_cost": 699,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 784,
+      "exp": 985332,
+      "energy": 359,
+      "deck_cost": 700,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 785,
+      "exp": 985574,
+      "energy": 360,
+      "deck_cost": 700,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 786,
+      "exp": 985815,
+      "energy": 360,
+      "deck_cost": 701,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 787,
+      "exp": 986056,
+      "energy": 360,
+      "deck_cost": 702,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 788,
+      "exp": 986296,
+      "energy": 361,
+      "deck_cost": 702,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 789,
+      "exp": 986536,
+      "energy": 361,
+      "deck_cost": 703,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 790,
+      "exp": 986775,
+      "energy": 361,
+      "deck_cost": 704,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 791,
+      "exp": 987014,
+      "energy": 362,
+      "deck_cost": 704,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 792,
+      "exp": 987252,
+      "energy": 362,
+      "deck_cost": 705,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 793,
+      "exp": 987490,
+      "energy": 362,
+      "deck_cost": 706,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 794,
+      "exp": 987727,
+      "energy": 363,
+      "deck_cost": 706,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 795,
+      "exp": 987964,
+      "energy": 363,
+      "deck_cost": 707,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 796,
+      "exp": 988200,
+      "energy": 363,
+      "deck_cost": 708,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 797,
+      "exp": 988436,
+      "energy": 364,
+      "deck_cost": 708,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 798,
+      "exp": 988671,
+      "energy": 364,
+      "deck_cost": 709,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 799,
+      "exp": 988906,
+      "energy": 364,
+      "deck_cost": 710,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 800,
+      "exp": 989140,
+      "energy": 365,
+      "deck_cost": 710,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 801,
+      "exp": 989374,
+      "energy": 365,
+      "deck_cost": 711,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 802,
+      "exp": 989607,
+      "energy": 365,
+      "deck_cost": 712,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 803,
+      "exp": 989840,
+      "energy": 366,
+      "deck_cost": 712,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 804,
+      "exp": 990072,
+      "energy": 366,
+      "deck_cost": 713,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 805,
+      "exp": 990304,
+      "energy": 366,
+      "deck_cost": 714,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 806,
+      "exp": 990535,
+      "energy": 367,
+      "deck_cost": 714,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 807,
+      "exp": 990766,
+      "energy": 367,
+      "deck_cost": 715,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 808,
+      "exp": 990996,
+      "energy": 367,
+      "deck_cost": 716,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 809,
+      "exp": 991226,
+      "energy": 368,
+      "deck_cost": 716,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 810,
+      "exp": 991455,
+      "energy": 368,
+      "deck_cost": 717,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 811,
+      "exp": 991684,
+      "energy": 368,
+      "deck_cost": 718,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 812,
+      "exp": 991912,
+      "energy": 369,
+      "deck_cost": 718,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 813,
+      "exp": 992140,
+      "energy": 369,
+      "deck_cost": 719,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 814,
+      "exp": 992367,
+      "energy": 369,
+      "deck_cost": 720,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 815,
+      "exp": 992594,
+      "energy": 370,
+      "deck_cost": 720,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 816,
+      "exp": 992820,
+      "energy": 370,
+      "deck_cost": 721,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 817,
+      "exp": 993045,
+      "energy": 370,
+      "deck_cost": 722,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 818,
+      "exp": 993270,
+      "energy": 371,
+      "deck_cost": 722,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 819,
+      "exp": 993494,
+      "energy": 371,
+      "deck_cost": 723,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 820,
+      "exp": 993718,
+      "energy": 371,
+      "deck_cost": 724,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 821,
+      "exp": 993941,
+      "energy": 372,
+      "deck_cost": 724,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 822,
+      "exp": 994164,
+      "energy": 372,
+      "deck_cost": 725,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 823,
+      "exp": 994386,
+      "energy": 372,
+      "deck_cost": 726,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 824,
+      "exp": 994608,
+      "energy": 373,
+      "deck_cost": 726,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 825,
+      "exp": 994829,
+      "energy": 373,
+      "deck_cost": 727,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 826,
+      "exp": 995050,
+      "energy": 373,
+      "deck_cost": 728,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 827,
+      "exp": 995270,
+      "energy": 374,
+      "deck_cost": 728,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 828,
+      "exp": 995489,
+      "energy": 374,
+      "deck_cost": 729,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 829,
+      "exp": 995708,
+      "energy": 374,
+      "deck_cost": 730,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 830,
+      "exp": 995926,
+      "energy": 375,
+      "deck_cost": 730,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 831,
+      "exp": 996144,
+      "energy": 375,
+      "deck_cost": 731,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 832,
+      "exp": 996361,
+      "energy": 375,
+      "deck_cost": 732,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 833,
+      "exp": 996578,
+      "energy": 376,
+      "deck_cost": 732,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 834,
+      "exp": 996794,
+      "energy": 376,
+      "deck_cost": 733,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 835,
+      "exp": 997009,
+      "energy": 376,
+      "deck_cost": 734,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 836,
+      "exp": 997224,
+      "energy": 377,
+      "deck_cost": 734,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 837,
+      "exp": 997438,
+      "energy": 377,
+      "deck_cost": 735,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 838,
+      "exp": 997652,
+      "energy": 377,
+      "deck_cost": 736,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 839,
+      "exp": 997865,
+      "energy": 378,
+      "deck_cost": 736,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 840,
+      "exp": 998078,
+      "energy": 378,
+      "deck_cost": 737,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 841,
+      "exp": 998290,
+      "energy": 378,
+      "deck_cost": 738,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 842,
+      "exp": 998501,
+      "energy": 379,
+      "deck_cost": 738,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 843,
+      "exp": 998712,
+      "energy": 379,
+      "deck_cost": 739,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 844,
+      "exp": 998922,
+      "energy": 379,
+      "deck_cost": 740,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 845,
+      "exp": 999132,
+      "energy": 380,
+      "deck_cost": 740,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 846,
+      "exp": 999341,
+      "energy": 380,
+      "deck_cost": 741,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 847,
+      "exp": 999549,
+      "energy": 380,
+      "deck_cost": 742,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 848,
+      "exp": 999757,
+      "energy": 381,
+      "deck_cost": 742,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 849,
+      "exp": 999964,
+      "energy": 381,
+      "deck_cost": 743,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 850,
+      "exp": 1000171,
+      "energy": 381,
+      "deck_cost": 744,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 851,
+      "exp": 1000377,
+      "energy": 382,
+      "deck_cost": 744,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 852,
+      "exp": 1000582,
+      "energy": 382,
+      "deck_cost": 745,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 853,
+      "exp": 1000787,
+      "energy": 382,
+      "deck_cost": 746,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 854,
+      "exp": 1000991,
+      "energy": 383,
+      "deck_cost": 746,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 855,
+      "exp": 1001194,
+      "energy": 383,
+      "deck_cost": 747,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 856,
+      "exp": 1001397,
+      "energy": 383,
+      "deck_cost": 748,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 857,
+      "exp": 1001599,
+      "energy": 384,
+      "deck_cost": 748,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 858,
+      "exp": 1001801,
+      "energy": 384,
+      "deck_cost": 749,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 859,
+      "exp": 1002002,
+      "energy": 384,
+      "deck_cost": 750,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 860,
+      "exp": 1002202,
+      "energy": 385,
+      "deck_cost": 750,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 861,
+      "exp": 1002402,
+      "energy": 385,
+      "deck_cost": 751,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 862,
+      "exp": 1002601,
+      "energy": 385,
+      "deck_cost": 752,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 863,
+      "exp": 1002799,
+      "energy": 386,
+      "deck_cost": 752,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 864,
+      "exp": 1002997,
+      "energy": 386,
+      "deck_cost": 753,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 865,
+      "exp": 1003194,
+      "energy": 386,
+      "deck_cost": 754,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 866,
+      "exp": 1003391,
+      "energy": 387,
+      "deck_cost": 754,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 867,
+      "exp": 1003587,
+      "energy": 387,
+      "deck_cost": 755,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 868,
+      "exp": 1003782,
+      "energy": 387,
+      "deck_cost": 756,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 869,
+      "exp": 1003977,
+      "energy": 388,
+      "deck_cost": 756,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 870,
+      "exp": 1004171,
+      "energy": 388,
+      "deck_cost": 757,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 871,
+      "exp": 1004364,
+      "energy": 388,
+      "deck_cost": 758,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 872,
+      "exp": 1004557,
+      "energy": 389,
+      "deck_cost": 758,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 873,
+      "exp": 1004749,
+      "energy": 389,
+      "deck_cost": 759,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 874,
+      "exp": 1004940,
+      "energy": 389,
+      "deck_cost": 760,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 875,
+      "exp": 1005131,
+      "energy": 390,
+      "deck_cost": 760,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 876,
+      "exp": 1005321,
+      "energy": 390,
+      "deck_cost": 761,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 877,
+      "exp": 1005510,
+      "energy": 390,
+      "deck_cost": 762,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 878,
+      "exp": 1005699,
+      "energy": 391,
+      "deck_cost": 762,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 879,
+      "exp": 1005887,
+      "energy": 391,
+      "deck_cost": 763,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 880,
+      "exp": 1006074,
+      "energy": 391,
+      "deck_cost": 764,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 881,
+      "exp": 1006261,
+      "energy": 392,
+      "deck_cost": 764,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 882,
+      "exp": 1006447,
+      "energy": 392,
+      "deck_cost": 765,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 883,
+      "exp": 1006632,
+      "energy": 392,
+      "deck_cost": 766,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 884,
+      "exp": 1006817,
+      "energy": 393,
+      "deck_cost": 766,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 885,
+      "exp": 1007001,
+      "energy": 393,
+      "deck_cost": 767,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 886,
+      "exp": 1007184,
+      "energy": 393,
+      "deck_cost": 768,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 887,
+      "exp": 1007367,
+      "energy": 394,
+      "deck_cost": 768,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 888,
+      "exp": 1007549,
+      "energy": 394,
+      "deck_cost": 769,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 889,
+      "exp": 1007730,
+      "energy": 394,
+      "deck_cost": 770,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 890,
+      "exp": 1007911,
+      "energy": 395,
+      "deck_cost": 770,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 891,
+      "exp": 1008091,
+      "energy": 395,
+      "deck_cost": 771,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 892,
+      "exp": 1008270,
+      "energy": 395,
+      "deck_cost": 772,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 893,
+      "exp": 1008449,
+      "energy": 396,
+      "deck_cost": 772,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 894,
+      "exp": 1008627,
+      "energy": 396,
+      "deck_cost": 773,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 895,
+      "exp": 1008804,
+      "energy": 396,
+      "deck_cost": 774,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 896,
+      "exp": 1008981,
+      "energy": 397,
+      "deck_cost": 774,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 897,
+      "exp": 1009157,
+      "energy": 397,
+      "deck_cost": 775,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 898,
+      "exp": 1009332,
+      "energy": 397,
+      "deck_cost": 776,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 899,
+      "exp": 1009506,
+      "energy": 398,
+      "deck_cost": 776,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 900,
+      "exp": 1009680,
+      "energy": 398,
+      "deck_cost": 777,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 901,
+      "exp": 1009853,
+      "energy": 398,
+      "deck_cost": 778,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 902,
+      "exp": 1010025,
+      "energy": 399,
+      "deck_cost": 778,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 903,
+      "exp": 1010197,
+      "energy": 399,
+      "deck_cost": 779,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 904,
+      "exp": 1010368,
+      "energy": 399,
+      "deck_cost": 780,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 905,
+      "exp": 1010538,
+      "energy": 400,
+      "deck_cost": 780,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 906,
+      "exp": 1010707,
+      "energy": 400,
+      "deck_cost": 781,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 907,
+      "exp": 1010876,
+      "energy": 400,
+      "deck_cost": 782,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 908,
+      "exp": 1011044,
+      "energy": 401,
+      "deck_cost": 782,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 909,
+      "exp": 1011211,
+      "energy": 401,
+      "deck_cost": 783,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 910,
+      "exp": 1011378,
+      "energy": 401,
+      "deck_cost": 784,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 911,
+      "exp": 1011544,
+      "energy": 402,
+      "deck_cost": 784,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 912,
+      "exp": 1011709,
+      "energy": 402,
+      "deck_cost": 785,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 913,
+      "exp": 1011873,
+      "energy": 402,
+      "deck_cost": 786,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 914,
+      "exp": 1012037,
+      "energy": 403,
+      "deck_cost": 786,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 915,
+      "exp": 1012200,
+      "energy": 403,
+      "deck_cost": 787,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 916,
+      "exp": 1012362,
+      "energy": 403,
+      "deck_cost": 788,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 917,
+      "exp": 1012523,
+      "energy": 404,
+      "deck_cost": 788,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 918,
+      "exp": 1012684,
+      "energy": 404,
+      "deck_cost": 789,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 919,
+      "exp": 1012844,
+      "energy": 404,
+      "deck_cost": 790,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 920,
+      "exp": 1013003,
+      "energy": 405,
+      "deck_cost": 790,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 921,
+      "exp": 1013161,
+      "energy": 405,
+      "deck_cost": 791,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 922,
+      "exp": 1013319,
+      "energy": 405,
+      "deck_cost": 792,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 923,
+      "exp": 1013476,
+      "energy": 406,
+      "deck_cost": 792,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 924,
+      "exp": 1013632,
+      "energy": 406,
+      "deck_cost": 793,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 925,
+      "exp": 1013787,
+      "energy": 406,
+      "deck_cost": 794,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 926,
+      "exp": 1013942,
+      "energy": 407,
+      "deck_cost": 794,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 927,
+      "exp": 1014096,
+      "energy": 407,
+      "deck_cost": 795,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 928,
+      "exp": 1014249,
+      "energy": 407,
+      "deck_cost": 796,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 929,
+      "exp": 1014401,
+      "energy": 408,
+      "deck_cost": 796,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 930,
+      "exp": 1014553,
+      "energy": 408,
+      "deck_cost": 797,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 931,
+      "exp": 1014704,
+      "energy": 408,
+      "deck_cost": 798,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 932,
+      "exp": 1014854,
+      "energy": 409,
+      "deck_cost": 798,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 933,
+      "exp": 1015003,
+      "energy": 409,
+      "deck_cost": 799,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 934,
+      "exp": 1015152,
+      "energy": 409,
+      "deck_cost": 800,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 935,
+      "exp": 1015300,
+      "energy": 410,
+      "deck_cost": 800,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 936,
+      "exp": 1015447,
+      "energy": 410,
+      "deck_cost": 801,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 937,
+      "exp": 1015593,
+      "energy": 410,
+      "deck_cost": 802,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 938,
+      "exp": 1015738,
+      "energy": 411,
+      "deck_cost": 802,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 939,
+      "exp": 1015883,
+      "energy": 411,
+      "deck_cost": 803,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 940,
+      "exp": 1016027,
+      "energy": 411,
+      "deck_cost": 804,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 941,
+      "exp": 1016170,
+      "energy": 412,
+      "deck_cost": 804,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 942,
+      "exp": 1016312,
+      "energy": 412,
+      "deck_cost": 805,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 943,
+      "exp": 1016453,
+      "energy": 412,
+      "deck_cost": 806,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 944,
+      "exp": 1016594,
+      "energy": 413,
+      "deck_cost": 806,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 945,
+      "exp": 1016734,
+      "energy": 413,
+      "deck_cost": 807,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 946,
+      "exp": 1016873,
+      "energy": 413,
+      "deck_cost": 808,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 947,
+      "exp": 1017011,
+      "energy": 414,
+      "deck_cost": 808,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 948,
+      "exp": 1017148,
+      "energy": 414,
+      "deck_cost": 809,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 949,
+      "exp": 1017285,
+      "energy": 414,
+      "deck_cost": 810,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 950,
+      "exp": 1017421,
+      "energy": 415,
+      "deck_cost": 810,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 951,
+      "exp": 1017556,
+      "energy": 415,
+      "deck_cost": 811,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 952,
+      "exp": 1017690,
+      "energy": 415,
+      "deck_cost": 812,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 953,
+      "exp": 1017823,
+      "energy": 416,
+      "deck_cost": 812,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 954,
+      "exp": 1017956,
+      "energy": 416,
+      "deck_cost": 813,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 955,
+      "exp": 1018088,
+      "energy": 416,
+      "deck_cost": 814,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 956,
+      "exp": 1018219,
+      "energy": 417,
+      "deck_cost": 814,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 957,
+      "exp": 1018349,
+      "energy": 417,
+      "deck_cost": 815,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 958,
+      "exp": 1018478,
+      "energy": 417,
+      "deck_cost": 816,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 959,
+      "exp": 1018607,
+      "energy": 418,
+      "deck_cost": 816,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 960,
+      "exp": 1018735,
+      "energy": 418,
+      "deck_cost": 817,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 961,
+      "exp": 1018862,
+      "energy": 418,
+      "deck_cost": 818,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 962,
+      "exp": 1018988,
+      "energy": 419,
+      "deck_cost": 818,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 963,
+      "exp": 1019113,
+      "energy": 419,
+      "deck_cost": 819,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 964,
+      "exp": 1019237,
+      "energy": 419,
+      "deck_cost": 820,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 965,
+      "exp": 1019361,
+      "energy": 420,
+      "deck_cost": 820,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 966,
+      "exp": 1019484,
+      "energy": 420,
+      "deck_cost": 821,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 967,
+      "exp": 1019606,
+      "energy": 420,
+      "deck_cost": 822,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 968,
+      "exp": 1019727,
+      "energy": 421,
+      "deck_cost": 822,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 969,
+      "exp": 1019847,
+      "energy": 421,
+      "deck_cost": 823,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 970,
+      "exp": 1019966,
+      "energy": 421,
+      "deck_cost": 824,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 971,
+      "exp": 1020084,
+      "energy": 422,
+      "deck_cost": 824,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 972,
+      "exp": 1020202,
+      "energy": 422,
+      "deck_cost": 825,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 973,
+      "exp": 1020319,
+      "energy": 422,
+      "deck_cost": 826,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 974,
+      "exp": 1020435,
+      "energy": 423,
+      "deck_cost": 826,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 975,
+      "exp": 1020550,
+      "energy": 423,
+      "deck_cost": 827,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 976,
+      "exp": 1020664,
+      "energy": 423,
+      "deck_cost": 828,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 977,
+      "exp": 1020777,
+      "energy": 424,
+      "deck_cost": 828,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 978,
+      "exp": 1020889,
+      "energy": 424,
+      "deck_cost": 829,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 979,
+      "exp": 1021001,
+      "energy": 424,
+      "deck_cost": 830,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 980,
+      "exp": 1021112,
+      "energy": 425,
+      "deck_cost": 830,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 981,
+      "exp": 1021222,
+      "energy": 425,
+      "deck_cost": 831,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 982,
+      "exp": 1021331,
+      "energy": 425,
+      "deck_cost": 832,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 983,
+      "exp": 1021439,
+      "energy": 426,
+      "deck_cost": 832,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 984,
+      "exp": 1021546,
+      "energy": 426,
+      "deck_cost": 833,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 985,
+      "exp": 1021652,
+      "energy": 426,
+      "deck_cost": 834,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 986,
+      "exp": 1021758,
+      "energy": 427,
+      "deck_cost": 834,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 987,
+      "exp": 1021863,
+      "energy": 427,
+      "deck_cost": 835,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 988,
+      "exp": 1021967,
+      "energy": 427,
+      "deck_cost": 836,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 989,
+      "exp": 1022070,
+      "energy": 428,
+      "deck_cost": 836,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 990,
+      "exp": 1022172,
+      "energy": 428,
+      "deck_cost": 837,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 991,
+      "exp": 1022273,
+      "energy": 428,
+      "deck_cost": 838,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 992,
+      "exp": 1022373,
+      "energy": 429,
+      "deck_cost": 838,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 993,
+      "exp": 1022472,
+      "energy": 429,
+      "deck_cost": 839,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 994,
+      "exp": 1022570,
+      "energy": 429,
+      "deck_cost": 840,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 995,
+      "exp": 1022668,
+      "energy": 430,
+      "deck_cost": 840,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 996,
+      "exp": 1022765,
+      "energy": 430,
+      "deck_cost": 841,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 997,
+      "exp": 1022861,
+      "energy": 430,
+      "deck_cost": 842,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 998,
+      "exp": 1022956,
+      "energy": 431,
+      "deck_cost": 842,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 999,
+      "exp": 1023050,
+      "energy": 431,
+      "deck_cost": 843,
+      "friend_count": 50,
+      "add_friend_count": 50
+    },
+    {
+      "level": 1000,
+      "exp": 1023143,
+      "energy": 431,
+      "deck_cost": 844,
+      "friend_count": 50,
+      "add_friend_count": 50
+    }
+  ]
+}

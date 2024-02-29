@@ -2,7 +2,9 @@
 #include <db/DbMacro.hpp>
 #include <core/Utils.hpp>
 #include <core/System.hpp>
-#include <gme/response/UserTeamInfo.hpp>
+#include "gme/response/UserTeamInfo.hpp"
+#include "gme/response/UserLoginCampaignInfo.hpp"
+#include "gme/response/NoticeInfo.hpp"
 
 void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const
 {
@@ -40,7 +42,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 			}
 			else
 			{
-				auto sc = System::Instance().ServerConfig().Start;
+				auto sc = System::Instance().MstConfig().StartInfo();
 				user.teamInfo.UserID = user.info.userID;
 				user.teamInfo.Level = sc.Level;
 				user.teamInfo.Exp = 0;
@@ -56,9 +58,25 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 				user.teamInfo.ColosseumTicket = sc.ColosseumTickets;
 			}
 
-			Json::Value v;
-			user.teamInfo.Serialize(v);
-			cb(newGmeOkResponse(GetGroupId(), GetAesKey(), v));
+			Json::Value res;
+			user.info.Serialize(res);
+			user.teamInfo.Serialize(res);
+
+			{
+				Response::UserLoginCampaignInfo v;
+				v.currentDay = 1;
+				v.totalDays = 96;
+				v.firstForTheDay = true;
+				v.Serialize(res);
+			}
+
+			{
+				Response::NoticeInfo notices;
+				notices.url = "http://ios21900.bfww.gumi.sg/pages/versioninfo";
+				notices.Serialize(res);
+			}
+
+			cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 		}, 
 		[this, cb](const drogon::orm::DrogonDbException& e) { OnError(e, cb); },
 		user.info.userID

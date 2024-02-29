@@ -6,6 +6,7 @@ RESPONSE_NS_BEGIN
 struct GuildInfo : public IResponse
 {
 	const char* getGroupName() const override { return "IkdSufj5"; }
+	bool isArray() const override { return false; }
 
 	explicit GuildInfo() :
 		id(0)

@@ -36,6 +36,7 @@ RESPONSE_NS_BEGIN
 class IResponse
 {
 public:
+	virtual bool isArray() const { return true; }
 	virtual const char* getGroupName() const = 0;
 
 	virtual void Serialize(Json::Value& v) const
@@ -46,11 +47,20 @@ public:
 			return;
 		}
 
-		for (size_t i = 0; i < getRespCount(); i++)
+		if (isArray())
+		{
+			for (size_t i = 0; i < getRespCount(); i++)
+			{
+				Json::Value g;
+				SerializeFields(g, i);
+				v[getGroupName()].insert(i, g);
+			}
+		}
+		else
 		{
 			Json::Value g;
-			SerializeFields(g, i);
-			v[getGroupName()].insert(i, g);
+			SerializeFields(g, 0);
+			v[getGroupName()] = g;
 		}
 	}
 

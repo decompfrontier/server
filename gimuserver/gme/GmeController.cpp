@@ -11,8 +11,6 @@ GmeController::GmeController()
 
 void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-	//Utils::DumpInfoToDrogon(rq, "GmeController");
-
 	Json::Reader r;
 	Json::Value root;
 
@@ -72,8 +70,7 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 		}
 	}
 
-	LOG_TRACE << "GME REQUEST " << encReq << " JSON: " << bodyJson.toStyledString();
-
+	Utils::AppendJsonReqToFile(bodyJson, q.GetGroupId());
 
 	// NOTE: in a real server this shouldn't happen
 	if (m_users.empty())
@@ -89,9 +86,8 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 
 void GmeController::HandleFeatureCheck(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-	callback(
-		HttpResponse::newNotFoundResponse() // TODO
-	);
+	Json::Value v;
+	callback(HttpResponse::newHttpJsonResponse(v));
 }
 
 void GmeController::HandleServerTime(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)

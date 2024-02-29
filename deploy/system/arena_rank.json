@@ -1,0 +1,913 @@
+{
+  "arena_ranks": [
+    {
+      "id": 1,
+      "name": "MST_ARENARANKS_1_NAME",
+      "rank_point_start": 0,
+      "rank_point_end": 499,
+      "reward_type": 0,
+      "reward_param": "",
+      "scenario_info": "arena00.txt"
+    },
+    {
+      "id": 2,
+      "name": "MST_ARENARANKS_2_NAME",
+      "rank_point_start": 500,
+      "rank_point_end": 1199,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena01.txt"
+    },
+    {
+      "id": 3,
+      "name": "MST_ARENARANKS_3_NAME",
+      "rank_point_start": 1200,
+      "rank_point_end": 1999,
+      "reward_type": 2,
+      "reward_param": "35200:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 4,
+      "name": "MST_ARENARANKS_4_NAME",
+      "rank_point_start": 2000,
+      "rank_point_end": 2999,
+      "reward_type": 2,
+      "reward_param": "35201:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 5,
+      "name": "MST_ARENARANKS_5_NAME",
+      "rank_point_start": 3000,
+      "rank_point_end": 4999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena02.txt"
+    },
+    {
+      "id": 6,
+      "name": "MST_ARENARANKS_6_NAME",
+      "rank_point_start": 5000,
+      "rank_point_end": 7999,
+      "reward_type": 2,
+      "reward_param": "32900:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 7,
+      "name": "MST_ARENARANKS_7_NAME",
+      "rank_point_start": 8000,
+      "rank_point_end": 11999,
+      "reward_type": 2,
+      "reward_param": "35001:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 8,
+      "name": "MST_ARENARANKS_8_NAME",
+      "rank_point_start": 12000,
+      "rank_point_end": 14999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena03.txt"
+    },
+    {
+      "id": 9,
+      "name": "MST_ARENARANKS_9_NAME",
+      "rank_point_start": 15000,
+      "rank_point_end": 17999,
+      "reward_type": 2,
+      "reward_param": "34600:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 10,
+      "name": "MST_ARENARANKS_10_NAME",
+      "rank_point_start": 18000,
+      "rank_point_end": 22999,
+      "reward_type": 2,
+      "reward_param": "34100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 11,
+      "name": "MST_ARENARANKS_11_NAME",
+      "rank_point_start": 23000,
+      "rank_point_end": 27999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena04.txt"
+    },
+    {
+      "id": 12,
+      "name": "MST_ARENARANKS_12_NAME",
+      "rank_point_start": 28000,
+      "rank_point_end": 32999,
+      "reward_type": 2,
+      "reward_param": "35202:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 13,
+      "name": "MST_ARENARANKS_13_NAME",
+      "rank_point_start": 33000,
+      "rank_point_end": 37999,
+      "reward_type": 2,
+      "reward_param": "33501:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 14,
+      "name": "MST_ARENARANKS_14_NAME",
+      "rank_point_start": 38000,
+      "rank_point_end": 45999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena05.txt"
+    },
+    {
+      "id": 15,
+      "name": "MST_ARENARANKS_15_NAME",
+      "rank_point_start": 46000,
+      "rank_point_end": 53999,
+      "reward_type": 2,
+      "reward_param": "33600:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 16,
+      "name": "MST_ARENARANKS_16_NAME",
+      "rank_point_start": 54000,
+      "rank_point_end": 61999,
+      "reward_type": 2,
+      "reward_param": "34700:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 17,
+      "name": "MST_ARENARANKS_17_NAME",
+      "rank_point_start": 62000,
+      "rank_point_end": 69999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena06.txt"
+    },
+    {
+      "id": 18,
+      "name": "MST_ARENARANKS_18_NAME",
+      "rank_point_start": 70000,
+      "rank_point_end": 79999,
+      "reward_type": 2,
+      "reward_param": "34800:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 19,
+      "name": "MST_ARENARANKS_19_NAME",
+      "rank_point_start": 80000,
+      "rank_point_end": 89999,
+      "reward_type": 2,
+      "reward_param": "31500:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 20,
+      "name": "MST_ARENARANKS_20_NAME",
+      "rank_point_start": 90000,
+      "rank_point_end": 99999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena07.txt"
+    },
+    {
+      "id": 21,
+      "name": "MST_ARENARANKS_21_NAME",
+      "rank_point_start": 100000,
+      "rank_point_end": 109999,
+      "reward_type": 2,
+      "reward_param": "32201:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 22,
+      "name": "MST_ARENARANKS_22_NAME",
+      "rank_point_start": 110000,
+      "rank_point_end": 119999,
+      "reward_type": 2,
+      "reward_param": "35000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 23,
+      "name": "MST_ARENARANKS_23_NAME",
+      "rank_point_start": 120000,
+      "rank_point_end": 129999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena08.txt"
+    },
+    {
+      "id": 24,
+      "name": "MST_ARENARANKS_24_NAME",
+      "rank_point_start": 130000,
+      "rank_point_end": 139999,
+      "reward_type": 2,
+      "reward_param": "34301:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 25,
+      "name": "MST_ARENARANKS_25_NAME",
+      "rank_point_start": 140000,
+      "rank_point_end": 149999,
+      "reward_type": 2,
+      "reward_param": "35100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 26,
+      "name": "MST_ARENARANKS_26_NAME",
+      "rank_point_start": 150000,
+      "rank_point_end": 159999,
+      "reward_type": 1,
+      "reward_param": "0:1",
+      "scenario_info": "arena09.txt"
+    },
+    {
+      "id": 27,
+      "name": "MST_ARENARANKS_27_NAME",
+      "rank_point_start": 160000,
+      "rank_point_end": 169999,
+      "reward_type": 2,
+      "reward_param": "34900:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 28,
+      "name": "MST_ARENARANKS_28_NAME",
+      "rank_point_start": 170000,
+      "rank_point_end": 179999,
+      "reward_type": 2,
+      "reward_param": "35002:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 29,
+      "name": "MST_ARENARANKS_29_NAME",
+      "rank_point_start": 180000,
+      "rank_point_end": 191999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena10.txt"
+    },
+    {
+      "id": 30,
+      "name": "MST_ARENARANKS_30_NAME",
+      "rank_point_start": 192000,
+      "rank_point_end": 204999,
+      "reward_type": 2,
+      "reward_param": "35900:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 31,
+      "name": "MST_ARENARANKS_31_NAME",
+      "rank_point_start": 205000,
+      "rank_point_end": 218999,
+      "reward_type": 2,
+      "reward_param": "35800:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 32,
+      "name": "MST_ARENARANKS_32_NAME",
+      "rank_point_start": 219000,
+      "rank_point_end": 233999,
+      "reward_type": 2,
+      "reward_param": "36400:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 33,
+      "name": "MST_ARENARANKS_33_NAME",
+      "rank_point_start": 234000,
+      "rank_point_end": 249999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena11.txt"
+    },
+    {
+      "id": 34,
+      "name": "MST_ARENARANKS_34_NAME",
+      "rank_point_start": 250000,
+      "rank_point_end": 266999,
+      "reward_type": 2,
+      "reward_param": "36300:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 35,
+      "name": "MST_ARENARANKS_35_NAME",
+      "rank_point_start": 267000,
+      "rank_point_end": 284999,
+      "reward_type": 2,
+      "reward_param": "36000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 36,
+      "name": "MST_ARENARANKS_36_NAME",
+      "rank_point_start": 285000,
+      "rank_point_end": 303999,
+      "reward_type": 2,
+      "reward_param": "36500:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 37,
+      "name": "MST_ARENARANKS_37_NAME",
+      "rank_point_start": 304000,
+      "rank_point_end": 323999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena12.txt"
+    },
+    {
+      "id": 38,
+      "name": "MST_ARENARANKS_38_NAME",
+      "rank_point_start": 324000,
+      "rank_point_end": 344999,
+      "reward_type": 2,
+      "reward_param": "33600:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 39,
+      "name": "MST_ARENARANKS_39_NAME",
+      "rank_point_start": 345000,
+      "rank_point_end": 366999,
+      "reward_type": 2,
+      "reward_param": "36100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 40,
+      "name": "MST_ARENARANKS_40_NAME",
+      "rank_point_start": 367000,
+      "rank_point_end": 389999,
+      "reward_type": 2,
+      "reward_param": "36200:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 41,
+      "name": "MST_ARENARANKS_41_NAME",
+      "rank_point_start": 390000,
+      "rank_point_end": 413999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena13.txt"
+    },
+    {
+      "id": 42,
+      "name": "MST_ARENARANKS_42_NAME",
+      "rank_point_start": 414000,
+      "rank_point_end": 438999,
+      "reward_type": 2,
+      "reward_param": "36401:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 43,
+      "name": "MST_ARENARANKS_43_NAME",
+      "rank_point_start": 439000,
+      "rank_point_end": 463999,
+      "reward_type": 2,
+      "reward_param": "34808:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 44,
+      "name": "MST_ARENARANKS_44_NAME",
+      "rank_point_start": 464000,
+      "rank_point_end": 489999,
+      "reward_type": 2,
+      "reward_param": "36800:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 45,
+      "name": "MST_ARENARANKS_45_NAME",
+      "rank_point_start": 490000,
+      "rank_point_end": 515999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena14.txt"
+    },
+    {
+      "id": 46,
+      "name": "MST_ARENARANKS_46_NAME",
+      "rank_point_start": 516000,
+      "rank_point_end": 541999,
+      "reward_type": 2,
+      "reward_param": "36900:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 47,
+      "name": "MST_ARENARANKS_47_NAME",
+      "rank_point_start": 542000,
+      "rank_point_end": 567999,
+      "reward_type": 2,
+      "reward_param": "37000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 48,
+      "name": "MST_ARENARANKS_48_NAME",
+      "rank_point_start": 568000,
+      "rank_point_end": 594999,
+      "reward_type": 2,
+      "reward_param": "37100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 49,
+      "name": "MST_ARENARANKS_49_NAME",
+      "rank_point_start": 595000,
+      "rank_point_end": 621999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena15.txt"
+    },
+    {
+      "id": 50,
+      "name": "MST_ARENARANKS_50_NAME",
+      "rank_point_start": 622000,
+      "rank_point_end": 648999,
+      "reward_type": 2,
+      "reward_param": "37200:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 51,
+      "name": "MST_ARENARANKS_51_NAME",
+      "rank_point_start": 649000,
+      "rank_point_end": 675999,
+      "reward_type": 2,
+      "reward_param": "37300:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 52,
+      "name": "MST_ARENARANKS_52_NAME",
+      "rank_point_start": 676000,
+      "rank_point_end": 703999,
+      "reward_type": 2,
+      "reward_param": "37400:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 53,
+      "name": "MST_ARENARANKS_53_NAME",
+      "rank_point_start": 704000,
+      "rank_point_end": 734999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena16.txt"
+    },
+    {
+      "id": 54,
+      "name": "MST_ARENARANKS_54_NAME",
+      "rank_point_start": 735000,
+      "rank_point_end": 766999,
+      "reward_type": 2,
+      "reward_param": "40500:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 55,
+      "name": "MST_ARENARANKS_55_NAME",
+      "rank_point_start": 767000,
+      "rank_point_end": 799999,
+      "reward_type": 2,
+      "reward_param": "41100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 56,
+      "name": "MST_ARENARANKS_56_NAME",
+      "rank_point_start": 800000,
+      "rank_point_end": 834999,
+      "reward_type": 2,
+      "reward_param": "41300:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 57,
+      "name": "MST_ARENARANKS_57_NAME",
+      "rank_point_start": 835000,
+      "rank_point_end": 870999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena17.txt"
+    },
+    {
+      "id": 58,
+      "name": "MST_ARENARANKS_58_NAME",
+      "rank_point_start": 871000,
+      "rank_point_end": 907999,
+      "reward_type": 2,
+      "reward_param": "40300:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 59,
+      "name": "MST_ARENARANKS_59_NAME",
+      "rank_point_start": 908000,
+      "rank_point_end": 945999,
+      "reward_type": 2,
+      "reward_param": "41200:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 60,
+      "name": "MST_ARENARANKS_60_NAME",
+      "rank_point_start": 946000,
+      "rank_point_end": 985999,
+      "reward_type": 2,
+      "reward_param": "40700:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 61,
+      "name": "MST_ARENARANKS_61_NAME",
+      "rank_point_start": 986000,
+      "rank_point_end": 1026999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena18.txt"
+    },
+    {
+      "id": 62,
+      "name": "MST_ARENARANKS_62_NAME",
+      "rank_point_start": 1027000,
+      "rank_point_end": 1068999,
+      "reward_type": 2,
+      "reward_param": "40800:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 63,
+      "name": "MST_ARENARANKS_63_NAME",
+      "rank_point_start": 1069000,
+      "rank_point_end": 1111999,
+      "reward_type": 2,
+      "reward_param": "40200:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 64,
+      "name": "MST_ARENARANKS_64_NAME",
+      "rank_point_start": 1112000,
+      "rank_point_end": 1156999,
+      "reward_type": 2,
+      "reward_param": "38601:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 65,
+      "name": "MST_ARENARANKS_65_NAME",
+      "rank_point_start": 1157000,
+      "rank_point_end": 1202999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena19.txt"
+    },
+    {
+      "id": 66,
+      "name": "MST_ARENARANKS_66_NAME",
+      "rank_point_start": 1203000,
+      "rank_point_end": 1249999,
+      "reward_type": 2,
+      "reward_param": "41000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 67,
+      "name": "MST_ARENARANKS_67_NAME",
+      "rank_point_start": 1250000,
+      "rank_point_end": 1299999,
+      "reward_type": 2,
+      "reward_param": "40900:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 68,
+      "name": "MST_ARENARANKS_68_NAME",
+      "rank_point_start": 1300000,
+      "rank_point_end": 1399999,
+      "reward_type": 2,
+      "reward_param": "40400:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 69,
+      "name": "MST_ARENARANKS_69_NAME",
+      "rank_point_start": 1400000,
+      "rank_point_end": 1450999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena20.txt"
+    },
+    {
+      "id": 70,
+      "name": "MST_ARENARANKS_70_NAME",
+      "rank_point_start": 1451000,
+      "rank_point_end": 1502999,
+      "reward_type": 2,
+      "reward_param": "43000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 71,
+      "name": "MST_ARENARANKS_71_NAME",
+      "rank_point_start": 1503000,
+      "rank_point_end": 1555999,
+      "reward_type": 2,
+      "reward_param": "42500:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 72,
+      "name": "MST_ARENARANKS_72_NAME",
+      "rank_point_start": 1556000,
+      "rank_point_end": 1610999,
+      "reward_type": 2,
+      "reward_param": "42000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 73,
+      "name": "MST_ARENARANKS_73_NAME",
+      "rank_point_start": 1611000,
+      "rank_point_end": 1666999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena21.txt"
+    },
+    {
+      "id": 74,
+      "name": "MST_ARENARANKS_74_NAME",
+      "rank_point_start": 1667000,
+      "rank_point_end": 1723999,
+      "reward_type": 2,
+      "reward_param": "42400:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 75,
+      "name": "MST_ARENARANKS_75_NAME",
+      "rank_point_start": 1724000,
+      "rank_point_end": 1781999,
+      "reward_type": 2,
+      "reward_param": "42700:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 76,
+      "name": "MST_ARENARANKS_76_NAME",
+      "rank_point_start": 1782000,
+      "rank_point_end": 1841999,
+      "reward_type": 2,
+      "reward_param": "42800:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 77,
+      "name": "MST_ARENARANKS_77_NAME",
+      "rank_point_start": 1842000,
+      "rank_point_end": 1902999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena22.txt"
+    },
+    {
+      "id": 78,
+      "name": "MST_ARENARANKS_78_NAME",
+      "rank_point_start": 1903000,
+      "rank_point_end": 1964999,
+      "reward_type": 2,
+      "reward_param": "42200:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 79,
+      "name": "MST_ARENARANKS_79_NAME",
+      "rank_point_start": 1965000,
+      "rank_point_end": 2027999,
+      "reward_type": 2,
+      "reward_param": "42600:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 80,
+      "name": "MST_ARENARANKS_80_NAME",
+      "rank_point_start": 2028000,
+      "rank_point_end": 2092999,
+      "reward_type": 2,
+      "reward_param": "42300:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 81,
+      "name": "MST_ARENARANKS_81_NAME",
+      "rank_point_start": 2093000,
+      "rank_point_end": 2158999,
+      "reward_type": 1,
+      "reward_param": "0:3",
+      "scenario_info": "arena23.txt"
+    },
+    {
+      "id": 82,
+      "name": "MST_ARENARANKS_82_NAME",
+      "rank_point_start": 2159000,
+      "rank_point_end": 2225999,
+      "reward_type": 2,
+      "reward_param": "42100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 83,
+      "name": "MST_ARENARANKS_83_NAME",
+      "rank_point_start": 2226000,
+      "rank_point_end": 2293999,
+      "reward_type": 2,
+      "reward_param": "42900:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 84,
+      "name": "MST_ARENARANKS_84_NAME",
+      "rank_point_start": 2294000,
+      "rank_point_end": 2399999,
+      "reward_type": 2,
+      "reward_param": "43100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 85,
+      "name": "MST_ARENARANKS_85_NAME",
+      "rank_point_start": 2400000,
+      "rank_point_end": 2471999,
+      "reward_type": 1,
+      "reward_param": "0:5",
+      "scenario_info": "arena24.txt"
+    },
+    {
+      "id": 86,
+      "name": "MST_ARENARANKS_86_NAME",
+      "rank_point_start": 2472000,
+      "rank_point_end": 2546999,
+      "reward_type": 2,
+      "reward_param": "46900:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 87,
+      "name": "MST_ARENARANKS_87_NAME",
+      "rank_point_start": 2547000,
+      "rank_point_end": 2624999,
+      "reward_type": 2,
+      "reward_param": "46700:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 88,
+      "name": "MST_ARENARANKS_88_NAME",
+      "rank_point_start": 2625000,
+      "rank_point_end": 2705999,
+      "reward_type": 2,
+      "reward_param": "46500:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 89,
+      "name": "MST_ARENARANKS_89_NAME",
+      "rank_point_start": 2706000,
+      "rank_point_end": 2791999,
+      "reward_type": 1,
+      "reward_param": "0:5",
+      "scenario_info": "arena25.txt"
+    },
+    {
+      "id": 90,
+      "name": "MST_ARENARANKS_90_NAME",
+      "rank_point_start": 2792000,
+      "rank_point_end": 2882999,
+      "reward_type": 2,
+      "reward_param": "46100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 91,
+      "name": "MST_ARENARANKS_91_NAME",
+      "rank_point_start": 2883000,
+      "rank_point_end": 2978999,
+      "reward_type": 2,
+      "reward_param": "46800:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 92,
+      "name": "MST_ARENARANKS_92_NAME",
+      "rank_point_start": 2979000,
+      "rank_point_end": 3079999,
+      "reward_type": 2,
+      "reward_param": "47000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 93,
+      "name": "MST_ARENARANKS_93_NAME",
+      "rank_point_start": 3080000,
+      "rank_point_end": 3187999,
+      "reward_type": 1,
+      "reward_param": "0:5",
+      "scenario_info": "arena26.txt"
+    },
+    {
+      "id": 94,
+      "name": "MST_ARENARANKS_94_NAME",
+      "rank_point_start": 3188000,
+      "rank_point_end": 3302999,
+      "reward_type": 2,
+      "reward_param": "46000:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 95,
+      "name": "MST_ARENARANKS_95_NAME",
+      "rank_point_start": 3303000,
+      "rank_point_end": 3424999,
+      "reward_type": 2,
+      "reward_param": "46300:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 96,
+      "name": "MST_ARENARANKS_96_NAME",
+      "rank_point_start": 3425000,
+      "rank_point_end": 3553999,
+      "reward_type": 2,
+      "reward_param": "46200:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 97,
+      "name": "MST_ARENARANKS_97_NAME",
+      "rank_point_start": 3554000,
+      "rank_point_end": 3691999,
+      "reward_type": 1,
+      "reward_param": "0:5",
+      "scenario_info": "arena27.txt"
+    },
+    {
+      "id": 98,
+      "name": "MST_ARENARANKS_98_NAME",
+      "rank_point_start": 3692000,
+      "rank_point_end": 3839999,
+      "reward_type": 2,
+      "reward_param": "46600:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 99,
+      "name": "MST_ARENARANKS_99_NAME",
+      "rank_point_start": 3840000,
+      "rank_point_end": 3999999,
+      "reward_type": 2,
+      "reward_param": "46400:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 100,
+      "name": "MST_ARENARANKS_100_NAME",
+      "rank_point_start": 4000000,
+      "rank_point_end": 4199999,
+      "reward_type": 2,
+      "reward_param": "47100:1",
+      "scenario_info": ""
+    },
+    {
+      "id": 101,
+      "name": "MST_ARENARANKS_101_NAME",
+      "rank_point_start": 4200000,
+      "rank_point_end": 4200499,
+      "reward_type": 2,
+      "reward_param": "47400:1",
+      "scenario_info": ""
+    }
+  ],
+}

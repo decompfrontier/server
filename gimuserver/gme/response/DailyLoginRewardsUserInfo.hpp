@@ -6,6 +6,7 @@ RESPONSE_NS_BEGIN
 struct DailyLoginRewardsUserInfo : public IResponse
 {
 	const char* getGroupName() const override { return "Drudr2w5"; }
+	bool isArray() const override { return false; }
 
 	explicit DailyLoginRewardsUserInfo() :
 		id(1), unk(0), unk2(0),

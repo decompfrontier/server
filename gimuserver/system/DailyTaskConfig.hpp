@@ -6,6 +6,10 @@ class DailyTaskConfig
 {
 	struct DailyPrizeTable
 	{
+		explicit DailyPrizeTable() : id(0), present_type(0), target_id(0),
+			target_count(0), points_cost(0), time_limit(0), max_claims(0),
+			milestone_prize(false) {}
+
 		int id;
 		std::string title;
 		std::string desc;
@@ -22,10 +26,12 @@ class DailyTaskConfig
 	struct DailyTaskBonusTable
 	{
 		int points;
+
+		explicit DailyTaskBonusTable() : points(0) {}
 	};
 
 public:
-	bool LoadTableFromJson(const std::string& path);
+	void LoadTableFromJson(const std::string& path);
 	const auto& GetTaskPrizes() const { return m_prizeTbl; }
 	const auto& GetTaskBonusTables() const { return m_taskBonusTbl; }
 
