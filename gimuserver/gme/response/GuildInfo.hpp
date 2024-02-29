@@ -17,7 +17,7 @@ struct GuildInfo : public IResponse
 protected:
 	void SerializeFields(Json::Value& v, size_t) const override
 	{
-		v["sD73jd20"] = id;
+		v["sD73jd20"] = std::to_string(id);
 
 		if (id != 0)
 		{

@@ -18,13 +18,13 @@ struct TownLocationMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["un80kW9Y"] = id;
+			v["un80kW9Y"] = std::to_string(id);
 			v["6ntp4rMV"] = name; // str
-			v["SnNtTh51"] = pos_x;
-			v["M6C1aXfR"] = pos_y;
-			v["dRhvW13q"] = width;
-			v["FCzW4g6P"] = height;
-			v["jeR2rN3V"] = effect_type;
+			v["SnNtTh51"] = std::to_string(pos_x);
+			v["M6C1aXfR"] = std::to_string(pos_y);
+			v["dRhvW13q"] = std::to_string(width);
+			v["FCzW4g6P"] = std::to_string(height);
+			v["jeR2rN3V"] = std::to_string(effect_type);
 			v["HSRhkf70"] = need_mission_id;
 		}
 	};

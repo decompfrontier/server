@@ -36,6 +36,7 @@ void System::ParseSystemConfig(const Json::Value& v)
 	m_contentRoot = v["content_root"].asString();
 	m_dbPath = v["gme_sqlite_path"].asString();
 	m_sessionTimeout = size_t(v["session_timeout"].asUInt64());
+
 	m_mstConfig.LoadAllTables(v["mst_root"].asString());
 }
 

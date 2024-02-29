@@ -5,6 +5,22 @@
 #include "gme/response/UserTeamInfo.hpp"
 #include "gme/response/UserLoginCampaignInfo.hpp"
 #include "gme/response/NoticeInfo.hpp"
+#include "gme/response/UserItemDictionaryInfo.hpp"
+#include "gme/response/UserTeamArchive.hpp"
+#include "gme/response/UserUnitInfo.hpp"
+#include "gme/response/UserPartyDeckInfo.hpp"
+#include "gme/response/UserWarehouseInfo.hpp"
+#include "gme/response/UserClearMissionInfo.hpp"
+#include "gme/response/ItemFavorite.hpp"
+#include "gme/response/UserItemDictionaryInfo.hpp"
+#include "gme/response/UserTeamArenaArchive.hpp"
+#include "gme/response/UserUnitDictionary.hpp"
+#include "gme/response/UserFavorite.hpp"
+#include "gme/response/UserArenaInfo.hpp"
+#include "gme/response/UserGiftInfo.hpp"
+#include "gme/response/VideoAdInfo.hpp"
+#include "gme/response/VideoAdRegion.hpp"
+#include "gme/response/SummonerJournalUserInfo.hpp"
 
 void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const
 {
@@ -71,10 +87,73 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 			}
 
 			{
-				Response::NoticeInfo notices;
-				notices.url = "http://ios21900.bfww.gumi.sg/pages/versioninfo";
-				notices.Serialize(res);
+				Response::UserTeamArchive v;
+				v.Serialize(res);
 			}
+
+			{
+				Response::UserTeamArenaArchive v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserUnitInfo v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserPartyDeckInfo v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserUnitDictionary v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserFavorite v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserClearMissionInfo v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserWarehouseInfo v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::ItemFavorite v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserItemDictionaryInfo v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserArenaInfo v;
+				v.Serialize(res);
+			}
+
+			{
+				Response::UserGiftInfo v;
+				v.Serialize(res);
+			}
+
+			{
+				// SummonerJournal
+				Response::SummonerJournalUserInfo v;
+				v.userId = user.info.userID;
+				v.Serialize(res);
+			}
+
+			System::Instance().MstConfig().CopyUserInfoMstTo(res);
 
 			cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 		}, 

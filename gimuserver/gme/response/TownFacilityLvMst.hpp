@@ -16,9 +16,9 @@ struct TownFacilityLvMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["y9ET7Aub"] = id;
-			v["D9wXQI2V"] = lv;
-			v["HTVh8a65"] = karma;
+			v["y9ET7Aub"] = std::to_string(id);
+			v["D9wXQI2V"] = std::to_string(lv);
+			v["HTVh8a65"] = std::to_string(karma);
 			v["rGoJ6Ty9"] = release_receipe;
 		}
 	};

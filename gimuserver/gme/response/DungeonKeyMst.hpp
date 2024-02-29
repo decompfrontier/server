@@ -18,21 +18,21 @@ struct DungeonKeyMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["16KMNJLb"] = id;
+			v["16KMNJLb"] = std::to_string(id);
 			v["BM29ZgnK"] = name;
-			v["MHx05sXt"] = dungeonId;
+			v["MHx05sXt"] = std::to_string(dungeonId);
 			v["M2cv6dum"] = thumImg;
 			v["VX0j1fni"] = openImg;
 			v["9unNZ6b0"] = closeImg;
-			v["i9sBW8uD"] = limitSec;
-			v["N7I9vYZb"] = possessionLimit;
+			v["i9sBW8uD"] = std::to_string(limitSec);
+			v["N7I9vYZb"] = std::to_string(possessionLimit);
 
 			if (distributeCount > 0)
-				v["khsb74Nq"] = distributeCount;
+				v["khsb74Nq"] = std::to_string(distributeCount);
 
-			v["EK5I6MQ9"] = distributeFlag;
+			v["EK5I6MQ9"] = std::to_string(distributeFlag);
 			v["CR6aKWg8"] = usagePattern;
-			v["j0Uszek2"] = state;
+			v["j0Uszek2"] = std::to_string(state);
 		}
 	};
 

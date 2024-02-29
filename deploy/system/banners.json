@@ -1,0 +1,17 @@
+{
+    "banners":
+    [
+        {
+            "name": "Control panel",
+            "os": "1,2,3,4,5,6,7,8",
+            "url": "http://ios21900.bfww.gumi.sg/pages/control_panel",
+            "image": "banner_facebookV2.png"
+        },
+        {
+            "name": "Wiki",
+            "os": "1,2,3,4,5,6,7,8",
+            "url": "https://bravefrontierglobal.fandom.com/wiki/Brave_Frontier_Wiki",
+            "image": "banner_wikiV2.png"
+        }
+    ]
+}

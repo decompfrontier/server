@@ -7,6 +7,8 @@ struct VersionInfo : public IResponse
 {
 	struct Data
 	{
+		explicit Data() : Version(0), Unknown(0), SubVersion(0) {}
+
 		std::string Id;
 		unsigned int Version;
 		unsigned int Unknown;
@@ -16,9 +18,9 @@ struct VersionInfo : public IResponse
 		{
 			v["moWQ30GH"] = Id;
 			//v["e3QNsuZ8"] = Description;
-			v["d2RFtP8T"] = Version;
-			v["H6k1LIxC"] = Unknown;
-			v["5kbnkTp0"] = SubVersion;
+			v["d2RFtP8T"] = std::to_string(Version);
+			v["H6k1LIxC"] = std::to_string(Unknown);
+			v["5kbnkTp0"] = std::to_string(SubVersion);
 		}
 	};
 

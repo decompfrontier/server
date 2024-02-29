@@ -17,10 +17,10 @@ struct GachaEffectMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["u0vkt9yH"] = id;
-			v["7Ffmi96v"] = gatcha_id;
-			v["7ofj5xa1"] = rare;
-			v["ug9xV4Fz"] = rate; // float
+			v["u0vkt9yH"] = std::to_string(id);
+			v["7Ffmi96v"] = std::to_string(gatcha_id);
+			v["7ofj5xa1"] = std::to_string(rare);
+			v["ug9xV4Fz"] = std::to_string(rate); // float
 			v["7ZNcmYS2"] = effect_before; // str
 			v["tj0i9JhC"] = effect_after; // str
 			v["YTx3c1jQ"] = effect; // str

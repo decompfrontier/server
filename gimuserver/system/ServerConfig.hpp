@@ -8,6 +8,7 @@ struct ServerConfig
 
 	std::string Wallpaper;
 	int GameVersion;
+	std::string NoticeUrl;
 
 	void ParseFromJson(const Json::Value& v);
 };

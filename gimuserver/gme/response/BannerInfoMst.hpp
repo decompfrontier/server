@@ -17,10 +17,10 @@ struct BannerInfoMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["oL71Fz3a"] = id;
+			v["oL71Fz3a"] = std::to_string(id);
 			v["NyYKc1A5"] = name;
 			v["aL70hVYQ"] = targetOS;
-			v["XuJL4pc5"] = dispOrder; // int
+			v["XuJL4pc5"] = std::to_string(dispOrder); // int
 			v["jsRoN50z"] = url;
 			v["1gDkL6XR"] = image;
 			v["t5R47iwj"] = param;

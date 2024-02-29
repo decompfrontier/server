@@ -19,16 +19,16 @@ struct DailyTaskPrizeMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["d83aQ39U"] = taskId;
+			v["d83aQ39U"] = std::to_string(taskId);
 			v["T091Rsbe"] = taskTitle;
 			v["L2VkgH08"] = taskDesc;
-			v["30Kw4WBa"] = presentType;
-			v["TdDHf59J"] = targetId;
-			v["wJsB35iH"] = targetCount;
+			v["30Kw4WBa"] = std::to_string(presentType);
+			v["TdDHf59J"] = std::to_string(targetId);
+			v["wJsB35iH"] = std::to_string(targetCount);
 			v["37moriMq"] = targetParam;
-			v["4NuIwm77"] = bravePointCost;
+			v["4NuIwm77"] = std::to_string(bravePointCost);
 			v["qY49LBjw"] = timeLimit; // long
-			v["D2BlS89M"] = maxClaimCount; // max number of times you can claim this
+			v["D2BlS89M"] = std::to_string(maxClaimCount); // max number of times you can claim this
 			v["jT3oB57e"] = currentClaimCount; // if the user has claimed
 			v["J3l5We66"] = isMileStonePrize ? "1" : "0";
 		}

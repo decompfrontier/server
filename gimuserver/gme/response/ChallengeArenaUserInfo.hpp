@@ -25,15 +25,15 @@ protected:
 		// needs to do full decomp to understand this...
 
 		v["h7eY3sAK"] = unkstr;
-		v["Nou5bCmm"] = unkint;
-		v["AKP8t3xK"] = unkint2;
-		v["KAZmxkgy"] = unkint3; // related to rainbowcoins
-		v["e34YV1Ey"] = unkint4;
-		v["4lH05mQr"] = unkint5;
-		v["xZeGgDQe"] = unkint6;
-		v["BcIqcWDM"] = unkint7;
-		v["fBGCdi8I"] = unkint8;
-		v["zf5Ae850"] = unkint9;
+		v["Nou5bCmm"] = std::to_string(unkint);
+		v["AKP8t3xK"] = std::to_string(unkint2);
+		v["KAZmxkgy"] = std::to_string(unkint3); // related to rainbowcoins
+		v["e34YV1Ey"] = std::to_string(unkint4);
+		v["4lH05mQr"] = std::to_string(unkint5);
+		v["xZeGgDQe"] = std::to_string(unkint6);
+		v["BcIqcWDM"] = std::to_string(unkint7);
+		v["fBGCdi8I"] = std::to_string(unkint8);
+		v["zf5Ae850"] = std::to_string(unkint9);
 		v["outas79f"] = unkstr2;
 	}
 };

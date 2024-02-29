@@ -41,26 +41,45 @@ public:
 
 	virtual void Serialize(Json::Value& v) const
 	{
-		if (getRespCount() == 0)
+		if (getGroupName() != nullptr)
 		{
-			v[getGroupName()].resize(0);
-			return;
-		}
+			if (getRespCount() == 0)
+			{
+				v[getGroupName()].resize(0);
+				return;
+			}
 
-		if (isArray())
-		{
-			for (size_t i = 0; i < getRespCount(); i++)
+			if (isArray())
+			{
+				for (size_t i = 0; i < getRespCount(); i++)
+				{
+					Json::Value g;
+					SerializeFields(g, i);
+					v[getGroupName()].insert(i, g);
+				}
+			}
+			else
 			{
 				Json::Value g;
-				SerializeFields(g, i);
-				v[getGroupName()].insert(i, g);
+				SerializeFields(g, 0);
+				v[getGroupName()] = g;
 			}
 		}
 		else
 		{
-			Json::Value g;
-			SerializeFields(g, 0);
-			v[getGroupName()] = g;
+			if (isArray())
+			{
+				for (size_t i = 0; i < getRespCount(); i++)
+				{
+					Json::Value g;
+					SerializeFields(g, i);
+					v.insert(i, g);
+				}
+			}
+			else
+			{
+				SerializeFields(v, 0);
+			}
 		}
 	}
 

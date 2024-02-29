@@ -1,0 +1,219 @@
+{
+	"npcs": [
+		{
+			"name": "MST_NPC_1_NAME",
+			"arena_rank_id": 23,
+			"id": 1,
+			"team_info":
+			{
+				"user_id": "AAAAAAAA",
+				"friend_message": "",
+				"level": 70
+			},
+			"party_info":
+			[
+				{
+					"id": 71393,
+					"type": 1,
+					"disp_order": 2
+				},
+				{
+					"id": 71408,
+					"type": 0,
+					"disp_order": 0
+				},
+				{
+					"id": 71419,
+					"type": 1,
+					"disp_order": 4
+				},
+				{
+					"id": 71467,
+					"type": 1,
+					"disp_order": 3
+				},
+				{
+					"id": 71796,
+					"type": 1,
+					"disp_order": 1
+				}
+			],
+			"unit_info":
+			[
+				{
+					"party_id": 71393,
+					"id": 20014,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 3815,
+					"atk": 1355,
+					"def": 1127,
+					"hel": 1461,
+					"skill_id": 20014,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71408,
+					"id": 10114,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 4995,
+					"atk": 1125,
+					"def": 1517,
+					"hel": 951,
+					"skill_id": 10114,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71419,
+					"id": 60114,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 3986,
+					"atk": 1503,
+					"def": 1171,
+					"hel": 1998,
+					"skill_id": 60114,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71467,
+					"id": 50114,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 5239,
+					"atk": 1240,
+					"def": 1368,
+					"hel": 897,
+					"skill_id": 50114,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71796,
+					"id": 60014,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 4876,
+					"atk": 1198,
+					"def": 1400,
+					"hel": 755,
+					"skill_id": 60014,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				}
+			]
+		},
+		
+		{
+			"name": "MST_NPC_2_NAME",
+			"arena_rank_id": 12,
+			"id": 2,
+			"team_info":
+			{
+				"user_id": "BBBBBBBB",
+				"friend_message": "",
+				"level": 45
+			},
+			"party_info":
+			[
+				{
+					"id": 71393,
+					"type": 1,
+					"disp_order": 2
+				},
+				{
+					"id": 71408,
+					"type": 0,
+					"disp_order": 0
+				},
+				{
+					"id": 71419,
+					"type": 1,
+					"disp_order": 4
+				},
+				{
+					"id": 71467,
+					"type": 1,
+					"disp_order": 3
+				},
+				{
+					"id": 71796,
+					"type": 1,
+					"disp_order": 1
+				}
+			],
+			"unit_info":
+			[
+				{
+					"party_id": 71393,
+					"id": 30025,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 2949,
+					"atk": 563,
+					"def": 699,
+					"hel": 1512,
+					"skill_id": 0,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71408,
+					"id": 50083,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 2945,
+					"atk": 802,
+					"def": 1015,
+					"hel": 750,
+					"skill_id": 0,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71419,
+					"id": 10023,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 2708,
+					"atk": 845,
+					"def": 558,
+					"hel": 677,
+					"skill_id": 0,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71467,
+					"id": 40072,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 1916,
+					"atk": 579,
+					"def": 455,
+					"hel": 396,
+					"skill_id": 0,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				},
+				{
+					"party_id": 71796,
+					"id": 60093,
+					"type_id": 5,
+					"lv": 12,
+					"hp": 2117,
+					"atk": 882,
+					"def": 650,
+					"hel": 1350,
+					"skill_id": 0,
+					"skill_lv": 1,
+					"equip_item_id": 0
+				}
+			]
+		}
+	]
+}

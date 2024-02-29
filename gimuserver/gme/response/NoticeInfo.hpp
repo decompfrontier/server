@@ -16,7 +16,7 @@ struct NoticeInfo : public IResponse
 protected:
 	void SerializeFields(Json::Value& v, size_t) const override
 	{
-		v["xJNom6i0"] = id;
+		v["xJNom6i0"] = std::to_string(id);
 		v["jsRoN50z"] = url;
 	}
 };

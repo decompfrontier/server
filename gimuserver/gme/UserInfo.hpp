@@ -3,7 +3,7 @@
 #include "response/UserInfo.hpp"
 #include "response/UserTeamInfo.hpp"
 
-constexpr const auto HARDCODE_USERID = "AAAAAAAA";
+constexpr const auto HARDCODE_USERID = "0101AABB";
 
 struct UserInfo
 {

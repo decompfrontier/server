@@ -20,27 +20,27 @@ struct GachaMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["7Ffmi96v"] = id;
+			v["7Ffmi96v"] = std::to_string(id);
 			v["4N27mkt1"] = name;
-			v["S1oz60Hc"] = type;
-			v["yu18xScw"] = priority;
+			v["S1oz60Hc"] = std::to_string(type);
+			v["yu18xScw"] = std::to_string(priority);
 			v["qA7M9EjP"] = start_date; // str 2017-10-24 08:00:00
 			v["SzV0Nps7"] = end_date; // str 2017-10-31 07:59:59
 			v["2HY3jpgu"] = start_hour; // str
 			v["v9TR3cDz"] = end_hour; // str
-			v["J3stQ7jd"] = need_friend_point;
-			v["03UGMHxF"] = need_gems;
-			v["4tswNoV9"] = once_day_flag;
+			v["J3stQ7jd"] = std::to_string(need_friend_point);
+			v["03UGMHxF"] = std::to_string(need_gems);
+			v["4tswNoV9"] = std::to_string(once_day_flag);
 			v["1Dg0vUX3"] = bg_img; // str
 			v["W9ABuJj2"] = btn_img; // str
 			v["uKYf13AH"] = door_img; // str
 			v["3sdHQb69"] = caption_msg; // str
 			v["W2c9g0Je"] = detail_msg; // str
 			v["gVSj32QH"] = comment_msg; // str
-			v["TCnm1F4v"] = gatcha_group_id;
+			v["TCnm1F4v"] = std::to_string(gatcha_group_id);
 			v["qp37xTDh"] = description; // str
 			if (gatcha_detail_id > 0)
-				v["8Z9CYQDq"] = gatcha_detail_id;
+				v["8Z9CYQDq"] = std::to_string(gatcha_detail_id);
 			if (!contents_banner_img.empty())
 				v["sA9dDAqB"] = contents_banner_img; // str
 		}

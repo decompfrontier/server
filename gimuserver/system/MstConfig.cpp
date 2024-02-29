@@ -1,6 +1,7 @@
 #include "MstConfig.hpp"
 #include <fstream>
 
+#include "core/System.hpp"
 #include "gme/response/LoginCampaignMst.hpp"
 #include "gme/response/LoginCampaignReward.hpp"
 #include "gme/response/VersionInfo.hpp"
@@ -16,6 +17,11 @@
 #include "gme/response/DungeonKeyMst.hpp"
 #include "gme/response/ArenaRankMst.hpp"
 #include "gme/response/NpcMst.hpp"
+#include "gme/response/VideoAdsSlotgameInfo.hpp"
+#include "gme/response/VideoAdRegion.hpp"
+#include "gme/response/VideoAdInfo.hpp"
+#include "gme/response/NoticeInfo.hpp"
+#include "gme/response/BannerInfoMst.hpp"
 
 static void LoadJson(const std::string& path, const std::string& name, Json::Value& root)
 {
@@ -274,6 +280,7 @@ static void LoadGachaEffects(const std::string& path, Json::Value& res)
 		tbl.effect_after = v["effect_after"].asString();
 		tbl.effect = v["effect"].asString();
 		tables.Mst.emplace_back(tbl);
+		id++;
 	}
 
 	tables.Serialize(res);
@@ -389,25 +396,174 @@ static void LoadDefine(const std::string& path, Json::Value& res)
 	tbl.Serialize(res);
 }
 
+static void LoadNpcMst(const std::string& basePath, Json::Value& res)
+{
+	Json::Value root;
+	LoadJson(basePath, "npc.json", root);
+
+	const auto& msts = root["npcs"];
+
+	Response::NpcMst tables;
+	for (const auto& v : msts)
+	{
+		Response::NpcMst::Data tbl;
+		tbl.id = v["id"].asUInt();
+		tbl.handle_name = v["name"].asString();
+		tbl.arena_rank_id = v["arena_rank_id"].asUInt();
+
+		const auto& team = v["team_info"];
+		tbl.team.friendMessage = team["friend_message"].asString();
+		tbl.team.userId = team["user_id"].asString();
+		tbl.team.lv = team["level"].asUInt();
+
+		const auto& parties = v["party_info"];
+		for (const auto& k : parties)
+		{
+			Response::NpcPartyInfo::Data d;
+			d.id = k["id"].asUInt();
+			d.type = k["type"].asUInt();
+			d.disp_order = k["disp_order"].asUInt();
+			tbl.parties.Mst.emplace_back(d);
+		}
+
+		const auto& units = v["unit_info"];
+		for (const auto& k : units)
+		{
+			Response::NpcUnitInfo::Data d;
+			d.id = k["id"].asUInt();
+			d.party_id = k["party_id"].asUInt();
+			d.type = k["type_id"].asUInt();
+			d.lv = k["lv"].asUInt();
+			d.hp = k["hp"].asUInt();
+			d.atk = k["atk"].asUInt();
+			d.def = k["def"].asUInt();
+			d.hel = k["hel"].asUInt();
+			d.skill_id = k["skill_id"].asUInt();
+			d.skill_lv = k["skill_lv"].asUInt();
+			d.equip_item_id = k["equip_item_id"].asUInt();
+			tbl.units.Mst.emplace_back(d);
+		}
+
+		tables.Mst.emplace_back(tbl);
+	}
+
+	tables.Serialize(res);
+}
+
+static void LoadSlotInfo(const std::string& basePath, 
+	Response::VideoAdsSlotgameInfo& g,
+	Json::Value& userInitJson)
+{
+	Json::Value root;
+	LoadJson(basePath, "slotinfo.json", root);
+
+	const auto& gameinfo = root["slot_info"];
+
+	{
+		g.gameInfo.id = gameinfo["id"].asUInt();
+		g.gameInfo.reelPos = gameinfo["reel_pos"].asString();
+		g.gameInfo.useMedal = gameinfo["use_medal"].asString();
+		g.gameInfo.slotHelpUrl = gameinfo["slot_help_url"].asString();
+		g.gameInfo.slotImage = gameinfo["slot_image"].asString();
+
+		Response::VideoAdInfo tbl;
+		Response::VideoAdInfo::Data d;
+		d.id = g.gameInfo.id;
+		d.availableValue = gameinfo["available_value"].asUInt();
+		d.videoEnabled = gameinfo["enabled"].asBool();
+		d.regionId = gameinfo["region_id"].asUInt();
+		d.nextAvailableTimeLeft = gameinfo["available_time_left"].asUInt();
+		tbl.Mst.emplace_back(d);
+		tbl.Serialize(userInitJson);
+	}
+
+	const auto& reelInfo = root["reel_info"];
+	for (const auto& k : reelInfo)
+	{
+		Response::SlotGameReelInfo::Data d;
+		d.id = k["id"].asUInt();
+		d.reelData = k["data"].asString();
+		g.reelInfo.Mst.emplace_back(d);
+	}
+
+	const auto& pictureInfo = root["picture_infos"];
+	for (const auto& k : pictureInfo)
+	{
+		Response::SlotGamePictureInfo::Data d;
+		d.id = k["id"].asUInt();
+		d.pictureName = k["picture_name"].asString();
+		g.pictureInfo.Mst.emplace_back(d);
+	}
+
+	const auto& adsInfo = root["ads_game_info"];
+	{
+		g.gameStandInfo.max_ads_count = adsInfo["max_ads"].asUInt();
+		g.gameStandInfo.max_bonus_count = adsInfo["max_bonus_count"].asUInt();
+	}
+
+	const auto& regionInfo = root["region_info"];
+	{
+		Response::VideoAdRegion t;
+		for (const auto& k : regionInfo)
+		{
+			Response::VideoAdRegion::Data d;
+			d.id = k["id"].asUInt();
+			d.countryCodes = k["country_codes"].asString();
+			t.Mst.emplace_back(d);
+		}
+
+		t.Serialize(userInitJson);
+	}
+
+	g.CacheFields();
+}
+
+static void LoadBannerInfo(const std::string& basePath, Json::Value& res)
+{
+	Json::Value root;
+	LoadJson(basePath, "banners.json", root);
+
+	const auto& r = root["banners"];
+	uint32_t id = 1;
+	Response::BannerInfoMst m;
+	for (const auto& k : r)
+	{
+		Response::BannerInfoMst::Data d;
+		d.name = k["name"].asString();
+		d.id = id;
+		d.dispOrder = id - 1;
+		d.url = k["url"].asString();
+		d.targetOS = k["os"].asString();
+		d.image = k["image"].asString();
+		id++;
+		m.Mst.emplace_back(d);
+	}
+	m.Serialize(res);
+}
+
 void MstConfig::LoadAllTables(const std::string& basePath)
 {
-	LoadLoginCampaignMst(basePath, m_convMst);
-	LoadProgressionInfo(basePath, m_convMst);
-	LoadMstInfo(basePath, m_convMst);
-	LoadTownFacility(basePath, m_convMst);
-	LoadTownLocation(basePath, m_convMst);
-	LoadDungeonKeys(basePath, m_convMst);
-	LoadArenaRank(basePath, m_convMst);
-	LoadGachaEffects(basePath, m_convMst);
-	LoadGacha(basePath, m_convMst);
-	LoadDefine(basePath, m_convMst);
+	LoadLoginCampaignMst(basePath, m_initMst);
+	LoadProgressionInfo(basePath, m_initMst);
+	LoadMstInfo(basePath, m_initMst);
+	LoadTownFacility(basePath, m_initMst);
+	LoadTownLocation(basePath, m_initMst);
+	LoadDungeonKeys(basePath, m_initMst);
+	LoadArenaRank(basePath, m_initMst);
+	LoadGachaEffects(basePath, m_initMst);
+	LoadGacha(basePath, m_initMst);
+	LoadDefine(basePath, m_initMst);
+	LoadNpcMst(basePath, m_initMst);
+	LoadSlotInfo(basePath, m_videoAdsSlot, m_userInfoMst);
+	LoadBannerInfo(basePath, m_initMst);
 	m_dailyTask.LoadTableFromJson(basePath);
 	m_startInfo.LoadTableFromJson(basePath);
-}
 
-void MstConfig::CopyTo(Json::Value& v) const
-{
-	for (auto srcIt = m_convMst.begin(); srcIt != m_convMst.end(); ++srcIt)
-		v[srcIt.name()] = *srcIt;
+	// precompute extra data to save time
+	{
+		Response::NoticeInfo n;
+		n.url = System::Instance().ServerConfig().NoticeUrl;
+		n.Serialize(m_initMst);
+		n.Serialize(m_userInfoMst);
+	}
 }
-

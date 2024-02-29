@@ -18,7 +18,7 @@ struct LoginCampaignReward : public IResponse
 		void Serialize(Json::Value& v) const
 		{
 			v["H1Dkq93v"] = std::to_string(id);
-			v["n0He37p1"] = reward_day;
+			v["n0He37p1"] = std::to_string(reward_day);
 			v["b38adb8i"] = reward_img;
 		}
 	};

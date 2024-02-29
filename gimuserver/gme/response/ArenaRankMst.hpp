@@ -16,11 +16,11 @@ struct ArenaRankMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["JmFn3g9t"] = id;
+			v["JmFn3g9t"] = std::to_string(id);
 			v["rGm09bav"] = name;
-			v["w0aTd94Y"] = rank_point_start;
-			v["1U3eBCyY"] = rank_point_end; // int
-			v["IkmC8gG2"] = reward_type;
+			v["w0aTd94Y"] = std::to_string(rank_point_start);
+			v["1U3eBCyY"] = std::to_string(rank_point_end); // int
+			v["IkmC8gG2"] = std::to_string(reward_type);
 			v["empaR60j"] = reward_param; // str
 			v["N4XVE1uA"] = scenario_info;
 		}

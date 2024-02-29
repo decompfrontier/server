@@ -15,7 +15,7 @@ struct DailyTaskBonusMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["k3bD738b"] = bonusBravePoints;
+			v["k3bD738b"] = std::to_string(bonusBravePoints);
 		}
 	};
 

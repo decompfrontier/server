@@ -22,7 +22,7 @@ protected:
 	{
 		v["H1Dkq93v"] = std::to_string(id);
 		v["qA7M9EjP"] = startDate;
-		v["1adb38d5"] = totalDays;
+		v["1adb38d5"] = std::to_string(totalDays);
 		v["b38adb8i"] = image;
 	}
 };

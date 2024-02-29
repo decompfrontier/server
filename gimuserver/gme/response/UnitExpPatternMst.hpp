@@ -16,9 +16,9 @@ struct UnitExpPatternMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["5UvTp7q1"] = id;
-			v["D9wXQI2V"] = lv;
-			v["grKTq15A"] = needExp;
+			v["5UvTp7q1"] = std::to_string(id);
+			v["D9wXQI2V"] = std::to_string(lv);
+			v["grKTq15A"] = std::to_string(needExp);
 		}
 	};
 

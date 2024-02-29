@@ -17,12 +17,12 @@ struct UserLevelMst : public IResponse
 
 		void Serialize(Json::Value& v) const
 		{
-			v["D9wXQI2V"] = level;
-			v["d96tuT2E"] = exp;
-			v["0P9X1YHs"] = actionPoints;
-			v["ziex06DY"] = deckCost;
-			v["oFQ3mbS6"] = friendCount;
-			v["GZ2rKW90"] = addFriendCount;
+			v["D9wXQI2V"] = std::to_string(level);
+			v["d96tuT2E"] = std::to_string(exp);
+			v["0P9X1YHs"] = std::to_string(actionPoints);
+			v["ziex06DY"] = std::to_string(deckCost);
+			v["oFQ3mbS6"] = std::to_string(friendCount);
+			v["GZ2rKW90"] = std::to_string(addFriendCount);
 		}
 	};
 

@@ -1,6 +1,9 @@
 #pragma once
 
 #include "../GmeRequest.hpp"
+#include "NpcPartyInfo.hpp"
+#include "NpcTeamInfo.hpp"
+#include "NpcUnitInfo.hpp"
 
 RESPONSE_NS_BEGIN
 struct NpcMst : public IResponse
@@ -12,16 +15,39 @@ struct NpcMst : public IResponse
 		explicit Data() : id(0), arena_rank_id(0) {}
 
 		uint32_t id, arena_rank_id;
-		std::string handle_name, team_info, party_info, unit_info;
+		std::string handle_name;
+		NpcTeamInfo team;
+		NpcUnitInfo units;
+		NpcPartyInfo parties;
 
 		void Serialize(Json::Value& v) const
 		{
-			v["7zyHb5h9"] = id;
+			Json::StreamWriterBuilder b;
+			b["indentation"] = "";
+			b["commentStyle"] = "None";
+			b["emitUTF8"] = true;
+
+			v["7zyHb5h9"] = std::to_string(id);
 			v["B5JQyV8j"] = handle_name; // str
-			v["JmFn3g9t"] = arena_rank_id;
-			v["g94bDiaS"] = team_info;
-			v["oPsmRC18"] = party_info;
-			v["bS9s4GCp"] = unit_info;
+			v["JmFn3g9t"] = std::to_string(arena_rank_id);
+
+			{
+				Json::Value i;
+				team.Serialize(i);
+				v["g94bDiaS"] = Json::writeString(b, i);
+			}
+
+			{
+				Json::Value i;
+				parties.Serialize(i);
+				v["oPsmRC18"] = Json::writeString(b, i);
+			}
+
+			{
+				Json::Value i;
+				units.Serialize(i);
+				v["bS9s4GCp"] = Json::writeString(b, i);
+			}
 		}
 	};
 
