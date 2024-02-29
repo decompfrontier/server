@@ -26,12 +26,16 @@ std::string BfCrypt::CryptSREE(const Json::Value& v)
 
 		auto str = Json::writeString(b, v);
 
+		int p = str.size() % AES::BLOCKSIZE;
+		for (int i = 0; i < (p - str.size()); i++)
+			str += "\x00";
+
 		std::string tmp = "", output = "";
 
 		CBC_Mode<AES>::Encryption e;
 		e.SetKeyWithIV(SREE_KEY, sizeof(SREE_KEY), SREE_IV);
 
-		StringSource ss(str, true, new StreamTransformationFilter(e, new StringSink(tmp), StreamTransformationFilter::ZEROS_PADDING));
+		StringSource ss(str, true, new StreamTransformationFilter(e, new StringSink(tmp), StreamTransformationFilter::NO_PADDING));
 
 		return drogon::utils::base64Encode((const unsigned char*)tmp.data(), tmp.size());
 	}

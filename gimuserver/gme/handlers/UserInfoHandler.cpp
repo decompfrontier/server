@@ -21,6 +21,7 @@
 #include "gme/response/VideoAdInfo.hpp"
 #include "gme/response/VideoAdRegion.hpp"
 #include "gme/response/SummonerJournalUserInfo.hpp"
+#include "gme/response/SignalKey.hpp"
 
 void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const
 {
@@ -150,6 +151,12 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 				// SummonerJournal
 				Response::SummonerJournalUserInfo v;
 				v.userId = user.info.userID;
+				v.Serialize(res);
+			}
+
+			{
+				Response::SignalKey v;
+				v.key = "5EdKHavF";
 				v.Serialize(res);
 			}
 

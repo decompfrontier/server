@@ -22,6 +22,8 @@
 #include "gme/response/VideoAdInfo.hpp"
 #include "gme/response/NoticeInfo.hpp"
 #include "gme/response/BannerInfoMst.hpp"
+#include "gme/response/ExcludedDungonMissionMst.hpp"
+#include "gme/response/ExtraPassiveSkillMst.hpp"
 
 static void LoadJson(const std::string& path, const std::string& name, Json::Value& root)
 {
@@ -541,6 +543,51 @@ static void LoadBannerInfo(const std::string& basePath, Json::Value& res)
 	m.Serialize(res);
 }
 
+static void LoadExcludedDungeonsMst(const std::string& path, Json::Value& v)
+{
+	Json::Value root;
+	LoadJson(path, "excluded_dungeons.json", root);
+
+	const auto& p = root["list"];
+
+	Response::ExcludedDungeonMissionMst tbl;
+	for (const auto& k : p)
+	{
+		Response::ExcludedDungeonMissionMst::Data d;
+		d.id = k["mission_id"].asUInt();
+		tbl.Mst.emplace_back(d);
+	}
+	tbl.Serialize(v);
+}
+
+static void LoadExtraSkillPassive(const std::string& path, Json::Value& v)
+{
+	Json::Value root;
+	LoadJson(path, "extra_passive_skills.json", root);
+
+	const auto& p = root["list"];
+
+	Response::ExtraPassiveSkillMst tbl;
+	for (const auto& k : p)
+	{
+		Response::ExtraPassiveSkillMst::Data d;
+		d.id = k["skill_id"].asUInt();
+		d.skillName = k["skill_name"].asString();
+		d.skillNameS = k["skill_name_s"].asString();
+		d.skillType = k["skill_type"].asUInt();
+		d.groupID = k["group_id"].asUInt();
+		d.priority = k["priority"].asUInt();
+		d.rare = k["rare"].asUInt();
+		d.termParam = k["term_param"].asString();
+		d.target = k["target"].asUInt();
+		d.processID = k["process_id"].asString();
+		d.processParam = k["process_param"].asString();
+		d.description = k["description"].asString();
+		tbl.Mst.emplace_back(d);
+	}
+	tbl.Serialize(v);
+}
+
 void MstConfig::LoadAllTables(const std::string& basePath)
 {
 	LoadLoginCampaignMst(basePath, m_initMst);
@@ -556,6 +603,8 @@ void MstConfig::LoadAllTables(const std::string& basePath)
 	LoadNpcMst(basePath, m_initMst);
 	LoadSlotInfo(basePath, m_videoAdsSlot, m_userInfoMst);
 	LoadBannerInfo(basePath, m_initMst);
+	LoadExcludedDungeonsMst(basePath, m_userInfoMst);
+	LoadExtraSkillPassive(basePath, m_initMst);
 	m_dailyTask.LoadTableFromJson(basePath);
 	m_startInfo.LoadTableFromJson(basePath);
 

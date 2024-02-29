@@ -8,7 +8,7 @@
     },
     "server":
     {
-        "wallpaper_banner" : "wallpaper.jpg",
+        "wallpaper_banner" : "/wallpaper/title_logo20160401.jpg",
         "game_version": 21900,
         "notice_url": "http://ios21900.bfww.gumi.sg/pages/versioninfo"
     },

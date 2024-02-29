@@ -7,9 +7,13 @@ struct ExcludedDungeonMissionMst : public IResponse
 {
 	struct Data
 	{
+		explicit Data() : id(0) {}
+
+		uint32_t id;
+
 		void Serialize(Json::Value& v) const
 		{
-			// TODO
+			v["j28VNcUW"] = std::to_string(id);
 		}
 	};
 

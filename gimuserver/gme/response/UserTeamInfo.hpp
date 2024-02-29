@@ -83,7 +83,7 @@ protected:
 		v["J3stQ7jd"] = std::to_string(FriendPoint);
 		v["Najhr8m6"] = std::to_string(Zel);
 		v["HTVh8a65"] = std::to_string(Karma);
-		v["03UGMHxF"] = std::to_string(BraveCoin);
+		v["03UGMHxF"] = BraveCoin;
 		v["bM7RLu5K"] = FriendMessage;
 		v["5pjoGBC4"] = std::to_string(WarehouseCount);
 		v["iI7Wj6pM"] = std::to_string(AddWarehouseCount);
@@ -93,18 +93,18 @@ protected:
 		v["1RQT92uE"] = std::to_string(GiftReceiveCount);
 		v["f0IY4nj8"] = std::to_string(ActionRestTimer);
 		v["jp9s8IyY"] = std::to_string(FightRestTimer);
-		v["92uj7oXB"] = std::to_string(FreeGems);
+		v["92uj7oXB"] = FreeGems;
 		v["Z0Y4RoD7"] = std::to_string(ActiveDeck);
 		v["9r3aLmaB"] = std::to_string(SummonTicket);
-		v["s3uU4Lgb"] = std::to_string(SlotGameFlag);
+		v["s3uU4Lgb"] = SlotGameFlag;
 		v["KAZmxkgy"] = std::to_string(RainbowCoin);
 		v["bya9a67k"] = std::to_string(BravePointsTotal);
 		v["lKuj3Ier"] = std::to_string(ColosseumTicket);
-		v["gKNfIZiA"] = std::to_string(ArenaDeckNum);
+		v["gKNfIZiA"] = ArenaDeckNum;
 		v["TwqMChon"] = std::to_string(ReinforcementDeck) + "," + std::to_string(ReinforcementDeckEx1) + "," + std::to_string(ReinforcementDeckEx2);
-		v["d37CaiX1"] = std::to_string(PaidGems);
-		v["Qo9doUsp"] = std::to_string(MysteryBoxCount);
-		v["7qncTHUJ"] = std::to_string(InboxMessageCount);
+		v["d37CaiX1"] = PaidGems;
+		v["Qo9doUsp"] = MysteryBoxCount;
+		v["7qncTHUJ"] = InboxMessageCount;
 		v["3a8b9D8i"] = std::to_string(CompletedTaskCount);
 		v["22rqpZTo"] = std::to_string(CurrentBravePoints);
 	}

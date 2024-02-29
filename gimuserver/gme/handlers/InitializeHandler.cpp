@@ -65,7 +65,7 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 		Response::ChallengeArenaUserInfo ci;
 		ci.unkstr = "n9ZMPC0t"; // rank name?
 		ci.unkstr2 = "F"; // ranking?
-		ci.unkint6 = 1; // ??
+		ci.leagueId = 1;
 		ci.Serialize(res); // challenge arena info
 	}
 
