@@ -23,6 +23,7 @@ void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void
 
 	if (!fs::exists(path) || fs::is_directory(path))
 	{
+		Utils::AddMissingDlcFile(rq->getPath());
 		callback(HttpResponse::newNotFoundResponse());
 		return;
 	}

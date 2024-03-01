@@ -65,6 +65,9 @@ std::string Utils::RandomAccountID()
 
 void Utils::AppendJsonReqToFile(const Json::Value& v, const std::string& group)
 {
+	if (!System::Instance().LogConfig().Enable)
+		return;
+
 	std::string p = System::Instance().LogConfig().RequestPath;
 
 	time_t rawtime;
@@ -90,6 +93,9 @@ void Utils::AppendJsonReqToFile(const Json::Value& v, const std::string& group)
 
 void Utils::AppendJsonResToFile(const Json::Value& v, const std::string& group)
 {
+	if (!System::Instance().LogConfig().Enable)
+		return;
+
 	std::string p = System::Instance().LogConfig().ResponsePath;
 	
 	time_t rawtime;
@@ -113,3 +119,13 @@ void Utils::AppendJsonResToFile(const Json::Value& v, const std::string& group)
 	of.close();
 }
 
+void Utils::AddMissingDlcFile(const std::string& v)
+{
+	if (!System::Instance().LogConfig().Enable)
+		return;
+
+	std::string p = System::Instance().LogConfig().Dlc404File;	
+	std::ofstream of(p, std::ofstream::out);
+	of << v << std::endl;
+	of.close();
+}

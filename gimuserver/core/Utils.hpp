@@ -13,4 +13,5 @@ namespace Utils
 	std::string RandomAccountID();
 	void AppendJsonReqToFile(const Json::Value& v, const std::string& group);
 	void AppendJsonResToFile(const Json::Value& v, const std::string& group);
+	void AddMissingDlcFile(const std::string& v);
 }

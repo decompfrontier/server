@@ -7,6 +7,7 @@ struct LogConfig
 	bool Enable;
 	std::string RequestPath;
 	std::string ResponsePath;
+	std::string Dlc404File;
 
 	explicit LogConfig() : Enable(false) {}
 

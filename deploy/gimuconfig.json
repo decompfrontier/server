@@ -16,6 +16,7 @@
 	{
 		"enable": true,
 		"request_path": "log_req",
-		"response_path": "log_res"
+		"response_path": "log_res",
+        "dlc_error_file": "dlc_404.txt"
 	}
 }
