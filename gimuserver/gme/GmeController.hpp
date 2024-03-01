@@ -18,11 +18,13 @@ public:
 	void HandleGame(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
 	void HandleFeatureCheck(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
 	void HandleServerTime(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
+	void HandleDailyLogin(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
 
 	METHOD_LIST_BEGIN
 		ADD_METHOD_TO(GmeController::HandleGame, "/bf/gme/action.php", Post);
 		ADD_METHOD_TO(GmeController::HandleFeatureCheck, "/bf/gme/featureCheck.php", Get);
 		ADD_METHOD_TO(GmeController::HandleServerTime, "/bf/gme/action/getServerTime.php", Get);
+		ADD_METHOD_TO(GmeController::HandleDailyLogin, "/bf/gme/action/Daily_login.php", Post);
 	METHOD_LIST_END
 
 private:

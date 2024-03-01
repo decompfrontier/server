@@ -3,6 +3,7 @@
 #include "GmeTypes.hpp"
 #include "core/BfCrypt.hpp"
 #include "core/Utils.hpp"
+#include "gme/response/FeatureCheck.hpp"
 
 GmeController::GmeController()
 {
@@ -86,15 +87,23 @@ void GmeController::HandleGame(const HttpRequestPtr& rq, std::function<void(cons
 
 void GmeController::HandleFeatureCheck(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
+	// note: drogon should already cache this
 	Json::Value v;
+	Response::FeatureCheck c;
+	c.Serialize(v);
 	callback(HttpResponse::newHttpJsonResponse(v));
 }
 
 void GmeController::HandleServerTime(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-	callback(
-		HttpResponse::newNotFoundResponse() // TODO
-	);
-		
-		//trantor::Date::date().secondsSinceEpoch();
+	auto p = HttpResponse::newHttpResponse();
+	p->setStatusCode(k200OK);
+	p->setContentTypeCode(CT_TEXT_HTML);
+	p->setBody(std::to_string(trantor::Date::date().secondsSinceEpoch()));
+	callback(p);
+}
+
+void GmeController::HandleDailyLogin(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
+{
+	callback(HttpResponse::newHttpResponse());
 }

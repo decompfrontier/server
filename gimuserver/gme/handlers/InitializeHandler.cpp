@@ -53,8 +53,6 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 
 	const auto& msts = System::Instance().MstConfig();
 
-	msts.CopyInitializeMstTo(res);
-
 	{
 		Response::SignalKey k;
 		k.key = "C7vnXA5T";
@@ -109,19 +107,32 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 
 	{
 		Response::DailyTaskMst dailyTasks;
-		for (int i = 0; i < 3; i++)
-		{
+
 			// TODO: we need a daily task table so that we
 			//  can select how many daily tasks we can do
-			Response::DailyTaskMst::Data d;
-			d.typeKey = "AV";
-			d.typeTitle = "Arena Victory";
-			d.typeDescription = "Achieve 3 Victories in The Arena ";
-			d.taskCount = 3;
-			d.taskBravePoints = 20;
-			d.timesCompleted = 1;
-			dailyTasks.Mst.emplace_back(d);
-		}
+		Response::DailyTaskMst::Data d;
+		d.typeKey = "AV";
+		d.typeTitle = "Arena Victory";
+		d.typeDescription = "Achieve 3 Victories in The Arena ";
+		d.taskCount = 3;
+		d.taskBravePoints = 20;
+		dailyTasks.Mst.emplace_back(d);
+
+		d.typeKey = "VV";
+		d.typeTitle = "Vortex Venturer";
+		d.typeDescription = "Complete 1 Mission within the Vortex ";
+		d.taskCount = 1;
+		d.taskBravePoints = 20;
+		dailyTasks.Mst.emplace_back(d);
+
+		d.typeKey = "CM";
+		d.typeTitle = "Craftsman";
+		d.typeDescription = "Craft 5 Items/Spheres ";
+		d.taskCount = 5;
+		d.taskBravePoints = 20;
+		dailyTasks.Mst.emplace_back(d);
+
+
 		dailyTasks.Serialize(res); // daily taks
 	}
 
@@ -142,6 +153,8 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 		v.userId = user.info.userID;
 		v.Serialize(res);
 	}
+
+	msts.CopyInitializeMstTo(res);
 
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }

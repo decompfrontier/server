@@ -27,8 +27,8 @@ std::string BfCrypt::CryptSREE(const Json::Value& v)
 		auto str = Json::writeString(b, v);
 
 		int p = str.size() % AES::BLOCKSIZE;
-		for (int i = 0; i < (p - str.size()); i++)
-			str += "\x00";
+		for (int i = 0; i < (AES::BLOCKSIZE - p); i++)
+			str += " ";
 
 		std::string tmp = "", output = "";
 
