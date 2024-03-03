@@ -24,8 +24,8 @@ struct UserTeamInfo : public IResponse
 	std::string UserID;
 	uint32_t Level;
 	uint64_t Exp;
-	uint32_t MaxActionPoint; // ?
-	uint32_t ActionPoint; // ?
+	uint32_t MaxActionPoint; // max energy
+	uint32_t ActionPoint; // energy
 	uint32_t MaxFightPoint; // ?
 	uint32_t FightPoint; // ?
 	uint32_t MaxUnitCount;

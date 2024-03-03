@@ -4,6 +4,7 @@
 #include "DailyTaskConfig.hpp"
 #include "StartInfo.hpp"
 #include <gimuserver/gme/response/VideoAdsSlotgameInfo.hpp>
+#include <gimuserver/gme/response/UserLevelMst.hpp>
 
 class MstConfig
 {
@@ -29,16 +30,26 @@ public:
 	const auto& DailyTaskConfig() const { return m_dailyTask; }
 	const auto& StartInfo() const { return m_startInfo; }
 	const auto& GetAdsSlotInfo() const { return m_videoAdsSlot; }
+	const auto& GetProgressionInfo() const { return m_progressions; }
 	
 
-protected:
+private:
 	void LoadGacha(const std::string& path);
+	void LoadExtraSkillPassive(const std::string& path);
+	void LoadUrl(const std::string& path);
+	void LoadReceipes(const std::string& path);
+	void LoadProgressionInfo(const std::string& path);
 
+	// cached jsons
 	Json::Value m_initMst;
 	Json::Value m_userInfoMst;
 	Json::Value m_gatchaInfo;
+
+	// caches classes
+	Response::VideoAdsSlotgameInfo m_videoAdsSlot;
+	Response::UserLevelMst m_progressions;
 	::DailyTaskConfig m_dailyTask;
 	::StartInfo m_startInfo;
-	Response::VideoAdsSlotgameInfo m_videoAdsSlot;
+
 };
 

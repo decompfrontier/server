@@ -30,7 +30,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 		"zel, karma, brave_coin, max_warehouse_count, want_gift, "
 		"free_gems, paid_gems, active_deck, summon_tickets, "
 		"rainbow_coins, colosseum_tickets, active_arena_deck, "
-		"total_brave_points, avail_brave_points "
+		"total_brave_points, avail_brave_points, energy "
 		"FROM userinfo WHERE id = $1", [this, &user, cb](const drogon::orm::Result& result) {
 
 			if (result.size() > 0)
@@ -56,6 +56,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 				user.teamInfo.ArenaDeckNum = sql[col++].as<uint32_t>();
 				user.teamInfo.BravePointsTotal = sql[col++].as<uint32_t>();
 				user.teamInfo.CurrentBravePoints = sql[col++].as<uint32_t>();
+				user.teamInfo.ActionPoint = sql[col++].as<uint32_t>();
 			}
 			else
 			{
@@ -73,6 +74,20 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 				user.teamInfo.PaidGems = sc.PaidGems;
 				user.teamInfo.SummonTicket = sc.SummonTickets;
 				user.teamInfo.ColosseumTicket = sc.ColosseumTickets;
+			}
+
+			const auto& msts = System::Instance().MstConfig();
+
+			// setup teaminfo progression info
+			{
+				const auto& p = msts.GetProgressionInfo().Mst.at(user.teamInfo.Level - 1);
+				user.teamInfo.DeckCost = p.deckCost;
+				user.teamInfo.MaxFriendCount = p.friendCount;
+				user.teamInfo.AddFriendCount = p.addFriendCount;
+				user.teamInfo.MaxActionPoint = p.actionPoints;
+
+				if (user.teamInfo.ActionPoint == 0)
+					user.teamInfo.ActionPoint = user.teamInfo.MaxActionPoint;
 			}
 
 			Json::Value res;
@@ -102,7 +117,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 				Response::UserUnitInfo::Data d;
 				d.userID = user.info.userID;
 				d.userUnitID = 1;
-				d.unitTypeID = 0;
+				d.unitTypeID = 1;
 				
 				d.baseHp = 1000;
 				d.addHp = 1001;
@@ -134,6 +149,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 				d.FeBP = 100;
 				d.FeUsedBP = 0;
 				d.FeMaxUsableBP = 200;
+				d.UnitImgType = 0;
 
 
 				d.exp = 1;
@@ -146,6 +162,17 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 
 			{
 				Response::UserPartyDeckInfo v;
+
+				for (int i = 0; i < 10; i++)
+				{
+					Response::UserPartyDeckInfo::Data d;
+					d.deckNum = i;
+					d.deckType = 1; // 1 = party
+					d.dispOrder = 0; // unit position
+					d.memberType = 0; // 0 = leader, 1 = normal
+					d.userUnitID = 1;
+					v.Mst.emplace_back(d);
+				}
 				v.Serialize(res);
 			}
 

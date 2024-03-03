@@ -36,7 +36,8 @@ struct CreateDefaultTables : public IMigration
 			"colosseum_tickets INTEGER(4),"
 			"active_arena_deck INTEGER(1),"
 			"total_brave_points INTEGER(9),"
-			"avail_brave_points INTEGER(9)"
+			"avail_brave_points INTEGER(9),"
+			"energy INTEGER(10)"
 			");"
 		);
 	}

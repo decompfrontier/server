@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../GmeRequest.hpp"
+#include <unordered_map>
 
 RESPONSE_NS_BEGIN
 struct UserLevelMst : public IResponse
@@ -28,13 +29,19 @@ struct UserLevelMst : public IResponse
 
 	const char* getGroupName() const override { return "YDv9bJ3s"; }
 
-	std::vector<Data> Mst;
+	std::unordered_map<int, Data> Mst;
 
 protected:
 	size_t getRespCount() const override { return Mst.size(); }
 
 	void SerializeFields(Json::Value& v, size_t i) const override
 	{
+		auto p = Mst.find(i);
+		if (p == Mst.end())
+		{
+			throw new std::runtime_error("Unable to find progression for level " + std::to_string(i));
+		}
+
 		Mst.at(i).Serialize(v);
 	}
 };

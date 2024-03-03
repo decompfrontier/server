@@ -27,6 +27,7 @@
 #include "gme/response/SlotGameInfo_Resp.hpp"
 #include "gme/response/GachaInfo.hpp"
 #include "gme/response/GachaCategory.hpp"
+#include "gme/response/UrlMst.hpp"
 
 static void LoadJson(const std::string& path, const std::string& name, Json::Value& root)
 {
@@ -104,14 +105,13 @@ static void LoadMstInfo(const std::string& path, Json::Value& res)
 	tables.Serialize(res);
 }
 
-static void LoadProgressionInfo(const std::string& path, Json::Value& res)
+void MstConfig::LoadProgressionInfo(const std::string& path)
 {
 	Json::Value root;
 	LoadJson(path, "progressioninfo.json", root);
 
 	const auto& msts = root["progression_info"];
 
-	Response::UserLevelMst tables;
 	for (const auto& v : msts)
 	{
 		Response::UserLevelMst::Data tbl;
@@ -121,10 +121,10 @@ static void LoadProgressionInfo(const std::string& path, Json::Value& res)
 		tbl.deckCost = v["deck_cost"].asUInt();
 		tbl.friendCount = v["friend_count"].asUInt();
 		tbl.addFriendCount = v["add_friend_count"].asUInt();
-		tables.Mst.emplace_back(tbl);
+		m_progressions.Mst.insert_or_assign(tbl.level - 1, tbl);
 	}
 
-	tables.Serialize(res);
+	m_progressions.Serialize(m_initMst);
 }
 
 static void LoadTownFacility(const std::string& path, Json::Value& res)
@@ -616,7 +616,7 @@ static void LoadExcludedDungeonsMst(const std::string& path, Json::Value& v)
 	tbl.Serialize(v);
 }
 
-static void LoadExtraSkillPassive(const std::string& path, Json::Value& v)
+void MstConfig::LoadExtraSkillPassive(const std::string& path)
 {
 	Json::Value root;
 	LoadJson(path, "extra_passive_skills.json", root);
@@ -641,13 +641,49 @@ static void LoadExtraSkillPassive(const std::string& path, Json::Value& v)
 		d.description = k["description"].asString();
 		tbl.Mst.emplace_back(d);
 	}
-	tbl.Serialize(v);
+	tbl.Serialize(m_initMst);
 }
+
+void MstConfig::LoadUrl(const std::string& path)
+{
+	Json::Value root;
+	LoadJson(path, "urls.json", root);
+
+	Response::UrlMst m;
+	m.officialSite = root["official_site"].asString();
+	m.noticeUrl = root["official_site"].asString();
+	m.contactUrl = root["contact_url"].asString();
+	m.friendRefeerUrl = root["friend_refeer_url"].asString();
+	m.appliDlUrl = root["appli_dl_url"].asString();
+	m.appliDlAndroidUrl = root["appli_dl_android_url"].asString();
+	m.famiAppSiteUrl = root["fami_appsite_url"].asString();
+	m.twitterSiteUrl = root["twitter_url"].asString();
+	m.facebookSiteUrl = root["facebook_url"].asString();
+	m.transferSiteUrl = root["transfer_site_url"].asString();
+	m.appBankSiteUrl = root["appbank_site_url"].asString();
+	m.loblSiteUrl = root["lobl_site_url"].asString();
+	m.loblSchemaUrl = root["lobl_schema_url"].asString();
+	m.appliSommelierUrl = root["appli_sommelier_url"].asString();
+	m.creditUrl = root["credit_url"].asString();
+	m.gameGiftUrl = root["gamegift_url"].asString();
+	m.agreementUrl = root["agreement_url"].asString();
+	m.agreementOfficialUrl = root["agreement_official_url"].asString();
+	m.legalfundSettlementUrl = root["legalfund_settlement_url"].asString();
+	m.specificTradeUrl = root["specific_trade_url"].asString();
+	m.diaPossessionUrl = root["dia_possession_url"].asString();
+	m.lobiRecHelpUrl = root["lobi_rechelp_url"].asString();
+	m.lobiAgreementUrl = root["lobi_agreement_url"].asString();
+	m.gachaContentsUrl = root["gachacontents_url"].asString();
+	m.multiArchiveUrl = root["multiarchive_url"].asString();
+
+	m.Serialize(m_initMst);
+}
+
 
 void MstConfig::LoadAllTables(const std::string& basePath)
 {
 	LoadLoginCampaignMst(basePath, m_initMst);
-	LoadProgressionInfo(basePath, m_initMst);
+	LoadProgressionInfo(basePath);
 	LoadMstInfo(basePath, m_initMst);
 	LoadTownFacility(basePath, m_initMst);
 	LoadTownLocation(basePath, m_initMst);
@@ -660,7 +696,7 @@ void MstConfig::LoadAllTables(const std::string& basePath)
 	LoadSlotInfo(basePath, m_videoAdsSlot, m_userInfoMst);
 	LoadBannerInfo(basePath, m_initMst);
 	LoadExcludedDungeonsMst(basePath, m_userInfoMst);
-	LoadExtraSkillPassive(basePath, m_initMst);
+	LoadExtraSkillPassive(basePath);
 	m_dailyTask.LoadTableFromJson(basePath);
 	m_startInfo.LoadTableFromJson(basePath);
 
