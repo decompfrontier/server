@@ -1,0 +1,18 @@
+{
+    "info":
+    {
+        "id": 1,
+        "name": "Brave Slots",
+        "reel_pos": "1,2,3",
+        "use_medal": 1,
+        "help_url": "/bf/web/slots/html/index.php",
+        "image": "slot_base.png,slot_btn_on.png,slot_label_start.png,slot_medal_insert.png,slot_medal.png,item_large.png,bravemedal_large.png,sphere_large.png"
+    },
+    "images":
+    [
+        {
+            "id": 81,
+            "name": "j_god.png"
+        }
+    ]
+}

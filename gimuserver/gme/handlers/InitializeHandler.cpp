@@ -45,6 +45,7 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 		user.info.handleName = "----";
 		user.info.debugMode = false;
 		user.info.accountID = Utils::RandomAccountID();
+		user.info.tutorialStatus = 1;
 		//user.PersistInfo();
 	}
 

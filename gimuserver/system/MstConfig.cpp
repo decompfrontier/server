@@ -24,6 +24,9 @@
 #include "gme/response/BannerInfoMst.hpp"
 #include "gme/response/ExcludedDungonMissionMst.hpp"
 #include "gme/response/ExtraPassiveSkillMst.hpp"
+#include "gme/response/SlotGameInfo_Resp.hpp"
+#include "gme/response/GachaInfo.hpp"
+#include "gme/response/GachaCategory.hpp"
 
 static void LoadJson(const std::string& path, const std::string& name, Json::Value& root)
 {
@@ -288,7 +291,7 @@ static void LoadGachaEffects(const std::string& path, Json::Value& res)
 	tables.Serialize(res);
 }
 
-static void LoadGacha(const std::string& path, Json::Value& res)
+void MstConfig::LoadGacha(const std::string& path)
 {
 	Json::Value root;
 	LoadJson(path, "gacha.json", root);
@@ -296,6 +299,8 @@ static void LoadGacha(const std::string& path, Json::Value& res)
 	const auto& msts = root["gacha_info"];
 
 	Response::GachaMst tables;
+	Response::GachaInfo table2;
+
 	for (const auto& v : msts)
 	{
 		Response::GachaMst::Data tbl;
@@ -319,10 +324,61 @@ static void LoadGacha(const std::string& path, Json::Value& res)
 		tbl.gatcha_group_id = v["gatcha_group_id"].asUInt();
 		tbl.description = v["description"].asString();
 		
+		Response::GachaInfo::Data tbl2;
+		tbl2.id = v["id"].asUInt();
+		tbl2.gachaName = v["name"].asString();
+		tbl2.gachaType = v["type"].asUInt();
+		tbl2.priority = v["priority"].asUInt();
+		tbl2.startDate = v["start_date"].asString();
+		tbl2.endDate = v["end_date"].asString();
+		tbl2.startHour = v["start_hour"].asString();
+		tbl2.endHour = v["end_hour"].asString();
+		tbl2.needFriendPoint = v["need_friend_point"].asUInt();
+		tbl2.braveCoin = v["need_gems"].asUInt();
+		tbl2.onceDayFlag = v["once_day_flag"].asBool() ? 1 : 0;
+		tbl2.bgImg = v["bg_img"].asString();
+		tbl2.btnImg = v["btn_img"].asString();
+		tbl2.doorImg = v["door_img"].asString();
+		tbl2.captionMsg = v["caption_msg"].asString();
+		tbl2.detailMsg = v["detail_msg"].asString();
+		tbl2.commentMsg = v["comment_msg"].asString();
+		tbl2.gachaGroupID = v["gatcha_group_id"].asUInt();
+		tbl2.description = v["description"].asString();
+		tbl2.gachaType = 2; // NOTE: friend point summons = 1? rare summon= 2000?
+
 		tables.Mst.emplace_back(tbl);
+		table2.Mst.emplace_back(tbl2);
 	}
 
-	tables.Serialize(res);
+	const auto& json_cats = root["gacha_categories"];
+	Response::GachaCategory cats;
+	for (const auto& v : json_cats)
+	{
+		Response::GachaCategory::Data d;
+		d.id = v["id"].asUInt();
+		d.img = v["img"].asString();
+		d.dispOrder = v["display_order"].asUInt();
+		d.startDate = v["start_date"].asUInt();
+		d.endDate = v["end_date"].asUInt();
+		d.gachaIDList = "";
+
+		const auto& gachaids = v["gatcha_ids"];
+		for (const auto& q : gachaids)
+		{
+			d.gachaIDList += std::to_string(q.asUInt()) + ",";
+		}
+
+		if (!d.gachaIDList.empty())
+			d.gachaIDList.erase(d.gachaIDList.size() - 1);
+
+		cats.Mst.emplace_back(d);
+	}
+
+
+	tables.Serialize(m_initMst);
+	table2.Serialize(m_userInfoMst);
+	table2.Serialize(m_gatchaInfo);
+	cats.Serialize(m_gatchaInfo);
 }
 
 static void LoadDefine(const std::string& path, Json::Value& res)
@@ -598,7 +654,7 @@ void MstConfig::LoadAllTables(const std::string& basePath)
 	LoadDungeonKeys(basePath, m_initMst);
 	LoadArenaRank(basePath, m_initMst);
 	LoadGachaEffects(basePath, m_initMst);
-	LoadGacha(basePath, m_initMst);
+	LoadGacha(basePath);
 	LoadDefine(basePath, m_initMst);
 	LoadNpcMst(basePath, m_initMst);
 	LoadSlotInfo(basePath, m_videoAdsSlot, m_userInfoMst);

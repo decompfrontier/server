@@ -99,6 +99,48 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 
 			{
 				Response::UserUnitInfo v;
+				Response::UserUnitInfo::Data d;
+				d.userID = user.info.userID;
+				d.userUnitID = 1;
+				d.unitTypeID = 0;
+				
+				d.baseHp = 1000;
+				d.addHp = 1001;
+				d.extHp = 1002;
+
+				d.baseDef = 1100;
+				d.addDef = 1101;
+				d.extDef = 1102;
+
+				d.baseHeal = 1200;
+				d.addHeal = 1201;
+				d.extHeal = 1202;
+
+				d.baseAtk = 1300;
+				d.addAtk = 1301;
+				d.extAtk = 1302;
+
+				d.limitOverAtk = 1400;
+				d.limitOverDef = 1401;
+				d.limitOverHeal = 1402;
+				d.limitOverHP = 1403;
+
+				d.element = 1;
+				d.unitLv = 1;
+				d.newFlg = 1;
+
+				d.extCnt = 1500;
+				d.receiveDate = 100;
+				d.FeBP = 100;
+				d.FeUsedBP = 0;
+				d.FeMaxUsableBP = 200;
+
+
+				d.exp = 1;
+				d.totalExp = 1;
+
+				d.unitID = 50253;
+				v.Mst.emplace_back(d);
 				v.Serialize(res);
 			}
 

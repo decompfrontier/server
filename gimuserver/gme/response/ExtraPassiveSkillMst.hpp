@@ -7,6 +7,9 @@ struct ExtraPassiveSkillMst : public IResponse
 {
 	struct Data
 	{
+		explicit Data() : id(0), target(0), priority(0), rare(0),
+			groupID(0), skillType(0) {}
+
 		uint32_t id, target, priority, rare, groupID,
 			skillType;
 		std::string skillName, skillNameS, processParam,

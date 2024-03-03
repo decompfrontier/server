@@ -125,7 +125,7 @@ void Utils::AddMissingDlcFile(const std::string& v)
 		return;
 
 	std::string p = System::Instance().LogConfig().Dlc404File;	
-	std::ofstream of(p, std::ofstream::out);
+	std::ofstream of(p, std::ofstream::out | std::ofstream::app);
 	of << v << std::endl;
 	of.close();
 }
