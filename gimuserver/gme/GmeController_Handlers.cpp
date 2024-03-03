@@ -7,6 +7,8 @@
 #include "handlers/ControlCenterEnterHandler.hpp"
 #include "handlers/UpdateInfoLightHandler.hpp"
 #include "handlers/GatchaListHandler.hpp"
+#include "handlers/DeckEditHandler.hpp"
+#include "handlers/MissionStartHandler.hpp"
 
 #define REGISTER(name) InitializeHandler(std::make_shared<Handler::##name##Handler>())
 
@@ -20,4 +22,6 @@ void GmeController::InitializeHandlers()
 	REGISTER(ControlCenterEnter);
 	REGISTER(UpdateInfoLight);
 	REGISTER(GatchaList);
+	REGISTER(DeckEdit);
+	REGISTER(MissionStart);
 }

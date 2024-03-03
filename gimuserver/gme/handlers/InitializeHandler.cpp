@@ -42,10 +42,11 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 		user.info.debugMode = sql[col++].as<bool>() ? 1 : 0;
 	}
 	else {
-		user.info.handleName = "----";
+		user.info.handleName = "BFOM: 03/03/2024";
 		user.info.debugMode = false;
 		user.info.accountID = Utils::RandomAccountID();
-		user.info.tutorialStatus = 1;
+		user.info.tutorialEndFlag = 1;
+		user.info.tutorialStatus = 0;
 		//user.PersistInfo();
 	}
 
