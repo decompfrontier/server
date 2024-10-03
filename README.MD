@@ -12,10 +12,14 @@ The server is intended to provide a backend replacement for the following server
 - Game Server (gme)
 - CDN Asset server
 
+## Building
+- [Development setup](https://decompfrontier.github.io/pages/Tutorial/Building-development.html)
+- [Offlinemod setup](https://decompfrontier.github.io/pages/Tutorial/Offlinemod-setup.html)
+
 ## Structure
 
 ### game_frontend
-This contains the exporte DLL that will can be used to embed the offline mod server into the game by generating a shared library.
+This contains the exported DLL that will can be used to embed the offline mod server into the game by generating a shared library.
 
 ### gimuserver
 This is the actual server source code.
@@ -24,7 +28,8 @@ This is the actual server source code.
 This is a standalone version of the server primary intended for easy development of the project.
 
 ## Requirements
-- C++17+ compiler
+- Visual Studio 2022 (Windows)
+- Ninja, GCC/Clang (Linux)
 - CMake
 - vcpkg
 

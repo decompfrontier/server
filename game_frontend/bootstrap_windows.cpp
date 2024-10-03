@@ -1,4 +1,4 @@
-#ifdef _WIN32
+#ifdef __APPX__
 
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>

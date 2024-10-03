@@ -1,0 +1,112 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 21,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default-base",
+            "displayName": "Default basic config",
+            "description": "General basic configuration to inherit",
+            "toolchainFile": "$env{VCPKG_HOME}/scripts/buildsystems/vcpkg.cmake",
+            "hidden": true
+        },
+        {
+            "name": "default-debug",
+            "displayName": "Config Debug",
+            "description": "General default debug configuration",
+            "inherits": "default-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            },
+            "hidden": true
+        },
+        {
+            "name": "default-release",
+            "displayName": "Config Release",
+            "description": "General default release configuration",
+            "inherits": "default-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            },
+            "hidden": true
+        },
+        {
+            "name": "debug-win64",
+            "displayName": "Development config for Windows (64-bit)",
+            "inherits": "default-debug",
+            "generator": "Visual Studio 17 2022",
+            "architecture": "x64",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "cacheVariables": {
+                "GIMUSRV_FRONTEND": {
+                    "type": "STRING",
+                    "value": "STANDALONE"
+                },
+                "VCPKG_TARGET_TRIPLET": {
+                    "type": "STRING",
+                    "value": "x64-windows"
+                }
+            }
+        },
+        {
+			"name": "debug-lnx64",
+			"displayName": "Development config for Linux (64-bit)",
+			"inherits": "default-debug",
+			"generator": "Ninja",
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Linux"
+			},
+			"cacheVariables": {
+                "GIMUSRV_FRONTEND": {
+                    "type": "STRING",
+                    "value": "STANDALONE"
+                },
+				"VCPKG_TARGET_TRIPLET": {
+					"type": "STRING",
+					"value": "x64-linux"
+				}
+			}
+        },
+        {
+            "name": "release-win32",
+            "displayName": "Deployment for Brave Frontier for Windows",
+            "inherits": "default-release",
+            "generator": "Visual Studio 17 2022",
+            "architecture": "x64",
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            },
+            "cacheVariables": {
+                "GIMUSRV_FRONTEND": {
+                    "type": "STRING",
+                    "value": "PROXYAPPX"
+                },
+                "VCPKG_TARGET_TRIPLET": {
+                    "type": "STRING",
+                    "value": "x86-windows-static"
+                }
+            }
+        }
+    ],
+    "buildPresets" : [
+        {
+            "name": "debug-win64",
+            "configurePreset": "debug-win64"    
+        },
+        {
+			"name": "debug-lnx64",
+			"configurePreset": "debug-lnx64"
+        }
+    ]
+}

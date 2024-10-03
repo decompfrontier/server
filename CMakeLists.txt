@@ -1,7 +1,15 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.21)
 project(GimuServer)
 
 set(CMAKE_CXX_STANDARD 17)
+
+if ("${GIMUSRV_FRONTEND}" STREQUAL "STANDALONE")
+    set(STANDALONE TRUE)
+elseif ("${GIMUSRV_FRONTEND}" STREQUAL "PROXYAPPX")
+    set(APPX TRUE)
+else()
+    message(FATAL_ERROR "Invalid frontend configuration")
+endif()
 
 set(SERVER_VERSION_REV 1) # Increment this when a new release happens
 set(SERVER_YEAR "2022-2024")
@@ -13,5 +21,11 @@ find_package(Drogon CONFIG REQUIRED)
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
 
 add_subdirectory(gimuserver)
-add_subdirectory(standalone_frontend)
-add_subdirectory(game_frontend)
+
+if (STANDALONE)
+    add_subdirectory(standalone_frontend)
+endif()
+
+if (APPX)
+    add_subdirectory(game_frontend)
+endif()
