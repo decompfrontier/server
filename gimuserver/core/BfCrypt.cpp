@@ -1,19 +1,17 @@
 #include "BfCrypt.hpp"
-
 #include <json/json.h>
-
 #include <trantor/utils/Logger.h>
-
 #include <cryptopp/aes.h>
 #include <cryptopp/modes.h>
 #include <cryptopp/filters.h>
-
 #include <drogon/utils/Utilities.h>
+
+using namespace std;
+using namespace BfCrypt; // for CryptGME and DecryptGME
+using namespace CryptoPP; // for aes, modes, and filters
 
 static const unsigned char SREE_KEY[] = { 0x37, 0x34, 0x31, 0x30, 0x39, 0x35, 0x38, 0x31, 0x36, 0x34, 0x33, 0x35, 0x34, 0x38, 0x37, 0x31 }; // 7410958164354871
 static const unsigned char SREE_IV[] = { 0x42, 0x66, 0x77, 0x34, 0x65, 0x6E, 0x63, 0x72, 0x79, 0x70, 0x65, 0x64, 0x50, 0x61, 0x73, 0x73 }; // Bfw4encrypedPass
-
-using namespace CryptoPP;
 
 std::string BfCrypt::CryptSREE(const Json::Value& v)
 {
@@ -30,7 +28,7 @@ std::string BfCrypt::CryptSREE(const Json::Value& v)
 		for (int i = 0; i < (AES::BLOCKSIZE - p); i++)
 			str += " ";
 
-		std::string tmp = "", output = "";
+		string tmp = "", output = "";
 
 		CBC_Mode<AES>::Encryption e;
 		e.SetKeyWithIV(SREE_KEY, sizeof(SREE_KEY), SREE_IV);
@@ -46,7 +44,7 @@ std::string BfCrypt::CryptSREE(const Json::Value& v)
 	}
 }
 
-std::string BfCrypt::CryptGME(const Json::Value& v, const std::string& key)
+string CryptGME(const Json::Value& v, const string& key)
 {
 	try
 	{
@@ -61,13 +59,13 @@ std::string BfCrypt::CryptGME(const Json::Value& v, const std::string& key)
 		byte aeskey[AES::MIN_KEYLENGTH] = { 0x00 };
 		// keys are setted this way because we know that some keys might not have the minimum requirement
 #ifdef _MSC_VER
-		memcpy_s(aeskey, _countof(aeskey), key.data(), std::min(key.size(), (size_t)sizeof(aeskey)));
+		memcpy_s(aeskey, _countof(aeskey), key.data(), min(key.size(), (size_t)sizeof(aeskey)));
 #else
-		memcpy(aeskey, key.data(), std::min(key.size(), (size_t)sizeof(aeskey)));
+		memcpy(aeskey, key.data(), min(key.size(), (size_t)sizeof(aeskey)));
 #endif
 		e.SetKey(aeskey, sizeof(aeskey));
 
-		std::string tmp;
+		string tmp;
 		StringSource ss(str, true, new StreamTransformationFilter(e, new StringSink(tmp), StreamTransformationFilter::PKCS_PADDING));
 
 		return drogon::utils::base64Encode((const unsigned char*)tmp.data(), tmp.size());
@@ -79,14 +77,14 @@ std::string BfCrypt::CryptGME(const Json::Value& v, const std::string& key)
 	}
 }
 
-void BfCrypt::DecryptGME(const std::string& in, const std::string& key, Json::Value& v)
+void DecryptGME(const string& in, const string& key, Json::Value& v)
 {
 	if (key.empty() || in.empty())
 		return;
 
 	try
 	{
-		std::string tmp = drogon::utils::base64Decode(in);
+		string tmp = drogon::utils::base64Decode(in);
 
 		ECB_Mode<AES>::Decryption e;
 		byte aeskey[AES::MIN_KEYLENGTH] = { 0x00 };
@@ -97,7 +95,7 @@ void BfCrypt::DecryptGME(const std::string& in, const std::string& key, Json::Va
 #endif
 		e.SetKey(aeskey, sizeof(aeskey));
 
-		std::string output;
+		string output;
 		StringSource ss(tmp, true,
 			new StreamTransformationFilter(e,
 				new StringSink(output)
