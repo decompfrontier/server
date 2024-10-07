@@ -13,7 +13,7 @@ using namespace CryptoPP; // for aes, modes, and filters
 static const unsigned char SREE_KEY[] = { 0x37, 0x34, 0x31, 0x30, 0x39, 0x35, 0x38, 0x31, 0x36, 0x34, 0x33, 0x35, 0x34, 0x38, 0x37, 0x31 }; // 7410958164354871
 static const unsigned char SREE_IV[] = { 0x42, 0x66, 0x77, 0x34, 0x65, 0x6E, 0x63, 0x72, 0x79, 0x70, 0x65, 0x64, 0x50, 0x61, 0x73, 0x73 }; // Bfw4encrypedPass
 
-std::string BfCrypt::CryptSREE(const Json::Value& v)
+string CryptSREE(const Json::Value& v)
 {
 	try
 	{
@@ -89,9 +89,9 @@ void DecryptGME(const string& in, const string& key, Json::Value& v)
 		ECB_Mode<AES>::Decryption e;
 		byte aeskey[AES::MIN_KEYLENGTH] = { 0x00 };
 #ifdef _MSC_VER
-		memcpy_s(aeskey, _countof(aeskey), key.data(), std::min(key.size(), (size_t)sizeof(aeskey)));
+		memcpy_s(aeskey, _countof(aeskey), key.data(), min(key.size(), (size_t)sizeof(aeskey)));
 #else
-		memcpy(aeskey, key.data(), std::min(key.size(), (size_t)sizeof(aeskey)));
+		memcpy(aeskey, key.data(), min(key.size(), (size_t)sizeof(aeskey)));
 #endif
 		e.SetKey(aeskey, sizeof(aeskey));
 
