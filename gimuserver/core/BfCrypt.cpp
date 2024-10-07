@@ -7,7 +7,7 @@
 #include <drogon/utils/Utilities.h>
 
 using namespace std;
-using namespace BfCrypt; // for CryptGME and DecryptGME
+using namespace BfCrypt; // for CryptSREE, CryptGME, and DecryptGME
 using namespace CryptoPP; // for aes, modes, and filters
 
 static const unsigned char SREE_KEY[] = { 0x37, 0x34, 0x31, 0x30, 0x39, 0x35, 0x38, 0x31, 0x36, 0x34, 0x33, 0x35, 0x34, 0x38, 0x37, 0x31 }; // 7410958164354871
