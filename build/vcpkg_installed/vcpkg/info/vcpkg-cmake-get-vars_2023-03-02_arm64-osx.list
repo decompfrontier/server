@@ -1,0 +1,10 @@
+arm64-osx/
+arm64-osx/share/
+arm64-osx/share/vcpkg-cmake-get-vars/
+arm64-osx/share/vcpkg-cmake-get-vars/cmake_get_vars/
+arm64-osx/share/vcpkg-cmake-get-vars/cmake_get_vars/CMakeLists.txt
+arm64-osx/share/vcpkg-cmake-get-vars/copyright
+arm64-osx/share/vcpkg-cmake-get-vars/vcpkg-port-config.cmake
+arm64-osx/share/vcpkg-cmake-get-vars/vcpkg.spdx.json
+arm64-osx/share/vcpkg-cmake-get-vars/vcpkg_abi_info.txt
+arm64-osx/share/vcpkg-cmake-get-vars/vcpkg_cmake_get_vars.cmake

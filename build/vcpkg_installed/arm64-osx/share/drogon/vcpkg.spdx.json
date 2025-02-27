@@ -1,0 +1,242 @@
+{
+  "$schema": "https://raw.githubusercontent.com/spdx/spdx-spec/v2.2.1/schemas/spdx-schema.json",
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "documentNamespace": "https://spdx.org/spdxdocs/drogon-arm64-osx-1.8.4#4-0b2a26ba-5218-4779-9c24-5ce5cff9209c",
+  "name": "drogon:arm64-osx@1.8.4#4 1a8b3c5f0a87528a041446fb6eefff991687d1e0d0d7fd15527ee6746841874a",
+  "creationInfo": {
+    "creators": [
+      "Tool: vcpkg-2025-01-29-a75ad067f470c19f030361064e32a2585392bee2"
+    ],
+    "created": "2025-02-04T19:32:00Z"
+  },
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "GENERATES",
+      "relatedSpdxElement": "SPDXRef-binary"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-0"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-1"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-2"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-3"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-4"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-5"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-6"
+    },
+    {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-7"
+    },
+    {
+      "spdxElementId": "SPDXRef-binary",
+      "relationshipType": "GENERATED_FROM",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-0",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-1",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-2",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-3",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-4",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-5",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-6",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-7",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
+    }
+  ],
+  "packages": [
+    {
+      "name": "drogon",
+      "SPDXID": "SPDXRef-port",
+      "versionInfo": "1.8.4#4",
+      "downloadLocation": "git+https://github.com/microsoft/vcpkg@7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae",
+      "homepage": "https://github.com/an-tao/drogon",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "description": "A C++14/17 based HTTP web application framework running on Linux/macOS/Unix/Windows",
+      "comment": "This is the port (recipe) consumed by vcpkg."
+    },
+    {
+      "name": "drogon:arm64-osx",
+      "SPDXID": "SPDXRef-binary",
+      "versionInfo": "1a8b3c5f0a87528a041446fb6eefff991687d1e0d0d7fd15527ee6746841874a",
+      "downloadLocation": "NONE",
+      "licenseConcluded": "MIT",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "This is a binary package built by vcpkg."
+    },
+    {
+      "SPDXID": "SPDXRef-resource-0",
+      "name": "an-tao/drogon",
+      "downloadLocation": "git+https://github.com/an-tao/drogon@v1.8.4",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "checksums": [
+        {
+          "algorithm": "SHA512",
+          "checksumValue": "381b4b576d316e55690dc0531cfeaeee4c0e00ce540a502e1c1870eea9a463d00d7e4bc9a354c459e5fbc6da5f046757f07ff2077bb3a9603f97f448f2d17ea2"
+        }
+      ]
+    }
+  ],
+  "files": [
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/003_fix_gcc13.patch",
+      "SPDXID": "SPDXRef-file-0",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2dca279450506f16f9af3a88d356aeaceaf618890e560f6d9663eaabc2fd73c1"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/004_deps_redis.patch",
+      "SPDXID": "SPDXRef-file-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "65ddd369a04c5cf1c6e2b698fb0a4bcf99e99483fd967f6b298714b2b4a03848"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/002_drogon_config.patch",
+      "SPDXID": "SPDXRef-file-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "8b13f6db10504366110bc0e413736f4847a58181ef57f8184b731c1b883062ea"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/usage",
+      "SPDXID": "SPDXRef-file-3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6653cb4b6a2ebe452a7efa273404ecbe933bdff8c7c07c7195aaa9e328d9a337"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/001_vcpkg.patch",
+      "SPDXID": "SPDXRef-file-4",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "7edd7091e14c3f0edc4cabb035ec27d7c8235d670d2eb60baa68bac5b5a67e80"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/portfile.cmake",
+      "SPDXID": "SPDXRef-file-5",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "116a3783089a84901204223a9fc88220d0cf9b73953cd47d396a400b27d23341"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/005_drogon_ctl.patch",
+      "SPDXID": "SPDXRef-file-6",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "da0ed2a646908892259c88e880ae311d64842cf339df4bdbf781ddf8052b2f01"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": ".//Users/rochereauaugustin/.cache/vcpkg/registries/git-trees/7f8d8eadd014bf7d28bfff57e3e11e211fa8c4ae/vcpkg.json",
+      "SPDXID": "SPDXRef-file-7",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bf97a40e35a06dd0837e5518670862f735ecfa6491f49c78ee43d8632a3df447"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    }
+  ]
+}
