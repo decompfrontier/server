@@ -98,15 +98,5 @@
                 }
             }
         }
-    ],
-    "buildPresets" : [
-        {
-            "name": "debug-win64",
-            "configurePreset": "debug-win64"    
-        },
-        {
-			"name": "debug-lnx64",
-			"configurePreset": "debug-lnx64"
-        }
     ]
 }
