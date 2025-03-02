@@ -36,7 +36,7 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 	if (result.size() > 0)
 	{
 		int col = 0;
-		auto& sql = result[0];
+		const auto& sql = result[0];
 		user.info.accountID = sql[col++].as<std::string>();
 		user.info.handleName = sql[col++].as<std::string>();
 		user.info.debugMode = sql[col++].as<bool>() ? 1 : 0;

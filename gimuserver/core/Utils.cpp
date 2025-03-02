@@ -63,6 +63,15 @@ std::string Utils::RandomAccountID()
 	return r;
 }
 
+void GetLocalTime(struct tm& timeinfo, time_t& rawtime)
+{
+	#ifdef _WIN32
+		localtime_s(&timeinfo, &rawtime);
+	#else
+		localtime_r(&rawtime, &timeinfo);
+	#endif
+}
+
 void Utils::AppendJsonReqToFile(const Json::Value& v, const std::string& group)
 {
 	if (!System::Instance().LogConfig().Enable)
@@ -73,7 +82,7 @@ void Utils::AppendJsonReqToFile(const Json::Value& v, const std::string& group)
 	time_t rawtime;
 	time(&rawtime);
 	struct tm timeinfo;
-	localtime_s(&timeinfo, &rawtime);
+	GetLocalTime(timeinfo, rawtime);
 	auto ct = std::ctime(&rawtime);
 
 	p += std::filesystem::path::preferred_separator;
@@ -101,7 +110,7 @@ void Utils::AppendJsonResToFile(const Json::Value& v, const std::string& group)
 	time_t rawtime;
 	time(&rawtime);
 	struct tm timeinfo;
-	localtime_s(&timeinfo, &rawtime);
+	GetLocalTime(timeinfo, rawtime);
 	auto ct = std::ctime(&rawtime);
 
 	p += std::filesystem::path::preferred_separator;

@@ -10,7 +10,7 @@
 #include "handlers/DeckEditHandler.hpp"
 #include "handlers/MissionStartHandler.hpp"
 
-#define REGISTER(name) InitializeHandler(std::make_shared<Handler::##name##Handler>())
+#define REGISTER(name) InitializeHandler(std::make_shared<Handler::name##Handler>())
 
 void GmeController::InitializeHandlers()
 {

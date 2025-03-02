@@ -481,3 +481,6 @@ Makefile
 
 deploy/
 config.json
+
+# build
+build/
