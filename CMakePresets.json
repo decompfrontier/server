@@ -10,7 +10,7 @@
             "name": "default-base",
             "displayName": "Default basic config",
             "description": "General basic configuration to inherit",
-            "toolchainFile": "$env{VCPKG_HOME}/scripts/buildsystems/vcpkg.cmake",
+            "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
             "hidden": true
         },
         {
