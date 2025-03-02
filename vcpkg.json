@@ -1,11 +1,14 @@
 {
-    "dependencies":
-    [
-        {
-            "name": "drogon",
-            "features": [ "sqlite3", "ctl", "orm" ]
-        },
-        "cryptopp",
-        "sqlite3"
-    ]
+  "dependencies": [
+    {
+      "name": "drogon",
+      "features": [
+        "sqlite3",
+        "ctl",
+        "orm"
+      ]
+    },
+    "cryptopp",
+    "sqlite3"
+  ]
 }

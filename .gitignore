@@ -481,3 +481,8 @@ Makefile
 
 deploy/
 config.json
+vcpkg_installed/
+.idea
+.vscode
+generated/
+.cmake/
