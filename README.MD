@@ -13,8 +13,7 @@ The server is intended to provide a backend replacement for the following server
 - CDN Asset server
 
 ## Building
-- [Development setup](https://decompfrontier.github.io/pages/Tutorial/Building-development.html)
-- [Offlinemod setup](https://decompfrontier.github.io/pages/Tutorial/Offlinemod-setup.html)
+See the [Tutorial](https://decompfrontier.github.io/pages/Tutorial/index.html) pages section "Development setup" for more information.
 
 ## Structure
 
