@@ -1,17 +1,15 @@
 {
-    "system":
-    {
-        "content_root": "./game_content",
-        "gme_sqlite_path": "./gme.sqlite",
-        "session_timeout" : 1200,
-        "mst_root": "./system"
-    },
-    "server":
-    {
-        "wallpaper_banner" : "/wallpaper/title_logo20160401.jpg",
-        "game_version": 21900,
-        "notice_url": "http://ios21900.bfww.gumi.sg/pages/versioninfo"
-    },
+  "system": {
+    "content_root": "./game_content",
+    "gme_sqlite_path": "./gme.sqlite",
+    "session_timeout": 1200,
+    "mst_root": "./system" //   "./system"
+  },
+  "server": {
+    "wallpaper_banner": "/wallpaper/title_logo20151028.jpg", // title_logo20160401
+    "game_version": 21900,
+    "notice_url": "http://ios21900.bfww.gumi.sg/pages/versioninfo"
+  },
 	"log":
 	{
 		"enable": true,
