@@ -89,9 +89,14 @@ struct UserUnitInfo : public IResponse
 		}
 	};
 
-	const char* getGroupName() const override { return "4ceMWH6k"; }
+	const char* getGroupName() const override {
+		if (overwrite) return "4ceMWH6k";	// Overwrite all units ?
+		return "qC2tJs4E";					// Add to existing units ?
+	}
 
 	std::vector<Data> Mst;
+
+	bool overwrite = true;
 
 protected:
 	size_t getRespCount() const override { return Mst.size(); }
