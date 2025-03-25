@@ -53,7 +53,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
     if (action == "load_unit_inventory" || action == "Zw3WIoWu" || action == "load_squad_management") {
         GME_DB->execSqlAsync(
             // Updated query to match new user_units schema
-            "SELECT id, unit_id FROM user_units WHERE user_id = $1 LIMIT 4000",  // LIMIT 1485 here
+            "SELECT id, unit_id FROM user_units WHERE user_id = $1 LIMIT 4000",  // Set the limit of how many units are allowed. Kept this code to prevent errors later hopefully.
             [this, &user, cb, action](const drogon::orm::Result& unitResult) {
             LOG_INFO << "UserInfoHandler: Found " << unitResult.size() << " units for user_id: " << user.info.userID;
 
@@ -258,7 +258,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 
         GME_DB->execSqlAsync(
             // Updated query to match new user_units schema
-            "SELECT id, unit_id FROM user_units WHERE user_id = $1 LIMIT 4000", // LIMIT 1485 here at end
+            "SELECT id, unit_id FROM user_units WHERE user_id = $1 LIMIT 4000", // Set the limit of how many units are allowed. Kept this code to prevent errors later hopefully.
             [this, &user, cb](const drogon::orm::Result& unitResult) {
             LOG_INFO << "UserInfoHandler: Found " << unitResult.size() << " units for user_id: " << user.info.userID;
 
