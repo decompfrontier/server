@@ -52,7 +52,8 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
     std::string action = req.isMember("action") ? req["action"].asString() : "";
     if (action == "load_unit_inventory" || action == "Zw3WIoWu" || action == "load_squad_management") {
         GME_DB->execSqlAsync(
-            "SELECT unit_id, name, rarity, element, stats, bb, leader_skill, ai FROM user_units WHERE user_id = $1 LIMIT 500",  // LIMIT 1470 here
+            // Updated query to match new user_units schema
+            "SELECT id, unit_id FROM user_units WHERE user_id = $1 LIMIT 4000",  // LIMIT 1485 here
             [this, &user, cb, action](const drogon::orm::Result& unitResult) {
             LOG_INFO << "UserInfoHandler: Found " << unitResult.size() << " units for user_id: " << user.info.userID;
 
@@ -61,27 +62,20 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
             for (const auto& row : unitResult) {
                 Response::UserUnitInfo::Data d;
                 d.userID = user.info.userID;
-                d.userUnitID = std::stoul(row["unit_id"].as<std::string>());
-                d.unitID = std::stoul(row["unit_id"].as<std::string>());
-                d.unitTypeID = row["rarity"].as<uint32_t>();
-                d.element = row["element"].as<std::string>();
+                d.userUnitID = row["id"].as<uint32_t>(); // Map id to userUnitID (new primary key)
+                d.unitID = std::stoul(row["unit_id"].as<std::string>()); // Map unit_id to unitID
+                d.element = "fire";
                 d.unitLv = 1;
                 d.newFlg = 1;
                 d.receiveDate = 100;
                 d.FeBP = 100;
                 d.FeMaxUsableBP = 200;
 
-                Json::Value stats;
-                Json::Reader reader;
-                std::string statsStr = row["stats"].as<std::string>();
-                if (!reader.parse(statsStr, stats)) {
-                    LOG_ERROR << "Failed to parse stats JSON: " << statsStr;
-                    stats = Json::Value();
-                }
-                d.baseHp = stats.isMember("hp") ? stats["hp"].asUInt() : 1000;
-                d.baseAtk = stats.isMember("atk") ? stats["atk"].asUInt() : 1000;
-                d.baseDef = stats.isMember("def") ? stats["def"].asUInt() : 1000;
-                d.baseHeal = stats.isMember("rec") ? stats["rec"].asUInt() : 1000;
+                // Set default stats since stats field is removed
+                d.baseHp = 1000;
+                d.baseAtk = 1000;
+                d.baseDef = 1000;
+                d.baseHeal = 1000;
                 d.addHp = d.baseHp / 10;
                 d.addAtk = d.baseAtk / 10;
                 d.addDef = d.baseDef / 10;
@@ -97,6 +91,20 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 d.exp = 1;
                 d.totalExp = 1;
 
+                // Set defaults for fields no longer in the table
+                d.unitTypeID = 1; // Default rarity (was in table as rarity)
+                d.leaderSkillID = 0; // Default (was in table as leader_skill)
+                d.skillID = 0; // Default (was in table as bb)
+                d.extraSkillID = 0;
+                d.FeSkillInfo = "";
+                d.eqipItemFrameID = 0;
+                d.eqipItemFrameID2 = 0;
+                d.eqipItemID = 0;
+                d.equipItemID2 = 0;
+                d.ExtraPassiveSkillID = 0;
+                d.ExtraPassiveSkillID2 = 0;
+                d.AddExtraPassiveSkillID = 0;
+
                 unitInfo.Mst.emplace_back(d);
             }
 
@@ -105,8 +113,8 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 LOG_WARN << "UserInfoHandler: No units found, adding dummy unit for compatibility";
                 Response::UserUnitInfo::Data d;
                 d.userID = user.info.userID;
-                d.userUnitID = 9999;
-                d.unitID = 9999;
+                d.userUnitID = 1; // Note: This won't match the auto-incremented id, but used for dummy
+                d.unitID = 10017; // Vargas ID
                 d.unitTypeID = 1;
                 d.element = "fire";
                 d.unitLv = 1;
@@ -130,8 +138,20 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 d.limitOverAtk = 200;
                 d.limitOverDef = 200;
                 d.limitOverHeal = 200;
-                d.exp = 1;
-                d.totalExp = 1;
+                d.exp = 2;
+                d.totalExp = 5;
+                // Set defaults for other fields
+                d.leaderSkillID = 0;
+                d.skillID = 0;
+                d.extraSkillID = 0;
+                d.FeSkillInfo = "";
+                d.eqipItemFrameID = 0;
+                d.eqipItemFrameID2 = 0;
+                d.eqipItemID = 0;
+                d.equipItemID2 = 0;
+                d.ExtraPassiveSkillID = 0;
+                d.ExtraPassiveSkillID2 = 0;
+                d.AddExtraPassiveSkillID = 0;
                 unitInfo.Mst.emplace_back(d);
             }
 
@@ -145,7 +165,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 d.deckType = 1;
                 d.dispOrder = 0;
                 d.memberType = 0; // Leader
-                d.userUnitID = unitInfo.Mst[0].userUnitID;
+                d.userUnitID = unitInfo.Mst[0].userUnitID; // Now maps to id from user_units
                 deckInfo.Mst.emplace_back(d);
             }
             deckInfo.Serialize(res);
@@ -197,12 +217,12 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
             user.teamInfo.UserID = user.info.userID;
             user.teamInfo.Level = sc.Level;
             user.teamInfo.Exp = 0;
-            user.teamInfo.MaxUnitCount = 2292; // Updated to match unit count
+            user.teamInfo.MaxUnitCount = 4000; // Updated to match unit count
             user.teamInfo.MaxFriendCount = sc.FriendCount;
             user.teamInfo.Zel = sc.Zel;
             user.teamInfo.Karma = sc.Karma;
             user.teamInfo.BraveCoin = 0;
-            user.teamInfo.WarehouseCount = 2292; // Updated to match unit count
+            user.teamInfo.WarehouseCount = 4000; // Updated to match unit count
             user.teamInfo.FreeGems = sc.FreeGems;
             user.teamInfo.PaidGems = sc.PaidGems;
             user.teamInfo.SummonTicket = sc.SummonTickets;
@@ -237,7 +257,8 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
         }
 
         GME_DB->execSqlAsync(
-            "SELECT unit_id, name, rarity, element, stats, bb, leader_skill, ai FROM user_units WHERE user_id = $1 LIMIT 500", // LIMIT 1470 here at end
+            // Updated query to match new user_units schema
+            "SELECT id, unit_id FROM user_units WHERE user_id = $1 LIMIT 4000", // LIMIT 1485 here at end
             [this, &user, cb](const drogon::orm::Result& unitResult) {
             LOG_INFO << "UserInfoHandler: Found " << unitResult.size() << " units for user_id: " << user.info.userID;
 
@@ -267,27 +288,20 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
             for (const auto& row : unitResult) {
                 Response::UserUnitInfo::Data d;
                 d.userID = user.info.userID;
-                d.userUnitID = std::stoul(row["unit_id"].as<std::string>());
-                d.unitID = std::stoul(row["unit_id"].as<std::string>());
-                d.unitTypeID = row["rarity"].as<uint32_t>();
-                d.element = row["element"].as<std::string>();
+                d.userUnitID = row["id"].as<uint32_t>(); // Map id to userUnitID (new primary key)
+                d.unitID = std::stoul(row["unit_id"].as<std::string>()); // Map unit_id to unitID
+                d.element = "fire";
                 d.unitLv = 1;
                 d.newFlg = 1;
                 d.receiveDate = 100;
                 d.FeBP = 100;
                 d.FeMaxUsableBP = 200;
 
-                Json::Value stats;
-                Json::Reader reader;
-                std::string statsStr = row["stats"].as<std::string>();
-                if (!reader.parse(statsStr, stats)) {
-                    LOG_ERROR << "Failed to parse stats JSON: " << statsStr;
-                    stats = Json::Value();
-                }
-                d.baseHp = stats.isMember("hp") ? stats["hp"].asUInt() : 1000;
-                d.baseAtk = stats.isMember("atk") ? stats["atk"].asUInt() : 1000;
-                d.baseDef = stats.isMember("def") ? stats["def"].asUInt() : 1000;
-                d.baseHeal = stats.isMember("rec") ? stats["rec"].asUInt() : 1000;
+                // Set default stats since stats field is removed
+                d.baseHp = 1000;
+                d.baseAtk = 1000;
+                d.baseDef = 1000;
+                d.baseHeal = 1000;
                 d.addHp = d.baseHp / 10;
                 d.addAtk = d.baseAtk / 10;
                 d.addDef = d.baseDef / 10;
@@ -303,6 +317,20 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 d.exp = 1;
                 d.totalExp = 1;
 
+                // Set defaults for fields no longer in the table
+                d.unitTypeID = 1;
+                d.leaderSkillID = 0;
+                d.skillID = 0;
+                d.extraSkillID = 0;
+                d.FeSkillInfo = "";
+                d.eqipItemFrameID = 0;
+                d.eqipItemFrameID2 = 0;
+                d.eqipItemID = 0;
+                d.equipItemID2 = 0;
+                d.ExtraPassiveSkillID = 0;
+                d.ExtraPassiveSkillID2 = 0;
+                d.AddExtraPassiveSkillID = 0;
+
                 unitInfo.Mst.emplace_back(d);
             }
 
@@ -311,10 +339,10 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 LOG_WARN << "UserInfoHandler: No units found, adding dummy unit for compatibility";
                 Response::UserUnitInfo::Data d;
                 d.userID = user.info.userID;
-                d.userUnitID = 9999;
-                d.unitID = 9999;
-                d.unitTypeID = 1;
-                d.element = "fire";
+                d.userUnitID = 1; // Note: This won't match the auto-incremented id, but used for dummy
+                d.unitID = 10017;
+                d.unitTypeID = 1; // Default rarity
+                d.element = "fire"; // Default
                 d.unitLv = 1;
                 d.newFlg = 1;
                 d.receiveDate = 100;
@@ -338,6 +366,18 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                 d.limitOverHeal = 200;
                 d.exp = 1;
                 d.totalExp = 1;
+                // Set defaults for other fields
+                d.leaderSkillID = 0;
+                d.skillID = 0;
+                d.extraSkillID = 0;
+                d.FeSkillInfo = "";
+                d.eqipItemFrameID = 0;
+                d.eqipItemFrameID2 = 0;
+                d.eqipItemID = 0;
+                d.equipItemID2 = 0;
+                d.ExtraPassiveSkillID = 0;
+                d.ExtraPassiveSkillID2 = 0;
+                d.AddExtraPassiveSkillID = 0;
                 unitInfo.Mst.emplace_back(d);
             }
 
@@ -351,7 +391,7 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
                     d.deckType = 1;
                     d.dispOrder = 0;
                     d.memberType = 0; // Leader
-                    d.userUnitID = unitInfo.Mst[0].userUnitID;
+                    d.userUnitID = unitInfo.Mst[0].userUnitID; // Now maps to id from user_units
                     deckInfo.Mst.emplace_back(d);
                 }
                 deckInfo.Serialize(res);

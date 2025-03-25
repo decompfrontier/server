@@ -8,7 +8,7 @@ void AccountController::HandleGuest(const HttpRequestPtr& rq, std::function<void
 
     // Extract parameters
     auto params = rq->getParameters();
-    std::string userId = params["ak"].empty() ? "default_user_id" : params["ak"]; // Use 'ak' as userId (e.g., 0101AABB or 0839899613932562)
+    std::string userId = params["ak"].empty() ? "Developer" : params["ak"]; // Use 'ak' as userId (e.g., 0101AABB or 0839899613932562) default_user_id
     std::string deviceId = params["device_id"].empty() ? "unknown_device" : params["device_id"];
 
     // Check if user exists in users table
@@ -37,8 +37,8 @@ void AccountController::HandleGuest(const HttpRequestPtr& rq, std::function<void
                 [](const drogon::orm::DrogonDbException& e) {
                 LOG_ERROR << "AccountController: Failed to insert default userinfo: " << e.base().what();
             },
-                userId, 1, 0, 2292, 50, 1000, 0, 0, 2292, "", 100, 0, 0, 0, 0, 0, 0, 0, 0, 15
-            );
+                userId, 999, 0, 4000, 50, 99000000, 99000000, 4200, 5500, "", 10000, 20000, 0, 99, 0, 0, 0, 0, 0, 431
+            ); // Sets new user values if no gme.sqlite exists :)
         }
 
         // Return login response

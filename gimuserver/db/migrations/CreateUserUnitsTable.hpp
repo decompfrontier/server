@@ -10,17 +10,9 @@ struct CreateUserUnitsTable : public IMigration
     {
         p->execSqlSync(
             "CREATE TABLE IF NOT EXISTS user_units ("
-            "user_id TEXT NOT NULL,"
-            "unit_id TEXT NOT NULL,"
-            "name TEXT NOT NULL,"
-            "rarity INTEGER NOT NULL,"
-            "element TEXT NOT NULL,"
-            "stats TEXT NOT NULL,"
-            "bb TEXT NOT NULL,"
-            "leader_skill TEXT,"
-            "ai TEXT,"
-            "data TEXT NOT NULL,"
-            "PRIMARY KEY (user_id, unit_id)"
+            "id INTEGER PRIMARY KEY AUTOINCREMENT," // Add: Auto-incrementing primary key as per PR comment
+            "user_id TEXT NOT NULL," // Keep: Links unit to a user
+            "unit_id TEXT NOT NULL" // Keep: Stores the unit identifier
             ");"
         );
     }
