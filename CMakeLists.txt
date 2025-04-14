@@ -12,13 +12,21 @@ else()
 endif()
 
 set(SERVER_VERSION_REV 1) # Increment this when a new release happens
-set(SERVER_YEAR "2022-2024")
+set(SERVER_YEAR "2022-205")
 set(SERVER_ISSUE_URL "https://www.github.com/decompfrontier/server/issues/")
 set(SERVER_HOME_PAGE "https://decompfrontier.github.io/")
 
 find_package(cryptopp CONFIG REQUIRED)
 find_package(Drogon CONFIG REQUIRED)
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
+find_package(glaze CONFIG REQUIRED)
+
+# packet generator import
+add_library(pkgenruntime INTERFACE 
+    packet-generator/runtime/cpp/date.h
+    packet-generator/runtime/cpp/glaze_helpers.hpp
+)
+target_include_directories(pkgenruntime INTERFACE ${CMAKE_CURRENT_LIST_DIR}/packet-generator/runtime/cpp)
 
 add_subdirectory(gimuserver)
 

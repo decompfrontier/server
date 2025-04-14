@@ -5,7 +5,7 @@ MigrationManager::MigrationManager()
 	Register();
 }
 
-void MigrationManager::CreateGetMigrationStatus(drogon::orm::DbClientPtr p, std::vector<std::string>& hash)
+void MigrationManager::CreateGetMigrationStatus(drogon::orm::DbClientPtr& p, std::vector<std::string>& hash)
 {
 	p->execSqlSync(
 		"CREATE TABLE IF NOT EXISTS migration_status("
@@ -26,7 +26,7 @@ void MigrationManager::CreateGetMigrationStatus(drogon::orm::DbClientPtr p, std:
 	}
 }
 
-void MigrationManager::RunMigrations(drogon::orm::DbClientPtr ptr)
+void MigrationManager::RunMigrations(drogon::orm::DbClientPtr& ptr)
 {
 	std::vector<std::string> hash;
 	CreateGetMigrationStatus(ptr, hash);

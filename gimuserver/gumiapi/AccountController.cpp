@@ -1,6 +1,7 @@
 #include "AccountController.hpp"
 #include "core/Utils.hpp"
-#include <db/DbMacro.hpp>
+#include "db/DbMacro.hpp"
+#include "packets/gumi_live.hpp"
 
 void AccountController::HandleGuest(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
@@ -42,6 +43,7 @@ void AccountController::HandleGuest(const HttpRequestPtr& rq, std::function<void
         }
 
         // Return login response
+        GuestLogin login;
         Json::Value v;
         v["status"] = "successful";
         v["token"] = "test_token"; // TODO: Generate a proper token

@@ -1,33 +1,7 @@
 #include "MstConfig.hpp"
-#include <fstream>
-
 #include "core/System.hpp"
-#include "gme/response/LoginCampaignMst.hpp"
-#include "gme/response/LoginCampaignReward.hpp"
-#include "gme/response/VersionInfo.hpp"
-#include "gme/response/UserLevelMst.hpp"
-#include "gme/response/TownFacilityLvMst.hpp"
-#include "gme/response/TownFacilityMst.hpp"
-#include "gme/response/TownLocationLvMst.hpp"
-#include "gme/response/TownLocationMst.hpp"
-#include "gme/response/GachaMst.hpp"
-#include "gme/response/UnitExpPatternMst.hpp"
-#include "gme/response/GachaEffectMst.hpp"
-#include "gme/response/DefineMst.hpp"
-#include "gme/response/DungeonKeyMst.hpp"
-#include "gme/response/ArenaRankMst.hpp"
-#include "gme/response/NpcMst.hpp"
-#include "gme/response/VideoAdsSlotgameInfo.hpp"
-#include "gme/response/VideoAdRegion.hpp"
-#include "gme/response/VideoAdInfo.hpp"
-#include "gme/response/NoticeInfo.hpp"
-#include "gme/response/BannerInfoMst.hpp"
-#include "gme/response/ExcludedDungonMissionMst.hpp"
-#include "gme/response/ExtraPassiveSkillMst.hpp"
-#include "gme/response/SlotGameInfo_Resp.hpp"
-#include "gme/response/GachaInfo.hpp"
-#include "gme/response/GachaCategory.hpp"
-#include "gme/response/UrlMst.hpp"
+
+#include <fstream>
 
 static void LoadJson(const std::string& path, const std::string& name, Json::Value& root)
 {
@@ -680,7 +654,7 @@ void MstConfig::LoadUrl(const std::string& path)
 }
 
 
-void MstConfig::LoadAllTables(const std::string& basePath)
+void MstConfig::LoadAllTables(std::string_view basePath)
 {
 	LoadLoginCampaignMst(basePath, m_initMst);
 	LoadProgressionInfo(basePath);

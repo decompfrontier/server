@@ -1,41 +1,26 @@
 #pragma once
 
-#include <string>
-#include <drogon/orm/DbClient.h>
+#include "SystemConfig.hpp"
+
 #include <gimuserver/system/MstConfig.hpp>
-#include <gimuserver/system/ServerConfig.hpp>
-#include <gimuserver/system/LogConfig.hpp>
 #include <gimuserver/db/MigrationManager.hpp>
+
+#include <drogon/orm/DbClient.h>
 
 class System final
 {
 public:
-	static System& Instance() { return m_sys; }
+	static inline System& Instance() { return m_sys; }
 
-	void LoadSystemConfig(const std::string& path);
-	void RunMigrations(drogon::orm::DbClientPtr ptr);
+	void LoadSystemConfig(std::string_view path);
 
-	// "system"
-	const auto& GetContentRootPath() const { return m_contentRoot; }
-	const auto& GetDbPath() const { return m_dbPath; }
-	const auto& GetSessionTimeout() const { return m_sessionTimeout; }
-	// "mst"
-	const auto& MstConfig() const { return m_mstConfig; }
-	// "server"
-	const auto& ServerConfig() { return m_serverCfg; }
-	// "log"
-	const auto& LogConfig() const { return m_logCfg; }
+	inline void RunMigrations(drogon::orm::DbClientPtr ptr) { m_mg.RunMigrations(ptr); }
+	inline const auto& MstConfig() const { return m_mstConfig; }
+	inline const auto& SysConfig() const { return m_sysConfig;  }
 
 private:
-	void ParseSystemConfig(const Json::Value& v);
-
-	std::string m_contentRoot;
-	std::string m_dbPath;
-	size_t m_sessionTimeout;
-
-	::ServerConfig m_serverCfg;
+	SystemConfig m_sysConfig;
 	::MstConfig m_mstConfig;
-	::LogConfig m_logCfg;
 	MigrationManager m_mg;
 
 	static System m_sys; // SINGLETON!!!!
