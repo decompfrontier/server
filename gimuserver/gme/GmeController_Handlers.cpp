@@ -6,6 +6,7 @@
 #include "handlers/BadgeInfoHandler.hpp"
 #include "handlers/ControlCenterEnterHandler.hpp"
 #include "handlers/UpdateInfoLightHandler.hpp"
+#include "handlers/GatchaActionHandler.hpp"
 #include "handlers/GatchaListHandler.hpp"
 #include "handlers/DeckEditHandler.hpp"
 #include "handlers/MissionStartHandler.hpp"
@@ -21,6 +22,7 @@ void GmeController::InitializeHandlers()
 	REGISTER(BadgeInfo);
 	REGISTER(ControlCenterEnter);
 	REGISTER(UpdateInfoLight);
+	REGISTER(GatchaAction);
 	REGISTER(GatchaList);
 	REGISTER(DeckEdit);
 	REGISTER(MissionStart);
