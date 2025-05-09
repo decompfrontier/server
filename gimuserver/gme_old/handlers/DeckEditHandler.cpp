@@ -1,3 +1,4 @@
+#if 0
 #include "DeckEditHandler.hpp"
 #include "core/System.hpp"
 #include "gme/response/SignalKey.hpp"
@@ -24,3 +25,4 @@ void Handler::DeckEditHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 	
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif

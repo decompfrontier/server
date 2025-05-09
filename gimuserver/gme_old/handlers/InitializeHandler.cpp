@@ -1,3 +1,4 @@
+#if 0
 #include "InitializeHandler.hpp"
 #include "core/Utils.hpp"
 #include "core/System.hpp"
@@ -160,3 +161,4 @@ void Handler::InitializeHandler::OnUserInfoSuccess(const drogon::orm::Result& re
 
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif

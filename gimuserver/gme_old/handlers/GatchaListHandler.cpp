@@ -1,3 +1,4 @@
+#if 0
 #include "GatchaListHandler.hpp"
 #include "gme/response/SignalKey.hpp"
 #include "core/System.hpp"
@@ -18,3 +19,4 @@ void Handler::GatchaListHandler::Handle(UserInfo& user, DrogonCallback cb, const
 
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif

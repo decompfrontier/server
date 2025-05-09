@@ -1,3 +1,4 @@
+#if 0
 #include "UserInfoHandler.hpp"
 #include <db/DbMacro.hpp>
 #include <core/Utils.hpp>
@@ -461,3 +462,4 @@ void Handler::UserInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
         user.info.userID
     );
 }
+#endif

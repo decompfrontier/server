@@ -1,4 +1,5 @@
 {
+    // Server listener (http://127.0.0.1:9960/)
     "listeners": [
         {
             "address": "127.0.0.1",
@@ -9,10 +10,52 @@
             "cert": "bf.crt"
         }
     ],
+    // Drogon app configuration
     "app": {
         "number_of_threads": 2,
         "log": {
             "log_level": "TRACE"
+        },
+        // session
+        "enable_session": true,
+        "session_timeout": 1200,
+        // document root
+        "document_root": "./game_content"
+    },
+    // Configure sqlite database
+    "db_clients": [
+        {
+            "name": "default", // DO NOT CHANGE THIS NAME OR THE CODE MIGHT NOT WORK!!
+            "rdbms": "sqlite3", // you can use pgsql or mysql if you want a complex deploy
+            "host": "127.0.0.1",
+            "port": 0,
+            "dbname": "gme",
+            "user": "",
+            "passwd": "",
+            "is_fast": false, // use DbClient
+            "connection_numbr": 1,
+            "filename": "./gme.sqlite3"
         }
-    }
+    ],
+    "plugins": [
+        {
+            // main plugin: the game server (do not remove this one)
+            "name": "GimuServer",
+            "dependencies": [],
+            "config": {
+                "extra_log": { 
+                    "enable": true, // also only enabled in TRACE level logging
+                    "directory": "./log",
+                    "http_log_name": "http_log.txt",
+                    "dlc_error_log_name": "dlc_404.txt"
+                },
+                "server": {
+                    "wallpaper_banner": "/wallpaper/title_logo20151028.jpg", // login wallpaper
+                    "game_version": 21900, // game version (must be this one or it might cry about an update)
+                    "notice_url": "http://ios21900.bfww.gumi.sg/pages/versioninfo", // notice url (this points to a drogon orm page)
+                    "mst_root": "./system" // MST cache directory
+                }
+            }
+        }
+    ]
 }

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
 project(GimuServer)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 if ("${GIMUSRV_FRONTEND}" STREQUAL "STANDALONE")
     set(STANDALONE TRUE)
@@ -11,9 +11,11 @@ else()
     message(FATAL_ERROR "Invalid frontend configuration")
 endif()
 
-set(SERVER_VERSION_REV 1) # Increment this when a new release happens
-set(SERVER_YEAR "2022-205")
-set(SERVER_ISSUE_URL "https://www.github.com/decompfrontier/server/issues/")
+if (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /MP /await-")
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /utf-8 /MP")
+endif()
+
 set(SERVER_HOME_PAGE "https://decompfrontier.github.io/")
 
 find_package(cryptopp CONFIG REQUIRED)

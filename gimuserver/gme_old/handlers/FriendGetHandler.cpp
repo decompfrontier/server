@@ -1,3 +1,4 @@
+#if 0
 #include "FriendGetHandler.hpp"
 #include "gme/response/ReinforcementInfo.hpp"
 
@@ -8,3 +9,4 @@ void Handler::FriendGetHandler::Handle(UserInfo& user, DrogonCallback cb, const 
 	info.Serialize(res);
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif

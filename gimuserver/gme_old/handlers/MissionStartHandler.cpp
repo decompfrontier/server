@@ -1,3 +1,4 @@
+#if 0
 #include "MissionStartHandler.hpp"
 
 void Handler::MissionStartHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const
@@ -6,3 +7,4 @@ void Handler::MissionStartHandler::Handle(UserInfo& user, DrogonCallback cb, con
 
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif

@@ -1,5 +1,5 @@
 file(GLOB_RECURSE SRC "*.cpp" "*.hpp")
-configure_file("${CMAKE_CURRENT_LIST_DIR}/core/AppVersion.hpp.in" "${CMAKE_CURRENT_BINARY_DIR}/generated/AppVersion.hpp")
+configure_file("${CMAKE_CURRENT_LIST_DIR}/AppVersion.hpp.in" "${CMAKE_CURRENT_BINARY_DIR}/generated/AppVersion.hpp")
 source_group(TREE "${CMAKE_CURRENT_LIST_DIR}" FILES ${SRC})
 add_library(gimuserver STATIC ${SRC})
 target_link_libraries(gimuserver PUBLIC 
@@ -19,3 +19,5 @@ target_include_directories(gimuserver
     PRIVATE
         .
 )
+
+target_precompile_headers(gimuserver PRIVATE App.hpp)

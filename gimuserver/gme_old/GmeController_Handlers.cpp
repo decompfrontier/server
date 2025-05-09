@@ -1,3 +1,4 @@
+#if 0
 #include "GmeController.hpp"
 #include "handlers/InitializeHandler.hpp"
 #include "handlers/UserInfoHandler.hpp"
@@ -25,3 +26,4 @@ void GmeController::InitializeHandlers()
 	REGISTER(DeckEdit);
 	REGISTER(MissionStart);
 }
+#endif

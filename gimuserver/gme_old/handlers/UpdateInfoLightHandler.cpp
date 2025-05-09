@@ -1,3 +1,4 @@
+#if 0
 #include "UpdateInfoLightHandler.hpp"
 
 void Handler::UpdateInfoLightHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const
@@ -5,3 +6,4 @@ void Handler::UpdateInfoLightHandler::Handle(UserInfo& user, DrogonCallback cb, 
 	Json::Value res;
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif

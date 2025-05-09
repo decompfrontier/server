@@ -1,3 +1,4 @@
+#if 0
 #include "BadgeInfoHandler.hpp"
 #include "gme/response/BadgeInfo.hpp"
 
@@ -8,3 +9,4 @@ void Handler::BadgeInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const 
 	info.Serialize(res);
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif

@@ -1,3 +1,4 @@
+#if 0
 #include "HomeInfoHandler.hpp"
 #include "gme/response/ReinforcementInfo.hpp"
 
@@ -5,3 +6,4 @@ void Handler::HomeInfoHandler::Handle(UserInfo& user, DrogonCallback cb, const J
 {
 
 }
+#endif

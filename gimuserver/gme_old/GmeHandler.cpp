@@ -1,3 +1,4 @@
+#if 0
 #include "GmeHandler.hpp"
 #include "GmeTypes.hpp"
 #include <core/Utils.hpp>
@@ -49,3 +50,4 @@ void Handler::HandlerBase::OnError(const drogon::orm::DrogonDbException& e, Drog
 {
 	cb(newGmeErrorResponse(GetGroupId(), ErrorID::Yes, op, e.base().what()));
 }
+#endif

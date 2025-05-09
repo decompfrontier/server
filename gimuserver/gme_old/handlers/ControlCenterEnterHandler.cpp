@@ -1,3 +1,4 @@
+#if 0
 #include "ControlCenterEnterHandler.hpp"
 #include "gme/response/SlotGameInfo_Resp.hpp"
 
@@ -59,3 +60,4 @@ void Handler::ControlCenterEnterHandler::Handle(UserInfo& user, DrogonCallback c
 
 	cb(newGmeOkResponse(GetGroupId(), GetAesKey(), res));
 }
+#endif
