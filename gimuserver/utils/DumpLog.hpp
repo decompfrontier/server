@@ -42,7 +42,7 @@ public:
 		return operator<<(x);
 	}
 
-	/*template <typename T>
+	template <typename T>
 	constexpr DumpLog& operator<<(const drogon::SafeStringMap<T>& map)
 	{
 		for (const auto& [k, v] : map)
@@ -51,18 +51,17 @@ public:
 		}
 
 		return (*this);
-	}*/
+	}
 
 	template <>
 	constexpr DumpLog& operator<< <drogon::HttpRequestPtr>(const drogon::HttpRequestPtr& rq)
 	{
-/*		return (*this) << "request dump: " << rq->getPath() << " (" << rq->getMethodString() << ")\n"
+		return (*this) << "request dump: " << rq->getPath() << " (" << rq->getMethodString() << ")\n"
 			<< "Cookies:\n" << rq->getCookies()
 			<< "Parameters:\n" << rq->getParameters()
 			<< "Headers:\n" << rq->getHeaders()
 			<< "Body:\n" << rq->getBody()
 			;
-			*/
 		return *this;
 	}
 

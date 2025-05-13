@@ -7,7 +7,7 @@
 int main(int argc, char** argv)
 {
 #ifdef _WIN32
-    SetConsoleTitleW(L"GimuFrontier standaline server");
+    SetConsoleTitleW(L"GimuFrontier standalone server");
 #endif
     printf("GimuFrontier standalone %s/%s %s\n\n\n", AppVersion::GIT_COMMIT_HASH, AppVersion::GIT_BRANCH, AppVersion::GIT_DIRTY);
 

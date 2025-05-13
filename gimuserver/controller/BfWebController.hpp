@@ -12,10 +12,10 @@ public:
 
 	METHOD_LIST_BEGIN
 		//ADD_METHOD_TO(BfWebController::HandleDefault, "/", Get);
-		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/bf/web/(.*)", Get);
-		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/content/(.*)", Get);
-		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "//content/(.*)", Get);
-		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/mst/(.*)", Get);
-		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "//mst/(.*)", Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/bf/web/(.*)", drogon::Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/content/(.*)", drogon::Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "//content/(.*)", drogon::Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "/mst/(.*)", drogon::Get);
+		ADD_METHOD_VIA_REGEX(BfWebController::HandleWebPage, "//mst/(.*)", drogon::Get);
 	METHOD_LIST_END
 };

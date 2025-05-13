@@ -35,13 +35,13 @@ public:
     * Gets the HTTP request/response logger.
     * @return HTTP logger
     */
-    inline auto& httpLog() const { return m_http_log; }
+    inline auto& httpLog() { return m_http_log; }
 
     /*!
     * Gets the DLC 404 logger.
     * @return DLC logger
     */
-    inline auto& dlcLog() const { return m_dlc_error_log; }
+    inline auto& dlcLog() { return m_dlc_error_log; }
 
 private:
     /*!

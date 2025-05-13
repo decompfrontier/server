@@ -35,7 +35,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 	const auto dlsJson = BuildJson(dls);
 	const auto sree = BfCrypt::BuildSREE(dlsJson);
 
-	// build SREE crypted JSON rather than sending it everytime in the dls controller
+	// build SREE crypted JSON rather than constructing it everytime in the dls controller
 	if (sree.has_value())
 	{
 		m_dls = BuildJson(sree.value());

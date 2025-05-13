@@ -15,6 +15,6 @@ public:
 	void HandleDls(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
 
 	METHOD_LIST_BEGIN
-		ADD_METHOD_TO(DlsController::HandleDls, "/dls", Get);
+		ADD_METHOD_TO(DlsController::HandleDls, "/dls", drogon::Get);
 	METHOD_LIST_END
 };

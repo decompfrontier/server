@@ -12,9 +12,9 @@ public:
 	* @param[in] rq HTTP request
 	* @param[in] callback Callback to continue handling data
 	*/
-	void HandleGuest(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
+	drogon::Task<> HandleGuest(drogon::HttpRequestPtr rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
 
 	METHOD_LIST_BEGIN
-		ADD_METHOD_TO(AccountController::HandleGuest, "/accounts/guest/login/", Get);
+		ADD_METHOD_TO(AccountController::HandleGuest, "/accounts/guest/login/", drogon::Get);
 	METHOD_LIST_END
 };
