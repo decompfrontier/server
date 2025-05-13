@@ -12,7 +12,7 @@ else()
 endif()
 
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /MP /await-")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /MP")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /utf-8 /MP")
 endif()
 
