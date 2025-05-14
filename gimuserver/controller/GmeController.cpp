@@ -12,7 +12,7 @@ Task<> GmeController::HandleGame(HttpRequestPtr rq, std::function<void(const Htt
 	auto req = glz::read_json<GmeAction>(rq->getBody());
 	if (req || !req.has_value())
 	{
-		LOG_ERROR << "Cannot decode gme request: " << req.error();
+		LOG_ERROR << "Cannot decode gme request: " << glz::format_error(req.error(), rq->getBody());
 		resp->setCloseConnection(true);
 		resp->setStatusCode(k400BadRequest);
 	}
@@ -35,10 +35,10 @@ Task<> GmeController::HandleGame(HttpRequestPtr rq, std::function<void(const Htt
 			}
 
 			std::string buffer{};
-			auto ec = glz::write_json(gmeResp, buffer);
+			const auto& ec = glz::write_json(gmeResp, buffer);
 			if (ec)
 			{
-				LOG_ERROR << "Cannot create gme response: " << req.value().body.value().body;
+				LOG_ERROR << "Cannot create gme response: " << req.value().body.value().body << " error:\n" << glz::format_error(ec, buffer);
 				resp->setCloseConnection(true); // kill connection in case of an error
 				resp->setStatusCode(k500InternalServerError);
 			}
