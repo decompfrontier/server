@@ -96,8 +96,10 @@ void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void
 
 	if (rq->getPath() == "/bf/web/terms.htm")
 	{
-		// TODO: convert this to a drogon ctl controller
-		callback(HttpResponse::newFileResponse((const unsigned char*)WEB_TERMS_DATA, strlen(WEB_TERMS_DATA), "", CT_TEXT_HTML));
+        // TODO: convert this to a drogon ctl controller
+        auto resp = HttpResponse::newFileResponse((const unsigned char*)WEB_TERMS_DATA, strlen(WEB_TERMS_DATA), "", CT_TEXT_HTML);
+        resp->setCloseConnection(true); // kill session
+		callback(resp);
 		return;
 	}
 

@@ -1,37 +1,56 @@
 #pragma once
 
-#include <drogon/HttpController.h>
-#include "GmeTypes.hpp"
-#include "GmeHandler.hpp"
-
-using namespace drogon;
+#include <gimuserver/packets/net_gme.hpp>
 
 /**
 * Controller for Brave Frontier API
-* @note URL: ios21900.bravefrontier.gumi.sg
+* <p>URL: ios21900.bravefrontier.gumi.sg
 */
 class GmeController : public drogon::HttpController<GmeController>
 {
 public:
-	GmeController();
+	/*!
+	* Main handler of game packets.
+	* @param[in] rq HTTP request
+	* @param[in] callback Callback to send the response
+	* @return Asyncronous task to await
+	*/
+	drogon::Task<> HandleGame(drogon::HttpRequestPtr rq, std::function<void(const drogon::HttpResponsePtr&)> callback);
 
-	void HandleGame(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
-	void HandleFeatureCheck(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
-	void HandleServerTime(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
-	void HandleDailyLogin(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback);
+	/*!
+	* Handles the feature check request.
+	* @param[in] rq HTTP request
+	* @param[in] callback Callback to send the response
+	*/
+	void HandleFeatureCheck(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
+
+	/*!
+	* Handles the server time request.
+	* @param[in] rq HTTP request
+	* @param[in] callback Callback to send the response
+	*/
+	void HandleServerTime(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
+
+	/*!
+	* Handles the daily login global configuration.
+	* @param[in] rq HTTP request
+	* @param[in] callback Callback to send the response
+	*/
+	void HandleDailyLogin(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
 
 	METHOD_LIST_BEGIN
-		ADD_METHOD_TO(GmeController::HandleGame, "/bf/gme/action.php", Post);
-		ADD_METHOD_TO(GmeController::HandleFeatureCheck, "/bf/gme/featureCheck.php", Get);
-		ADD_METHOD_TO(GmeController::HandleServerTime, "/bf/gme/action/getServerTime.php", Get);
-		ADD_METHOD_TO(GmeController::HandleDailyLogin, "/bf/gme/action/Daily_login.php", Post);
+		ADD_METHOD_TO(GmeController::HandleGame, "/bf/gme/action.php", drogon::Post);
+		ADD_METHOD_TO(GmeController::HandleFeatureCheck, "/bf/gme/featureCheck.php", drogon::Get);
+		ADD_METHOD_TO(GmeController::HandleServerTime, "/bf/gme/action/getServerTime.php", drogon::Get);
+		ADD_METHOD_TO(GmeController::HandleDailyLogin, "/bf/gme/action/Daily_login.php", drogon::Post);
 	METHOD_LIST_END
 
 private:
-	void InitializeHandlers();
-
-	inline void InitializeHandler(std::shared_ptr<Handler::HandlerBase>&& p) { m_handlers.insert_or_assign(p->GetGroupId(), p); }
-
-	std::unordered_map<std::string, std::shared_ptr<Handler::HandlerBase>> m_handlers;
-	std::unordered_map<std::string, UserInfo> m_users;
+	/*!
+	* Handles a gme message
+	* @param session Session that requested the message
+	* @param gme Input message
+	* @return A task which will return the output message
+	*/
+	drogon::Task<GmeAction> Handle(drogon::SessionPtr session, const GmeAction& gme);
 };

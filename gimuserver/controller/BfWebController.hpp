@@ -7,7 +7,18 @@
 class BfWebController : public drogon::HttpController<BfWebController>
 {
 public:
+	/*!
+	* Handles file download requests
+	* @param[in] rq HTTP request
+	* @param[in] callback Callback to send the response
+	*/
 	void HandleWebPage(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
+
+	/*!
+	* Handles a default connection to the server
+	* @param[in] rq HTTP request
+	* @param[in] callback Callback to send the response
+	*/
 	void HandleDefault(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
 
 	METHOD_LIST_BEGIN

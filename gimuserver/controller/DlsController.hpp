@@ -8,9 +8,9 @@ class DlsController : public drogon::HttpController<DlsController>
 {
 public:
 	/*!
-	* Handle the dls request.
+	* Handle the banner request.
 	* @param[in] rq HTTP request
-	* @param[in] callback Callback to continue handling data
+	* @param[in] callback Callback to send the response
 	*/
 	void HandleDls(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
 

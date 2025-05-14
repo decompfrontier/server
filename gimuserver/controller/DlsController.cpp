@@ -11,5 +11,6 @@ void DlsController::HandleDls(const HttpRequestPtr& rq, std::function<void(const
 	resp->setContentTypeCode(ContentType::CT_APPLICATION_JSON);
 	resp->setStatusCode(k200OK);
 	resp->setBody(theServer()->cache().dls());
+	resp->setCloseConnection(true);
 	callback(resp);
 }

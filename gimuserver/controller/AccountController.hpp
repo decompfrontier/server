@@ -10,7 +10,8 @@ public:
 	/*!
 	* Handle login request for guest (not facebook) logins.
 	* @param[in] rq HTTP request
-	* @param[in] callback Callback to continue handling data
+	* @param[in] callback Callback to send the response
+	* @return Asyncronous task to await
 	*/
 	drogon::Task<> HandleGuest(drogon::HttpRequestPtr rq, std::function<void(const drogon::HttpResponsePtr&)> callback);
 

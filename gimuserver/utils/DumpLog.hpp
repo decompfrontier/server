@@ -2,9 +2,15 @@
 
 namespace DumpLogInternal
 {
+	/*!
+	* Checks if the passed type is a number.
+	*/
 	template <typename T>
 	concept numeric = std::is_arithmetic<T>::value;
 
+	/*!
+	* Checks if the passed type is a string.
+	*/
 	template <typename T>
 	concept string = std::is_convertible_v<T, std::string_view>;
 }
@@ -20,9 +26,19 @@ public:
 	*/
 	DumpLog() : m_open(false), m_log() {}
 
+	/*!
+	* Default deleted specialization as only custom specializations are supported.
+	* @param t Type to print
+	* @return Pointer to self
+	*/
 	template <typename T>
-	constexpr DumpLog& operator<<(const T& t) = delete; // only specialization approved?
+	constexpr DumpLog& operator<<(const T& t) = delete; // only specialization approved
 
+	/*!
+	* Prints a string.
+	* @param str String to print
+	* @return Updated reference to self
+	*/
 	template <DumpLogInternal::string T>
 	constexpr DumpLog& operator<<(const T& str)
 	{
@@ -35,6 +51,11 @@ public:
 		return *this;
 	}
 
+	/*!
+	* Prints a number.
+	* @param p Number to print
+	* @return Updated reference to self
+	*/
 	template <DumpLogInternal::numeric T>
 	constexpr DumpLog& operator<<(const T& p)
 	{
@@ -42,6 +63,11 @@ public:
 		return operator<<(x);
 	}
 
+	/*!
+	* Prints a drogon string map.
+	* @param map Drogon string map
+	* @return Updated reference to self
+	*/
 	template <typename T>
 	constexpr DumpLog& operator<<(const drogon::SafeStringMap<T>& map)
 	{
@@ -53,6 +79,11 @@ public:
 		return (*this);
 	}
 
+	/*!
+	* Prints an HTTP request.
+	* @param rq HTTP request
+	* @return Updated reference to self
+	*/
 	template <>
 	constexpr DumpLog& operator<< <drogon::HttpRequestPtr>(const drogon::HttpRequestPtr& rq)
 	{
@@ -93,7 +124,7 @@ private:
 	bool m_open;
 
 	/*!
-	* Trantor file logger,.
+	* Trantor file logger.
 	*/
 	trantor::AsyncFileLogger m_log;
 };

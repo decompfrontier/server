@@ -17,9 +17,12 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
 
     try
     {
+        // TODO: wtf why should ak be empty ????
+
         std::string strUid = params["ak"].empty() ? "00000000" : params["ak"]; // Use 'ak' as userId (e.g., 0101AABB or 0839899613932562) default_user_id
         login.user_id = static_cast<uint32_t>(std::stoul(strUid, nullptr, 16));
 
+        // TODO: is this even empty ??? bad request ?????
         std::string deviceId = params["device_id"].empty() ? "unknown_device" : params["device_id"];
 
         try
@@ -48,6 +51,7 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
     }
 
     auto resp = HttpResponse::newHttpResponse();
+    resp->setCloseConnection(true); // we live the session torugh the gme controllers from the token...
 
     std::string output{};
     auto ec = glz::write_json(login, output);
