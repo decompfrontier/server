@@ -1,7 +1,9 @@
 #pragma once
 
 #include <drogon/plugins/Plugin.h>
+
 #include <gimuserver/drogon/ServerCache.hpp>
+#include <gimuserver/utils/DumpLog.hpp>
 
 /*!
 * Implements the plugin of the system server. This is used to contain and caches everything.

@@ -17,14 +17,12 @@
 // glaze
 #include <glaze_helpers.hpp>
 
-// utility
-#include <gimuserver/utils/Drogon.hpp>
-#include <gimuserver/utils/DumpLog.hpp>
-#include <gimuserver/utils/Macros.hpp>
-
 // main system
 #include <gimuserver/drogon/GimuServer.hpp>
 // main controllers
 #include <gimuserver/controller/DlsController.hpp>
 #include <gimuserver/controller/AccountController.hpp>
 #include <gimuserver/controller/BfWebController.hpp>
+// utility
+#include <gimuserver/utils/Drogon.hpp>
+#include <gimuserver/utils/Macros.hpp>

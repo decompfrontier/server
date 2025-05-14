@@ -8,8 +8,26 @@ class GimuServer; // fwd...
 */
 static inline GimuServer* theServer() { return drogon::app().getPlugin<GimuServer>(); }
 
-#define LOG_REQ (theServer()->httpLog())
-#define LOG_DLC (theServer()->dlcLog())
-#define GME_DB (drogon::app().getDbClient())
-#define SYS_ROOT (drogon::app().getDocumentRoot())
+/*!
+* Gets the request logger
+* @return Request logger
+*/
+static inline DumpLog& logReq() { return theServer()->httpLog(); }
 
+/*!
+* Gets the DLC logger
+* @return DLC logger
+*/
+static inline DumpLog& logDlc() { return theServer()->dlcLog(); }
+
+/*!
+* Gets the default database instance
+* @return The database
+*/
+static inline drogon::orm::DbClientPtr theDb() { return drogon::app().getDbClient(); }
+
+/*!
+* Gets the system root
+* @return Document root
+*/
+static inline std::string getSysRoot() { return drogon::app().getDocumentRoot(); }

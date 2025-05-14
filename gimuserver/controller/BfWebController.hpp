@@ -2,7 +2,7 @@
 
 /**
 * Controller for Brave Frontier web services
-* @note URL: win.bfww.gumi.sg/bf/web/
+* <p>URL: win.bfww.gumi.sg/bf/web/
 */
 class BfWebController : public drogon::HttpController<BfWebController>
 {

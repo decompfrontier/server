@@ -92,23 +92,23 @@ static std::vector<char> generatePlaceholderPng(int width, int height) {
 
 void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-	LOG_REQ << rq;
+	logReq() << rq;
 
 	if (rq->getPath() == "/bf/web/terms.htm")
 	{
-		// TODO: convert this to a drogon view controller
+		// TODO: convert this to a drogon ctl controller
 		callback(HttpResponse::newFileResponse((const unsigned char*)WEB_TERMS_DATA, strlen(WEB_TERMS_DATA), "", CT_TEXT_HTML));
 		return;
 	}
 
     // Construct the full filesystem path
-	auto path = SYS_ROOT + rq->getPath();
+	auto path = getSysRoot() + rq->getPath();
     LOG_DEBUG << "Requesting path: " << path;
 
     // Serve existing file if it exists
 	if (!fs::exists(path) || fs::is_directory(path))
 	{
-		LOG_DLC << rq->getPath();
+		logDlc() << rq->getPath();
 		callback(HttpResponse::newNotFoundResponse());
 	}
 	else
@@ -170,7 +170,7 @@ void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void
 
 void BfWebController::HandleDefault(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-	LOG_REQ << rq;
+	logReq() << rq;
 	auto resp = HttpResponse::newHttpResponse();
 	resp->setStatusCode(k200OK);
 	resp->setBody("gimuserver server works!");

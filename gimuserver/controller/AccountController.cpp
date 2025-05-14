@@ -5,9 +5,9 @@
 using namespace drogon;
 using namespace drogon::orm;
 
-Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(const HttpResponsePtr&)>&& callback)
+Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(const HttpResponsePtr&)> callback)
 {
-    LOG_REQ << rq;
+    logReq() << rq;
 
     // Extract parameters
     auto params = rq->getParameters();
@@ -25,10 +25,10 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
         try
         {
             // Check if user exists in users table
-            const auto& result = co_await GME_DB->execSqlCoro("SELECT id FROM users WHERE id = $1", login.user_id);
+            const auto& result = co_await theDb()->execSqlCoro("SELECT id FROM users WHERE id = $1", login.user_id);
             if (result.empty()) {
                 // User does not exist, add him to the table
-                co_await GME_DB->execSqlCoro("INSERT INTO users(id, account_id, username, admin) VALUES ($1, $2, $3, $4)", login.user_id, deviceId, "GuestUser", 0);
+                co_await theDb()->execSqlCoro("INSERT INTO users(id, account_id, username, admin) VALUES ($1, $2, $3, $4)", login.user_id, deviceId, "GuestUser", 0);
                 LOG_DEBUG << "AccountController: new user " << login.user_id << " (device: " << deviceId << ")";
             }
 
@@ -58,6 +58,7 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
     }
     else
     {
+        resp->setStatusCode(k200OK);
         resp->setContentTypeCode(ContentType::CT_APPLICATION_JSON);
         resp->setBody(output);
     }

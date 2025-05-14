@@ -5,21 +5,11 @@ using namespace drogon;
 
 void DlsController::HandleDls(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-#if 0
-	const auto& serverInfo = System::Instance().ServerConfig();
+	logReq() << rq;
 
-	Utils::DumpInfoToDrogon(rq, "DLS");
-	
-	Json::Value json;
-	json["game"] = Utils::GetDrogonBindHostname();
-	json["resource"] = Utils::GetDrogonBindHostname();
-	json["mstv"] = std::to_string(serverInfo.GameVersion);
-	json["gumilive"] = Utils::GetDrogonBindHostname() + "/";
-	json["bgimage"] = serverInfo.Wallpaper;
-
-	Json::Value output;
-	output["SREE"] = BfCrypt::CryptSREE(json);
-
-	callback(HttpResponse::newHttpJsonResponse(output));
-#endif
+	auto resp = HttpResponse::newHttpResponse();
+	resp->setContentTypeCode(ContentType::CT_APPLICATION_JSON);
+	resp->setStatusCode(k200OK);
+	resp->setBody(theServer()->cache().dls());
+	callback(resp);
 }

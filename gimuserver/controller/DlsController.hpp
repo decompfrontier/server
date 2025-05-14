@@ -2,7 +2,7 @@
 
 /*!
 * Controller for Gumi Live API game info
-* @note URL: api-sl.bfww.gumi.sg
+* <p>URL: api-sl.bfww.gumi.sg
 */
 class DlsController : public drogon::HttpController<DlsController>
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 /*!
-* Simple holder of readed JSON files
+* Cache of the server
 */
 class ServerCache final : public trantor::NonCopyable
 {
@@ -12,9 +12,15 @@ public:
 	*/
 	void Setup(const Json::Value& serverObj);
 
+	/*!
+	* Gets the DLS JSON
+	* @return DLS string
+	*/
+	inline const auto& dls() const { return m_dls; }
+
 private:
 	/*!
-	* DLS 
+	* DLS cached JSON
 	*/
 	std::string m_dls;
 };
