@@ -4,6 +4,13 @@
 #include <gimuserver/utils/BfCrypt.hpp>
 #include <gimuserver/packets/net_gumi_live.hpp>
 #include <gimuserver/packets/net_featurecheck.hpp>
+#include <gimuserver/packets/mst_logincampaign.hpp>
+#include <gimuserver/packets/mst_versioninfo.hpp>
+#include <gimuserver/packets/mst_town.hpp>
+#include <gimuserver/packets/mst_dungeonkey.hpp>
+#include <gimuserver/packets/mst_arena.hpp>
+#include <gimuserver/packets/mst_gatcha.hpp>
+#include <gimuserver/packets/mst_npc.hpp>
 
 /*!
 * Builds a JSON
@@ -67,5 +74,25 @@ void ServerCache::Setup(const Json::Value& serverObj)
 	{
 		const auto& feature = LoadJson<FeatureCheck>("features.json");
 		m_feature = BuildJson(feature);
+	}
+	{
+		m_initrsp.loginCampagin = LoadJson<LoginCampaignMst>("login_campaign.json");
+		m_initrsp.progression = LoadJson<UserLevelMst>("user_level.json");
+		m_initrsp.mst = LoadJson<VersionInfo>("version_info.json");
+		m_initrsp.townFacility = LoadJson<TownFacilityMst>("town_facility.json");
+		m_initrsp.townFacilityLv = LoadJson<TownFacilityLvMst>("town_facility_lv.json");
+		m_initrsp.townLocation = LoadJson<TownLocationMst>("town_location.json");
+		m_initrsp.townLocationLv = LoadJson<TownLocationLvMst>("town_location_lv.json");
+		m_initrsp.dungeonKeys = LoadJson<DungeonKeyMst>("dungeon_keys.json");
+		m_initrsp.arenaRanks = LoadJson<ArenaRankMst>("arena_rank.json");
+		m_initrsp.gachaEffects = LoadJson<GachaEffectMst>("gacha_effects.json");
+		m_initrsp.gachas = LoadJson<GachaMst>("gacha.json");
+		m_initrsp.npcs = LoadJson<NpcMst>("npc.json");
+		m_initrsp.videoAdInfo = LoadJson<VideoAdInfo>("video_ads_info.json");
+		m_initrsp.videoRegions = LoadJson<VideoAdRegion>("video_ads_region.json");
+		m_initrsp.bannerInfo = LoadJson <BannerInfoMst> ("banner_info.json");
+		m_initrsp.excludedDungeonMissions = LoadJson<ExcludedDungeonMissionMst>("excluded_dungeon_missions.json");
+		m_initrsp.extraPassiveSkills = LoadJson<ExtraPassiveSkillMst>("extra_passive_skills.json");
+		m_initrsp.noticeInfo = LoadJson<NoticeInfo>("notice_info.json");
 	}
 }

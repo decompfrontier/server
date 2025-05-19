@@ -108,7 +108,11 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			{
 				const auto& outputJson = co_await handler.func(session, inputJson);
 
-				resp.body = BfCrypt::BuildGME(outputJson, handler.key);
+				if (!outputJson.empty())
+				{
+					resp.body = BfCrypt::BuildGME(outputJson, handler.key);
+				}
+
 				if (!resp.body.has_value())
 				{
 					GmeError err{};

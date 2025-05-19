@@ -1,5 +1,7 @@
 #pragma once
 
+#include <gimuserver/packets/net_initialize.hpp>
+
 /*!
 * Cache of the server
 */
@@ -24,6 +26,12 @@ public:
 	*/
 	inline const auto& feature() const { return m_feature; }
 
+	/*!
+	* Gets the common portion of the initialize response.
+	* @return Initialize respose
+	*/
+	inline const auto& initializeResp() const { return m_initrsp;  }
+
 private:
 	/*!
 	* DLS cached JSON.
@@ -34,4 +42,9 @@ private:
 	* Feature response cached JSON.
 	*/
 	std::string m_feature;
+
+	/*!
+	* Cached common data of the Initialize response
+	*/
+	InitializeResp m_initrsp;
 };

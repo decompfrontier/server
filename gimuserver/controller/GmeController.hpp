@@ -32,7 +32,7 @@ public:
 	void HandleServerTime(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
 
 	/*!
-	* Handles the daily login global configuration.
+	* Handles the old daily login bonus.
 	* @param[in] rq HTTP request
 	* @param[in] callback Callback to send the response
 	*/
