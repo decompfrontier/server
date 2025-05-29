@@ -1,6 +1,7 @@
 #pragma once
 
-#include <gimuserver/packets/net_initialize.hpp>
+#include <gimuserver/packets/net_handlers.hpp>
+#include <gimuserver/packets/net_featurecheck.hpp>
 
 /*!
 * Cache of the server
@@ -32,6 +33,12 @@ public:
 	*/
 	inline const auto& initializeResp() const { return m_initrsp;  }
 
+	/*!
+	* Gets the cached slot response.
+	* @return ControlCenter response
+	*/
+	inline const auto& braveSlotsResp() const { return m_controlCenterRsp; }
+
 private:
 	/*!
 	* DLS cached JSON.
@@ -39,12 +46,17 @@ private:
 	std::string m_dls;
 
 	/*!
-	* Feature response cached JSON.
+	* Cached data of response.
 	*/
-	std::string m_feature;
+	FeatureCheck m_feature;
 
 	/*!
 	* Cached common data of the Initialize response
 	*/
 	InitializeResp m_initrsp;
+
+	/*!
+	* Cached slot response
+	*/
+	SlotGameInfoR m_controlCenterRsp;
 };

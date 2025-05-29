@@ -37,7 +37,7 @@ template <typename T>
 static T LoadJson(std::string_view file)
 {
 	T obj{};
-	auto path = getSysRoot() + std::string(file);
+	std::string path = getSysRoot() + std::string(file);
 	std::string buffer{};
 	const auto& ec = glz::read_file_json(obj, path, buffer);
 	if (ec)
@@ -71,10 +71,10 @@ void ServerCache::Setup(const Json::Value& serverObj)
 			throw std::runtime_error("Cannot encrypt SREE cache json");
 		}
 	}
-	{
-		const auto& feature = LoadJson<FeatureCheck>("features.json");
-		m_feature = BuildJson(feature);
-	}
+
+	m_feature = LoadJson<FeatureCheck>("features.json");
+	m_controlCenterRsp = LoadJson<SlotGameInfoR>("brave_slots.json");
+
 	{
 		m_initrsp.loginCampagin = LoadJson<LoginCampaignMst>("login_campaign.json");
 		m_initrsp.progression = LoadJson<UserLevelMst>("user_level.json");
@@ -90,9 +90,15 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.npcs = LoadJson<NpcMst>("npc.json");
 		m_initrsp.videoAdInfo = LoadJson<VideoAdInfo>("video_ads_info.json");
 		m_initrsp.videoRegions = LoadJson<VideoAdRegion>("video_ads_region.json");
+		m_initrsp.videoAdSlots = LoadJson<VideoAdsSlotGameInfo>("video_ads_slot_game_info.json");
 		m_initrsp.bannerInfo = LoadJson <BannerInfoMst> ("banner_info.json");
 		m_initrsp.excludedDungeonMissions = LoadJson<ExcludedDungeonMissionMst>("excluded_dungeon_missions.json");
 		m_initrsp.extraPassiveSkills = LoadJson<ExtraPassiveSkillMst>("extra_passive_skills.json");
 		m_initrsp.noticeInfo = LoadJson<NoticeInfo>("notice_info.json");
+		// TODO: move this to generated per-used as there's no support for the claim
+		m_initrsp.dailyTaskBonuses = LoadJson<DailyTaskBonusMst>("daily_tasks_bonus.json");
+		m_initrsp.dailyTaskPrizes = LoadJson<DailyTaskPrizeMst>("daily_tasks_prizes.json");
+		m_initrsp.dailyTasks = LoadJson<DailyTaskMst>("daily_tasks.json");
+		// ---
 	}
 }

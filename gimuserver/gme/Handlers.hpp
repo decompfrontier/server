@@ -24,4 +24,13 @@ using HandlerFunc = std::function<drogon::Task<std::string>(drogon::SessionPtr s
 namespace GmeHandlers
 {
 	HANDLE(Initialize);
+	HANDLE(BadgeInfo);
+	HANDLE(ControlCenterEnter);
+	HANDLE(DeckEdit);
+	HANDLE(FriendGet);
+	HANDLE(GatchaList);
+	HANDLE(HomeInfo);
+	HANDLE(MissionStart);
+	HANDLE(UpdateInfoLight);
+	HANDLE(UserInfo);
 }

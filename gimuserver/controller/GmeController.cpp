@@ -69,9 +69,22 @@ Task<> GmeController::HandleGame(HttpRequestPtr rq, std::function<void(const Htt
 void GmeController::HandleFeatureCheck(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
 	auto p = HttpResponse::newHttpResponse();
-	p->setStatusCode(k200OK);
-	p->setContentTypeCode(CT_APPLICATION_JSON);
-	p->setBody(theServer()->cache().feature());
+
+	std::string buffer{};
+	const auto& ec = glz::write_json(theServer()->cache().feature(), buffer);
+
+	if (ec)
+	{
+		LOG_DEBUG << "Cannot serialize featurecheck: " << ec;
+		p->setStatusCode(k500InternalServerError);
+	}
+	else
+	{
+		p->setStatusCode(k200OK);
+		p->setContentTypeCode(CT_APPLICATION_JSON);
+		p->setBody(buffer);
+	}
+
 	callback(p);
 }
 
@@ -90,6 +103,7 @@ void GmeController::HandleDailyLogin(const HttpRequestPtr& rq, std::function<voi
 	auto p = HttpResponse::newHttpResponse();
 	p->setStatusCode(k200OK);
 	p->setContentTypeCode(CT_APPLICATION_JSON);
+	// TODO: cache this etc etc
 	p->setBody("W3siUFJFU0VOVF9UWVBFIjoiMiIsIlBSRVNFTlRfSUQiOiIwIiwiUFJFU0VOVF9DTlQiOiIyMDAiLCJSRVdBUkQiOmZhbHNlLCJHUk9VUF9UWVBFIjoiMSIsIkRBWVNfTEVGVF9UT19HRU0iOjR9LHsiUFJFU0VOVF9UWVBFIjoiMyIsIlBSRVNFTlRfSUQiOiIwIiwiUFJFU0VOVF9DTlQiOiIxMDAwMCIsIlJFV0FSRCI6ZmFsc2UsIkdST1VQX1RZUEUiOiIxIiwiREFZU19MRUZUX1RPX0dFTSI6NH0seyJQUkVTRU5UX1RZUEUiOiI2IiwiUFJFU0VOVF9JRCI6IjEwMjAzIiwiUFJFU0VOVF9DTlQiOiIxIiwiUkVXQVJEIjpmYWxzZSwiR1JPVVBfVFlQRSI6IjEiLCJEQVlTX0xFRlRfVE9fR0VNIjo0fSx7IlBSRVNFTlRfVFlQRSI6IjYiLCJQUkVTRU5UX0lEIjoiMjAyMDMiLCJQUkVTRU5UX0NOVCI6IjEiLCJSRVdBUkQiOmZhbHNlLCJHUk9VUF9UWVBFIjoiMSIsIkRBWVNfTEVGVF9UT19HRU0iOjR9LHsiUFJFU0VOVF9UWVBFIjoiNiIsIlBSRVNFTlRfSUQiOiIzMDIwMyIsIlBSRVNFTlRfQ05UIjoiMSIsIlJFV0FSRCI6ZmFsc2UsIkdST1VQX1RZUEUiOiIxIiwiREFZU19MRUZUX1RPX0dFTSI6NH0seyJQUkVTRU5UX1RZUEUiOiI2IiwiUFJFU0VOVF9JRCI6IjQwMjAzIiwiUFJFU0VOVF9DTlQiOiIxIiwiUkVXQVJEIjpmYWxzZSwiR1JPVVBfVFlQRSI6IjEiLCJEQVlTX0xFRlRfVE9fR0VNIjo0fSx7IlBSRVNFTlRfVFlQRSI6IjYiLCJQUkVTRU5UX0lEIjoiNTAyMDMiLCJQUkVTRU5UX0NOVCI6IjEiLCJSRVdBUkQiOnRydWUsIkdST1VQX1RZUEUiOiIxIiwiREFZU19MRUZUX1RPX0dFTSI6NH0seyJQUkVTRU5UX1RZUEUiOiI2IiwiUFJFU0VOVF9JRCI6IjYwMTMzIiwiUFJFU0VOVF9DTlQiOiIxIiwiUkVXQVJEIjpmYWxzZSwiR1JPVVBfVFlQRSI6IjEiLCJEQVlTX0xFRlRfVE9fR0VNIjo0fSx7IlBSRVNFTlRfVFlQRSI6IjUiLCJQUkVTRU5UX0lEIjoiMjI0MDAiLCJQUkVTRU5UX0NOVCI6IjEiLCJSRVdBUkQiOmZhbHNlLCJHUk9VUF9UWVBFIjoiMSIsIkRBWVNfTEVGVF9UT19HRU0iOjR9XQ==");
 	callback(p);
 }
