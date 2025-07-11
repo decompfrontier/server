@@ -27,7 +27,7 @@ static inline DumpLog& logDlc() { return theServer()->dlcLog(); }
 static inline drogon::orm::DbClientPtr theDb() { return drogon::app().getDbClient(); }
 
 /*!
-* Gets the system root
+* Gets the document root
 * @return Document root
 */
-static inline std::string getSysRoot() { return drogon::app().getDocumentRoot(); }
+static inline std::string getDocumentRoot() { return drogon::app().getDocumentRoot(); }

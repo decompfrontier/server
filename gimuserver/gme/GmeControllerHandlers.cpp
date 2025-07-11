@@ -65,7 +65,15 @@ static GmeHandler getHandler(std::string_view cmd)
 
 
 	REGISTER("MfZyu1q9", Initialize, "EmcshnQoDr20TZz1");
-	// note: add the new handlers here...
+	REGISTER("nJ3A7qFp", BadgeInfo, "bGxX67KB");
+	REGISTER("uYF93Mhc", ControlCenterEnter, "d0k6LGUu");
+	REGISTER("m2Ve9PkJ", DeckEdit, "d7UuQsq8");
+	REGISTER("2o4axPIC", FriendGet, "EoYuZ2nbImhCU1c0");
+	REGISTER("Uo86DcRh", GatchaList, "8JbxFvuSaB2CK7Ln");
+	REGISTER("NiYWKdzs", HomeInfo, "f6uOewOD");
+	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
+	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
+	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");
 
 	}
 }

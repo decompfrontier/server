@@ -34,10 +34,10 @@ static std::string BuildJson(const T& d)
 * Loads a JSON from the file system.
 */
 template <typename T>
-static T LoadJson(std::string_view file)
+static T LoadJson(std::string_view mst_root, std::string_view file)
 {
 	T obj{};
-	std::string path = getSysRoot() + std::string(file);
+	std::string path = std::string(mst_root) + "/" + std::string(file);
 	std::string buffer{};
 	const auto& ec = glz::read_file_json(obj, path, buffer);
 	if (ec)
@@ -50,6 +50,8 @@ static T LoadJson(std::string_view file)
 
 void ServerCache::Setup(const Json::Value& serverObj)
 {
+	const auto& mstRoot = serverObj["mst_root"].asString();
+
 	{
 		GameDls dls;
 		dls.game_ip = GetDrogonBindHostname();
@@ -72,33 +74,32 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		}
 	}
 
-	m_feature = LoadJson<FeatureCheck>("features.json");
-	m_controlCenterRsp = LoadJson<SlotGameInfoR>("brave_slots.json");
+	m_feature = LoadJson<FeatureCheck>(mstRoot, "features.json");
+	m_controlCenterRsp = LoadJson<SlotGameInfoR>(mstRoot, "brave_slots.json");
 
 	{
-		m_initrsp.loginCampagin = LoadJson<LoginCampaignMst>("login_campaign.json");
-		m_initrsp.progression = LoadJson<UserLevelMst>("user_level.json");
-		m_initrsp.mst = LoadJson<VersionInfo>("version_info.json");
-		m_initrsp.townFacility = LoadJson<TownFacilityMst>("town_facility.json");
-		m_initrsp.townFacilityLv = LoadJson<TownFacilityLvMst>("town_facility_lv.json");
-		m_initrsp.townLocation = LoadJson<TownLocationMst>("town_location.json");
-		m_initrsp.townLocationLv = LoadJson<TownLocationLvMst>("town_location_lv.json");
-		m_initrsp.dungeonKeys = LoadJson<DungeonKeyMst>("dungeon_keys.json");
-		m_initrsp.arenaRanks = LoadJson<ArenaRankMst>("arena_rank.json");
-		m_initrsp.gachaEffects = LoadJson<GachaEffectMst>("gacha_effects.json");
-		m_initrsp.gachas = LoadJson<GachaMst>("gacha.json");
-		m_initrsp.npcs = LoadJson<NpcMst>("npc.json");
-		m_initrsp.videoAdInfo = LoadJson<VideoAdInfo>("video_ads_info.json");
-		m_initrsp.videoRegions = LoadJson<VideoAdRegion>("video_ads_region.json");
-		m_initrsp.videoAdSlots = LoadJson<VideoAdsSlotGameInfo>("video_ads_slot_game_info.json");
-		m_initrsp.bannerInfo = LoadJson <BannerInfoMst> ("banner_info.json");
-		m_initrsp.excludedDungeonMissions = LoadJson<ExcludedDungeonMissionMst>("excluded_dungeon_missions.json");
-		m_initrsp.extraPassiveSkills = LoadJson<ExtraPassiveSkillMst>("extra_passive_skills.json");
-		m_initrsp.noticeInfo = LoadJson<NoticeInfo>("notice_info.json");
+		m_initrsp.loginCampagin = LoadJson<LoginCampaignMst>(mstRoot, "login_campaign.json");
+		m_initrsp.loginCampaignReward = LoadJson<LoginCampaignReward>(mstRoot, "login_campaign_reward.json");
+		m_initrsp.progression = LoadJson<UserLevelMst>(mstRoot, "user_level.json");
+		m_initrsp.mst = LoadJson<VersionInfo>(mstRoot, "version_info.json");
+		m_initrsp.townFacility = LoadJson<TownFacilityMst>(mstRoot, "town_facility.json");
+		m_initrsp.townFacilityLv = LoadJson<TownFacilityLvMst>(mstRoot, "town_facility_lv.json");
+		m_initrsp.townLocation = LoadJson<TownLocationMst>(mstRoot, "town_location.json");
+		m_initrsp.townLocationLv = LoadJson<TownLocationLvMst>(mstRoot, "town_location_lv.json");
+		m_initrsp.dungeonKeys = LoadJson<DungeonKeyMst>(mstRoot, "dungeon_keys.json");
+		m_initrsp.arenaRanks = LoadJson<ArenaRankMst>(mstRoot, "arena_rank.json");
+		m_initrsp.gachaEffects = LoadJson<GachaEffectMst>(mstRoot, "gacha_effects.json");
+		m_initrsp.gachas = LoadJson<GachaMst>(mstRoot, "gacha.json");
+		m_initrsp.npcs = LoadJson<NpcMst>(mstRoot, "npc.json");
+		m_initrsp.bannerInfo = LoadJson <BannerInfoMst>(mstRoot, "banner_info.json");
+		m_initrsp.extraPassiveSkills = LoadJson<ExtraPassiveSkillMst>(mstRoot, "extra_passive_skills.json");
+		m_initrsp.noticeInfo = LoadJson<NoticeInfo>(mstRoot, "notice_info.json");
+		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines.json");
+		m_initrsp.videoAdSlots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ads_slot_game_info.json");
 		// TODO: move this to generated per-used as there's no support for the claim
-		m_initrsp.dailyTaskBonuses = LoadJson<DailyTaskBonusMst>("daily_tasks_bonus.json");
-		m_initrsp.dailyTaskPrizes = LoadJson<DailyTaskPrizeMst>("daily_tasks_prizes.json");
-		m_initrsp.dailyTasks = LoadJson<DailyTaskMst>("daily_tasks.json");
+		m_initrsp.dailyTaskBonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");
+		m_initrsp.dailyTaskPrizes = LoadJson<DailyTaskPrizeMst>(mstRoot, "TEMP_daily_tasks_prizes.json");
+		m_initrsp.dailyTasks = LoadJson<DailyTaskMst>(mstRoot, "TEMP_daily_tasks.json");
 		// ---
 	}
 }

@@ -19,7 +19,7 @@
     "bf_achievement": 1,
     "autobattle": 1,
     "battle_speed": 1,
-    "battle_spoeed_arena_pvp": 1,
+    "battle_speed_arena_pvp": 1,
     "battle_speed_ca": 1,
     "challenge_arena": 1,
     "character_voice": 1,
@@ -56,7 +56,7 @@
     "randall": 1,
     "randall_facility": 1,
     "randall_library_memories": 1,
-    "reccomend_app": 1,
+    "recommend_app": 1,
     "reload_file_mst": 1,
     "sandbag_enable": 1,
     "select_dlc_android": 1,
@@ -69,7 +69,7 @@
     "supersonic_google": 0,
     "trial": 1,
     "tutorial_skip": 0,
-    "unit_type_bonus_skills": 1,
+    "unit_type_bonus_skill": 1,
     "va_sp_skill": 1,
     "video_ads": 1
 }

@@ -104,7 +104,7 @@ void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void
 	}
 
     // Construct the full filesystem path
-	auto path = getSysRoot() + rq->getPath();
+	auto path = getDocumentRoot() + rq->getPath();
     LOG_DEBUG << "Requesting path: " << path;
 
     // Serve existing file if it exists

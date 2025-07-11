@@ -34,7 +34,7 @@
             "passwd": "",
             "is_fast": false, // use DbClient
             "connection_numbr": 1,
-            "filename": "./gme.sqlite3"
+            "filename": "./gme.sqlite"
         }
     ],
     "plugins": [

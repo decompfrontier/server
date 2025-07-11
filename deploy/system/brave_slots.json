@@ -1,18 +1,70 @@
 {
-    "info":
+    "C38FmiUn":
     {
-        "id": 1,
-        "name": "Brave Slots",
-        "reel_pos": "1,2,3",
-        "use_medal": 1,
-        "help_url": "/bf/web/slots/html/index.php",
-        "image": "slot_base.png,slot_btn_on.png,slot_label_start.png,slot_medal_insert.png,slot_medal.png,item_large.png,bravemedal_large.png,sphere_large.png"
+        "zS45RFGb": 1,
+        "I1Cki7Pb": "Brave Slots",
+        "h1PSnk5t": "1,2,3",
+        "b5yeVr61": "1",
+        "jsRoN50z": "/bf/web/slots/html/index.php",
+        "TX98PnpE": "slot_base.png,slot_btn_on.png,slot_label_start.png,slot_medal_insert.png,slot_medal.png,item_large.png,bravemedal_large.png,sphere_large.png"
     },
-    "images":
+    "rY6j0Jvs":
     [
         {
-            "id": 81,
-            "name": "j_god.png"
+            "sE6tyI9i": 81,
+            "iQM9dH0F": "j_god.png"
+        },
+        {
+            "sE6tyI9i": 1,
+            "iQM9dH0F": "s_flog.png"
+        },
+        {
+            "sE6tyI9i": 7,
+            "iQM9dH0F": "allup_unit.png"
+        },
+        {
+            "sE6tyI9i": 2,
+            "iQM9dH0F": "b_flog.png"
+        },
+        {
+            "sE6tyI9i": 8,
+            "iQM9dH0F": "c_god.png"
+        },
+        {
+            "sE6tyI9i": 6,
+            "iQM9dH0F": "pup_unit.png"
+        },
+        {
+            "sE6tyI9i": 3,
+            "iQM9dH0F": "b_emperor.png"
+        },
+        {
+            "sE6tyI9i": 18,
+            "iQM9dH0F": "sphere.png"
+        },
+        {
+            "sE6tyI9i": 9,
+            "iQM9dH0F": "g_god.png"
+        },
+        {
+            "sE6tyI9i": 80,
+            "iQM9dH0F": "m_god.png"
+        },
+        {
+            "sE6tyI9i": 13,
+            "iQM9dH0F": "item.png"
+        },
+        {
+            "sE6tyI9i": 12,
+            "iQM9dH0F": "item.png"
+        },
+        {
+            "sE6tyI9i": 15,
+            "iQM9dH0F": "item.png"
+        },
+        {
+            "sE6tyI9i": 82,
+            "iQM9dH0F": "medal.png"
         }
     ]
 }
