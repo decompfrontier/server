@@ -53,7 +53,12 @@
                     "wallpaper_banner": "/wallpaper/title_logo20151028.jpg", // login wallpaper
                     "game_version": 21900, // game version (must be this one or it might cry about an update)
                     "notice_url": "http://ios21900.bfww.gumi.sg/pages/versioninfo", // notice url (this points to a drogon orm page)
-                    "mst_root": "./system" // MST cache directory
+                    "mst_root": "./system", // MST cache directory
+					"initial_level": 1,
+					"initial_free_gems": 5,
+					"initial_zel": 10000000,
+					"initial_karma": 10000000,
+					"initial_bcoins": 0
                 }
             }
         }

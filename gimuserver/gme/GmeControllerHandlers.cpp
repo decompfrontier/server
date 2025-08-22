@@ -101,6 +101,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 		const auto& decryptedGme = BfCrypt::ReadGME(gme, handler.key);
 		if (!decryptedGme.has_value())
 		{
+			LOG_ERROR << "Cannot read GME for " << handler.key;
 			GmeError err{};
 			err.cmd = GmeErrorCommand::Close;
 			err.flag = GmeErrorFlags::IsInError;
@@ -116,26 +117,27 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			{
 				const auto& outputJson = co_await handler.func(session, inputJson);
 
-				if (!outputJson.empty())
+				if (outputJson.isError())
 				{
-					resp.body = BfCrypt::BuildGME(outputJson, handler.key);
-				}
-
-				if (!resp.body.has_value())
-				{
+					LOG_ERROR << "Handler error " << handler.key << " error: " << outputJson.errorMsg << " ex: " << outputJson.exceptionMsg;
 					GmeError err{};
 					err.cmd = GmeErrorCommand::Close;
 					err.flag = GmeErrorFlags::IsInError;
-					err.message = std::format("Unable to encode request! Please report this error with the following information:\nRequest: {}", header.id);
+					err.message = std::format("Unable to handle request! Please report this error:\nRequest: \"{}\", Error: \"{}\", Exception: \"{}\"", header.id, outputJson.errorMsg, outputJson.exceptionMsg);
 					resp.error = err;
+				}
+				else
+				{
+					resp.body = BfCrypt::BuildGME(outputJson.successJson, handler.key);
 				}
 			}
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
+				LOG_ERROR << "Handler error " << handler.key << " database exception: " << ex.base().what();
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
-				err.message = std::format("Unable to run database query! Please report this error with the following information:\nRequest: {}\nError: {}", header.id, ex.base().what());
+				err.message = std::format("Unable to run database query! Please report this error:\nRequest: \"{}\", Error: \"{}\", Exception: \"{}\"", header.id, "Database error", ex.base().what());
 				resp.error = err;
 			}
 		}

@@ -3,6 +3,6 @@
 
 HANDLEF(UpdateInfoLight)
 {
-	co_return "";
+	co_return HandleResult::error("Unsupported");
 
 }

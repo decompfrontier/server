@@ -10,9 +10,10 @@ HANDLEF(BadgeInfo)
 	const auto& ec = glz::write_json(resp, buffer);
 	if (ec)
 	{
-		LOG_DEBUG << "Cannot serialize BadgeInfo: " << ec;
-		co_return "";
+		const auto& glze = glz::format_error(ec, buffer);
+		LOG_DEBUG << "Gme BadgeInfo Error during JSON writing: " << glze;
+		co_return HandleResult::error("Serialization error", glze);
 	}
 
-	co_return buffer;
+	co_return HandleResult::success(buffer);
 }

@@ -8,9 +8,10 @@ HANDLEF(ControlCenterEnter)
 	const auto& ec = glz::write_json(resp, buffer);
 	if (ec)
 	{
-		LOG_DEBUG << "Cannot serialize ControlCenterEnter: " << ec;
-		co_return "";
+		const auto& glze = glz::format_error(ec, buffer);
+		LOG_DEBUG << "Gme ControlCenterEnter Error during JSON writing: " << glze;
+		co_return HandleResult::error("Serialization error", glze);
 	}
 
-	co_return buffer;
+	co_return HandleResult::success(buffer);
 }

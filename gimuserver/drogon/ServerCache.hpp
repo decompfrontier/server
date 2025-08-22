@@ -3,6 +3,8 @@
 #include <gimuserver/packets/net_handlers.hpp>
 #include <gimuserver/packets/net_featurecheck.hpp>
 
+#include "ServerConfig.hpp"
+
 /*!
 * Cache of the server
 */
@@ -39,6 +41,12 @@ public:
 	*/
 	inline const auto& braveSlotsResp() const { return m_controlCenterRsp; }
 
+	/*!
+	* Server config.
+	* @return Server config
+	*/
+	inline const auto& serverConfig() const { return m_serverConfig; }
+
 private:
 	/*!
 	* DLS cached JSON.
@@ -59,4 +67,9 @@ private:
 	* Cached slot response
 	*/
 	SlotGameInfoR m_controlCenterRsp;
+
+	/*!
+	* Server configuration.
+	*/
+	ServerConfig m_serverConfig;
 };

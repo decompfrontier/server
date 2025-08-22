@@ -52,6 +52,8 @@ void ServerCache::Setup(const Json::Value& serverObj)
 {
 	const auto& mstRoot = serverObj["mst_root"].asString();
 
+	m_initialLevel = serverObj["initial_level"].asUInt();
+
 	{
 		GameDls dls;
 		dls.game_ip = GetDrogonBindHostname();

@@ -3,6 +3,6 @@
 
 HANDLEF(MissionStart)
 {
-	co_return "";
+	co_return HandleResult::error("Unsupported");
 
 }

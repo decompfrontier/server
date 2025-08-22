@@ -10,7 +10,7 @@ Task<> GmeController::HandleGame(HttpRequestPtr rq, std::function<void(const Htt
 {
 	auto resp = HttpResponse::newHttpResponse();
 	auto req = glz::read_json<GmeAction>(rq->getBody());
-	if (req || !req.has_value())
+	if (!req.has_value())
 	{
 		LOG_ERROR << "Cannot decode gme request: " << glz::format_error(req.error(), rq->getBody());
 		resp->setCloseConnection(true);

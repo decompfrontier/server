@@ -6,18 +6,18 @@
 
 HANDLEF(Initialize)
 {
-	UserInfoReq req = {};
+	InitializeReq req = {};
 	const auto& ec = glz::read_json(req, json);
 	if (ec)
 	{
-		LOG_DEBUG << "Cannot deserialize Initialize: " << ec;
-		co_return "";
+		const auto& fmte = glz::format_error(ec, json);
+		LOG_DEBUG << "Gme Initialize Error during JSON read: " << fmte;
+		co_return HandleResult::error("Deserialization error", fmte);
 	}
 
 	InitializeResp resp = theServer()->cache().initializeResp();
 
-
-	const auto& res = co_await theDb()->execSqlCoro("SELECT account_id, username, admin FROM users WHERE id=`$1`", req.user_id);
+	const auto& res = co_await theDb()->execSqlCoro("SELECT account_id, username, admin FROM users WHERE id=$1", req.userInfo.user_id);
 	if (res.empty())
 	{
 		resp.userInfo.handle_name = "Offline";
@@ -48,9 +48,10 @@ HANDLEF(Initialize)
 	const auto& ec2 = glz::write_json(resp, buffer);
 	if (ec2)
 	{
-		LOG_DEBUG << "Cannot serialize Initialize: " << ec2;
-		co_return "";
+		const auto& glze = glz::format_error(ec2, buffer);
+		LOG_DEBUG << "Gme Initialize Error during JSON writing: " << glze;
+		co_return HandleResult::error("Serialization error", glze);
 	}
 
-	co_return buffer;
+	co_return HandleResult::success(buffer);
 }
