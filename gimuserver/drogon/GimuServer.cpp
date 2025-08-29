@@ -12,9 +12,17 @@ void GimuServer::initAndStart(const Json::Value& config)
 		const auto& httpLogName = extralog["http_log_name"].asString();
 		const auto& dlcLogName = extralog["dlc_error_log_name"].asString();
 
-		m_http_log.open(httpLogName.c_str(), dir.c_str());
-		m_dlc_error_log.open(dlcLogName.c_str(), dir.c_str());
-		m_have_log = true;
+		if (!std::filesystem::create_directory(dir))
+		{
+			LOG_WARN << "Cannot create log directory!";
+			m_have_log = false;
+		}
+		else
+		{
+			m_http_log.open(httpLogName.c_str(), dir.c_str());
+			m_dlc_error_log.open(dlcLogName.c_str(), dir.c_str());
+			m_have_log = true;
+		}
 	}
 
 	const auto& server = config["server"];

@@ -46,6 +46,7 @@ public:
 
 		if (isOpen()) {
 			m_log.output(v.data(), v.length());
+			m_log.flush();
 		}
 
 		return *this;
