@@ -46,8 +46,8 @@
                 "extra_log": { 
                     "enable": true, // also only enabled in TRACE level logging
                     "directory": "./log",
-                    "http_log_name": "http_log.txt",
-                    "dlc_error_log_name": "dlc_404.txt"
+                    "http_log_name": "http_log",
+                    "dlc_error_log_name": "dlc_404"
                 },
                 "server": {
                     "wallpaper_banner": "/wallpaper/title_logo20151028.jpg", // login wallpaper
