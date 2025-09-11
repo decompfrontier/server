@@ -1,5 +1,8 @@
 #pragma once
 
+#include <fstream>
+#include <type_traits>
+
 namespace DumpLogInternal
 {
 	/*!
@@ -27,6 +30,11 @@ public:
 	DumpLog() : m_open(false), m_log() {}
 
 	/*!
+	* Destroyes a DumpLog object.
+	*/
+	~DumpLog() { m_log.close(); }
+
+	/*!
 	* Default deleted specialization as only custom specializations are supported.
 	* @param t Type to print
 	* @return Pointer to self
@@ -45,7 +53,7 @@ public:
 		std::string_view v(str);
 
 		if (isOpen()) {
-			m_log.output(v.data(), v.length());
+			m_log << str;
 			m_log.flush();
 		}
 
@@ -102,11 +110,10 @@ public:
 	* @param[in] fileName Base name of the file
 	* @param[in] path Path where the file should be stored
 	*/
-	void open(const std::string& fileName, const std::string& path)
+	void open(const std::string& fileName)
 	{
-		m_log.setFileName(fileName, ".log", path);
-		m_log.startLogging();
-		m_open = true;
+		m_log.open(fileName);
+		m_open = m_log.is_open();
 	}
 
 	/*!
@@ -125,7 +132,7 @@ private:
 	bool m_open;
 
 	/*!
-	* Trantor file logger.
+	* raw file logger. (async file logger doesn't wait which I think it doesn't make sense on debug logs)
 	*/
-	trantor::AsyncFileLogger m_log;
+	std::ofstream m_log;
 };

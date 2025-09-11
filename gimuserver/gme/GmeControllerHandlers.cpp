@@ -111,7 +111,10 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 		else
 		{
 			const auto& inputJson = decryptedGme.value();
-			logReq() << "REQUEST: " << handler.key << ": " << inputJson << "\n";
+			DumpLog logReq;
+			theServer()->tryOpenHttpDumpLog(header.id, logReq);
+
+			logReq << "REQUEST: " << inputJson << "\n";
 
 			try
 			{
@@ -119,7 +122,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 
 				if (outputJson.isError())
 				{
-					logReq() << "RESPONSE: " << handler.key << " IN ERROR: " << outputJson.errorMsg << " ex: " << outputJson.exceptionMsg << "\n";
+					logReq << "RESPONSE IN ERROR: " << outputJson.errorMsg << " ex: " << outputJson.exceptionMsg << "\n";
 					GmeError err{};
 					err.cmd = GmeErrorCommand::Close;
 					err.flag = GmeErrorFlags::IsInError;
@@ -128,13 +131,13 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 				}
 				else
 				{
-					logReq() << "RESPONSE: " << handler.key << ": " << outputJson.successJson << "\n";
+					logReq << "RESPONSE: " << outputJson.successJson << "\n";
 					resp.body = BfCrypt::BuildGME(outputJson.successJson, handler.key);
 				}
 			}
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
-				LOG_ERROR << "Handler error " << handler.key << " database exception: " << ex.base().what();
+				LOG_ERROR << "Handler error " << header.id << " database exception: " << ex.base().what();
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;

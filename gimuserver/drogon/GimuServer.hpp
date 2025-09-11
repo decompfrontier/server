@@ -34,27 +34,52 @@ public:
     inline auto& cache() { return m_cache; }
 
     /*!
-    * Gets the HTTP request/response logger.
-    * @return HTTP logger
-    */
-    inline auto& httpLog() { return m_http_log; }
-
-    /*!
     * Gets the DLC 404 logger.
     * @return DLC logger
     */
     inline auto& dlcLog() { return m_dlc_error_log; }
 
-private:
     /*!
-    * HTTP log file.
+    * Tries to open an HTTP Dump log.
+    * @param reqId ID of the request
+    * @param log Dump log to open
+    * @return The opened dump log
     */
-    DumpLog m_http_log;
+    inline DumpLog& tryOpenHttpDumpLog(std::string_view reqId, DumpLog& log) const
+    {
+        if (m_have_log)
+        {
+            auto t = std::time(nullptr);
+            auto tm = *std::localtime(&t);
 
+            std::ostringstream fileName;
+            fileName << m_http_log_prefix;
+            fileName << "_";
+            fileName << reqId;
+            fileName << "_";
+            fileName << std::put_time(&tm, "%Y%m%d_%H%M%S");
+            fileName << m_http_log_suffix;
+            log.open(fileName.str());
+        }
+
+        return log;
+    }
+
+private:
     /*!
     * DLC error file.
     */
     DumpLog m_dlc_error_log;
+
+    /*!
+    * Http log prefix.
+    */
+    std::string m_http_log_prefix;
+
+    /*!
+    * Http log suffix.
+    */
+    std::string m_http_log_suffix;
 
     /*!
     * Enable debug logging.
