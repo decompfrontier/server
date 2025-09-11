@@ -7,7 +7,9 @@ using namespace drogon::orm;
 
 Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(const HttpResponsePtr&)> callback)
 {
-    logReq() << rq;
+    DumpLog log;
+    theServer()->tryOpenHttpDumpLog("guestLogin", log);
+    log << rq << "\n";
 
     // Extract parameters
     const auto& params = rq->getParameters();
@@ -68,12 +70,14 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
     {
         LOG_ERROR << "AccountController: Cannot serialize GuestLogin " << ec;
         resp->setStatusCode(k500InternalServerError);
+        log << "Serialization error!";
     }
     else
     {
         resp->setStatusCode(k200OK);
         resp->setContentTypeCode(ContentType::CT_APPLICATION_JSON);
         resp->setBody(output);
+        log << output;
     }
 
     callback(resp);

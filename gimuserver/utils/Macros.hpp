@@ -9,12 +9,6 @@ class GimuServer; // fwd...
 static inline GimuServer* theServer() { return drogon::app().getPlugin<GimuServer>(); }
 
 /*!
-* Gets the request logger
-* @return Request logger
-*/
-static inline DumpLog& logReq() { return theServer()->httpLog(); }
-
-/*!
 * Gets the DLC logger
 * @return DLC logger
 */

@@ -64,7 +64,7 @@ HANDLEF(Initialize)
 	resp.userInfo.gumi_live_token = req.userInfo.gumi_live_token;
 	resp.userInfo.gumi_live_userid = req.userInfo.gumi_live_userid;
 
-	// TEMP HACK!! Skip tutorial flag and put a fixed name
+	// TEMP HACK!! Skip tutorial flag and put a real name
 	resp.userInfo.handle_name = "OfflineMod!";
 	resp.userInfo.tutorial_end_flag = true;
 	resp.userInfo.tutorial_status = 13;

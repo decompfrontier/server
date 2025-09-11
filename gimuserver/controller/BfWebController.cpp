@@ -92,7 +92,9 @@ static std::vector<char> generatePlaceholderPng(int width, int height) {
 
 void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-	logReq() << rq;
+    DumpLog log;
+    theServer()->tryOpenHttpDumpLog("webpage", log);
+    log << rq;
 
 	if (rq->getPath() == "/bf/web/terms.htm")
 	{
@@ -172,7 +174,6 @@ void BfWebController::HandleWebPage(const HttpRequestPtr& rq, std::function<void
 
 void BfWebController::HandleDefault(const HttpRequestPtr& rq, std::function<void(const HttpResponsePtr&)>&& callback)
 {
-	logReq() << rq;
 	auto resp = HttpResponse::newHttpResponse();
 	resp->setStatusCode(k200OK);
 	resp->setBody("gimuserver server works!");
