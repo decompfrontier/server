@@ -1,0 +1,13 @@
+#pragma once
+
+#include "../GmeHandler.hpp"
+
+HANDLER_NS_BEGIN
+class SlotActionRequestHandler : public HandlerBase
+{
+public:
+	const char* GetGroupId() const override { return "vChFp73J"; }
+	const char* GetAesKey() const override { return "hm9X6BQj"; }
+	void Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const override;
+};
+HANDLER_NS_END
