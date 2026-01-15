@@ -53,15 +53,15 @@ struct UserUnitInfo : public IResponse
 			v["67CApcti"] = baseAtk;
 			v["RT4CtH5d"] = addAtk;
 			v["t4m1RH6Y"] = extAtk;
-			v["D6bKH5eV"] = limitOverAtk;
+			v["D6bKH5eV"] = limitOverAtk; //? Not in order with IDA
 			v["q08xLEsy"] = baseDef;
 			v["GcMD0hy6"] = addDef;
 			v["e6mY8Z0k"] = extDef;
-			v["3CsiQA0h"] = limitOverDef;
+			v["3CsiQA0h"] = limitOverDef; //? Not in order with IDA
 			v["PWXu25cg"] = baseHeal;
 			v["C1HZr3pb"] = addHeal;
 			v["X6jf8DUw"] = extHeal;
-			v["XJs2rPx0"] = limitOverHeal;
+			v["XJs2rPx0"] = limitOverHeal; //? Not in order with IDA
 			v["iNy0ZU5M"] = element;
 			v["oS3kTZ2W"] = std::to_string(leaderSkillID); // str
 			v["nj9Lw7mV"] = skillID; // str
@@ -89,9 +89,14 @@ struct UserUnitInfo : public IResponse
 		}
 	};
 
-	const char* getGroupName() const override { return "4ceMWH6k"; }
+	const char* getGroupName() const override {
+		if (overwrite) return "4ceMWH6k";	// Overwrite all units ?
+		return "qC2tJs4E";					// Add to existing units ?
+	}
 
 	std::vector<Data> Mst;
+
+	bool overwrite = true; // For summoning, set to false. <false results in all user units deletion> <true keeps current units>
 
 protected:
 	size_t getRespCount() const override { return Mst.size(); }

@@ -10,6 +10,8 @@ using namespace drogon;
 * Controller for Brave Frontier API
 * @note URL: ios21900.bravefrontier.gumi.sg
 */
+
+//TODO: Add GmeController php actions
 class GmeController : public drogon::HttpController<GmeController>
 {
 public:

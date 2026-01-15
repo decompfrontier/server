@@ -5,6 +5,8 @@
 
 constexpr const auto HARDCODE_USERID = "0101AABB";
 
+//TODO: Is this still a required class?
+
 struct UserInfo
 {
 	Response::UserInfo info;
