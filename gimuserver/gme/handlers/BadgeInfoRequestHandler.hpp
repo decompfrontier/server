@@ -8,7 +8,7 @@ class BadgeInfoRequestHandler : public HandlerBase
 public:
 	const char* GetGroupId() const override { return "nJ3A7qFp"; }
 	const char* GetAesKey() const override { return "bGxX67KB"; }
-	// TODO: Response has 6 parameters to implement
+	
 	void Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const override;
 };
 HANDLER_NS_END

@@ -1,3 +1,8 @@
+//#include "handlers/NgwordCheckRequestHandler.hpp"
+//#include "handlers/CreateUserRequestHandler.hpp"
+//#include "handlers/InitializeRequestHandler.hpp"
+//#include "handlers/TutorialUpdateRequestHandler.hpp"
+//#include "handlers/URLMstRequestHandler.hpp"
 #include "GmeController.hpp"
 #include "handlers/BundlePurchaseRequestHandler.hpp"
 #include "handlers/BundleCategoryRefreshRequestHandler.hpp"
@@ -54,7 +59,6 @@
 #include "handlers/ChallengeUserInfoRequestHandler.hpp"
 #include "handlers/ChronologyRequestHandler.hpp"
 #include "handlers/ControlCenterEnterRequestHandler.hpp"
-#include "handlers/CreateUserRequestHandler.hpp"
 #include "handlers/DebugUpdateRequestHandler.hpp"
 #include "handlers/DeckEditRequestHandler.hpp"
 #include "handlers/DungeonEventUpdateRequestHandler.hpp"
@@ -79,7 +83,6 @@
 #include "handlers/GetPlayerInfoRequestHandler.hpp"
 #include "handlers/GetScenarioPlayingInfoRequestHandler.hpp"
 #include "handlers/GetUserInfoRequestHandler.hpp"
-#include "handlers/InitializeRequestHandler.hpp"
 #include "handlers/InitializeRequest2Handler.hpp"
 #include "handlers/InvitationReceiptRequestHandler.hpp"
 #include "handlers/ItemEditRequestHandler.hpp"
@@ -92,7 +95,6 @@
 #include "handlers/MissionEndRequestHandler.hpp"
 #include "handlers/MissionRestartRequestHandler.hpp"
 #include "handlers/MissionStartRequestHandler.hpp"
-#include "handlers/NgwordCheckRequestHandler.hpp"
 #include "handlers/NoticeListRequestHandler.hpp"
 #include "handlers/NoticeReadUpdateRequestHandler.hpp"
 #include "handlers/NoticeUpdateRequestHandler.hpp"
@@ -111,8 +113,6 @@
 #include "handlers/TransferRequestHandler.hpp"
 #include "handlers/TrialDeckEditRequestHandler.hpp"
 #include "handlers/TrialDeckGetRequestHandler.hpp"
-#include "handlers/TutorialUpdateRequestHandler.hpp"
-#include "handlers/URLMstRequestHandler.hpp"
 #include "handlers/UnitEvoRequestHandler.hpp"
 #include "handlers/UnitFavoriteRequestHandler.hpp"
 #include "handlers/UnitMixRequestHandler.hpp"
@@ -282,6 +282,11 @@
 
 void GmeController::InitializeHandlers()
 {
+    //REGISTER(NgwordCheckRequest);                 //Checks the users name is appropriate on game first play flag + Associated to name assignment
+    //REGISTER(CreateUserRequest);                  //Creates a new user every time called, disabled for testing purposes
+    //REGISTER(InitializeRequest);                  //Disabled due to duplicate class. Refer to Initialize Request 2 below
+    //REGISTER(TutorialUpdateRequest);
+    //REGISTER(URLMstRequest);
     REGISTER(BundlePurchaseRequest);
     REGISTER(BundleCategoryRefreshRequest);
     REGISTER(BundlePurchaseIapRequest);
@@ -337,8 +342,7 @@ void GmeController::InitializeHandlers()
     REGISTER(ChallengeUserInfoRequest);
     REGISTER(ChronologyRequest);
     REGISTER(ControlCenterEnterRequest);
-    REGISTER(CreateUserRequest);
-    REGISTER(DebugUpdateRequest);
+	REGISTER(DebugUpdateRequest);
     REGISTER(DeckEditRequest);
     REGISTER(DungeonEventUpdateRequest);
     REGISTER(DungeonKeyReceiptRequest);
@@ -362,8 +366,7 @@ void GmeController::InitializeHandlers()
     REGISTER(GetPlayerInfoRequest);
     REGISTER(GetScenarioPlayingInfoRequest);
     REGISTER(GetUserInfoRequest);
-    REGISTER(InitializeRequest);
-    REGISTER(InitializeRequest2);
+	REGISTER(InitializeRequest2);
     REGISTER(InvitationReceiptRequest);
     REGISTER(ItemEditRequest);
     REGISTER(ItemFavoriteRequest);
@@ -375,7 +378,6 @@ void GmeController::InitializeHandlers()
     REGISTER(MissionEndRequest);
     REGISTER(MissionRestartRequest);
     REGISTER(MissionStartRequest);
-    REGISTER(NgwordCheckRequest);
     REGISTER(NoticeListRequest);
     REGISTER(NoticeReadUpdateRequest);
     REGISTER(NoticeUpdateRequest);
@@ -394,8 +396,6 @@ void GmeController::InitializeHandlers()
     REGISTER(TransferRequest);
     REGISTER(TrialDeckEditRequest);
     REGISTER(TrialDeckGetRequest);
-    REGISTER(TutorialUpdateRequest);
-    REGISTER(URLMstRequest);
     REGISTER(UnitEvoRequest);
     REGISTER(UnitFavoriteRequest);
     REGISTER(UnitMixRequest);
