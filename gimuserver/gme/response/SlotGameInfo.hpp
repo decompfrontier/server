@@ -5,7 +5,7 @@
 RESPONSE_NS_BEGIN
 struct SlotGameInfo : public IResponse
 {
-	uint32_t id;
+	uint32_t id = 0;  // initialized to suppress C26495
 	std::string name;
 	std::string reelPos;
 	std::string useMedal;

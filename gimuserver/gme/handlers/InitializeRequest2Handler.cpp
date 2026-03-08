@@ -3,6 +3,12 @@
 #include "core/System.hpp"
 #include "gme/requests/UserInfo.hpp"
 #include "gme/response/UserInfo.hpp"
+// DEV_SKIP_TUTORIAL flag — defined in AccountController.hpp/cpp.
+// We need it here to gate the tutorialEndFlag force-set in OnUserInfoSuccess.
+// TODO (tutorial): Remove this include when DEV_SKIP_TUTORIAL is retired.
+#ifndef DEV_SKIP_TUTORIAL
+#define DEV_SKIP_TUTORIAL 0
+#endif
 #include "gme/response/SignalKey.hpp"
 #include "gme/response/ChallengeArenaUserInfo.hpp"
 #include "gme/response/DailyTaskPrizeMst.hpp"
@@ -41,8 +47,30 @@ void Handler::InitializeRequest2Handler::OnUserInfoSuccess(const drogon::orm::Re
 		user.info.accountID = sql[col++].as<std::string>();
 		user.info.handleName = sql[col++].as<std::string>();
 		user.info.debugMode = sql[col++].as<bool>() ? 1 : 0;
+
+		// DEV_SKIP_TUTORIAL: Force tutorial complete for all existing users.
+		//
+		// Root cause of the post-asset-validation crash:
+		//   AccountController::HandleGuest inserts the user row into the DB before
+		//   this handler is ever called, so result.size() > 0 is ALWAYS true for our
+		//   seeded account. The else-branch below (which sets tutorialEndFlag=1) is
+		//   therefore never reached. tutorialEndFlag stays at the struct default of 0,
+		//   the client receives "tutorial not complete", attempts the tutorial sequence,
+		//   hits an unimplemented tutorial handler, gets a bad/empty response, crashes.
+		//
+		// TODO (tutorial): Remove this block once tutorialEndFlag is persisted in the
+		//   users table. Add a tutorial_end_flag INTEGER column via a new migration:
+		//     "ALTER TABLE users ADD COLUMN tutorial_end_flag INTEGER DEFAULT 0;"
+		//   The tutorial-completion handler should UPDATE it to 1 after the player
+		//   picks their starter unit. Read it back here alongside account_id/username.
+#if DEV_SKIP_TUTORIAL
+		user.info.tutorialEndFlag = 1;
+		user.info.tutorialStatus = 0;
+#endif
 	}
 	else {
+		// New user that somehow isn't in the DB yet (race between HandleGuest's async
+		// INSERT and this handler being called -- should be rare but possible).
 		user.info.handleName = "BFOM: 03/03/2024";
 		user.info.debugMode = false;
 		user.info.accountID = Utils::RandomAccountID();

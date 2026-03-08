@@ -66,8 +66,14 @@ namespace {
 
         for (const auto& row : unitResult) {
             Response::UserUnitInfo::Data d;
-            PopulateUnitData(d, userId, row["id"].as<uint32_t>(),
-                std::stoul(row["unit_id"].as<std::string>()));
+            // unit_id may have suffixes like _100 (limit broken) or _2 (evolved form).
+            // Strip everything after the first underscore to get the base numeric ID.
+            std::string rawId = row["unit_id"].as<std::string>();
+            auto underscore = rawId.find('_');
+            uint64_t unitId = std::stoull(
+                underscore == std::string::npos ? rawId : rawId.substr(0, underscore)
+            );
+            PopulateUnitData(d, userId, row["id"].as<uint32_t>(), unitId);
             unitInfo.Mst.emplace_back(d);
         }
 
@@ -99,24 +105,49 @@ namespace {
 }
 
 void Handler::GetUserInfoRequestHandler::Handle(UserInfo& user, DrogonCallback cb, const Json::Value& req) const {
-    // Determine user ID from request (priority: user_id > ak > hardcoded default)
-    std::string requestUserId = user.info.userID;
-    LOG_INFO << "UserInfoHandler: Initial user_id: " << requestUserId;
+    // The Windows client sends dummy placeholder values like '0101AABB' as user_id
+    // inside the encrypted GME packet body. The GmeController copies that into
+    // user.info.userID before calling us, so we cannot trust it directly.
+    //
+    // Resolution: query the users table. If the current userID exists, use it.
+    // Otherwise (UNION ALL) fall back to the first real user in the DB.
+    // For offline single-player this always resolves to the one real account.
+    LOG_INFO << "UserInfoHandler: raw user_id: " << user.info.userID;
 
-    if (req.isMember("user_id")) {
-        requestUserId = req["user_id"].asString();
-        LOG_INFO << "UserInfoHandler: Using user_id from request: " << requestUserId;
-    }
-    else if (req.isMember("ak")) {
-        requestUserId = req["ak"].asString();
-        LOG_INFO << "UserInfoHandler: Using ak from request: " << requestUserId;
-    }
-    else {
-        requestUserId = "0839899613932562"; // Fallback for testing
-        LOG_INFO << "UserInfoHandler: Using hardcoded fallback user_id";
-    }
+    GME_DB->execSqlAsync(
+        "SELECT id FROM users WHERE id = $1 "
+        "UNION ALL "
+        "SELECT id FROM users WHERE id != $1 LIMIT 1",
+        [this, &user, cb, req](const drogon::orm::Result& idResult)
+        {
+            if (!idResult.empty())
+            {
+                std::string resolvedId = idResult[0]["id"].as<std::string>();
+                if (resolvedId != user.info.userID)
+                {
+                    LOG_INFO << "UserInfoHandler: remapped " << user.info.userID
+                        << " -> " << resolvedId;
+                    user.info.userID = resolvedId;
+                }
+            }
+            else
+            {
+                LOG_WARN << "UserInfoHandler: no users in DB";
+            }
+            // Now dispatch with the resolved user ID.
+            HandleResolved(user, cb, req);
+        },
+        [this, &user, cb, req](const drogon::orm::DrogonDbException& e)
+        {
+            LOG_ERROR << "UserInfoHandler: resolution query failed: " << e.base().what();
+            HandleResolved(user, cb, req);
+        },
+        user.info.userID
+    );
+}
 
-    user.info.userID = requestUserId;
+void Handler::GetUserInfoRequestHandler::HandleResolved(UserInfo& user, DrogonCallback cb, const Json::Value& req) const {
+    LOG_INFO << "UserInfoHandler: resolved user_id: " << user.info.userID;
 
     // Handle unit inventory or squad management requests separately
     std::string action = req.isMember("action") ? req["action"].asString() : "";
@@ -175,7 +206,7 @@ void Handler::GetUserInfoRequestHandler::Handle(UserInfo& user, DrogonCallback c
             }
             else {
                 // Initialize new user with starter config
-				//TODO: Call New User Logic Here
+                //TODO: Call New User Logic Here
                 auto sc = System::Instance().MstConfig().StartInfo();
                 user.teamInfo.UserID = user.info.userID;
                 user.teamInfo.Level = sc.Level;
