@@ -1,7 +1,7 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
-#include <gimuserver/packets/net_badgeinfo.hpp>
+#include <gimuserver/packets/net/badgeinfo.hpp>
 
 HANDLEF(BadgeInfo)
 {

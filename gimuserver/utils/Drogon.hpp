@@ -1,7 +1,5 @@
 #pragma once
 
-#include <gimuserver/packets/net_gme.hpp>
-
 /*!
 * Gets the hostname which the server was binded to.
 * @return Binded hostname

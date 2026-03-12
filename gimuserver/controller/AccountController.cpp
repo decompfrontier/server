@@ -1,6 +1,6 @@
 #include "App.hpp"
 #include "AccountController.hpp"
-#include <gimuserver/packets/net_gumi_live.hpp>
+#include <gimuserver/packets/net/gumi_live.hpp>
 
 using namespace drogon;
 using namespace drogon::orm;
@@ -14,7 +14,7 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
     // Extract parameters
     const auto& params = rq->getParameters();
     GuestLogin login;
-    login.status = v_StatusEnum::Error;
+    login.status = StatusEnum::Error;
     login.status_number = 1; // TODO: what was this again?
 
     try
@@ -46,7 +46,7 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
                 LOG_DEBUG << "AccountController: new user " << login.user_id;
             }
 
-            login.status = v_StatusEnum::Success;
+            login.status = StatusEnum::Success;
             login.token = "test_token"; // Note: Should we use a proper token with drogon session?
             login.status_number = 0;
 

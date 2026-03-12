@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 4.0)
 project(GimuServer)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 if ("${GIMUSRV_FRONTEND}" STREQUAL "STANDALONE")
     set(STANDALONE TRUE)
@@ -12,28 +12,17 @@ else()
 endif()
 
 if (MSVC)
+     # TODO: Enable /Wall, /WX and /permissive-
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /MP")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /utf-8 /MP")
 endif()
 
-set(SERVER_HOME_PAGE "https://decompfrontier.github.io/")
-
 find_package(cryptopp CONFIG REQUIRED)
 find_package(Drogon CONFIG REQUIRED)
 find_package(unofficial-sqlite3 CONFIG REQUIRED)
-find_package(glaze CONFIG REQUIRED)
+find_package(glaze CONFIG REQUIRED) # c++ JSON abstraction
 
-# packet generator import
-add_library(pkgenruntime INTERFACE 
-    packet-generator/runtime/cpp/date.h
-    packet-generator/runtime/cpp/glaze_helpers.hpp
-)
-target_include_directories(pkgenruntime INTERFACE ${CMAKE_CURRENT_LIST_DIR}/packet-generator/runtime/cpp)
-
-if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /utf-8 /MP") # TODO: Enable /Wall, /WX and /permissive-
-endif()
-
+add_subdirectory(packet-generator/assets/runtime/cpp)
 add_subdirectory(gimuserver)
 
 if (STANDALONE)

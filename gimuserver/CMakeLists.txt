@@ -8,7 +8,7 @@ target_link_libraries(gimuserver PUBLIC
     unofficial::sqlite3::sqlite3
     glaze::glaze
     # project
-    pkgenruntime
+    pkgen_cpp
 )
 
 target_include_directories(gimuserver 

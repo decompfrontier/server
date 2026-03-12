@@ -1,10 +1,10 @@
 #pragma once
 
-#include <gimuserver/packets/net_gme.hpp>
+#include <gimuserver/packets/net/gme.hpp>
 
 /**
 * Controller for Brave Frontier API
-* <p>URL: ios21900.bravefrontier.gumi.sg
+* <p>URL: ios21900.bravefrontier.gumi.sg</p>
 */
 class GmeController : public drogon::HttpController<GmeController>
 {

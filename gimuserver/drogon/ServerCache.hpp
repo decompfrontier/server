@@ -1,7 +1,7 @@
 #pragma once
 
-#include <gimuserver/packets/net_handlers.hpp>
-#include <gimuserver/packets/net_featurecheck.hpp>
+#include <gimuserver/packets/net/handlers.hpp>
+#include <gimuserver/packets/net/featurecheck.hpp>
 
 #include "ServerConfig.hpp"
 

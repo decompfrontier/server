@@ -1,7 +1,7 @@
 #pragma once
 
-#include <gimuserver/packets/net_gumi_live.hpp>
-#include <gimuserver/packets/net_gme.hpp>
+#include <gimuserver/packets/net/gumi_live.hpp>
+#include <gimuserver/packets/net/gme.hpp>
 
 namespace BfCrypt
 {
