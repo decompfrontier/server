@@ -1,16 +1,8 @@
 #include "App.hpp"
 #include "ServerCache.hpp"
+#include "ServerCacheMst.hpp"
 
 #include <gimuserver/utils/BfCrypt.hpp>
-#include <gimuserver/packets/net/gumi_live.hpp>
-#include <gimuserver/packets/net/featurecheck.hpp>
-#include <gimuserver/packets/mst/logincampaign.hpp>
-#include <gimuserver/packets/mst/versioninfo.hpp>
-#include <gimuserver/packets/mst/town.hpp>
-#include <gimuserver/packets/mst/dungeonkey.hpp>
-#include <gimuserver/packets/mst/arena.hpp>
-#include <gimuserver/packets/mst/gatcha.hpp>
-#include <gimuserver/packets/mst/npc.hpp>
 
 /*!
 * Builds a JSON
@@ -80,27 +72,27 @@ void ServerCache::Setup(const Json::Value& serverObj)
 
 	{
 		m_initrsp.login_campagin = LoadJson<LoginCampaignMst>(mstRoot, "login_campaign.json");
-		m_initrsp.login_campaign_reward = LoadJson<LoginCampaignReward>(mstRoot, "login_campaign_reward.json");
-		m_initrsp.progression = LoadJson<UserLevelMst>(mstRoot, "user_level.json");
-		m_initrsp.mst = LoadJson<VersionInfo>(mstRoot, "version_info.json");
-		m_initrsp.town_facility = LoadJson<TownFacilityMst>(mstRoot, "town_facility.json");
-		m_initrsp.town_facility_lv = LoadJson<TownFacilityLvMst>(mstRoot, "town_facility_lv.json");
-		m_initrsp.town_location = LoadJson<TownLocationMst>(mstRoot, "town_location.json");
-		m_initrsp.town_location_lv = LoadJson<TownLocationLvMst>(mstRoot, "town_location_lv.json");
-		m_initrsp.dungeon_keys = LoadJson<DungeonKeyMst>(mstRoot, "dungeon_keys.json");
-		m_initrsp.arena_ranks = LoadJson<ArenaRankMst>(mstRoot, "arena_rank.json");
-		m_initrsp.gacha_effects = LoadJson<GachaEffectMst>(mstRoot, "gacha_effects.json");
-		m_initrsp.gachas = LoadJson<GachaMst>(mstRoot, "gacha.json");
-		m_initrsp.npcs = LoadJson<NpcMst>(mstRoot, "npc.json");
-		m_initrsp.banner_info = LoadJson <BannerInfoMst>(mstRoot, "banner_info.json");
-		m_initrsp.extra_passive_skills = LoadJson<ExtraPassiveSkillMst>(mstRoot, "extra_passive_skills.json");
+		m_initrsp.login_campaign_reward = LoadJson<LoginCampaignRewardCache>(mstRoot, "login_campaign_reward.json").data;
+		m_initrsp.progression = LoadJson<UserLevelMstCache>(mstRoot, "user_level.json").data;
+		m_initrsp.mst = LoadJson<VersionInfoCache>(mstRoot, "version_info.json").data;
+		m_initrsp.town_facility = LoadJson<TownFacilityMstCache>(mstRoot, "town_facility.json").data;
+		m_initrsp.town_facility_lv = LoadJson<TownFacilityLvMstCache>(mstRoot, "town_facility_lv.json").data;
+		m_initrsp.town_location = LoadJson<TownLocationMstCache>(mstRoot, "town_location.json").data;
+		m_initrsp.town_location_lv = LoadJson<TownLocationLvMstCache>(mstRoot, "town_location_lv.json").data;
+		m_initrsp.dungeon_keys = LoadJson<DungeonKeyMstCache>(mstRoot, "dungeon_keys.json").data;
+		m_initrsp.arena_ranks = LoadJson<ArenaRankMstCache>(mstRoot, "arena_rank.json").data;
+		m_initrsp.gacha_effects = LoadJson<GachaEffectMstCache>(mstRoot, "gacha_effects.json").data;
+		m_initrsp.gachas = LoadJson<GachaMstCache>(mstRoot, "gacha.json").data;
+		m_initrsp.npcs = LoadJson<NpcMstCache>(mstRoot, "npc.json").data;
+		m_initrsp.banner_info = LoadJson <BannerInfoMstCache>(mstRoot, "banner_info.json").data;
+		m_initrsp.extra_passive_skills = LoadJson<ExtraPassiveSkillMstCache>(mstRoot, "extra_passive_skills.json").data;
 		m_initrsp.notice_info = LoadJson<NoticeInfo>(mstRoot, "notice_info.json");
 		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines.json");
 		m_initrsp.video_ad_slots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ads_slot_game_info.json");
-		// TODO: move this to generated per-used as there's no support for the claim
+		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");
-		m_initrsp.daily_task_prizes = LoadJson<DailyTaskPrizeMst>(mstRoot, "TEMP_daily_tasks_prizes.json");
-		m_initrsp.daily_tasks = LoadJson<DailyTaskMst>(mstRoot, "TEMP_daily_tasks.json");
+		m_initrsp.daily_task_prizes = LoadJson<DailyTaskPrizeMstCache>(mstRoot, "TEMP_daily_tasks_prizes.json").data;
+		m_initrsp.daily_tasks = LoadJson<DailyTaskMstCache>(mstRoot, "TEMP_daily_tasks.json").data;
 		// ---
 	}
 }

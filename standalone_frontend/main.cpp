@@ -1,5 +1,6 @@
 #include <drogon/drogon.h>
 
+#include <gimuserver/App.hpp>
 #include <gimuserver/db/MigrationManager.hpp>
 #include <gimuserver/drogon/GimuServer.hpp>
 

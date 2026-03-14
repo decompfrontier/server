@@ -17,7 +17,7 @@ static constexpr const unsigned char SREE_IV[] = { 0x42, 0x66, 0x77, 0x34, 0x65,
 
 using namespace CryptoPP;
 
-std::optional<SREE> BfCrypt::BuildSREE(std::string_view input_json)
+std::optional<Sree> BfCrypt::BuildSREE(std::string_view input_json)
 {
 	try
 	{
@@ -35,7 +35,7 @@ std::optional<SREE> BfCrypt::BuildSREE(std::string_view input_json)
 
 		StringSource ss(str, true, new StreamTransformationFilter(e, new StringSink(tmp), StreamTransformationFilter::NO_PADDING));
 
-		SREE sree{ drogon::utils::base64Encode((const unsigned char*)tmp.data(), tmp.size()) };
+		Sree sree{ drogon::utils::base64Encode((const unsigned char*)tmp.data(), tmp.size()) };
 		return sree;
 	}
 	catch (const Exception& ex)

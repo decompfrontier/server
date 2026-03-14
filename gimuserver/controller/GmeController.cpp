@@ -2,7 +2,6 @@
 #include "GmeController.hpp"
 
 #include <gimuserver/utils/BfCrypt.hpp>
-#include <gimuserver/packets/net/gme.hpp>
 
 using namespace drogon;
 

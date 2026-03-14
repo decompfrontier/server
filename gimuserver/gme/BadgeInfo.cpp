@@ -1,8 +1,6 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
-#include <gimuserver/packets/net/badgeinfo.hpp>
-
 HANDLEF(BadgeInfo)
 {
 	::BadgeInfo resp{};

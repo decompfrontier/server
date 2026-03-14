@@ -1,8 +1,5 @@
 #pragma once
 
-#include <gimuserver/packets/net/gumi_live.hpp>
-#include <gimuserver/packets/net/gme.hpp>
-
 namespace BfCrypt
 {
 	/**
@@ -10,7 +7,7 @@ namespace BfCrypt
 	* @param[in] input_json Input JSON to use as the request body
 	* @return true in case the construction succeeded, otherwise false
 	*/
-	std::optional<SREE> BuildSREE(std::string_view input_json);
+	std::optional<Sree> BuildSREE(std::string_view input_json);
 
 	/**
 	* Constructs a GME body with a body JSON

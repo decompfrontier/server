@@ -1,6 +1,5 @@
 #include "App.hpp"
 #include "AccountController.hpp"
-#include <gimuserver/packets/net/gumi_live.hpp>
 
 using namespace drogon;
 using namespace drogon::orm;

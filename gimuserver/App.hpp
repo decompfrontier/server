@@ -15,6 +15,9 @@
 #include <drogon/orm/DbClient.h>
 #include <drogon/utils/Utilities.h>
 
+// packets
+#include <gimuserver/packets/all.hpp>
+
 // main system
 #include <gimuserver/drogon/GimuServer.hpp>
 // main controllers
