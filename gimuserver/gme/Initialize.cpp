@@ -60,13 +60,14 @@ HANDLEF(Initialize)
 	}
 
 	resp.user_info.user_id = RandomId(); // I think this is a random UUID according to packet-gen
-	resp.user_info.gumi_live_token = req.user_info.gumi_live_token;
-	resp.user_info.gumi_live_userid = req.user_info.gumi_live_userid;
+	//resp.user_info.gumi_live_token = req.user_info.gumi_live_token;
+	//resp.user_info.gumi_live_userid = req.user_info.gumi_live_userid;
 
 	// TEMP HACK!! Skip tutorial flag and put a real name
 	resp.user_info.handle_name = "OfflineMod!";
 	resp.user_info.tutorial_end_flag = true;
 	resp.user_info.tutorial_status = 13;
+	resp.user_info.unk = "773c9af44721a014c7ed";
 
 	resp.signal_key.key = "C7vnXA5T";
 	resp.challenge_arena_user_info.unk = "n9ZMPC0t"; // rank name?
@@ -74,6 +75,10 @@ HANDLEF(Initialize)
 	resp.challenge_arena_user_info.league_id = 1;
 
 	resp.summoner_journal.user_id = resp.user_info.user_id;
+
+	resp.daily_login_rewards.id = 1;
+	resp.daily_login_rewards.current_day = 1;
+	resp.daily_login_rewards.message = " day(s) more to guaranteed Gem!";
 
 	std::string buffer{};
 	const auto& ec2 = glz::write_json(resp, buffer);

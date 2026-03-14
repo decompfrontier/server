@@ -650,21 +650,6 @@ struct UserInfoResp {
 
     /// TODO
     std::string unk;
-
-    /// Extra parameters that are passed to the DLS API server in the request object EXTRA_PARAMS.
-    std::string service_request_endpoint_param;
-
-    /// Gumi live API User ID. (used for example in IAP)
-    std::string gumi_live_userid;
-
-    /// User token of the Gumi live API.
-    std::string gumi_live_token;
-
-    /// Facebook ID of the associated account.
-    int64_t facebook_id;
-
-    /// TODO
-    std::string associated_user_id;
 };
 
 
@@ -981,6 +966,23 @@ struct BannerInfoMst {
 
 
 /// TODO
+struct VideoAdsSlotGameInfo {
+
+    /// TODO
+    std::string game_info;
+
+    /// TODO
+    std::string reel_info;
+
+    /// TODO
+    std::string picture_info;
+
+    /// TODO
+    std::string game_stand_info;
+};
+
+
+/// TODO
 struct VideoAdsSlotGameStandInfo {
 
     /// TODO
@@ -1080,23 +1082,6 @@ struct SlotGameInfo {
 
 
 /// TODO
-struct VideoAdsSlotGameInfo {
-
-    /// TODO
-    std::string game_info;
-
-    /// TODO
-    std::string reel_info;
-
-    /// TODO
-    std::string picture_info;
-
-    /// TODO
-    std::string game_stand_info;
-};
-
-
-/// TODO
 struct SlotGameInfoR {
 
     /// TODO
@@ -1104,6 +1089,29 @@ struct SlotGameInfoR {
 
     /// TODO
     std::vector<SlotGamePictureInfo> pictures;
+};
+
+
+/// TODO
+struct NpcMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    std::string handle_name;
+
+    /// TODO
+    int32_t arena_rank_id;
+
+    /// TODO
+    std::string team;
+
+    /// TODO
+    std::string parties;
+
+    /// TODO
+    std::string units;
 };
 
 
@@ -1170,29 +1178,6 @@ struct NpcPartyInfo {
 
     /// TODO
     int32_t disp_order;
-};
-
-
-/// TODO
-struct NpcMst {
-
-    /// TODO
-    int32_t id;
-
-    /// TODO
-    std::string handle_name;
-
-    /// TODO
-    int32_t arena_rank_id;
-
-    /// TODO
-    std::string team;
-
-    /// TODO
-    std::string parties;
-
-    /// TODO
-    std::string units;
 };
 
 
@@ -1396,6 +1381,7 @@ struct DefineMst {
 };
 
 
+
 /// TODO
 struct SummonTicketV2Mst {
 
@@ -1522,6 +1508,32 @@ struct GachaEffectMst {
 
     /// TODO
     std::string effect;
+};
+
+
+/// TODO
+struct ArenaRankMst {
+
+    /// Ranking ID
+    int32_t id;
+
+    /// Ranking name
+    std::string name;
+
+    /// Points when this rank starts (included)
+    int32_t rank_point_start;
+
+    /// Points when this rank ends (included)
+    int32_t rank_point_end;
+
+    /// Type of reward
+    int32_t reward_type;
+
+    /// Configuration of the reward
+    pkg::string_list<int32_t> reward_param;
+
+    /// ID of the scene to play
+    std::string scenario_info;
 };
 
 
@@ -2350,6 +2362,9 @@ struct GeneralEventMst {
 /// TODO
 struct UserInfoReq {
 
+    /// Username shown in-game.
+    std::string handle_name;
+
     /// TODO
     std::string user_id;
 
@@ -2460,33 +2475,7 @@ enum class RewardType {
     Type1,
 
     /// TODO
-    Type2,
-};
-
-
-/// TODO
-struct ArenaRankMst {
-
-    /// Ranking ID
-    int32_t id;
-
-    /// Ranking name
-    std::string name;
-
-    /// Points when this rank starts (included)
-    int32_t rank_point_start;
-
-    /// Points when this rank ends (included)
-    int32_t rank_point_end;
-
-    /// Type of reward
-    int32_t reward_type;
-
-    /// Configuration of the reward
-    pkg::string_list<int32_t> reward_param;
-
-    /// ID of the scene to play
-    std::string scenario_info;
+    Type2
 };
 
 /// Type of command to do after the user presses OK.
@@ -2563,7 +2552,6 @@ struct GmeAction {
     /// Error object in case of an error.
     std::optional<GmeError> error;
 };
-
 
 
 /// Response of the initialize command
@@ -2650,7 +2638,6 @@ struct InitializeResp {
     /// User information
     UserInfoResp user_info;
 };
-
 
 // Auto-generated Glaze definitions
 #if __has_include(<glaze/glaze.hpp>)
@@ -2992,12 +2979,12 @@ template <>
 struct glz::meta<UserLevelMst> {
     using T = UserLevelMst;
     static constexpr auto value = object(
-        "D9wXQI2V", &T::level,
-        "d96tuT2E", &T::exp,
-        "0P9X1YHs", &T::action_points,
-        "ziex06DY", &T::deck_cost,
-        "oFQ3mbS6", &T::friend_count,
-        "GZ2rKW90", &T::add_friend_count
+        "D9wXQI2V", glz::quoted_num<&T::level>,
+        "d96tuT2E", glz::quoted_num<&T::exp>,
+        "0P9X1YHs", glz::quoted_num<&T::action_points>,
+        "ziex06DY", glz::quoted_num<&T::deck_cost>,
+        "oFQ3mbS6", glz::quoted_num<&T::friend_count>,
+        "GZ2rKW90", glz::quoted_num<&T::add_friend_count>
     );
 };
 
@@ -3005,9 +2992,9 @@ template <>
 struct glz::meta<TownFacilityLvMst> {
     using T = TownFacilityLvMst;
     static constexpr auto value = object(
-        "y9ET7Aub", &T::id,
-        "D9wXQI2V", &T::lv,
-        "HTVh8a65", &T::karma,
+        "y9ET7Aub", glz::quoted_num<&T::id>,
+        "D9wXQI2V", glz::quoted_num<&T::lv>,
+        "HTVh8a65", glz::quoted_num<&T::karma>,
         "rGoJ6Ty9", pkg::glaze::array_string<T, &T::release_receipe, ','>
     );
 };
@@ -3033,7 +3020,7 @@ struct glz::meta<TownFacilityMst> {
         "M6C1aXfR", glz::quoted_num<&T::pos_y>,
         "dRhvW13q", glz::quoted_num<&T::width>,
         "FCzW4g6P", glz::quoted_num<&T::height>,
-        "HSRhkf70", glz::quoted_num<&T::need_mission_id>
+        "HSRhkf70", &T::need_mission_id
     );
 };
 
@@ -3047,7 +3034,7 @@ struct glz::meta<TownLocationMst> {
         "M6C1aXfR", glz::quoted_num<&T::pos_y>,
         "dRhvW13q", glz::quoted_num<&T::width>,
         "FCzW4g6P", glz::quoted_num<&T::height>,
-        "HSRhkf70", glz::quoted_num<&T::need_mission_id>,
+        "HSRhkf70", &T::need_mission_id,
         "jeR2rN3V", glz::quoted_num<&T::effect_type>
     );
 };
@@ -3079,7 +3066,7 @@ struct glz::meta<ArenaRankMst> {
         "rGm09bav", &T::name,
         "w0aTd94Y", glz::quoted_num<&T::rank_point_start>,
         "1U3eBCyY", glz::quoted_num<&T::rank_point_end>,
-        "IkmC8gG2", glz::quoted_num <&T::reward_type>,
+        "IkmC8gG2", glz::quoted_num<&T::reward_type>,
         "empaR60j", pkg::glaze::array_string<T, &T::reward_param, ':'>,
         "N4XVE1uA", &T::scenario_info
     );
@@ -3589,19 +3576,14 @@ struct glz::meta<UserInfoResp> {
         "nrg19RGe", glz::quoted_num<&T::model_change_count>,
         "iyJH5k6p", glz::quoted_num<&T::code_expire_date>,
         "y2v7Sd01", glz::quoted_num<&T::friend_invitation_flag>,
-        "iN7cYU9i", &T::early_bird_end,
+        "iN7cYU9i", glz::quoted_num<&T::early_bird_end>,
         "5MPcr0sp", pkg::glaze::bool_as_string<&T::debug_mode>(),
         "8kN1tgYU", &T::encrypt_iv,
         "PA0QwZs1", &T::encrypted_friend_id,
         "7oV00FeR", &T::first_desc,
         "23t3D28i", &T::dlc_url,
         "a37D29iJ", &T::feature_gate,
-        "32k0ahkD", &T::unk,
-        "ABh7acL2", &T::service_request_endpoint_param,
-        "iN7buP2h", &T::gumi_live_userid,
-        "iN7buP1i", &T::gumi_live_token,
-        "K29dp2Q", &T::facebook_id,
-        "uJP4aeg9", &T::associated_user_id
+        "32k0ahkD", &T::unk
     );
 };
 
@@ -3720,6 +3702,7 @@ template <>
 struct glz::meta<UserInfoReq> {
     using T = UserInfoReq;
     static constexpr auto value = object(
+        "B5JQyV8j", &T::handle_name,
         "h7eY3sAK", &T::user_id,
         "90LWtVUN", &T::contact_id,
         "nrg19RGe", glz::quoted_num<&T::model_change_count>,
@@ -3751,7 +3734,7 @@ template <>
 struct glz::meta<InitializeReq> {
     using T = InitializeReq;
     static constexpr auto value = object(
-        "IKqx1Cn9", &T::user_info,
+        "IKqx1Cn9", pkg::glaze::single_array<&T::user_info>(),
         "KeC10fuL", &T::mst_requests
     );
 };

@@ -93,7 +93,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 		GmeError err{};
 		err.cmd = GmeErrorCommand::Close;
 		err.flag = GmeErrorFlags::IsInError;
-		err.message = std::format("Unsupported request! Please report this error with the following information:\nRequest: {}", header.id);
+		err.message = std::format("Unsupported request: {}", header.id);
 		resp.error = err;
 	}
 	else
@@ -105,7 +105,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			GmeError err{};
 			err.cmd = GmeErrorCommand::Close;
 			err.flag = GmeErrorFlags::IsInError;
-			err.message = std::format("Unable to decode request! Please report this error with the following information:\nRequest: {}", header.id);
+			err.message = std::format("Unable to decode request: {}", header.id);
 			resp.error = err;
 		}
 		else
@@ -126,7 +126,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 					GmeError err{};
 					err.cmd = GmeErrorCommand::Close;
 					err.flag = GmeErrorFlags::IsInError;
-					err.message = std::format("Unable to handle request! Please report this error:\nRequest: \"{}\", Error: \"{}\", Exception: \"{}\"", header.id, outputJson.errorMsg, outputJson.exceptionMsg);
+					err.message = std::format("Unable to handle request: \"{}\", Error: \"{}\"", header.id, outputJson.errorMsg);
 					resp.error = err;
 				}
 				else
@@ -141,7 +141,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
-				err.message = std::format("Unable to run database query! Please report this error:\nRequest: \"{}\", Exception: \"{}\"", header.id, ex.base().what());
+				err.message = std::format("Unable to run database query: \"{}\"", header.id);
 				resp.error = err;
 			}
 		}

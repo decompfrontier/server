@@ -1,10 +1,9 @@
 {
-
-	"Lh1I3dGo" :
+	"Lh1I3dGo" : 
 	[
 		{
 			"FCzW4g6P" : "84",
-			"HSRhkf70" : "21",
+			"HSRhkf70" : 21,
 			"M6C1aXfR" : "350",
 			"SnNtTh51" : "220",
 			"aAFI6S5w" : "MST_TOWN_FACILITY_1_NAME",
@@ -13,7 +12,7 @@
 		},
 		{
 			"FCzW4g6P" : "84",
-			"HSRhkf70" : "0",
+			"HSRhkf70" : 0,
 			"M6C1aXfR" : "464",
 			"SnNtTh51" : "124",
 			"aAFI6S5w" : "MST_TOWN_FACILITY_2_NAME",
@@ -22,7 +21,7 @@
 		},
 		{
 			"FCzW4g6P" : "84",
-			"HSRhkf70" : "0",
+			"HSRhkf70" : 0,
 			"M6C1aXfR" : "538",
 			"SnNtTh51" : "30",
 			"aAFI6S5w" : "MST_TOWN_FACILITY_3_NAME",
@@ -31,7 +30,7 @@
 		},
 		{
 			"FCzW4g6P" : "84",
-			"HSRhkf70" : "33",
+			"HSRhkf70" : 33,
 			"M6C1aXfR" : "400",
 			"SnNtTh51" : "474",
 			"aAFI6S5w" : "MST_TOWN_FACILITY_4_NAME",
@@ -40,7 +39,7 @@
 		},
 		{
 			"FCzW4g6P" : "84",
-			"HSRhkf70" : "0",
+			"HSRhkf70" : 0,
 			"M6C1aXfR" : "627",
 			"SnNtTh51" : "180",
 			"aAFI6S5w" : "MST_TOWN_FACILITY_5_NAME",
@@ -49,7 +48,7 @@
 		},
 		{
 			"FCzW4g6P" : "84",
-			"HSRhkf70" : "20102",
+			"HSRhkf70" : 20102,
 			"M6C1aXfR" : "300",
 			"SnNtTh51" : "340",
 			"aAFI6S5w" : "LS\u30b9\u30d5\u30a3\u30a2\u5c4b",
@@ -58,7 +57,7 @@
 		},
 		{
 			"FCzW4g6P" : "84",
-			"HSRhkf70" : "0",
+			"HSRhkf70" : 0,
 			"M6C1aXfR" : "200",
 			"SnNtTh51" : "240",
 			"aAFI6S5w" : "Event Bazaar",
