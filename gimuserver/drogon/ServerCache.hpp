@@ -33,6 +33,12 @@ public:
 	inline const auto& initializeResp() const { return m_initrsp;  }
 
 	/*!
+	* Gets the common portion of the user info response.
+	* @return User info response
+	*/
+	inline const auto& userInfoResp() const { return m_userrsp; }
+
+	/*!
 	* Gets the cached slot response.
 	* @return ControlCenter response
 	*/
@@ -69,4 +75,9 @@ private:
 	* Server configuration.
 	*/
 	ServerConfig m_serverConfig;
+
+	/*!
+	* User info response.
+	*/
+	UserInfoResp m_userrsp;
 };

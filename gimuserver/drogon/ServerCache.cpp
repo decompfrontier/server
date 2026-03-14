@@ -71,6 +71,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 	m_controlCenterRsp = LoadJson<SlotGameInfoR>(mstRoot, "brave_slots.json");
 
 	{
+		// Cache: Initialize response
 		m_initrsp.login_campagin = LoadJson<LoginCampaignMst>(mstRoot, "login_campaign.json");
 		m_initrsp.login_campaign_reward = LoadJson<LoginCampaignRewardCache>(mstRoot, "login_campaign_reward.json").data;
 		m_initrsp.progression = LoadJson<UserLevelMstCache>(mstRoot, "user_level.json").data;
@@ -89,6 +90,14 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.notice_info = LoadJson<NoticeInfo>(mstRoot, "notice_info.json");
 		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines.json");
 		m_initrsp.video_ad_slots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ads_slot_game_info.json");
+
+		// cache: UserInfo response
+		m_userrsp.notice_info = m_initrsp.notice_info;
+		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region.json").data;
+		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info.json").data;
+		m_userrsp.gacha_info = LoadJson<GachaInfoCache>(mstRoot, "gacha_info.json").data;
+		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeons.json").data;
+
 		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");
 		m_initrsp.daily_task_prizes = LoadJson<DailyTaskPrizeMstCache>(mstRoot, "TEMP_daily_tasks_prizes.json").data;

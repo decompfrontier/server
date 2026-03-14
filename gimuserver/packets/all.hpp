@@ -121,6 +121,8 @@ struct ResummonGachaMst;
 
 struct SummonTicketV2Mst;
 
+struct GachaInfo;
+
 struct DefineMst;
 
 struct NpcPartyInfo;
@@ -181,7 +183,7 @@ struct Sree;
 
 struct GumiLiveInfo;
 
-struct UserInfoResp;
+struct LoginInfoResp;
 
 struct UserPartyDeckInfo;
 
@@ -189,15 +191,37 @@ struct UserTeamInfo;
 
 struct UserUnitInfo;
 
-struct UserInfoReq;
+struct LoginInfoReq;
 
 struct MstUrlList;
+
+struct UserUnitDictionary;
+
+struct UserFavorite;
+
+struct UserClearMissionInfo;
+
+struct UserWarehouseInfo;
+
+struct UserGiftInfo;
+
+struct UserItemDictionaryInfo;
+
+struct UserArenaInfo;
+
+struct UserTeamArchive;
+
+struct ItemFavorite;
 
 struct InitializeReq;
 
 struct InitializeResp;
 
-struct ItemFavorite;
+struct UnkUserInfoNetReq;
+
+struct UserInfoReq;
+
+struct UserInfoResp;
 
 struct UserLoginCampaignInfo;
 
@@ -284,8 +308,91 @@ struct UserLoginCampaignInfo {
 
 
 /// TODO
+struct UnkUserInfoNetReq {
+
+    /// TODO
+    int32_t unk;
+};
+
+
+
+/// TODO
 struct ItemFavorite {
 
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserArenaInfo {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserTeamArchive {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserTeamArenaArchive {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserItemDictionaryInfo {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserGiftInfo {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserWarehouseInfo {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserClearMissionInfo {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserFavorite {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct UserUnitDictionary {
+
+    /// TODO
+    std::string mock;
 };
 
 
@@ -546,7 +653,7 @@ struct UserTeamInfo {
     int32_t arena_deck_num;
 
     /// TODO
-    std::string reinforcement_deck;
+    pkg::string_list<int32_t> reinforcement_deck;
 
     /// TODO
     int32_t paid_gems;
@@ -586,7 +693,7 @@ struct UserPartyDeckInfo {
 
 
 /// Main object that holds all the player information.
-struct UserInfoResp {
+struct LoginInfoResp {
 
     /// ID of the user for this session.
     std::string user_id;
@@ -1381,16 +1488,101 @@ struct DefineMst {
 };
 
 
+/// TODO
+struct GachaInfo {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    std::string campaign_info;
+
+    /// TODO
+    int32_t brave_coin;
+
+    /// TODO
+    std::string button_img;
+
+    /// TODO
+    std::string background_img;
+
+    /// TODO
+    std::string caption_msg;
+
+    /// TODO
+    std::string detail_msg;
+
+    /// TODO
+    std::string end_date;
+
+    /// TODO
+    bool resummon_gacha_flag;
+
+    /// TODO
+    std::string name;
+
+    /// TODO
+    int32_t type;
+
+    /// TODO
+    int32_t priority;
+
+    /// TODO
+    std::string start_date;
+
+    /// TODO
+    std::string start_hour;
+
+    /// TODO
+    std::string end_hour;
+
+    /// TODO
+    int32_t need_friends_point;
+
+    /// TODO
+    bool once_day_flag;
+
+    /// TODO
+    std::string door_img;
+
+    /// TODO
+    std::string description;
+
+    /// TODO
+    int32_t group_id;
+
+    /// TODO
+    std::string comment;
+
+    /// TODO
+    std::string detail_id;
+
+    /// TODO
+    std::string content_banner_img;
+};
+
 
 /// TODO
 struct SummonTicketV2Mst {
 
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct ReinforcementInfo {
+
+    /// TODO
+    std::string mock;
 };
 
 
 /// TODO
 struct ResummonGachaMst {
 
+    /// TODO
+    std::string mock;
 };
 
 
@@ -2360,7 +2552,7 @@ struct GeneralEventMst {
 
 
 /// TODO
-struct UserInfoReq {
+struct LoginInfoReq {
 
     /// Username shown in-game.
     std::string handle_name;
@@ -2383,7 +2575,7 @@ struct UserInfoReq {
     /// TODO
     std::string build_platform_id;
 
-    /// Device advertisement ID (the same as vid in the gumi api login
+    /// Device advertisement ID (the same as vid in the gumi api login)
     std::string device_id;
 
     /// TODO
@@ -2409,17 +2601,6 @@ struct UserInfoReq {
 
     /// User token of the Gumi live API.
     std::string gumi_live_token;
-};
-
-
-/// Initialization command
-struct InitializeReq {
-
-    /// User information request
-    UserInfoReq user_info;
-
-    /// MST that should be sent
-    std::vector<MstUrlList> mst_requests;
 };
 
 
@@ -2554,6 +2735,113 @@ struct GmeAction {
 };
 
 
+
+/// TODO
+struct UserInfoReq {
+
+    /// TODO
+    SignalKey signal_key;
+
+    /// TODO
+    LoginInfoReq login_info;
+
+    /// MST that should be sent
+    std::vector<MstUrlList> mst_requests;
+
+    /// TODO
+    UnkUserInfoNetReq unk;
+};
+
+/// Initialization command
+struct InitializeReq {
+
+    /// TODO
+    LoginInfoReq login_info;
+
+    /// MST that should be sent
+    std::vector<MstUrlList> mst_requests;
+};
+
+
+/// TODO
+struct UserInfoResp {
+
+    /// TODO
+    LoginInfoResp login_info;
+
+    /// TODO
+    UserTeamInfo team_info;
+
+    /// TODO
+    std::vector<UserUnitInfo> unit_info;
+
+    /// TODO
+    std::vector<UserPartyDeckInfo> party_deck_info;
+
+    /// TODO
+    std::vector<UserUnitDictionary> unit_dictionary;
+
+    /// TODO
+    std::vector<UserFavorite> favorite;
+
+    /// TODO
+    std::vector<UserClearMissionInfo> clear_mission_info;
+
+    /// TODO
+    std::vector<UserWarehouseInfo> warehouse_info;
+
+    /// TODO
+    std::vector<ItemFavorite> item_favorite;
+
+    /// TODO
+    std::vector<UserItemDictionaryInfo> item_dictionary_info;
+
+    /// TODO
+    std::vector<UserArenaInfo> arena_info;
+
+    /// TODO
+    std::vector<UserTeamArchive> archive;
+
+    /// TODO
+    std::vector<UserTeamArenaArchive> arena_archive;
+
+    /// TODO
+    std::vector<UserGiftInfo> gift_info;
+
+    /// TODO
+    UserLoginCampaignInfo campaign_info;
+
+    /// TODO
+    SummonerJournalUserInfo summoner_journal;
+
+    /// TODO
+    SignalKey signal_key;
+
+    /// TODO
+    std::vector<GachaInfo> gacha_info;
+
+    /// TODO
+    std::vector<VideoAdInfo> video_ad_info;
+
+    /// TODO
+    std::vector<VideoAdRegion> video_ad_region;
+
+    /// Configuration of notices
+    NoticeInfo notice_info;
+
+    /// TODO
+    std::vector<ExcludedDungeonMissionMst> excluded_dungeon_missions;
+};
+
+
+/// TODO
+struct FriendGetResp {
+
+    /// TODO
+    std::vector<ReinforcementInfo> info;
+};
+
+
 /// Response of the initialize command
 struct InitializeResp {
 
@@ -2635,9 +2923,10 @@ struct InitializeResp {
     /// TODO
     SummonerJournalUserInfo summoner_journal;
 
-    /// User information
-    UserInfoResp user_info;
+    /// TODO
+    LoginInfoResp login_info;
 };
+
 
 // Auto-generated Glaze definitions
 #if __has_include(<glaze/glaze.hpp>)
@@ -2722,7 +3011,7 @@ struct glz::meta<UnitMst> {
         "n9h7p02P", &T::drop_check_count,
         "oS3kTZ2W", &T::leader_skill_id,
         "nj9Lw7mV", &T::skill_id,
-        "iEFZ6H19", &T::extra_skill_id,
+        "iEFZ6H19", glz::quoted_num<&T::extra_skill_id>,
         "cb0P4mp1", &T::ultimate_skill_id,
         "5SUvj4tM", &T::unknown,
         "cP83zNsv", &T::extra_passive_skill_id,
@@ -3131,7 +3420,7 @@ template <>
 struct glz::meta<ResummonGachaMst> {
     using T = ResummonGachaMst;
     static constexpr auto value = object(
-
+        "INVALID", &T::mock
     );
 };
 
@@ -3139,7 +3428,45 @@ template <>
 struct glz::meta<SummonTicketV2Mst> {
     using T = SummonTicketV2Mst;
     static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
 
+template <>
+struct glz::meta<ReinforcementInfo> {
+    using T = ReinforcementInfo;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<GachaInfo> {
+    using T = GachaInfo;
+    static constexpr auto value = object(
+        "7Ffmi96v", glz::quoted_num<&T::id>,
+        "8HM3v3gg", &T::campaign_info,
+        "03UGMHxF", glz::quoted_num<&T::brave_coin>,
+        "W9ABuJj2", &T::button_img,
+        "1Dg0vUX3", &T::background_img,
+        "3sdHQb69", &T::caption_msg,
+        "W2c9g0Je", &T::detail_msg,
+        "SzV0Nps7", &T::end_date,
+        "a632bkyQ", glz::bools_as_numbers<&T::resummon_gacha_flag>,
+        "4N27mkt1", &T::name,
+        "S1oz60Hc", glz::quoted_num<&T::type>,
+        "yu18xScw", glz::quoted_num<&T::priority>,
+        "qA7M9EjP", &T::start_date,
+        "2HY3jpgu", &T::start_hour,
+        "v9TR3cDz", &T::end_hour,
+        "J3stQ7jd", glz::quoted_num<&T::need_friends_point>,
+        "4tswNoV9", pkg::glaze::bool_as_string<&T::once_day_flag>(),
+        "uKYf13AH", &T::door_img,
+        "qp37xTDh", &T::description,
+        "TCnm1F4v", glz::quoted_num<&T::group_id>,
+        "gVSj32QH", &T::comment,
+        "8Z9CYQDq", &T::detail_id,
+        "sA9dDAqB", &T::content_banner_img
     );
 };
 
@@ -3310,9 +3637,9 @@ template <>
 struct glz::meta<VideoAdInfo> {
     using T = VideoAdInfo;
     static constexpr auto value = object(
-        "k3ab6D82", &T::id,
+        "k3ab6D82", glz::quoted_num<&T::id>,
         "Diwl3b56", &T::available_value,
-        "Y3de0n2p", &T::region_id,
+        "Y3de0n2p", glz::quoted_num<&T::region_id>,
         "26adZ1iy", glz::bools_as_numbers<&T::video_enabled>,
         "oohpPLCt", &T::next_available_time_left
     );
@@ -3322,7 +3649,7 @@ template <>
 struct glz::meta<VideoAdRegion> {
     using T = VideoAdRegion;
     static constexpr auto value = object(
-        "k3ab6D82", &T::id,
+        "Y3de0n2p", &T::id,
         "j3d6E2ia", &T::country_code
     );
 };
@@ -3371,7 +3698,7 @@ template <>
 struct glz::meta<ExcludedDungeonMissionMst> {
     using T = ExcludedDungeonMissionMst;
     static constexpr auto value = object(
-        "j28VNcUW", &T::id
+        "j28VNcUW", glz::quoted_num<&T::id>
     );
 };
 
@@ -3560,8 +3887,8 @@ struct glz::meta<GumiLiveInfo> {
 };
 
 template <>
-struct glz::meta<UserInfoResp> {
-    using T = UserInfoResp;
+struct glz::meta<LoginInfoResp> {
+    using T = LoginInfoResp;
     static constexpr auto value = object(
         "h7eY3sAK", &T::user_id,
         "B5JQyV8j", &T::handle_name,
@@ -3593,9 +3920,9 @@ struct glz::meta<UserPartyDeckInfo> {
     static constexpr auto value = object(
         "U9ABSYEp", &T::deck_type,
         "zsiAn9P1", &T::deck_num,
-        "edy7fq3L", &T::user_unit_id,
-        "gr48vsdJ", &T::member_type,
-        "XuJL4pc5", &T::disp_order
+        "edy7fq3L", glz::quoted_num<&T::user_unit_id>,
+        "gr48vsdJ", glz::quoted_num<&T::member_type>,
+        "XuJL4pc5", glz::quoted_num<&T::disp_order>
     );
 };
 
@@ -3604,45 +3931,45 @@ struct glz::meta<UserTeamInfo> {
     using T = UserTeamInfo;
     static constexpr auto value = object(
         "h7eY3sAK", &T::user_id,
-        "D9wXQI2V", &T::level,
-        "d96tuT2E", &T::exp,
-        "YnM14RIP", &T::max_action_point,
-        "0P9X1YHs", &T::action_point,
-        "9m5FWR8q", &T::max_fight_point,
-        "YS2JG9no", &T::fight_point,
-        "ouXxIY63", &T::max_unit_count,
-        "Px1X7fcd", &T::add_unit_count,
-        "QYP4kId9", &T::deck_cost,
-        "gEX30r1b", &T::max_equip_slot_count,
-        "3u41PhR2", &T::max_friend_count,
-        "2rR5s6wn", &T::add_friend_count,
-        "J3stQ7jd", &T::friend_point,
-        "Najhr8m6", &T::zel,
-        "HTVh8a65", &T::karma,
+        "D9wXQI2V", glz::quoted_num<&T::level>,
+        "d96tuT2E", glz::quoted_num<&T::exp>,
+        "YnM14RIP", glz::quoted_num<&T::max_action_point>,
+        "0P9X1YHs", glz::quoted_num<&T::action_point>,
+        "9m5FWR8q", glz::quoted_num<&T::max_fight_point>,
+        "YS2JG9no", glz::quoted_num<&T::fight_point>,
+        "ouXxIY63", glz::quoted_num<&T::max_unit_count>,
+        "Px1X7fcd", glz::quoted_num<&T::add_unit_count>,
+        "QYP4kId9", glz::quoted_num<&T::deck_cost>,
+        "gEX30r1b", glz::quoted_num<&T::max_equip_slot_count>,
+        "3u41PhR2", glz::quoted_num<&T::max_friend_count>,
+        "2rR5s6wn", glz::quoted_num<&T::add_friend_count>,
+        "J3stQ7jd", glz::quoted_num<&T::friend_point>,
+        "Najhr8m6", glz::quoted_num<&T::zel>,
+        "HTVh8a65", glz::quoted_num<&T::karma>,
         "03UGMHxF", &T::brave_coin,
         "bM7RLu5K", &T::friend_message,
-        "5pjoGBC4", &T::warehouse_count,
-        "iI7Wj6pM", &T::add_warehouse_count,
+        "5pjoGBC4", glz::quoted_num<&T::warehouse_count>,
+        "iI7Wj6pM", glz::quoted_num<&T::add_warehouse_count>,
         "s2WnRw9N", &T::want_gift,
-        "EfinBo65", &T::present_count,
-        "qVBx7g2c", &T::friend_agree_count,
-        "1RQT92uE", &T::gift_receive_count,
-        "f0IY4nj8", &T::action_rest_timer,
-        "jp9s8IyY", &T::fight_rest_timer,
+        "EfinBo65", glz::quoted_num<&T::present_count>,
+        "qVBx7g2c", glz::quoted_num<&T::friend_agree_count>,
+        "1RQT92uE", glz::quoted_num<&T::gift_receive_count>,
+        "f0IY4nj8", glz::quoted_num<&T::action_rest_timer>,
+        "jp9s8IyY", glz::quoted_num<&T::fight_rest_timer>,
         "92uj7oXB", &T::free_gems,
-        "Z0Y4RoD7", &T::active_deck,
-        "9r3aLmaB", &T::summon_ticket,
+        "Z0Y4RoD7", glz::quoted_num<&T::active_deck>,
+        "9r3aLmaB", glz::quoted_num<&T::summon_ticket>,
         "s3uU4Lgb", &T::slot_game_flag,
-        "KAZmxkgy", &T::rainbow_coin,
-        "bya9a67k", &T::brave_points_total,
-        "lKuj3Ier", &T::colosseum_ticket,
+        "KAZmxkgy", glz::quoted_num<&T::rainbow_coin>,
+        "bya9a67k", glz::quoted_num<&T::brave_points_total>,
+        "lKuj3Ier", glz::quoted_num<&T::colosseum_ticket>,
         "gKNfIZiA", &T::arena_deck_num,
-        "TwqMChon", &T::reinforcement_deck,
+        "TwqMChon", pkg::glaze::array_string<T, &T::reinforcement_deck, ','>,
         "d37CaiX1", &T::paid_gems,
         "Qo9doUsp", &T::mysterybox_count,
-        "3a8b9D8i", &T::completed_task_count,
+        "3a8b9D8i", glz::quoted_num<&T::completed_task_count>,
         "7qncTHUJ", &T::inbox_message_count,
-        "22rqpZTo", &T::current_brave_points
+        "22rqpZTo", glz::quoted_num<&T::current_brave_points>
     );
 };
 
@@ -3651,8 +3978,8 @@ struct glz::meta<UserUnitInfo> {
     using T = UserUnitInfo;
     static constexpr auto value = object(
         "h7eY3sAK", &T::user_id,
-        "edy7fq3L", &T::user_unit_id,
-        "pn16CNah", &T::unit_id,
+        "edy7fq3L", glz::quoted_num<&T::user_unit_id>,
+        "pn16CNah", glz::quoted_num<&T::unit_id>,
         "nBTx56W9", &T::unit_type_id,
         "D9wXQI2V", &T::unit_lv,
         "d96tuT2E", &T::exp,
@@ -3674,21 +4001,21 @@ struct glz::meta<UserUnitInfo> {
         "X6jf8DUw", &T::ext_heal,
         "XJs2rPx0", &T::limit_over_heal,
         "iNy0ZU5M", &T::element,
-        "oS3kTZ2W", &T::leader_skill_id,
+        "oS3kTZ2W", glz::quoted_num<&T::leader_skill_id>,
         "nj9Lw7mV", &T::skill_id,
         "3NbeC8AB", &T::skill_lv,
         "iEFZ6H19", &T::extra_skill_id,
         "RQ5GnFE2", &T::extra_skill_lv,
         "Bvkx8s6M", &T::receive_date,
         "5gXxT7LZ", &T::ext_count,
-        "0R3qTPK9", &T::equipitem_frame_id,
-        "Ge8Yo32T", &T::equipitem_id,
-        "RXfC31FA", &T::equipitem_frame_id2,
-        "mZA7fH2v", &T::equipitem_id2,
+        "0R3qTPK9", glz::quoted_num<&T::equipitem_frame_id>,
+        "Ge8Yo32T", glz::quoted_num<&T::equipitem_id>,
+        "RXfC31FA", glz::quoted_num<&T::equipitem_frame_id2>,
+        "mZA7fH2v", glz::quoted_num<&T::equipitem_id2>,
         "dJNpLc81", &T::new_flag,
-        "cP83zNsv", &T::extra_passive_skill_id,
-        "LjY4DfRg", &T::extra_passive_skill_id2,
-        "T4rewHa9", &T::add_extra_passive_skill_id,
+        "cP83zNsv", glz::quoted_num<&T::extra_passive_skill_id>,
+        "LjY4DfRg", glz::quoted_num<&T::extra_passive_skill_id2>,
+        "T4rewHa9", glz::quoted_num<&T::add_extra_passive_skill_id>,
         "2pAyFjmZ", &T::unit_img_type,
         "bFQbZh3x", &T::fe_bp,
         "3RgneFpP", &T::fe_used_bp,
@@ -3699,8 +4026,8 @@ struct glz::meta<UserUnitInfo> {
 };
 
 template <>
-struct glz::meta<UserInfoReq> {
-    using T = UserInfoReq;
+struct glz::meta<LoginInfoReq> {
+    using T = LoginInfoReq;
     static constexpr auto value = object(
         "B5JQyV8j", &T::handle_name,
         "h7eY3sAK", &T::user_id,
@@ -3731,10 +4058,90 @@ struct glz::meta<MstUrlList> {
 };
 
 template <>
+struct glz::meta<UserUnitDictionary> {
+    using T = UserUnitDictionary;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserFavorite> {
+    using T = UserFavorite;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserClearMissionInfo> {
+    using T = UserClearMissionInfo;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserWarehouseInfo> {
+    using T = UserWarehouseInfo;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserGiftInfo> {
+    using T = UserGiftInfo;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserItemDictionaryInfo> {
+    using T = UserItemDictionaryInfo;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserArenaInfo> {
+    using T = UserArenaInfo;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserTeamArchive> {
+    using T = UserTeamArchive;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<UserTeamArenaArchive> {
+    using T = UserTeamArenaArchive;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<ItemFavorite> {
+    using T = ItemFavorite;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
 struct glz::meta<InitializeReq> {
     using T = InitializeReq;
     static constexpr auto value = object(
-        "IKqx1Cn9", pkg::glaze::single_array<&T::user_info>(),
+        "IKqx1Cn9", pkg::glaze::single_array<&T::login_info>(),
         "KeC10fuL", &T::mst_requests
     );
 };
@@ -3769,15 +4176,63 @@ struct glz::meta<InitializeResp> {
         "IkdSufj5", &T::guild,
         "mebW7mKD", pkg::glaze::single_array<&T::video_ad_slots>(),
         "M3dw18eB", &T::summoner_journal,
-        "IKqx1Cn9", pkg::glaze::single_array<&T::user_info>()
+        "IKqx1Cn9", pkg::glaze::single_array<&T::login_info>()
     );
 };
 
 template <>
-struct glz::meta<ItemFavorite> {
-    using T = ItemFavorite;
+struct glz::meta<FriendGetResp> {
+    using T = FriendGetResp;
     static constexpr auto value = object(
+        "xZH6EIQ7", &T::info
+    );
+};
 
+template <>
+struct glz::meta<UnkUserInfoNetReq> {
+    using T = UnkUserInfoNetReq;
+    static constexpr auto value = object(
+        "ad37Bdr1", glz::quoted_num<&T::unk>
+    );
+};
+
+template <>
+struct glz::meta<UserInfoReq> {
+    using T = UserInfoReq;
+    static constexpr auto value = object(
+        "6FrKacq7", pkg::glaze::single_array<&T::signal_key>(),
+        "IKqx1Cn9", pkg::glaze::single_array<&T::login_info>(),
+        "KeC10fuL", &T::mst_requests,
+        "563Dtye3", pkg::glaze::single_array<&T::unk>()
+    );
+};
+
+template <>
+struct glz::meta<UserInfoResp> {
+    using T = UserInfoResp;
+    static constexpr auto value = object(
+        "IKqx1Cn9", pkg::glaze::single_array<&T::login_info>(),
+        "fEi17cnx", pkg::glaze::single_array<&T::team_info>(),
+        "4ceMWH6k", &T::unit_info,
+        "dX7S2Lc1", &T::party_deck_info,
+        "GV81ctzR", &T::unit_dictionary,
+        "3kcmQy7B", &T::favorite,
+        "UT1SVg59", &T::clear_mission_info,
+        "9wjrh74P", &T::warehouse_info,
+        "VSRPkdId", &T::item_favorite,
+        "bd5Rj6pN", &T::item_dictionary_info,
+        "8jBJ7uKR", &T::arena_info,
+        "zI2tJB7R", &T::archive,
+        "PQ56vbkI", &T::arena_archive,
+        "30uygM9m", &T::gift_info,
+        "3da6bd0a", pkg::glaze::single_array<&T::campaign_info>(),
+        "M3dw18eB", &T::summoner_journal,
+        "6FrKacq7", pkg::glaze::single_array<&T::signal_key>(),
+        "1IR86sAv", &T::gacha_info,
+        "j129kD6r", &T::video_ad_info,
+        "bpD29eiQ", &T::video_ad_region,
+        "Pj6zDW3m", &T::notice_info,
+        "3aDk1xk7", &T::excluded_dungeon_missions
     );
 };
 
@@ -3785,9 +4240,9 @@ template <>
 struct glz::meta<UserLoginCampaignInfo> {
     using T = UserLoginCampaignInfo;
     static constexpr auto value = object(
-        "H1Dkq93v", &T::id,
+        "H1Dkq93v", glz::quoted_num<&T::id>,
         "ad6i23pO", &T::current_day,
-        "1adb38d5", &T::total_days,
+        "1adb38d5", glz::quoted_num<&T::total_days>,
         "4tswNoV9", glz::bools_as_numbers<&T::first_for_the_day>
     );
 };

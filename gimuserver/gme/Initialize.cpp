@@ -17,9 +17,9 @@ HANDLEF(Initialize)
 	// NOTE: A real server would verify the gumi token first...
 	// TODO: Handle MSTs to answer
 
-	InitializeResp resp = theServer()->cache().initializeResp();
+	InitializeResp resp = theServer()->cache().initializeResp(); // copy !!
 
-	const auto& res = co_await theDb()->execSqlCoro("SELECT id, username, debug_mode FROM userinfo WHERE gumi_user_id=$1", req.user_info.gumi_live_userid);
+	const auto& res = co_await theDb()->execSqlCoro("SELECT id, username, debug_mode FROM userinfo WHERE gumi_user_id=$1", req.login_info.gumi_live_userid);
 	if (res.empty())
 	{
 		// Gumi user does not exist! Create a new user and add it to the database
@@ -29,8 +29,8 @@ HANDLEF(Initialize)
 		const auto& def = cache.initializeResp().defines;
 
 		// No handle! We are a new user after all!
-		resp.user_info.account_id = RandomId();
-		resp.user_info.debug_mode = false;
+		resp.login_info.account_id = "1111";
+		resp.login_info.debug_mode = false;
 
 		co_await theDb()->execSqlCoro("INSERT INTO userinfo (id, gumi_user_id, device_id, debug_mode, "
 			"level, "
@@ -39,7 +39,7 @@ HANDLEF(Initialize)
 			"max_warehouse_count, free_gems, energy) "
 			"VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);",
 			// id, gumi_user_id, device_id, debug_mode
-			resp.user_info.account_id, req.user_info.gumi_live_userid, req.user_info.device_id, false,
+			resp.login_info.account_id, req.login_info.gumi_live_userid, req.login_info.device_id, false,
 			// level
 			scfg.initialLevel,
 			// max_unit_count, max_friend_count
@@ -54,27 +54,28 @@ HANDLEF(Initialize)
 		// only one query pls
 		const auto& sql = res[0];
 		size_t col = 0;
-		resp.user_info.account_id = sql[col++].as<std::string>();
-		resp.user_info.handle_name = sql[col++].as<std::string>();
-		resp.user_info.debug_mode = sql[col++].as<bool>();
+		resp.login_info.account_id = sql[col++].as<std::string>();
+		resp.login_info.handle_name = sql[col++].as<std::string>();
+		resp.login_info.debug_mode = sql[col++].as<bool>();
 	}
 
-	resp.user_info.user_id = RandomId(); // I think this is a random UUID according to packet-gen
+	// TODO: GET THIS FROM A CACHE TOKEN ETC
+	resp.login_info.user_id = "0000AAAA"; // I think this is a random UUID according to packet-gen
 	//resp.user_info.gumi_live_token = req.user_info.gumi_live_token;
 	//resp.user_info.gumi_live_userid = req.user_info.gumi_live_userid;
 
 	// TEMP HACK!! Skip tutorial flag and put a real name
-	resp.user_info.handle_name = "OfflineMod!";
-	resp.user_info.tutorial_end_flag = true;
-	resp.user_info.tutorial_status = 13;
-	resp.user_info.unk = "773c9af44721a014c7ed";
+	resp.login_info.handle_name = "OfflineMod!";
+	resp.login_info.tutorial_end_flag = true;
+	resp.login_info.tutorial_status = 13;
+	resp.login_info.unk = "773c9af44721a014c7ed";
 
 	resp.signal_key.key = "C7vnXA5T";
 	resp.challenge_arena_user_info.unk = "n9ZMPC0t"; // rank name?
 	resp.challenge_arena_user_info.unkstr2 = "F"; // ranking?
 	resp.challenge_arena_user_info.league_id = 1;
 
-	resp.summoner_journal.user_id = resp.user_info.user_id;
+	resp.summoner_journal.user_id = resp.login_info.user_id;
 
 	resp.daily_login_rewards.id = 1;
 	resp.daily_login_rewards.current_day = 1;
