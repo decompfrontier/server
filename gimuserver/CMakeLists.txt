@@ -20,3 +20,7 @@ target_include_directories(gimuserver
 )
 
 target_precompile_headers(gimuserver PRIVATE App.hpp)
+
+if (MSVC)
+    target_compile_options(gimuserver PUBLIC "/constexpr:steps8388608")
+endif()

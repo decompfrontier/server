@@ -1,27 +1,48 @@
 {
-	"Pk5F1vhx" : 
-	[
-		{
-			"1gDkL6XR" : "banner_facebookV2.png",
-			"LM34kfVC" : "",
-			"NyYKc1A5" : "Control panel",
-			"XuJL4pc5" : "0",
-			"aL70hVYQ" : "1,2,3,4,5,6,7,8",
-			"d36D1g8T" : 0,
-			"jsRoN50z" : "http://ios21900.bfww.gumi.sg/pages/control_panel",
-			"oL71Fz3a" : "1",
-			"t5R47iwj" : ""
-		},
-		{
-			"1gDkL6XR" : "banner_wikiV2.png",
-			"LM34kfVC" : "",
-			"NyYKc1A5" : "Wiki",
-			"XuJL4pc5" : "1",
-			"aL70hVYQ" : "1,2,3,4,5,6,7,8",
-			"d36D1g8T" : 0,
-			"jsRoN50z" : "https://bravefrontierglobal.fandom.com/wiki/Brave_Frontier_Wiki",
-			"oL71Fz3a" : "2",
-			"t5R47iwj" : ""
-		}
-	]
+  "Pk5F1vhx": [
+    {
+      "oL71Fz3a": "8004",
+      "LM34kfVC": null,
+      "NyYKc1A5": "Facebook",
+      "aL70hVYQ": "1,2,3,4,5,6,7,8",
+      "XuJL4pc5": "14",
+      "jsRoN50z": "https://goo.gl/F40bb3",
+      "1gDkL6XR": "banner_facebookV2.png",
+      "t5R47iwj": "",
+      "d36D1g8T": 0
+    },
+    {
+      "oL71Fz3a": "8005",
+      "LM34kfVC": null,
+      "NyYKc1A5": "Twitter",
+      "aL70hVYQ": "1,2,3,4,5,6,7,8",
+      "XuJL4pc5": "15",
+      "jsRoN50z": "https://goo.gl/CfAlW7",
+      "1gDkL6XR": "banner_twitterV2.png",
+      "t5R47iwj": "",
+      "d36D1g8T": 0
+    },
+    {
+      "oL71Fz3a": "8006",
+      "LM34kfVC": null,
+      "NyYKc1A5": "Instagram",
+      "aL70hVYQ": "1,2,3,4,5,6,7,8",
+      "XuJL4pc5": "16",
+      "jsRoN50z": "https://goo.gl/yxUAh8",
+      "1gDkL6XR": "banner_instagramV2.png",
+      "t5R47iwj": "",
+      "d36D1g8T": 0
+    },
+    {
+      "oL71Fz3a": "8007",
+      "LM34kfVC": null,
+      "NyYKc1A5": "Wikia",
+      "aL70hVYQ": "1,2,3,4,5,6,7,8",
+      "XuJL4pc5": "17",
+      "jsRoN50z": "http://goo.gl/BUfhDN",
+      "1gDkL6XR": "banner_wikiV2.png",
+      "t5R47iwj": "",
+      "d36D1g8T": 0
+    }
+  ]
 }

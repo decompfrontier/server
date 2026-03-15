@@ -104,13 +104,19 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.challenge_reward = LoadJson<ChallengeRewardMstCache>(mstRoot, "challenge_reward.json").data;
 		m_initrsp.challenge_item = LoadJson<ChallengeItemMstCache>(mstRoot, "challenge_item.json").data;
 		m_initrsp.interactive_banner = LoadJson<InteractiveBannerInfoMstCache>(mstRoot, "interactive_banner_info.json").data;
-
+		m_initrsp.sound = LoadJson<SoundMstCache>(mstRoot, "sound.json").data;
+		
 		// cache: UserInfo response
 		m_userrsp.notice_info = m_initrsp.notice_info;
 		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region.json").data;
 		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info.json").data;
 		m_userrsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info.json").data;
 		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeons.json").data;
+		m_userrsp.gift = LoadJson<GiftItemMstCache>(mstRoot, "gift.json").data;
+		m_userrsp.general_event = LoadJson<GeneralEventMstCache>(mstRoot, "general_event.json").data;
+		m_userrsp.first_desc = LoadJson<FirstDescMstCache>(mstRoot, "first_desc.json").data;
+		m_userrsp.summon_ticket_v2 = LoadJson<SummonTicketV2MstCache>(mstRoot, "summon_tickets_v2.json").data;
+		m_userrsp.resummon_gacha = LoadJson<ResummonGachaMstCache>(mstRoot, "resummon_gacha.json").data;
 
 		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");

@@ -1,44 +1,49 @@
 {
-	"4NG79sX1" : 
-	[
-		{
-			"16KMNJLb" : "1",
-			"9unNZ6b0" : "sp_quest_banner_guerrilla_seal.png",
-			"BM29ZgnK" : "Metal Key",
-			"CR6aKWg8" : "1:1:Metal Parade!:100600:6/3:1:Super Metal Parade:100601:6/5:3:Mega Metal Parade:100601,100614:6",
-			"EK5I6MQ9" : "1",
-			"M2cv6dum" : "metal_king_key.png,metal_king_key_s.png",
-			"MHx05sXt" : "100600",
-			"N7I9vYZb" : "50",
-			"VX0j1fni" : "sp_quest_banner_guerrilla.png",
-			"i9sBW8uD" : "1800",
-			"j0Uszek2" : "1"
-		},
-		{
-			"16KMNJLb" : "2",
-			"9unNZ6b0" : "sp_quest_banner_guerrilla_jewel_seal.png",
-			"BM29ZgnK" : "Jewel Key",
-			"CR6aKWg8" : "1:1:Jewel Parade!:100650:7/3:1:Super Jewel Parade:100651:7/5:3:Mega Jewel Parade:100651,100652:7",
-			"EK5I6MQ9" : "1",
-			"M2cv6dum" : "jewel_king_key.png,jewel_king_key_s.png",
-			"MHx05sXt" : "100650",
-			"N7I9vYZb" : "50",
-			"VX0j1fni" : "sp_quest_banner_guerrilla_jewel.png",
-			"i9sBW8uD" : "1800",
-			"j0Uszek2" : "1"
-		},
-		{
-			"16KMNJLb" : "3",
-			"9unNZ6b0" : "sp_quest_banner_evil_seal_3.png",
-			"BM29ZgnK" : "Imp Key",
-			"CR6aKWg8" : "1:0:Garden of Imps:102920:",
-			"EK5I6MQ9" : "0",
-			"M2cv6dum" : "yoma_key.png,yoma_key_s.png",
-			"MHx05sXt" : "102720",
-			"N7I9vYZb" : "50",
-			"VX0j1fni" : "sp_quest_banner_evil_3.png",
-			"i9sBW8uD" : "1800",
-			"j0Uszek2" : "1"
-		}
-	]
+	"4NG79sX1": [
+    {
+      "16KMNJLb": "1",
+      "BM29ZgnK": "Metal Key",
+      "MHx05sXt": "100600",
+      "M2cv6dum": "metal_king_key.png,metal_king_key_s.png",
+      "VX0j1fni": "sp_quest_banner_guerrilla.png",
+      "9unNZ6b0": "sp_quest_banner_guerrilla_seal.png",
+      "i9sBW8uD": "1800",
+      "N7I9vYZb": "50",
+      "EK5I6MQ9": "1",
+      "fK15a73g": "1,2,4,5",
+      "zfdw7Ry1": "8",
+      "CR6aKWg8": "1:1:Metal Parade!:100600:6/3:1:Super Metal Parade:100601:6/5:3:Mega Metal Parade:100601,100614:6",
+      "j0Uszek2": "1"
+    },
+    {
+      "16KMNJLb": "2",
+      "BM29ZgnK": "Jewel Key",
+      "MHx05sXt": "100650",
+      "M2cv6dum": "jewel_king_key.png,jewel_king_key_s.png",
+      "VX0j1fni": "sp_quest_banner_guerrilla_jewel.png",
+      "9unNZ6b0": "sp_quest_banner_guerrilla_jewel_seal.png",
+      "i9sBW8uD": "1800",
+      "N7I9vYZb": "50",
+      "EK5I6MQ9": "1",
+      "fK15a73g": "3",
+      "zfdw7Ry1": "8",
+      "CR6aKWg8": "1:1:Jewel Parade!:100650:7/3:1:Super Jewel Parade:100651:7/5:3:Mega Jewel Parade:100651,100652:7",
+      "j0Uszek2": "1"
+    },
+    {
+      "16KMNJLb": "3",
+      "BM29ZgnK": "Imp Key",
+      "MHx05sXt": "102720",
+      "M2cv6dum": "yoma_key.png,yoma_key_s.png",
+      "VX0j1fni": "sp_quest_banner_evil_3.png",
+      "9unNZ6b0": "sp_quest_banner_evil_seal_3.png",
+      "i9sBW8uD": "1800",
+      "N7I9vYZb": "50",
+      "EK5I6MQ9": "0",
+      "fK15a73g": "",
+      "zfdw7Ry1": "8",
+      "CR6aKWg8": "1:0:Garden of Imps:102920:",
+      "j0Uszek2": "1"
+    }
+  ]
 }

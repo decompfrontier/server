@@ -68,7 +68,6 @@ HANDLEF(Initialize)
 	// TEMP HACK!! Skip tutorial flag and put a real name
 	resp.login_info.tutorial_end_flag = true;
 	resp.login_info.tutorial_status = 12;
-	resp.login_info.feature_gate = 0;
 
 	//resp.user_info.gumi_live_token = req.user_info.gumi_live_token;
 	//resp.user_info.gumi_live_userid = req.user_info.gumi_live_userid;

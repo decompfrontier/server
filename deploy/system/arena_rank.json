@@ -1,914 +1,913 @@
 {
-	"6kWq78zx" : 
-	[
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "0",
-			"JmFn3g9t" : "1",
-			"N4XVE1uA" : "arena00.txt",
-			"empaR60j" : "",
-			"rGm09bav" : "MST_ARENARANKS_1_NAME",
-			"w0aTd94Y" : "499"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "2",
-			"N4XVE1uA" : "arena01.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_2_NAME",
-			"w0aTd94Y" : "1199"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "3",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35200:1",
-			"rGm09bav" : "MST_ARENARANKS_3_NAME",
-			"w0aTd94Y" : "1999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "4",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35201:1",
-			"rGm09bav" : "MST_ARENARANKS_4_NAME",
-			"w0aTd94Y" : "2999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "5",
-			"N4XVE1uA" : "arena02.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_5_NAME",
-			"w0aTd94Y" : "4999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "6",
-			"N4XVE1uA" : "",
-			"empaR60j" : "32900:1",
-			"rGm09bav" : "MST_ARENARANKS_6_NAME",
-			"w0aTd94Y" : "7999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "7",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35001:1",
-			"rGm09bav" : "MST_ARENARANKS_7_NAME",
-			"w0aTd94Y" : "11999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "8",
-			"N4XVE1uA" : "arena03.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_8_NAME",
-			"w0aTd94Y" : "14999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "9",
-			"N4XVE1uA" : "",
-			"empaR60j" : "34600:1",
-			"rGm09bav" : "MST_ARENARANKS_9_NAME",
-			"w0aTd94Y" : "17999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "10",
-			"N4XVE1uA" : "",
-			"empaR60j" : "34100:1",
-			"rGm09bav" : "MST_ARENARANKS_10_NAME",
-			"w0aTd94Y" : "22999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "11",
-			"N4XVE1uA" : "arena04.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_11_NAME",
-			"w0aTd94Y" : "27999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "12",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35202:1",
-			"rGm09bav" : "MST_ARENARANKS_12_NAME",
-			"w0aTd94Y" : "32999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "13",
-			"N4XVE1uA" : "",
-			"empaR60j" : "33501:1",
-			"rGm09bav" : "MST_ARENARANKS_13_NAME",
-			"w0aTd94Y" : "37999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "14",
-			"N4XVE1uA" : "arena05.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_14_NAME",
-			"w0aTd94Y" : "45999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "15",
-			"N4XVE1uA" : "",
-			"empaR60j" : "33600:1",
-			"rGm09bav" : "MST_ARENARANKS_15_NAME",
-			"w0aTd94Y" : "53999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "16",
-			"N4XVE1uA" : "",
-			"empaR60j" : "34700:1",
-			"rGm09bav" : "MST_ARENARANKS_16_NAME",
-			"w0aTd94Y" : "61999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "17",
-			"N4XVE1uA" : "arena06.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_17_NAME",
-			"w0aTd94Y" : "69999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "18",
-			"N4XVE1uA" : "",
-			"empaR60j" : "34800:1",
-			"rGm09bav" : "MST_ARENARANKS_18_NAME",
-			"w0aTd94Y" : "79999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "19",
-			"N4XVE1uA" : "",
-			"empaR60j" : "31500:1",
-			"rGm09bav" : "MST_ARENARANKS_19_NAME",
-			"w0aTd94Y" : "89999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "20",
-			"N4XVE1uA" : "arena07.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_20_NAME",
-			"w0aTd94Y" : "99999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "21",
-			"N4XVE1uA" : "",
-			"empaR60j" : "32201:1",
-			"rGm09bav" : "MST_ARENARANKS_21_NAME",
-			"w0aTd94Y" : "109999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "22",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35000:1",
-			"rGm09bav" : "MST_ARENARANKS_22_NAME",
-			"w0aTd94Y" : "119999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "23",
-			"N4XVE1uA" : "arena08.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_23_NAME",
-			"w0aTd94Y" : "129999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "24",
-			"N4XVE1uA" : "",
-			"empaR60j" : "34301:1",
-			"rGm09bav" : "MST_ARENARANKS_24_NAME",
-			"w0aTd94Y" : "139999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "25",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35100:1",
-			"rGm09bav" : "MST_ARENARANKS_25_NAME",
-			"w0aTd94Y" : "149999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "26",
-			"N4XVE1uA" : "arena09.txt",
-			"empaR60j" : "0:1",
-			"rGm09bav" : "MST_ARENARANKS_26_NAME",
-			"w0aTd94Y" : "159999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "27",
-			"N4XVE1uA" : "",
-			"empaR60j" : "34900:1",
-			"rGm09bav" : "MST_ARENARANKS_27_NAME",
-			"w0aTd94Y" : "169999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "28",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35002:1",
-			"rGm09bav" : "MST_ARENARANKS_28_NAME",
-			"w0aTd94Y" : "179999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "29",
-			"N4XVE1uA" : "arena10.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_29_NAME",
-			"w0aTd94Y" : "191999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "30",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35900:1",
-			"rGm09bav" : "MST_ARENARANKS_30_NAME",
-			"w0aTd94Y" : "204999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "31",
-			"N4XVE1uA" : "",
-			"empaR60j" : "35800:1",
-			"rGm09bav" : "MST_ARENARANKS_31_NAME",
-			"w0aTd94Y" : "218999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "32",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36400:1",
-			"rGm09bav" : "MST_ARENARANKS_32_NAME",
-			"w0aTd94Y" : "233999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "33",
-			"N4XVE1uA" : "arena11.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_33_NAME",
-			"w0aTd94Y" : "249999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "34",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36300:1",
-			"rGm09bav" : "MST_ARENARANKS_34_NAME",
-			"w0aTd94Y" : "266999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "35",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36000:1",
-			"rGm09bav" : "MST_ARENARANKS_35_NAME",
-			"w0aTd94Y" : "284999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "36",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36500:1",
-			"rGm09bav" : "MST_ARENARANKS_36_NAME",
-			"w0aTd94Y" : "303999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "37",
-			"N4XVE1uA" : "arena12.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_37_NAME",
-			"w0aTd94Y" : "323999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "38",
-			"N4XVE1uA" : "",
-			"empaR60j" : "33600:1",
-			"rGm09bav" : "MST_ARENARANKS_38_NAME",
-			"w0aTd94Y" : "344999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "39",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36100:1",
-			"rGm09bav" : "MST_ARENARANKS_39_NAME",
-			"w0aTd94Y" : "366999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "40",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36200:1",
-			"rGm09bav" : "MST_ARENARANKS_40_NAME",
-			"w0aTd94Y" : "389999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "41",
-			"N4XVE1uA" : "arena13.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_41_NAME",
-			"w0aTd94Y" : "413999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "42",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36401:1",
-			"rGm09bav" : "MST_ARENARANKS_42_NAME",
-			"w0aTd94Y" : "438999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "43",
-			"N4XVE1uA" : "",
-			"empaR60j" : "34808:1",
-			"rGm09bav" : "MST_ARENARANKS_43_NAME",
-			"w0aTd94Y" : "463999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "44",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36800:1",
-			"rGm09bav" : "MST_ARENARANKS_44_NAME",
-			"w0aTd94Y" : "489999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "45",
-			"N4XVE1uA" : "arena14.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_45_NAME",
-			"w0aTd94Y" : "515999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "46",
-			"N4XVE1uA" : "",
-			"empaR60j" : "36900:1",
-			"rGm09bav" : "MST_ARENARANKS_46_NAME",
-			"w0aTd94Y" : "541999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "47",
-			"N4XVE1uA" : "",
-			"empaR60j" : "37000:1",
-			"rGm09bav" : "MST_ARENARANKS_47_NAME",
-			"w0aTd94Y" : "567999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "48",
-			"N4XVE1uA" : "",
-			"empaR60j" : "37100:1",
-			"rGm09bav" : "MST_ARENARANKS_48_NAME",
-			"w0aTd94Y" : "594999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "49",
-			"N4XVE1uA" : "arena15.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_49_NAME",
-			"w0aTd94Y" : "621999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "50",
-			"N4XVE1uA" : "",
-			"empaR60j" : "37200:1",
-			"rGm09bav" : "MST_ARENARANKS_50_NAME",
-			"w0aTd94Y" : "648999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "51",
-			"N4XVE1uA" : "",
-			"empaR60j" : "37300:1",
-			"rGm09bav" : "MST_ARENARANKS_51_NAME",
-			"w0aTd94Y" : "675999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "52",
-			"N4XVE1uA" : "",
-			"empaR60j" : "37400:1",
-			"rGm09bav" : "MST_ARENARANKS_52_NAME",
-			"w0aTd94Y" : "703999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "53",
-			"N4XVE1uA" : "arena16.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_53_NAME",
-			"w0aTd94Y" : "734999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "54",
-			"N4XVE1uA" : "",
-			"empaR60j" : "40500:1",
-			"rGm09bav" : "MST_ARENARANKS_54_NAME",
-			"w0aTd94Y" : "766999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "55",
-			"N4XVE1uA" : "",
-			"empaR60j" : "41100:1",
-			"rGm09bav" : "MST_ARENARANKS_55_NAME",
-			"w0aTd94Y" : "799999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "56",
-			"N4XVE1uA" : "",
-			"empaR60j" : "41300:1",
-			"rGm09bav" : "MST_ARENARANKS_56_NAME",
-			"w0aTd94Y" : "834999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "57",
-			"N4XVE1uA" : "arena17.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_57_NAME",
-			"w0aTd94Y" : "870999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "58",
-			"N4XVE1uA" : "",
-			"empaR60j" : "40300:1",
-			"rGm09bav" : "MST_ARENARANKS_58_NAME",
-			"w0aTd94Y" : "907999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "59",
-			"N4XVE1uA" : "",
-			"empaR60j" : "41200:1",
-			"rGm09bav" : "MST_ARENARANKS_59_NAME",
-			"w0aTd94Y" : "945999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "60",
-			"N4XVE1uA" : "",
-			"empaR60j" : "40700:1",
-			"rGm09bav" : "MST_ARENARANKS_60_NAME",
-			"w0aTd94Y" : "985999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "61",
-			"N4XVE1uA" : "arena18.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_61_NAME",
-			"w0aTd94Y" : "1026999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "62",
-			"N4XVE1uA" : "",
-			"empaR60j" : "40800:1",
-			"rGm09bav" : "MST_ARENARANKS_62_NAME",
-			"w0aTd94Y" : "1068999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "63",
-			"N4XVE1uA" : "",
-			"empaR60j" : "40200:1",
-			"rGm09bav" : "MST_ARENARANKS_63_NAME",
-			"w0aTd94Y" : "1111999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "64",
-			"N4XVE1uA" : "",
-			"empaR60j" : "38601:1",
-			"rGm09bav" : "MST_ARENARANKS_64_NAME",
-			"w0aTd94Y" : "1156999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "65",
-			"N4XVE1uA" : "arena19.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_65_NAME",
-			"w0aTd94Y" : "1202999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "66",
-			"N4XVE1uA" : "",
-			"empaR60j" : "41000:1",
-			"rGm09bav" : "MST_ARENARANKS_66_NAME",
-			"w0aTd94Y" : "1249999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "67",
-			"N4XVE1uA" : "",
-			"empaR60j" : "40900:1",
-			"rGm09bav" : "MST_ARENARANKS_67_NAME",
-			"w0aTd94Y" : "1299999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "68",
-			"N4XVE1uA" : "",
-			"empaR60j" : "40400:1",
-			"rGm09bav" : "MST_ARENARANKS_68_NAME",
-			"w0aTd94Y" : "1399999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "69",
-			"N4XVE1uA" : "arena20.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_69_NAME",
-			"w0aTd94Y" : "1450999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "70",
-			"N4XVE1uA" : "",
-			"empaR60j" : "43000:1",
-			"rGm09bav" : "MST_ARENARANKS_70_NAME",
-			"w0aTd94Y" : "1502999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "71",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42500:1",
-			"rGm09bav" : "MST_ARENARANKS_71_NAME",
-			"w0aTd94Y" : "1555999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "72",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42000:1",
-			"rGm09bav" : "MST_ARENARANKS_72_NAME",
-			"w0aTd94Y" : "1610999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "73",
-			"N4XVE1uA" : "arena21.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_73_NAME",
-			"w0aTd94Y" : "1666999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "74",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42400:1",
-			"rGm09bav" : "MST_ARENARANKS_74_NAME",
-			"w0aTd94Y" : "1723999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "75",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42700:1",
-			"rGm09bav" : "MST_ARENARANKS_75_NAME",
-			"w0aTd94Y" : "1781999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "76",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42800:1",
-			"rGm09bav" : "MST_ARENARANKS_76_NAME",
-			"w0aTd94Y" : "1841999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "77",
-			"N4XVE1uA" : "arena22.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_77_NAME",
-			"w0aTd94Y" : "1902999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "78",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42200:1",
-			"rGm09bav" : "MST_ARENARANKS_78_NAME",
-			"w0aTd94Y" : "1964999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "79",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42600:1",
-			"rGm09bav" : "MST_ARENARANKS_79_NAME",
-			"w0aTd94Y" : "2027999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "80",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42300:1",
-			"rGm09bav" : "MST_ARENARANKS_80_NAME",
-			"w0aTd94Y" : "2092999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "81",
-			"N4XVE1uA" : "arena23.txt",
-			"empaR60j" : "0:3",
-			"rGm09bav" : "MST_ARENARANKS_81_NAME",
-			"w0aTd94Y" : "2158999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "82",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42100:1",
-			"rGm09bav" : "MST_ARENARANKS_82_NAME",
-			"w0aTd94Y" : "2225999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "83",
-			"N4XVE1uA" : "",
-			"empaR60j" : "42900:1",
-			"rGm09bav" : "MST_ARENARANKS_83_NAME",
-			"w0aTd94Y" : "2293999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "84",
-			"N4XVE1uA" : "",
-			"empaR60j" : "43100:1",
-			"rGm09bav" : "MST_ARENARANKS_84_NAME",
-			"w0aTd94Y" : "2399999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "85",
-			"N4XVE1uA" : "arena24.txt",
-			"empaR60j" : "0:5",
-			"rGm09bav" : "MST_ARENARANKS_85_NAME",
-			"w0aTd94Y" : "2471999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "86",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46900:1",
-			"rGm09bav" : "MST_ARENARANKS_86_NAME",
-			"w0aTd94Y" : "2546999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "87",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46700:1",
-			"rGm09bav" : "MST_ARENARANKS_87_NAME",
-			"w0aTd94Y" : "2624999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "88",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46500:1",
-			"rGm09bav" : "MST_ARENARANKS_88_NAME",
-			"w0aTd94Y" : "2705999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "89",
-			"N4XVE1uA" : "arena25.txt",
-			"empaR60j" : "0:5",
-			"rGm09bav" : "MST_ARENARANKS_89_NAME",
-			"w0aTd94Y" : "2791999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "90",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46100:1",
-			"rGm09bav" : "MST_ARENARANKS_90_NAME",
-			"w0aTd94Y" : "2882999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "91",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46800:1",
-			"rGm09bav" : "MST_ARENARANKS_91_NAME",
-			"w0aTd94Y" : "2978999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "92",
-			"N4XVE1uA" : "",
-			"empaR60j" : "47000:1",
-			"rGm09bav" : "MST_ARENARANKS_92_NAME",
-			"w0aTd94Y" : "3079999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "93",
-			"N4XVE1uA" : "arena26.txt",
-			"empaR60j" : "0:5",
-			"rGm09bav" : "MST_ARENARANKS_93_NAME",
-			"w0aTd94Y" : "3187999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "94",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46000:1",
-			"rGm09bav" : "MST_ARENARANKS_94_NAME",
-			"w0aTd94Y" : "3302999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "95",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46300:1",
-			"rGm09bav" : "MST_ARENARANKS_95_NAME",
-			"w0aTd94Y" : "3424999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "96",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46200:1",
-			"rGm09bav" : "MST_ARENARANKS_96_NAME",
-			"w0aTd94Y" : "3553999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "1",
-			"JmFn3g9t" : "97",
-			"N4XVE1uA" : "arena27.txt",
-			"empaR60j" : "0:5",
-			"rGm09bav" : "MST_ARENARANKS_97_NAME",
-			"w0aTd94Y" : "3691999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "98",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46600:1",
-			"rGm09bav" : "MST_ARENARANKS_98_NAME",
-			"w0aTd94Y" : "3839999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "99",
-			"N4XVE1uA" : "",
-			"empaR60j" : "46400:1",
-			"rGm09bav" : "MST_ARENARANKS_99_NAME",
-			"w0aTd94Y" : "3999999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "100",
-			"N4XVE1uA" : "",
-			"empaR60j" : "47100:1",
-			"rGm09bav" : "MST_ARENARANKS_100_NAME",
-			"w0aTd94Y" : "4199999"
-		},
-		{
-			"1U3eBCyY" : "0",
-			"IkmC8gG2" : "2",
-			"JmFn3g9t" : "101",
-			"N4XVE1uA" : "",
-			"empaR60j" : "47400:1",
-			"rGm09bav" : "MST_ARENARANKS_101_NAME",
-			"w0aTd94Y" : "4200499"
-		}
-	]
+  "6kWq78zx": [
+    {
+      "JmFn3g9t": "1",
+      "rGm09bav": "MST_ARENARANKS_1_NAME",
+      "w0aTd94Y": "0",
+      "1U3eBCyY": "499",
+      "IkmC8gG2": "",
+      "empaR60j": "",
+      "N4XVE1uA": "arena00.txt"
+    },
+    {
+      "JmFn3g9t": "2",
+      "rGm09bav": "MST_ARENARANKS_2_NAME",
+      "w0aTd94Y": "500",
+      "1U3eBCyY": "1199",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena01.txt"
+    },
+    {
+      "JmFn3g9t": "3",
+      "rGm09bav": "MST_ARENARANKS_3_NAME",
+      "w0aTd94Y": "1200",
+      "1U3eBCyY": "1999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35200:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "4",
+      "rGm09bav": "MST_ARENARANKS_4_NAME",
+      "w0aTd94Y": "2000",
+      "1U3eBCyY": "2999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35201:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "5",
+      "rGm09bav": "MST_ARENARANKS_5_NAME",
+      "w0aTd94Y": "3000",
+      "1U3eBCyY": "4999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena02.txt"
+    },
+    {
+      "JmFn3g9t": "6",
+      "rGm09bav": "MST_ARENARANKS_6_NAME",
+      "w0aTd94Y": "5000",
+      "1U3eBCyY": "7999",
+      "IkmC8gG2": "2",
+      "empaR60j": "32900:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "7",
+      "rGm09bav": "MST_ARENARANKS_7_NAME",
+      "w0aTd94Y": "8000",
+      "1U3eBCyY": "11999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35001:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "8",
+      "rGm09bav": "MST_ARENARANKS_8_NAME",
+      "w0aTd94Y": "12000",
+      "1U3eBCyY": "14999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena03.txt"
+    },
+    {
+      "JmFn3g9t": "9",
+      "rGm09bav": "MST_ARENARANKS_9_NAME",
+      "w0aTd94Y": "15000",
+      "1U3eBCyY": "17999",
+      "IkmC8gG2": "2",
+      "empaR60j": "34600:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "10",
+      "rGm09bav": "MST_ARENARANKS_10_NAME",
+      "w0aTd94Y": "18000",
+      "1U3eBCyY": "22999",
+      "IkmC8gG2": "2",
+      "empaR60j": "34100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "11",
+      "rGm09bav": "MST_ARENARANKS_11_NAME",
+      "w0aTd94Y": "23000",
+      "1U3eBCyY": "27999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena04.txt"
+    },
+    {
+      "JmFn3g9t": "12",
+      "rGm09bav": "MST_ARENARANKS_12_NAME",
+      "w0aTd94Y": "28000",
+      "1U3eBCyY": "32999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35202:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "13",
+      "rGm09bav": "MST_ARENARANKS_13_NAME",
+      "w0aTd94Y": "33000",
+      "1U3eBCyY": "37999",
+      "IkmC8gG2": "2",
+      "empaR60j": "33501:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "14",
+      "rGm09bav": "MST_ARENARANKS_14_NAME",
+      "w0aTd94Y": "38000",
+      "1U3eBCyY": "45999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena05.txt"
+    },
+    {
+      "JmFn3g9t": "15",
+      "rGm09bav": "MST_ARENARANKS_15_NAME",
+      "w0aTd94Y": "46000",
+      "1U3eBCyY": "53999",
+      "IkmC8gG2": "2",
+      "empaR60j": "33600:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "16",
+      "rGm09bav": "MST_ARENARANKS_16_NAME",
+      "w0aTd94Y": "54000",
+      "1U3eBCyY": "61999",
+      "IkmC8gG2": "2",
+      "empaR60j": "34700:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "17",
+      "rGm09bav": "MST_ARENARANKS_17_NAME",
+      "w0aTd94Y": "62000",
+      "1U3eBCyY": "69999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena06.txt"
+    },
+    {
+      "JmFn3g9t": "18",
+      "rGm09bav": "MST_ARENARANKS_18_NAME",
+      "w0aTd94Y": "70000",
+      "1U3eBCyY": "79999",
+      "IkmC8gG2": "2",
+      "empaR60j": "34800:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "19",
+      "rGm09bav": "MST_ARENARANKS_19_NAME",
+      "w0aTd94Y": "80000",
+      "1U3eBCyY": "89999",
+      "IkmC8gG2": "2",
+      "empaR60j": "31500:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "20",
+      "rGm09bav": "MST_ARENARANKS_20_NAME",
+      "w0aTd94Y": "90000",
+      "1U3eBCyY": "99999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena07.txt"
+    },
+    {
+      "JmFn3g9t": "21",
+      "rGm09bav": "MST_ARENARANKS_21_NAME",
+      "w0aTd94Y": "100000",
+      "1U3eBCyY": "109999",
+      "IkmC8gG2": "2",
+      "empaR60j": "32201:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "22",
+      "rGm09bav": "MST_ARENARANKS_22_NAME",
+      "w0aTd94Y": "110000",
+      "1U3eBCyY": "119999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "23",
+      "rGm09bav": "MST_ARENARANKS_23_NAME",
+      "w0aTd94Y": "120000",
+      "1U3eBCyY": "129999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena08.txt"
+    },
+    {
+      "JmFn3g9t": "24",
+      "rGm09bav": "MST_ARENARANKS_24_NAME",
+      "w0aTd94Y": "130000",
+      "1U3eBCyY": "139999",
+      "IkmC8gG2": "2",
+      "empaR60j": "34301:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "25",
+      "rGm09bav": "MST_ARENARANKS_25_NAME",
+      "w0aTd94Y": "140000",
+      "1U3eBCyY": "149999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "26",
+      "rGm09bav": "MST_ARENARANKS_26_NAME",
+      "w0aTd94Y": "150000",
+      "1U3eBCyY": "159999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:1",
+      "N4XVE1uA": "arena09.txt"
+    },
+    {
+      "JmFn3g9t": "27",
+      "rGm09bav": "MST_ARENARANKS_27_NAME",
+      "w0aTd94Y": "160000",
+      "1U3eBCyY": "169999",
+      "IkmC8gG2": "2",
+      "empaR60j": "34900:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "28",
+      "rGm09bav": "MST_ARENARANKS_28_NAME",
+      "w0aTd94Y": "170000",
+      "1U3eBCyY": "179999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35002:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "29",
+      "rGm09bav": "MST_ARENARANKS_29_NAME",
+      "w0aTd94Y": "180000",
+      "1U3eBCyY": "191999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena10.txt"
+    },
+    {
+      "JmFn3g9t": "30",
+      "rGm09bav": "MST_ARENARANKS_30_NAME",
+      "w0aTd94Y": "192000",
+      "1U3eBCyY": "204999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35900:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "31",
+      "rGm09bav": "MST_ARENARANKS_31_NAME",
+      "w0aTd94Y": "205000",
+      "1U3eBCyY": "218999",
+      "IkmC8gG2": "2",
+      "empaR60j": "35800:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "32",
+      "rGm09bav": "MST_ARENARANKS_32_NAME",
+      "w0aTd94Y": "219000",
+      "1U3eBCyY": "233999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36400:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "33",
+      "rGm09bav": "MST_ARENARANKS_33_NAME",
+      "w0aTd94Y": "234000",
+      "1U3eBCyY": "249999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena11.txt"
+    },
+    {
+      "JmFn3g9t": "34",
+      "rGm09bav": "MST_ARENARANKS_34_NAME",
+      "w0aTd94Y": "250000",
+      "1U3eBCyY": "266999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36300:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "35",
+      "rGm09bav": "MST_ARENARANKS_35_NAME",
+      "w0aTd94Y": "267000",
+      "1U3eBCyY": "284999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "36",
+      "rGm09bav": "MST_ARENARANKS_36_NAME",
+      "w0aTd94Y": "285000",
+      "1U3eBCyY": "303999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36500:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "37",
+      "rGm09bav": "MST_ARENARANKS_37_NAME",
+      "w0aTd94Y": "304000",
+      "1U3eBCyY": "323999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena12.txt"
+    },
+    {
+      "JmFn3g9t": "38",
+      "rGm09bav": "MST_ARENARANKS_38_NAME",
+      "w0aTd94Y": "324000",
+      "1U3eBCyY": "344999",
+      "IkmC8gG2": "2",
+      "empaR60j": "33600:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "39",
+      "rGm09bav": "MST_ARENARANKS_39_NAME",
+      "w0aTd94Y": "345000",
+      "1U3eBCyY": "366999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "40",
+      "rGm09bav": "MST_ARENARANKS_40_NAME",
+      "w0aTd94Y": "367000",
+      "1U3eBCyY": "389999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36200:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "41",
+      "rGm09bav": "MST_ARENARANKS_41_NAME",
+      "w0aTd94Y": "390000",
+      "1U3eBCyY": "413999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena13.txt"
+    },
+    {
+      "JmFn3g9t": "42",
+      "rGm09bav": "MST_ARENARANKS_42_NAME",
+      "w0aTd94Y": "414000",
+      "1U3eBCyY": "438999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36401:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "43",
+      "rGm09bav": "MST_ARENARANKS_43_NAME",
+      "w0aTd94Y": "439000",
+      "1U3eBCyY": "463999",
+      "IkmC8gG2": "2",
+      "empaR60j": "34808:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "44",
+      "rGm09bav": "MST_ARENARANKS_44_NAME",
+      "w0aTd94Y": "464000",
+      "1U3eBCyY": "489999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36800:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "45",
+      "rGm09bav": "MST_ARENARANKS_45_NAME",
+      "w0aTd94Y": "490000",
+      "1U3eBCyY": "515999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena14.txt"
+    },
+    {
+      "JmFn3g9t": "46",
+      "rGm09bav": "MST_ARENARANKS_46_NAME",
+      "w0aTd94Y": "516000",
+      "1U3eBCyY": "541999",
+      "IkmC8gG2": "2",
+      "empaR60j": "36900:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "47",
+      "rGm09bav": "MST_ARENARANKS_47_NAME",
+      "w0aTd94Y": "542000",
+      "1U3eBCyY": "567999",
+      "IkmC8gG2": "2",
+      "empaR60j": "37000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "48",
+      "rGm09bav": "MST_ARENARANKS_48_NAME",
+      "w0aTd94Y": "568000",
+      "1U3eBCyY": "594999",
+      "IkmC8gG2": "2",
+      "empaR60j": "37100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "49",
+      "rGm09bav": "MST_ARENARANKS_49_NAME",
+      "w0aTd94Y": "595000",
+      "1U3eBCyY": "621999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena15.txt"
+    },
+    {
+      "JmFn3g9t": "50",
+      "rGm09bav": "MST_ARENARANKS_50_NAME",
+      "w0aTd94Y": "622000",
+      "1U3eBCyY": "648999",
+      "IkmC8gG2": "2",
+      "empaR60j": "37200:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "51",
+      "rGm09bav": "MST_ARENARANKS_51_NAME",
+      "w0aTd94Y": "649000",
+      "1U3eBCyY": "675999",
+      "IkmC8gG2": "2",
+      "empaR60j": "37300:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "52",
+      "rGm09bav": "MST_ARENARANKS_52_NAME",
+      "w0aTd94Y": "676000",
+      "1U3eBCyY": "703999",
+      "IkmC8gG2": "2",
+      "empaR60j": "37400:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "53",
+      "rGm09bav": "MST_ARENARANKS_53_NAME",
+      "w0aTd94Y": "704000",
+      "1U3eBCyY": "734999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena16.txt"
+    },
+    {
+      "JmFn3g9t": "54",
+      "rGm09bav": "MST_ARENARANKS_54_NAME",
+      "w0aTd94Y": "735000",
+      "1U3eBCyY": "766999",
+      "IkmC8gG2": "2",
+      "empaR60j": "40500:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "55",
+      "rGm09bav": "MST_ARENARANKS_55_NAME",
+      "w0aTd94Y": "767000",
+      "1U3eBCyY": "799999",
+      "IkmC8gG2": "2",
+      "empaR60j": "41100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "56",
+      "rGm09bav": "MST_ARENARANKS_56_NAME",
+      "w0aTd94Y": "800000",
+      "1U3eBCyY": "834999",
+      "IkmC8gG2": "2",
+      "empaR60j": "41300:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "57",
+      "rGm09bav": "MST_ARENARANKS_57_NAME",
+      "w0aTd94Y": "835000",
+      "1U3eBCyY": "870999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena17.txt"
+    },
+    {
+      "JmFn3g9t": "58",
+      "rGm09bav": "MST_ARENARANKS_58_NAME",
+      "w0aTd94Y": "871000",
+      "1U3eBCyY": "907999",
+      "IkmC8gG2": "2",
+      "empaR60j": "40300:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "59",
+      "rGm09bav": "MST_ARENARANKS_59_NAME",
+      "w0aTd94Y": "908000",
+      "1U3eBCyY": "945999",
+      "IkmC8gG2": "2",
+      "empaR60j": "41200:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "60",
+      "rGm09bav": "MST_ARENARANKS_60_NAME",
+      "w0aTd94Y": "946000",
+      "1U3eBCyY": "985999",
+      "IkmC8gG2": "2",
+      "empaR60j": "40700:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "61",
+      "rGm09bav": "MST_ARENARANKS_61_NAME",
+      "w0aTd94Y": "986000",
+      "1U3eBCyY": "1026999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena18.txt"
+    },
+    {
+      "JmFn3g9t": "62",
+      "rGm09bav": "MST_ARENARANKS_62_NAME",
+      "w0aTd94Y": "1027000",
+      "1U3eBCyY": "1068999",
+      "IkmC8gG2": "2",
+      "empaR60j": "40800:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "63",
+      "rGm09bav": "MST_ARENARANKS_63_NAME",
+      "w0aTd94Y": "1069000",
+      "1U3eBCyY": "1111999",
+      "IkmC8gG2": "2",
+      "empaR60j": "40200:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "64",
+      "rGm09bav": "MST_ARENARANKS_64_NAME",
+      "w0aTd94Y": "1112000",
+      "1U3eBCyY": "1156999",
+      "IkmC8gG2": "2",
+      "empaR60j": "38601:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "65",
+      "rGm09bav": "MST_ARENARANKS_65_NAME",
+      "w0aTd94Y": "1157000",
+      "1U3eBCyY": "1202999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena19.txt"
+    },
+    {
+      "JmFn3g9t": "66",
+      "rGm09bav": "MST_ARENARANKS_66_NAME",
+      "w0aTd94Y": "1203000",
+      "1U3eBCyY": "1249999",
+      "IkmC8gG2": "2",
+      "empaR60j": "41000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "67",
+      "rGm09bav": "MST_ARENARANKS_67_NAME",
+      "w0aTd94Y": "1250000",
+      "1U3eBCyY": "1299999",
+      "IkmC8gG2": "2",
+      "empaR60j": "40900:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "68",
+      "rGm09bav": "MST_ARENARANKS_68_NAME",
+      "w0aTd94Y": "1300000",
+      "1U3eBCyY": "1399999",
+      "IkmC8gG2": "2",
+      "empaR60j": "40400:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "69",
+      "rGm09bav": "MST_ARENARANKS_69_NAME",
+      "w0aTd94Y": "1400000",
+      "1U3eBCyY": "1450999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena20.txt"
+    },
+    {
+      "JmFn3g9t": "70",
+      "rGm09bav": "MST_ARENARANKS_70_NAME",
+      "w0aTd94Y": "1451000",
+      "1U3eBCyY": "1502999",
+      "IkmC8gG2": "2",
+      "empaR60j": "43000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "71",
+      "rGm09bav": "MST_ARENARANKS_71_NAME",
+      "w0aTd94Y": "1503000",
+      "1U3eBCyY": "1555999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42500:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "72",
+      "rGm09bav": "MST_ARENARANKS_72_NAME",
+      "w0aTd94Y": "1556000",
+      "1U3eBCyY": "1610999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "73",
+      "rGm09bav": "MST_ARENARANKS_73_NAME",
+      "w0aTd94Y": "1611000",
+      "1U3eBCyY": "1666999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena21.txt"
+    },
+    {
+      "JmFn3g9t": "74",
+      "rGm09bav": "MST_ARENARANKS_74_NAME",
+      "w0aTd94Y": "1667000",
+      "1U3eBCyY": "1723999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42400:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "75",
+      "rGm09bav": "MST_ARENARANKS_75_NAME",
+      "w0aTd94Y": "1724000",
+      "1U3eBCyY": "1781999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42700:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "76",
+      "rGm09bav": "MST_ARENARANKS_76_NAME",
+      "w0aTd94Y": "1782000",
+      "1U3eBCyY": "1841999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42800:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "77",
+      "rGm09bav": "MST_ARENARANKS_77_NAME",
+      "w0aTd94Y": "1842000",
+      "1U3eBCyY": "1902999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena22.txt"
+    },
+    {
+      "JmFn3g9t": "78",
+      "rGm09bav": "MST_ARENARANKS_78_NAME",
+      "w0aTd94Y": "1903000",
+      "1U3eBCyY": "1964999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42200:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "79",
+      "rGm09bav": "MST_ARENARANKS_79_NAME",
+      "w0aTd94Y": "1965000",
+      "1U3eBCyY": "2027999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42600:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "80",
+      "rGm09bav": "MST_ARENARANKS_80_NAME",
+      "w0aTd94Y": "2028000",
+      "1U3eBCyY": "2092999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42300:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "81",
+      "rGm09bav": "MST_ARENARANKS_81_NAME",
+      "w0aTd94Y": "2093000",
+      "1U3eBCyY": "2158999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:3",
+      "N4XVE1uA": "arena23.txt"
+    },
+    {
+      "JmFn3g9t": "82",
+      "rGm09bav": "MST_ARENARANKS_82_NAME",
+      "w0aTd94Y": "2159000",
+      "1U3eBCyY": "2225999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "83",
+      "rGm09bav": "MST_ARENARANKS_83_NAME",
+      "w0aTd94Y": "2226000",
+      "1U3eBCyY": "2293999",
+      "IkmC8gG2": "2",
+      "empaR60j": "42900:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "84",
+      "rGm09bav": "MST_ARENARANKS_84_NAME",
+      "w0aTd94Y": "2294000",
+      "1U3eBCyY": "2399999",
+      "IkmC8gG2": "2",
+      "empaR60j": "43100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "85",
+      "rGm09bav": "MST_ARENARANKS_85_NAME",
+      "w0aTd94Y": "2400000",
+      "1U3eBCyY": "2471999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:5",
+      "N4XVE1uA": "arena24.txt"
+    },
+    {
+      "JmFn3g9t": "86",
+      "rGm09bav": "MST_ARENARANKS_86_NAME",
+      "w0aTd94Y": "2472000",
+      "1U3eBCyY": "2546999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46900:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "87",
+      "rGm09bav": "MST_ARENARANKS_87_NAME",
+      "w0aTd94Y": "2547000",
+      "1U3eBCyY": "2624999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46700:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "88",
+      "rGm09bav": "MST_ARENARANKS_88_NAME",
+      "w0aTd94Y": "2625000",
+      "1U3eBCyY": "2705999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46500:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "89",
+      "rGm09bav": "MST_ARENARANKS_89_NAME",
+      "w0aTd94Y": "2706000",
+      "1U3eBCyY": "2791999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:5",
+      "N4XVE1uA": "arena25.txt"
+    },
+    {
+      "JmFn3g9t": "90",
+      "rGm09bav": "MST_ARENARANKS_90_NAME",
+      "w0aTd94Y": "2792000",
+      "1U3eBCyY": "2882999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "91",
+      "rGm09bav": "MST_ARENARANKS_91_NAME",
+      "w0aTd94Y": "2883000",
+      "1U3eBCyY": "2978999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46800:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "92",
+      "rGm09bav": "MST_ARENARANKS_92_NAME",
+      "w0aTd94Y": "2979000",
+      "1U3eBCyY": "3079999",
+      "IkmC8gG2": "2",
+      "empaR60j": "47000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "93",
+      "rGm09bav": "MST_ARENARANKS_93_NAME",
+      "w0aTd94Y": "3080000",
+      "1U3eBCyY": "3187999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:5",
+      "N4XVE1uA": "arena26.txt"
+    },
+    {
+      "JmFn3g9t": "94",
+      "rGm09bav": "MST_ARENARANKS_94_NAME",
+      "w0aTd94Y": "3188000",
+      "1U3eBCyY": "3302999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46000:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "95",
+      "rGm09bav": "MST_ARENARANKS_95_NAME",
+      "w0aTd94Y": "3303000",
+      "1U3eBCyY": "3424999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46300:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "96",
+      "rGm09bav": "MST_ARENARANKS_96_NAME",
+      "w0aTd94Y": "3425000",
+      "1U3eBCyY": "3553999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46200:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "97",
+      "rGm09bav": "MST_ARENARANKS_97_NAME",
+      "w0aTd94Y": "3554000",
+      "1U3eBCyY": "3691999",
+      "IkmC8gG2": "1",
+      "empaR60j": "0:5",
+      "N4XVE1uA": "arena27.txt"
+    },
+    {
+      "JmFn3g9t": "98",
+      "rGm09bav": "MST_ARENARANKS_98_NAME",
+      "w0aTd94Y": "3692000",
+      "1U3eBCyY": "3839999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46600:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "99",
+      "rGm09bav": "MST_ARENARANKS_99_NAME",
+      "w0aTd94Y": "3840000",
+      "1U3eBCyY": "3999999",
+      "IkmC8gG2": "2",
+      "empaR60j": "46400:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "100",
+      "rGm09bav": "MST_ARENARANKS_100_NAME",
+      "w0aTd94Y": "4000000",
+      "1U3eBCyY": "4199999",
+      "IkmC8gG2": "2",
+      "empaR60j": "47100:1",
+      "N4XVE1uA": ""
+    },
+    {
+      "JmFn3g9t": "101",
+      "rGm09bav": "MST_ARENARANKS_101_NAME",
+      "w0aTd94Y": "4200000",
+      "1U3eBCyY": "4200499",
+      "IkmC8gG2": "2",
+      "empaR60j": "47400:1",
+      "N4XVE1uA": ""
+    }
+  ]
 }

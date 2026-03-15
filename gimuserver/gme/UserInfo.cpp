@@ -27,55 +27,60 @@ HANDLEF(UserInfo)
     resp.login_info.feature_gate = 0;
 
     UserTeamInfo team = {};
-    resp.team_info.brave_coin = 4200;
-    resp.team_info.action_point = 431;
-    resp.team_info.add_friend_count = 50;
-    resp.team_info.max_friend_count = 50;
-    resp.team_info.warehouse_count = 5500;
-    resp.team_info.free_gems = 10000;
-    resp.team_info.summon_ticket = 99;
-    resp.team_info.level = 999;
-    resp.team_info.karma = 99000000;
-    resp.team_info.zel = 99000000;
-    resp.team_info.deck_cost = 843;
     resp.team_info.reinforcement_deck.emplace_back(0);
     resp.team_info.reinforcement_deck.emplace_back(0);
     resp.team_info.reinforcement_deck.emplace_back(0);
-    resp.team_info.max_action_point = 431;
-    resp.team_info.paid_gems = 20000;
     resp.team_info.user_id = resp.login_info.user_id;
-    resp.team_info.max_unit_count = 4000;
+    resp.team_info.level = 1;
+    resp.team_info.exp = 0;
+    resp.team_info.warehouse_count = 100;
 
-    UserUnitInfo d = {};
-    d.user_id = req.login_info.user_id;
-    d.user_unit_id = 1; // Note: This won't match the auto-incremented id, but used for dummy
-    d.unit_id = 10017; // Vargas ID
-    d.unit_type_id = 1;
-    d.element = "fire";
-    d.unit_lv = 1;
-    d.receive_date = 100;
-    d.fe_bp = 100;
-    d.fe_max_usable_bp = 200;
-    d.base_hp = 1000;
-    d.base_atk = 1000;
-    d.base_def = 1000;
-    d.base_heal = 1000;
-    d.add_hp = 100;
-    d.add_atk = 100;
-    d.add_def = 100;
-    d.add_heal = 100;
-    d.ext_hp = 100;
-    d.ext_atk = 100;
-    d.ext_def = 100;
-    d.ext_heal = 100;
-    d.limit_over_hp = 200;
-    d.limit_over_atk = 200;
-    d.limit_over_def = 200;
-    d.limit_over_heal = 200;
-    d.exp = 2;
-    d.total_exp = 5;
 
-    resp.unit_info.emplace_back(d);
+    {
+        UserUnitInfo d;
+        d.user_id = resp.login_info.user_id;
+        d.user_unit_id = 1;
+        d.unit_type_id = 1;
+
+        d.base_hp = 1000;
+        d.add_hp = 1001;
+        d.ext_hp = 1002;
+
+        d.base_def = 1100;
+        d.add_def = 1101;
+        d.ext_def = 1102;
+
+        d.base_heal = 1200;
+        d.add_heal = 1201;
+        d.ext_heal = 1202;
+
+        d.base_atk = 1300;
+        d.add_atk = 1301;
+        d.ext_atk = 1302;
+
+        d.limit_over_atk = 1400;
+        d.limit_over_def = 1401;
+        d.limit_over_heal = 1402;
+        d.limit_over_hp = 1403;
+
+        d.element = 1;
+        d.unit_lv = 1;
+        d.new_flag = 1;
+
+        d.ext_count = 1500;
+        d.receive_date = 100;
+        d.fe_bp = 100;
+        d.fe_used_bp = 0;
+        d.fe_max_usable_bp = 200;
+        d.unit_img_type = 0;
+
+
+        d.exp = 1;
+        d.total_exp = 1;
+
+        d.unit_id = 50253;
+        resp.unit_info.emplace_back(d);
+    }
 
     for (int i = 0; i < 10; i++) {
         UserPartyDeckInfo deck = {};
