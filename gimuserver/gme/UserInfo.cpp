@@ -23,7 +23,7 @@ HANDLEF(UserInfo)
     resp.login_info.account_id = "12345678";
     resp.login_info.handle_name = "OfflineMod!";
     resp.login_info.tutorial_end_flag = true;
-    resp.login_info.tutorial_status = 12;
+    resp.login_info.tutorial_status = 0;
     resp.login_info.feature_gate = 0;
 
     UserTeamInfo team = {};
@@ -34,14 +34,16 @@ HANDLEF(UserInfo)
     resp.team_info.level = 1;
     resp.team_info.exp = 0;
     resp.team_info.warehouse_count = 100;
+    resp.team_info.add_unit_count = 100;
+    resp.team_info.max_unit_count = 100;
 
 
     {
-        UserUnitInfo d;
+        UserUnitInfo d = {};
         d.user_id = resp.login_info.user_id;
-        d.user_unit_id = 1;
+        d.user_unit_id = 100;
         d.unit_type_id = 1;
-
+        d.element = "fire";
         d.base_hp = 1000;
         d.add_hp = 1001;
         d.ext_hp = 1002;
@@ -68,7 +70,6 @@ HANDLEF(UserInfo)
         d.new_flag = 1;
 
         d.ext_count = 1500;
-        d.receive_date = 100;
         d.fe_bp = 100;
         d.fe_used_bp = 0;
         d.fe_max_usable_bp = 200;
@@ -86,7 +87,7 @@ HANDLEF(UserInfo)
         UserPartyDeckInfo deck = {};
         deck.deck_num = i;
         deck.deck_type = 1;
-        deck.user_unit_id = 1; // Now maps to id from user_units
+        deck.user_unit_id = 100; // Now maps to id from user_units
         resp.party_deck_info.emplace_back(deck);
     }
 
