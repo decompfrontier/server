@@ -24,7 +24,7 @@ HANDLEF(UserInfo)
     resp.login_info.handle_name = "OfflineMod!";
     resp.login_info.tutorial_end_flag = true;
     resp.login_info.tutorial_status = 12;
-    resp.login_info.feature_gate = "0";
+    resp.login_info.feature_gate = 0;
 
     UserTeamInfo team = {};
     resp.team_info.brave_coin = 4200;
