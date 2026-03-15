@@ -17,39 +17,34 @@ HANDLEF(UserInfo)
 	// TODO: A real server should check if user_id == gumi token...
 
     // TODO: GET THIS FROM A CACHE TOKEN ETC
-    resp.login_info.user_id = "0000AAAA"; // I think this is a random UUID according to packet-gen
+    resp.login_info.user_id = "0839899613932562"; // I think this is a random UUID according to packet-gen
 
     // TEMP HACK!! Skip tutorial flag and put a real name
-    resp.login_info.account_id = "1111";
-    resp.login_info.debug_mode = false;
+    resp.login_info.account_id = "12345678";
     resp.login_info.handle_name = "OfflineMod!";
     resp.login_info.tutorial_end_flag = true;
-    resp.login_info.tutorial_status = 13;
-    resp.login_info.unk = "773c9af44721a014c7ed";
+    resp.login_info.tutorial_status = 12;
+    resp.login_info.feature_gate = "0";
 
     UserTeamInfo team = {};
-    team.user_id = req.login_info.user_id;
-    team.level = 1;
-    team.exp = 0;
-    team.max_unit_count = 4000; // Updated to match unit count
-    team.max_friend_count = 100;
-    team.zel = 10000000;
-    team.karma = 10000000;
-    team.brave_coin = 0;
-    team.warehouse_count = 4000; // Updated to match unit count
-    team.free_gems = 99999;
-    team.paid_gems = 0;
-    team.summon_ticket = 0;
-    team.colosseum_ticket = 0;
-    team.deck_cost = 100;
-    team.max_friend_count = 100;
-    team.add_friend_count = 100;
-    team.max_action_point = 5000;
-    team.action_point = 5000;
-    team.reinforcement_deck.emplace_back(0);
-    team.reinforcement_deck.emplace_back(0);
-    team.reinforcement_deck.emplace_back(0);
-    resp.team_info = team;
+    resp.team_info.brave_coin = 4200;
+    resp.team_info.action_point = 431;
+    resp.team_info.add_friend_count = 50;
+    resp.team_info.max_friend_count = 50;
+    resp.team_info.warehouse_count = 5500;
+    resp.team_info.free_gems = 10000;
+    resp.team_info.summon_ticket = 99;
+    resp.team_info.level = 999;
+    resp.team_info.karma = 99000000;
+    resp.team_info.zel = 99000000;
+    resp.team_info.deck_cost = 843;
+    resp.team_info.reinforcement_deck.emplace_back(0);
+    resp.team_info.reinforcement_deck.emplace_back(0);
+    resp.team_info.reinforcement_deck.emplace_back(0);
+    resp.team_info.max_action_point = 431;
+    resp.team_info.paid_gems = 20000;
+    resp.team_info.user_id = resp.login_info.user_id;
+    resp.team_info.max_unit_count = 4000;
 
     UserUnitInfo d = {};
     d.user_id = req.login_info.user_id;
@@ -82,10 +77,13 @@ HANDLEF(UserInfo)
 
     resp.unit_info.emplace_back(d);
 
-    UserPartyDeckInfo deck = {};
-    deck.deck_type = 1;
-    deck.user_unit_id = 1; // Now maps to id from user_units
-    resp.party_deck_info.emplace_back(deck);
+    for (int i = 0; i < 10; i++) {
+        UserPartyDeckInfo deck = {};
+        deck.deck_num = i;
+        deck.deck_type = 1;
+        deck.user_unit_id = 1; // Now maps to id from user_units
+        resp.party_deck_info.emplace_back(deck);
+    }
 
     resp.campaign_info.current_day = 1;
     resp.campaign_info.total_days = 96;

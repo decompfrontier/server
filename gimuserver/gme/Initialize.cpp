@@ -19,6 +19,7 @@ HANDLEF(Initialize)
 
 	InitializeResp resp = theServer()->cache().initializeResp(); // copy !!
 
+#if 0
 	const auto& res = co_await theDb()->execSqlCoro("SELECT id, username, debug_mode FROM userinfo WHERE gumi_user_id=$1", req.login_info.gumi_live_userid);
 	if (res.empty())
 	{
@@ -30,7 +31,6 @@ HANDLEF(Initialize)
 
 		// No handle! We are a new user after all!
 		resp.login_info.account_id = "1111";
-		resp.login_info.debug_mode = false;
 
 		co_await theDb()->execSqlCoro("INSERT INTO userinfo (id, gumi_user_id, device_id, debug_mode, "
 			"level, "
@@ -58,19 +58,23 @@ HANDLEF(Initialize)
 		resp.login_info.handle_name = sql[col++].as<std::string>();
 		resp.login_info.debug_mode = sql[col++].as<bool>();
 	}
+#endif
+
 
 	// TODO: GET THIS FROM A CACHE TOKEN ETC
-	resp.login_info.user_id = "0000AAAA"; // I think this is a random UUID according to packet-gen
+	resp.login_info.account_id = "12345678";
+	resp.login_info.handle_name = "OfflineMod!";
+	resp.login_info.user_id = "0839899613932562"; // I think this is a random UUID according to packet-gen
+	// TEMP HACK!! Skip tutorial flag and put a real name
+	resp.login_info.tutorial_end_flag = true;
+	resp.login_info.tutorial_status = 12;
+	resp.login_info.feature_gate = "0";
+
 	//resp.user_info.gumi_live_token = req.user_info.gumi_live_token;
 	//resp.user_info.gumi_live_userid = req.user_info.gumi_live_userid;
 
-	// TEMP HACK!! Skip tutorial flag and put a real name
-	resp.login_info.handle_name = "OfflineMod!";
-	resp.login_info.tutorial_end_flag = true;
-	resp.login_info.tutorial_status = 13;
-	resp.login_info.unk = "773c9af44721a014c7ed";
-
 	resp.signal_key.key = "C7vnXA5T";
+
 	resp.challenge_arena_user_info.unk = "n9ZMPC0t"; // rank name?
 	resp.challenge_arena_user_info.unkstr2 = "F"; // ranking?
 	resp.challenge_arena_user_info.league_id = 1;

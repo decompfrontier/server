@@ -90,12 +90,26 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.notice_info = LoadJson<NoticeInfo>(mstRoot, "notice_info.json");
 		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines.json");
 		m_initrsp.video_ad_slots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ads_slot_game_info.json");
+		m_initrsp.exp_pattern = LoadJson<UnitExpPatternMstCache>(mstRoot, "unit_exp_pattern.json").data;
+		m_initrsp.receipe = LoadJson<ReceipeMstCache>(mstRoot, "receipes.json").data;
+		m_initrsp.trophy = LoadJson<TrophyGroupMstCache>(mstRoot, "trophy.json").data;
+		m_initrsp.trophy_grade = LoadJson<TrophyGradeMstCache>(mstRoot, "trophy_grade.json").data;
+		m_initrsp.information = LoadJson<InformationMstCache>(mstRoot, "information.json").data;
+		m_initrsp.help = LoadJson<HelpMstCache>(mstRoot, "help.json").data;
+		m_initrsp.url = LoadJson<UrlMstCache>(mstRoot, "url.json").data;
+		m_initrsp.challenge = LoadJson<ChallengeMstCache>(mstRoot, "challenge.json").data;
+		m_initrsp.challenge_hr = LoadJson<ChallengeHrMstCache>(mstRoot, "challenge_hr.json").data;
+		m_initrsp.challenge_mis = LoadJson<ChallengeMisMstCache>(mstRoot, "challenge_mis.json").data;
+		m_initrsp.challenge_grade = LoadJson<ChallengeGradeMstCache>(mstRoot, "challenge_grade.json").data;
+		m_initrsp.challenge_reward = LoadJson<ChallengeRewardMstCache>(mstRoot, "challenge_reward.json").data;
+		m_initrsp.challenge_item = LoadJson<ChallengeItemMstCache>(mstRoot, "challenge_item.json").data;
+		m_initrsp.interactive_banner = LoadJson<InteractiveBannerInfoMstCache>(mstRoot, "interactive_banner_info.json").data;
 
 		// cache: UserInfo response
 		m_userrsp.notice_info = m_initrsp.notice_info;
 		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region.json").data;
 		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info.json").data;
-		m_userrsp.gacha_info = LoadJson<GachaInfoCache>(mstRoot, "gacha_info.json").data;
+		m_userrsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info.json").data;
 		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeons.json").data;
 
 		// TODO(arves): move this to generated per-used as there's no support for the claim

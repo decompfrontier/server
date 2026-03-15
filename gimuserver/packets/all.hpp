@@ -67,14 +67,6 @@ struct FirstDescMst;
 
 struct GiftItemMst;
 
-struct ReceipeMst;
-
-struct UnitExpPatternMst;
-
-struct UnitMst;
-
-struct UrlMst;
-
 struct BadgeInfo;
 
 struct FeatureCheck;
@@ -117,11 +109,11 @@ struct GachaCategory;
 
 struct GachaMst;
 
+struct GachaInfoMst;
+
 struct ResummonGachaMst;
 
 struct SummonTicketV2Mst;
-
-struct GachaInfo;
 
 struct DefineMst;
 
@@ -151,6 +143,8 @@ struct VideoAdsSlotGameInfo;
 
 struct BannerInfoMst;
 
+struct InteractiveBannerInfoMst;
+
 struct ExcludedDungeonMissionMst;
 
 struct ExtraPassiveSkillMst;
@@ -162,6 +156,34 @@ struct DailyTaskBonusMst;
 struct DailyTaskMst;
 
 struct DailyTaskPrizeMst;
+
+struct UnitExpPatternMst;
+
+struct UnitMst;
+
+struct ReceipeMst;
+
+struct InformationMst;
+
+struct TrophyGroupMst;
+
+struct TrophyGradeMst;
+
+struct HelpMst;
+
+struct UrlMst;
+
+struct ChallengeMst;
+
+struct ChallengeHrMst;
+
+struct ChallengeMisMst;
+
+struct ChallengeGradeMst;
+
+struct ChallengeItemMst;
+
+struct ChallengeRewardMst;
 
 struct SignalKey;
 
@@ -211,7 +233,9 @@ struct UserArenaInfo;
 
 struct UserTeamArchive;
 
-struct ItemFavorite;
+struct UserTeamArenaArchive;
+
+struct PermitPlace;
 
 struct InitializeReq;
 
@@ -223,17 +247,17 @@ struct UserInfoReq;
 
 struct UserInfoResp;
 
+struct ReinforcementInfo;
+
+struct FriendGetResp;
+
+struct ItemFavorite;
+
 struct UserLoginCampaignInfo;
 
 struct MissionBreakInfo;
 
 struct NpcMessageOverwriteInfo;
-
-struct PermitPlace;
-
-struct PermitPlaceML;
-
-struct PermitPlaceSP;
 
 struct RaidUserInfo;
 
@@ -256,24 +280,6 @@ struct ReinformenetInfo {
 
 /// TODO
 struct RaidUserInfo {
-
-};
-
-
-/// TODO
-struct PermitPlaceSp {
-
-};
-
-
-/// TODO
-struct PermitPlaceMl {
-
-};
-
-
-/// TODO
-struct PermitPlace {
 
 };
 
@@ -306,6 +312,21 @@ struct UserLoginCampaignInfo {
     bool first_for_the_day;
 };
 
+/// TODO
+struct FriendGetResp {
+
+    /// TODO
+    std::vector<ReinforcementInfo> info;
+};
+
+
+/// TODO
+struct ReinforcementInfo {
+
+    /// TODO
+    std::string mock;
+};
+
 
 /// TODO
 struct UnkUserInfoNetReq {
@@ -314,10 +335,14 @@ struct UnkUserInfoNetReq {
     int32_t unk;
 };
 
+/// TODO
+struct ItemFavorite {
+
+};
 
 
 /// TODO
-struct ItemFavorite {
+struct PermitPlace {
 
     /// TODO
     std::string mock;
@@ -325,7 +350,7 @@ struct ItemFavorite {
 
 
 /// TODO
-struct UserArenaInfo {
+struct UserTeamArenaArchive {
 
     /// TODO
     std::string mock;
@@ -341,7 +366,7 @@ struct UserTeamArchive {
 
 
 /// TODO
-struct UserTeamArenaArchive {
+struct UserArenaInfo {
 
     /// TODO
     std::string mock;
@@ -900,6 +925,541 @@ struct SignalKey {
 
 
 /// TODO
+struct ChallengeRewardMst {
+
+    /// TODO
+    int32_t reward_id;
+
+    /// TODO
+    int32_t mission_id;
+
+    /// TODO
+    int32_t point_start;
+
+    /// TODO
+    int32_t reward_type;
+
+    /// TODO
+    int32_t target_id;
+
+    /// TODO
+    int32_t target_cnt;
+
+    /// TODO
+    std::string reward_param;
+};
+
+
+/// TODO
+struct ChallengeItemMst {
+
+    /// TODO
+    int32_t mission_id;
+
+    /// TODO
+    int32_t set_id;
+
+    /// TODO
+    std::string set_name;
+
+    /// TODO
+    std::string param;
+};
+
+
+/// TODO
+struct ChallengeGradeMst {
+
+    /// TODO
+    int32_t mission_id;
+
+    /// TODO
+    int32_t grade_id;
+
+    /// TODO
+    int32_t scope;
+};
+
+
+/// TODO
+struct ChallengeMisMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    int32_t mission_id;
+
+    /// TODO
+    std::string entry_termt;
+
+    /// TODO
+    std::string score_rate;
+
+    /// TODO
+    std::optional<std::string> score_limit;
+
+    /// TODO
+    int32_t item_flag;
+
+    /// TODO
+    std::optional<std::string> url;
+
+    /// TODO
+    std::string description;
+
+    /// TODO
+    std::string bonus_param;
+
+    /// TODO
+    std::optional<std::string> fix_pt;
+
+    /// TODO
+    std::string comment;
+};
+
+
+/// TODO
+struct ChallengeHrMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    int32_t rank_name;
+
+    /// TODO
+    int32_t present_typ;
+
+    /// TODO
+    int32_t target_id;
+
+    /// TODO
+    int32_t target_cnt;
+
+    /// TODO
+    std::string reward_param;
+};
+
+
+/// TODO
+struct ChallengeMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    int32_t dungeon_id;
+
+    /// TODO
+    pkg::chrono_time start_data;
+
+    /// TODO
+    pkg::chrono_time end_data;
+
+    /// TODO
+    pkg::chrono_time cnt_start_data;
+
+    /// TODO
+    pkg::chrono_time cnt_end_data;
+
+    /// TODO
+    pkg::chrono_time rank_start_data;
+
+    /// TODO
+    pkg::chrono_time rank_end_data;
+
+    /// TODO
+    std::string description;
+
+    /// TODO
+    std::string comment_1;
+
+    /// TODO
+    std::string comment_2;
+
+    /// TODO
+    std::string comment_3;
+
+    /// TODO
+    std::string url;
+};
+
+
+/// TODO
+struct UrlMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    std::string official_site;
+
+    /// TODO
+    std::string notice_url;
+
+    /// TODO
+    std::string contact_url;
+
+    /// TODO
+    std::string friend_refeer_url;
+
+    /// TODO
+    std::string appli_dl_url;
+
+    /// TODO
+    std::string appli_dl_android_url;
+
+    /// TODO
+    std::string fami_app_site_url;
+
+    /// TODO
+    std::string facebook_site_url;
+
+    /// TODO
+    std::string twitter_site_url;
+
+    /// TODO
+    std::string transfer_site_url;
+
+    /// TODO
+    std::string app_bank_site_url;
+
+    /// TODO
+    std::string lobl_site_url;
+
+    /// TODO
+    std::string lobl_schema_url;
+
+    /// TODO
+    std::string appli_sommelier_url;
+
+    /// TODO
+    std::string credit_url;
+
+    /// TODO
+    std::string game_gift_url;
+
+    /// TODO
+    std::string agreement_url;
+
+    /// TODO
+    std::string agreement_official_url;
+
+    /// TODO
+    std::string legal_fund_settlement_url;
+
+    /// TODO
+    std::string specific_trade_url;
+
+    /// TODO
+    std::string dia_possession_url;
+
+    /// TODO
+    std::string lobi_rec_help_url;
+
+    /// TODO
+    std::string lobi_agreement_url;
+
+    /// TODO
+    std::string gacha_contents_url;
+
+    /// TODO
+    std::string multi_archive_url;
+
+    /// TODO
+    std::string unk;
+};
+
+
+/// TODO
+struct HelpMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    std::string name;
+};
+
+
+/// TODO
+struct TrophyGradeMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    int32_t trophy_id;
+
+    /// TODO
+    int32_t grade;
+
+    /// TODO
+    int32_t clear_cond;
+};
+
+
+/// TODO
+struct TrophyGroupMst {
+
+    /// TODO
+    int32_t group_id;
+
+    /// TODO
+    std::string group_name;
+
+    /// TODO
+    pkg::string_list<int32_t> font_color;
+
+    /// TODO
+    int32_t disp_order;
+};
+
+
+/// TODO
+struct InformationMst {
+
+    /// TODO
+    std::string key;
+
+    /// TODO
+    std::string text;
+};
+
+
+/// TODO
+struct ReceipeMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    int32_t item_id;
+
+    /// TODO
+    int32_t item_count;
+
+    /// TODO
+    std::string materials;
+
+    /// TODO
+    int32_t karma;
+
+    /// TODO
+    std::string keyitem_ids;
+
+    /// TODO
+    int32_t unk;
+
+    /// TODO
+    int32_t unk2;
+
+    /// TODO
+    pkg::chrono_time unk3;
+
+    /// TODO
+    pkg::chrono_time unk4;
+};
+
+
+/// F_UNIT_MST
+struct UnitMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    std::string unit_name;
+
+    /// TODO
+    int32_t rarity;
+
+    /// TODO
+    int32_t cost;
+
+    /// TODO
+    int32_t kind;
+
+    /// TODO
+    int32_t max_lv;
+
+    /// TODO
+    int32_t min_hp;
+
+    /// TODO
+    int32_t max_hp;
+
+    /// TODO
+    int32_t min_atk;
+
+    /// TODO
+    int32_t max_atk;
+
+    /// TODO
+    int32_t min_def;
+
+    /// TODO
+    int32_t max_def;
+
+    /// TODO
+    int32_t min_rec;
+
+    /// TODO
+    int32_t max_rec;
+
+    /// TODO
+    std::vector<std::string> param_max;
+
+    /// TODO
+    int32_t arousal;
+
+    /// TODO
+    int32_t element;
+
+    /// TODO
+    int32_t sex;
+
+    /// TODO
+    int32_t tribe;
+
+    /// TODO
+    std::string effect_frame;
+
+    /// TODO
+    std::string damage_frame;
+
+    /// TODO
+    int32_t drop_check_count;
+
+    /// TODO
+    int32_t leader_skill_id;
+
+    /// TODO
+    int32_t skill_id;
+
+    /// TODO
+    int32_t extra_skill_id;
+
+    /// TODO
+    int32_t ultimate_skill_id;
+
+    /// TODO
+    std::vector<int32_t> unknown;
+
+    /// TODO
+    int32_t extra_passive_skill_id;
+
+    /// TODO
+    std::string anim_cgg;
+
+    /// TODO
+    int32_t sell_price;
+
+    /// TODO
+    bool caution_type;
+
+    /// TODO
+    int32_t description_type;
+
+    /// TODO
+    int32_t move_speed;
+
+    /// TODO
+    int32_t attack_move_type;
+
+    /// TODO
+    int32_t back_move_type;
+
+    /// TODO
+    int32_t skill_move_type;
+
+    /// TODO
+    int32_t ai_id;
+
+    /// TODO
+    int32_t exp_pattern_id;
+
+    /// TODO
+    pkg::string_list<int32_t> bad_state_resists;
+
+    /// TODO
+    int32_t adjust_exp;
+
+    /// TODO
+    pkg::string_list<int32_t> home_img_pos;
+
+    /// TODO
+    pkg::string_list<int32_t> detail_img_pos;
+
+    /// TODO
+    pkg::string_list<int32_t> confirm_img_pos;
+
+    /// TODO
+    pkg::string_list<int32_t> summon_image_pos;
+
+    /// TODO
+    pkg::string_list<int32_t> skill_cut_image_pos;
+
+    /// TODO
+    pkg::string_list<int32_t> hp_disp_pos;
+
+    /// TODO
+    int32_t disp_order;
+
+    /// TODO
+    pkg::string_list<int32_t> move_offset;
+
+    /// TODO
+    int32_t category;
+
+    /// TODO
+    int32_t skill_up_adjust;
+
+    /// TODO
+    pkg::string_list<int32_t> character_voice;
+
+    /// TODO
+    int32_t getting_type;
+
+    /// TODO
+    std::string ext_home_img_pos;
+
+    /// TODO
+    std::string ext_detail_img_pos;
+
+    /// TODO
+    std::string ext_confirm_img_pos;
+
+    /// TODO
+    std::string ext_summon_img_pos;
+
+    /// TODO
+    std::string ext_skill_cutin_img_pos;
+
+    /// TODO
+    pkg::string_list<int32_t> cursor_disp_pos;
+
+    /// TODO
+    bool disp_dict_flag;
+};
+
+
+/// TODO
+struct UnitExpPatternMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    int32_t lv;
+
+    /// TODO
+    int32_t need_exp;
+};
+
+
+/// TODO
 struct DailyTaskPrizeMst {
 
     /// TODO
@@ -992,6 +1552,80 @@ struct NoticeInfo {
 
 
 /// TODO
+struct UserInfoResp {
+
+    /// TODO
+    LoginInfoResp login_info;
+
+    /// TODO
+    UserTeamInfo team_info;
+
+    /// TODO
+    std::vector<UserUnitInfo> unit_info;
+
+    /// TODO
+    std::vector<UserPartyDeckInfo> party_deck_info;
+
+    /// TODO
+    std::vector<UserUnitDictionary> unit_dictionary;
+
+    /// TODO
+    std::vector<UserFavorite> favorite;
+
+    /// TODO
+    std::vector<UserClearMissionInfo> clear_mission_info;
+
+    /// TODO
+    std::vector<UserWarehouseInfo> warehouse_info;
+
+    /// TODO
+    std::vector<ItemFavorite> item_favorite;
+
+    /// TODO
+    std::vector<UserItemDictionaryInfo> item_dictionary_info;
+
+    /// TODO
+    std::vector<UserArenaInfo> arena_info;
+
+    /// TODO
+    std::vector<UserTeamArchive> archive;
+
+    /// TODO
+    std::vector<UserTeamArenaArchive> arena_archive;
+
+    /// TODO
+    std::vector<UserGiftInfo> gift_info;
+
+    /// TODO
+    UserLoginCampaignInfo campaign_info;
+
+    /// TODO
+    SummonerJournalUserInfo summoner_journal;
+
+    /// TODO
+    SignalKey signal_key;
+
+    /// TODO
+    std::vector<PermitPlace> permit_place;
+
+    /// TODO
+    std::vector<GachaInfoMst> gacha_info;
+
+    /// TODO
+    std::vector<VideoAdInfo> video_ad_info;
+
+    /// TODO
+    std::vector<VideoAdRegion> video_ad_region;
+
+    /// Configuration of notices
+    NoticeInfo notice_info;
+
+    /// TODO
+    std::vector<ExcludedDungeonMissionMst> excluded_dungeon_missions;
+};
+
+
+/// TODO
 struct ExtraPassiveSkillMst {
 
     /// TODO
@@ -1037,6 +1671,29 @@ struct ExcludedDungeonMissionMst {
 
     /// TODO
     int32_t id;
+};
+
+
+/// TODO
+struct InteractiveBannerInfoMst {
+
+    /// TODO
+    int32_t id;
+
+    /// TODO
+    std::string name;
+
+    /// TODO
+    std::string banner_image;
+
+    /// TODO
+    pkg::string_list<int32_t> param;
+
+    /// TODO
+    pkg::chrono_time start_date;
+
+    /// TODO
+    pkg::chrono_time end_date;
 };
 
 
@@ -1488,8 +2145,25 @@ struct DefineMst {
 };
 
 
+
 /// TODO
-struct GachaInfo {
+struct SummonTicketV2Mst {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct ResummonGachaMst {
+
+    /// TODO
+    std::string mock;
+};
+
+
+/// TODO
+struct GachaInfoMst {
 
     /// TODO
     int32_t id;
@@ -1513,9 +2187,6 @@ struct GachaInfo {
     std::string detail_msg;
 
     /// TODO
-    std::string end_date;
-
-    /// TODO
     bool resummon_gacha_flag;
 
     /// TODO
@@ -1529,6 +2200,9 @@ struct GachaInfo {
 
     /// TODO
     std::string start_date;
+
+    /// TODO
+    std::string end_date;
 
     /// TODO
     std::string start_hour;
@@ -1559,30 +2233,6 @@ struct GachaInfo {
 
     /// TODO
     std::string content_banner_img;
-};
-
-
-/// TODO
-struct SummonTicketV2Mst {
-
-    /// TODO
-    std::string mock;
-};
-
-
-/// TODO
-struct ReinforcementInfo {
-
-    /// TODO
-    std::string mock;
-};
-
-
-/// TODO
-struct ResummonGachaMst {
-
-    /// TODO
-    std::string mock;
 };
 
 
@@ -2218,322 +2868,6 @@ struct BadgeInfo {
 
 
 /// TODO
-struct UrlMst {
-
-    /// TODO
-    std::string id;
-
-    /// TODO
-    std::string official_site;
-
-    /// TODO
-    std::string notice_url;
-
-    /// TODO
-    std::string contact_url;
-
-    /// TODO
-    std::string friend_refeer_url;
-
-    /// TODO
-    std::string appli_dl_url;
-
-    /// TODO
-    std::string appli_dl_android_url;
-
-    /// TODO
-    std::string fami_app_site_url;
-
-    /// TODO
-    std::string facebook_site_url;
-
-    /// TODO
-    std::string twitter_site_url;
-
-    /// TODO
-    std::string transfer_site_url;
-
-    /// TODO
-    std::string app_bank_site_url;
-
-    /// TODO
-    std::string lobl_site_url;
-
-    /// TODO
-    std::string lobl_schema_url;
-
-    /// TODO
-    std::string appli_sommelier_url;
-
-    /// TODO
-    std::string credit_url;
-
-    /// TODO
-    std::string game_gift_url;
-
-    /// TODO
-    std::string agreement_url;
-
-    /// TODO
-    std::string agreement_official_url;
-
-    /// TODO
-    std::string legal_fund_settlement_url;
-
-    /// TODO
-    std::string specific_trade_url;
-
-    /// TODO
-    std::string dia_possession_url;
-
-    /// TODO
-    std::string lobi_rec_help_url;
-
-    /// TODO
-    std::string lobi_agreement_url;
-
-    /// TODO
-    std::string gacha_contents_url;
-
-    /// TODO
-    std::string multi_archive_url;
-};
-
-
-/// F_UNIT_MST
-struct UnitMst {
-
-    /// TODO
-    int32_t id;
-
-    /// TODO
-    std::string unit_name;
-
-    /// TODO
-    int32_t rarity;
-
-    /// TODO
-    int32_t cost;
-
-    /// TODO
-    int32_t kind;
-
-    /// TODO
-    int32_t max_lv;
-
-    /// TODO
-    int32_t min_hp;
-
-    /// TODO
-    int32_t max_hp;
-
-    /// TODO
-    int32_t min_atk;
-
-    /// TODO
-    int32_t max_atk;
-
-    /// TODO
-    int32_t min_def;
-
-    /// TODO
-    int32_t max_def;
-
-    /// TODO
-    int32_t min_rec;
-
-    /// TODO
-    int32_t max_rec;
-
-    /// TODO
-    std::vector<std::string> param_max;
-
-    /// TODO
-    int32_t arousal;
-
-    /// TODO
-    int32_t element;
-
-    /// TODO
-    int32_t sex;
-
-    /// TODO
-    int32_t tribe;
-
-    /// TODO
-    std::string effect_frame;
-
-    /// TODO
-    std::string damage_frame;
-
-    /// TODO
-    int32_t drop_check_count;
-
-    /// TODO
-    int32_t leader_skill_id;
-
-    /// TODO
-    int32_t skill_id;
-
-    /// TODO
-    int32_t extra_skill_id;
-
-    /// TODO
-    int32_t ultimate_skill_id;
-
-    /// TODO
-    std::vector<int32_t> unknown;
-
-    /// TODO
-    int32_t extra_passive_skill_id;
-
-    /// TODO
-    std::string anim_cgg;
-
-    /// TODO
-    int32_t sell_price;
-
-    /// TODO
-    bool caution_type;
-
-    /// TODO
-    int32_t description_type;
-
-    /// TODO
-    int32_t move_speed;
-
-    /// TODO
-    int32_t attack_move_type;
-
-    /// TODO
-    int32_t back_move_type;
-
-    /// TODO
-    int32_t skill_move_type;
-
-    /// TODO
-    int32_t ai_id;
-
-    /// TODO
-    int32_t exp_pattern_id;
-
-    /// TODO
-    pkg::string_list<int32_t> bad_state_resists;
-
-    /// TODO
-    int32_t adjust_exp;
-
-    /// TODO
-    pkg::string_list<int32_t> home_img_pos;
-
-    /// TODO
-    pkg::string_list<int32_t> detail_img_pos;
-
-    /// TODO
-    pkg::string_list<int32_t> confirm_img_pos;
-
-    /// TODO
-    pkg::string_list<int32_t> summon_image_pos;
-
-    /// TODO
-    pkg::string_list<int32_t> skill_cut_image_pos;
-
-    /// TODO
-    pkg::string_list<int32_t> hp_disp_pos;
-
-    /// TODO
-    int32_t disp_order;
-
-    /// TODO
-    pkg::string_list<int32_t> move_offset;
-
-    /// TODO
-    int32_t category;
-
-    /// TODO
-    int32_t skill_up_adjust;
-
-    /// TODO
-    pkg::string_list<int32_t> character_voice;
-
-    /// TODO
-    int32_t getting_type;
-
-    /// TODO
-    std::string ext_home_img_pos;
-
-    /// TODO
-    std::string ext_detail_img_pos;
-
-    /// TODO
-    std::string ext_confirm_img_pos;
-
-    /// TODO
-    std::string ext_summon_img_pos;
-
-    /// TODO
-    std::string ext_skill_cutin_img_pos;
-
-    /// TODO
-    pkg::string_list<int32_t> cursor_disp_pos;
-
-    /// TODO
-    bool disp_dict_flag;
-};
-
-
-/// TODO
-struct UnitExpPatternMst {
-
-    /// TODO
-    int32_t id;
-
-    /// TODO
-    int32_t lv;
-
-    /// TODO
-    int32_t need_exp;
-};
-
-
-/// Multiline document string.
-/// 
-/// # Example
-struct ReceipeMst {
-
-    /// TODO
-    int32_t id;
-
-    /// TODO
-    int32_t item_id;
-
-    /// TODO
-    int32_t item_count;
-
-    /// TODO
-    std::vector<std::string> materials;
-
-    /// TODO
-    int32_t karma;
-
-    /// TODO
-    std::string keyitem_ids;
-
-    /// TODO
-    std::string unk;
-
-    /// TODO
-    int32_t unk2;
-
-    /// TODO
-    pkg::chrono_time unk3;
-
-    /// TODO
-    pkg::chrono_time unk4;
-};
-
-
-/// TODO
 struct GiftItemMst {
 
 };
@@ -2646,201 +2980,6 @@ struct GuestLogin {
     int32_t status_number;
 };
 
-/// TODO
-enum class RewardType {
-
-    /// TODO
-    Type0 = 0,
-
-    /// TODO
-    Type1,
-
-    /// TODO
-    Type2
-};
-
-/// Type of command to do after the user presses OK.
-enum class GmeErrorCommand {
-
-    /// TODO
-    Retry = 2,
-
-    /// TODO
-    Continue = 3,
-
-    /// TODO
-    Close = 4,
-
-    /// TODO
-    Close2 = 5,
-
-    /// TODO
-    ReturnToGame = 6,
-
-    /// TODO
-    RaidError = 7,
-
-    /// TODO
-    Continue2 = 8,
-
-    /// TODO
-    LogoutFacebook = 9,
-
-    /// TODO
-    Close3 = 10
-};
-
-/// Flags of the error happend in the game.
-enum class GmeErrorFlags {
-
-    /// No error oncurred.
-    NoError = 0,
-
-    /// The server oncurred an error.
-    IsInError = 1,
-
-    /// The custom command should be handled.
-    ShouldHandleCommands = 2
-};
-
-
-/// Object that stores any possible error with the request or response.
-struct GmeError {
-
-    /// Error flags.
-    GmeErrorFlags flag;
-
-    /// Action to execute after pressing OK. (Only enabled if the flag `ShouldHandleCommands` is set)
-    GmeErrorCommand cmd;
-
-    /// Message to show on the error.
-    std::string message;
-
-    /// URL to open in the browser after OK is pressed. (like for update the game)
-    std::string url;
-};
-
-
-/// Main packet of interaction between client and server.
-struct GmeAction {
-
-    /// Header of the message.
-    GmeHeader header;
-
-    /// Body of the message.
-    std::optional<GmeBody> body;
-
-    /// Error object in case of an error.
-    std::optional<GmeError> error;
-};
-
-
-
-/// TODO
-struct UserInfoReq {
-
-    /// TODO
-    SignalKey signal_key;
-
-    /// TODO
-    LoginInfoReq login_info;
-
-    /// MST that should be sent
-    std::vector<MstUrlList> mst_requests;
-
-    /// TODO
-    UnkUserInfoNetReq unk;
-};
-
-/// Initialization command
-struct InitializeReq {
-
-    /// TODO
-    LoginInfoReq login_info;
-
-    /// MST that should be sent
-    std::vector<MstUrlList> mst_requests;
-};
-
-
-/// TODO
-struct UserInfoResp {
-
-    /// TODO
-    LoginInfoResp login_info;
-
-    /// TODO
-    UserTeamInfo team_info;
-
-    /// TODO
-    std::vector<UserUnitInfo> unit_info;
-
-    /// TODO
-    std::vector<UserPartyDeckInfo> party_deck_info;
-
-    /// TODO
-    std::vector<UserUnitDictionary> unit_dictionary;
-
-    /// TODO
-    std::vector<UserFavorite> favorite;
-
-    /// TODO
-    std::vector<UserClearMissionInfo> clear_mission_info;
-
-    /// TODO
-    std::vector<UserWarehouseInfo> warehouse_info;
-
-    /// TODO
-    std::vector<ItemFavorite> item_favorite;
-
-    /// TODO
-    std::vector<UserItemDictionaryInfo> item_dictionary_info;
-
-    /// TODO
-    std::vector<UserArenaInfo> arena_info;
-
-    /// TODO
-    std::vector<UserTeamArchive> archive;
-
-    /// TODO
-    std::vector<UserTeamArenaArchive> arena_archive;
-
-    /// TODO
-    std::vector<UserGiftInfo> gift_info;
-
-    /// TODO
-    UserLoginCampaignInfo campaign_info;
-
-    /// TODO
-    SummonerJournalUserInfo summoner_journal;
-
-    /// TODO
-    SignalKey signal_key;
-
-    /// TODO
-    std::vector<GachaInfo> gacha_info;
-
-    /// TODO
-    std::vector<VideoAdInfo> video_ad_info;
-
-    /// TODO
-    std::vector<VideoAdRegion> video_ad_region;
-
-    /// Configuration of notices
-    NoticeInfo notice_info;
-
-    /// TODO
-    std::vector<ExcludedDungeonMissionMst> excluded_dungeon_missions;
-};
-
-
-/// TODO
-struct FriendGetResp {
-
-    /// TODO
-    std::vector<ReinforcementInfo> info;
-};
-
 
 /// Response of the initialize command
 struct InitializeResp {
@@ -2897,6 +3036,48 @@ struct InitializeResp {
     NoticeInfo notice_info;
 
     /// TODO
+    std::vector<UnitExpPatternMst> exp_pattern;
+
+    /// TODO
+    std::vector<ReceipeMst> receipe;
+
+    /// TODO
+    std::vector<TrophyGroupMst> trophy;
+
+    /// TODO
+    std::vector<TrophyGradeMst> trophy_grade;
+
+    /// TODO
+    std::vector<InformationMst> information;
+
+    /// TODO
+    std::vector<HelpMst> help;
+
+    /// TODO
+    std::vector<UrlMst> url;
+
+    /// TODO
+    std::vector<ChallengeMst> challenge;
+
+    /// TODO
+    std::vector<ChallengeHrMst> challenge_hr;
+
+    /// TODO
+    std::vector<ChallengeMisMst> challenge_mis;
+
+    /// TODO
+    std::vector<ChallengeGradeMst> challenge_grade;
+
+    /// TODO
+    std::vector<ChallengeRewardMst> challenge_reward;
+
+    /// TODO
+    std::vector<ChallengeItemMst> challenge_item;
+
+    /// TODO
+    std::vector<InteractiveBannerInfoMst> interactive_banner;
+
+    /// TODO
     SignalKey signal_key;
 
     /// User current progression in Challenge Arena
@@ -2928,6 +3109,125 @@ struct InitializeResp {
 };
 
 
+/// TODO
+enum class RewardType {
+
+    /// TODO
+    Type0 = 0,
+
+    /// TODO
+    Type1,
+
+    /// TODO
+    Type2
+};
+
+/// TODO
+struct UserInfoReq {
+
+    /// TODO
+    SignalKey signal_key;
+
+    /// TODO
+    LoginInfoReq login_info;
+
+    /// MST that should be sent
+    std::vector<MstUrlList> mst_requests;
+
+    /// TODO
+    UnkUserInfoNetReq unk;
+};
+
+
+/// Type of command to do after the user presses OK.
+enum class GmeErrorCommand {
+
+    /// TODO
+    Retry = 2,
+
+    /// TODO
+    Continue = 3,
+
+    /// TODO
+    Close = 4,
+
+    /// TODO
+    Close2 = 5,
+
+    /// TODO
+    ReturnToGame = 6,
+
+    /// TODO
+    RaidError = 7,
+
+    /// TODO
+    Continue2 = 8,
+
+    /// TODO
+    LogoutFacebook = 9,
+
+    /// TODO
+    Close3 = 10
+};
+
+
+
+/// Initialization command
+struct InitializeReq {
+
+    /// TODO
+    LoginInfoReq login_info;
+
+    /// MST that should be sent
+    std::vector<MstUrlList> mst_requests;
+};
+
+
+
+/// Flags of the error happend in the game.
+enum class GmeErrorFlags {
+
+    /// No error oncurred.
+    NoError = 0,
+
+    /// The server oncurred an error.
+    IsInError = 1,
+
+    /// The custom command should be handled.
+    ShouldHandleCommands = 2
+};
+
+
+/// Object that stores any possible error with the request or response.
+struct GmeError {
+
+    /// Error flags.
+    GmeErrorFlags flag;
+
+    /// Action to execute after pressing OK. (Only enabled if the flag `ShouldHandleCommands` is set)
+    GmeErrorCommand cmd;
+
+    /// Message to show on the error.
+    std::string message;
+
+    /// URL to open in the browser after OK is pressed. (like for update the game)
+    std::string url;
+};
+
+
+/// Main packet of interaction between client and server.
+struct GmeAction {
+
+    /// Header of the message.
+    GmeHeader header;
+
+    /// Body of the message.
+    std::optional<GmeBody> body;
+
+    /// Error object in case of an error.
+    std::optional<GmeError> error;
+};
+
 // Auto-generated Glaze definitions
 #if __has_include(<glaze/glaze.hpp>)
 #include <pkgen_glaze_helpers.hpp>
@@ -2953,132 +3253,6 @@ struct glz::meta<GiftItemMst> {
     using T = GiftItemMst;
     static constexpr auto value = object(
 
-    );
-};
-
-template <>
-struct glz::meta<ReceipeMst> {
-    using T = ReceipeMst;
-    static constexpr auto value = object(
-        "4HqhTf3a", glz::quoted_num<&T::id>,
-        "kixHbe54", &T::item_id,
-        "wgV86x1q", &T::item_count,
-        "75YV2q1i", &T::materials,
-        "HTVh8a65", &T::karma,
-        "7dEB1Kwj", &T::keyitem_ids,
-        "XuJL4pc5", &T::unk,
-        "H6k1LIxC", &T::unk2,
-        "qA7M9EjP", pkg::glaze::datetime<&T::unk3>(),
-        "SzV0Nps7", pkg::glaze::datetime<&T::unk4>()
-    );
-};
-
-template <>
-struct glz::meta<UnitExpPatternMst> {
-    using T = UnitExpPatternMst;
-    static constexpr auto value = object(
-        "5UvTp7q1", &T::id,
-        "D9wXQI2V", &T::lv,
-        "grKTq15A", &T::need_exp
-    );
-};
-
-template <>
-struct glz::meta<UnitMst> {
-    using T = UnitMst;
-    static constexpr auto value = object(
-        "pn16CNah", &T::id,
-        "utP1c0CD", &T::unit_name,
-        "7ofj5xa1", &T::rarity,
-        "gvT2ds0Q", &T::cost,
-        "xP9oi5Z2", &T::kind,
-        "EI1DF8Yt", &T::max_lv,
-        "UZ1Bj7w2", &T::min_hp,
-        "3WMz78t6", &T::max_hp,
-        "i9Tn7kYr", &T::min_atk,
-        "omuyP54D", &T::max_atk,
-        "q78KoWsg", &T::min_def,
-        "32INDST4", &T::max_def,
-        "92ij6UGB", &T::min_rec,
-        "X9P3AN5d", &T::max_rec,
-        "imQJdg64", &T::param_max,
-        "2SH6YsJi", &T::arousal,
-        "iNy0ZU5M", &T::element,
-        "9i2xhMaJ", &T::sex,
-        "07nTrLdD", &T::tribe,
-        "eyUo6a8c", &T::effect_frame,
-        "6Aou5M9r", &T::damage_frame,
-        "n9h7p02P", &T::drop_check_count,
-        "oS3kTZ2W", &T::leader_skill_id,
-        "nj9Lw7mV", &T::skill_id,
-        "iEFZ6H19", glz::quoted_num<&T::extra_skill_id>,
-        "cb0P4mp1", &T::ultimate_skill_id,
-        "5SUvj4tM", &T::unknown,
-        "cP83zNsv", &T::extra_passive_skill_id,
-        "QqfI9mM4", &T::anim_cgg,
-        "eKtE6k0n", &T::sell_price,
-        "y4jAZ9nI", pkg::glaze::bool_as_string<&T::caution_type>(),
-        "qp37xTDh", &T::description_type,
-        "J2hPXGo5", &T::move_speed,
-        "mv4o39Uz", &T::attack_move_type,
-        "h2L1YI90", &T::back_move_type,
-        "XE7Yi5c3", &T::skill_move_type,
-        "i74vGUFa", &T::ai_id,
-        "5UvTp7q1", &T::exp_pattern_id,
-        "CEeqs63b", pkg::glaze::array_string<T, &T::bad_state_resists, ':'>,
-        "Gd4NS7H6", &T::adjust_exp,
-        "1W9CxaFK", pkg::glaze::array_string<T, &T::home_img_pos, ','>,
-        "6z54rgb3", pkg::glaze::array_string<T, &T::detail_img_pos, ','>,
-        "MYK1fq6c", pkg::glaze::array_string<T, &T::confirm_img_pos, ','>,
-        "KC3Jk8Br", pkg::glaze::array_string<T, &T::summon_image_pos, ','>,
-        "7hLR6pDN", pkg::glaze::array_string<T, &T::skill_cut_image_pos, ','>,
-        "3BpHN6VD", pkg::glaze::array_string<T, &T::hp_disp_pos, ','>,
-        "XuJL4pc5", &T::disp_order,
-        "jFX0a7qe", pkg::glaze::array_string<T, &T::move_offset, ','>,
-        "9PsmH7tz", &T::category,
-        "PXD4v2KY", &T::skill_up_adjust,
-        "QwN4hqJ2", pkg::glaze::array_string<T, &T::character_voice, ','>,
-        "6yHMXYv1", &T::getting_type,
-        "jyj6bl9P", &T::ext_home_img_pos,
-        "QHhOLCuk", &T::ext_detail_img_pos,
-        "S0BjxW1F", &T::ext_confirm_img_pos,
-        "psOjpTAv", &T::ext_summon_img_pos,
-        "9y1vaEJk", &T::ext_skill_cutin_img_pos,
-        "Lkh6gYkT", pkg::glaze::array_string<T, &T::cursor_disp_pos, ','>,
-        "S4ezp6uK", pkg::glaze::bool_as_string<&T::disp_dict_flag>()
-    );
-};
-
-template <>
-struct glz::meta<UrlMst> {
-    using T = UrlMst;
-    static constexpr auto value = object(
-        "ut3nd0yV", &T::id,
-        "ME4h3vDn", &T::official_site,
-        "cH0Kdchp", &T::notice_url,
-        "UMRh8tS2", &T::contact_url,
-        "R4Dk2FYs", &T::friend_refeer_url,
-        "E1oFw94b", &T::appli_dl_url,
-        "D0gMyJ3o", &T::appli_dl_android_url,
-        "UWb9B6sm", &T::fami_app_site_url,
-        "HcIt7G8y", &T::facebook_site_url,
-        "13kI62fP", &T::twitter_site_url,
-        "Rf63vLu7", &T::transfer_site_url,
-        "e4qEPM8j", &T::app_bank_site_url,
-        "t9jT3QKC", &T::lobl_site_url,
-        "Yh6MiF8f", &T::lobl_schema_url,
-        "25oCPAM7", &T::appli_sommelier_url,
-        "iVgm9n6v", &T::credit_url,
-        "wT6cF35V", &T::game_gift_url,
-        "3f9T5d6G", &T::agreement_url,
-        "fNud6c7r", &T::agreement_official_url,
-        "z6q1aUXE", &T::legal_fund_settlement_url,
-        "AZ2mCbU1", &T::specific_trade_url,
-        "9Nrt0SPY", &T::dia_possession_url,
-        "tK24myuj", &T::lobi_rec_help_url,
-        "6Qj8YZtE", &T::lobi_agreement_url,
-        "qlO1kVZZ", &T::gacha_contents_url,
-        "R10T3gFJ", &T::multi_archive_url
     );
 };
 
@@ -3417,6 +3591,36 @@ struct glz::meta<GachaMst> {
 };
 
 template <>
+struct glz::meta<GachaInfoMst> {
+    using T = GachaInfoMst;
+    static constexpr auto value = object(
+        "7Ffmi96v", glz::quoted_num<&T::id>,
+        "8HM3v3gg", &T::campaign_info,
+        "03UGMHxF", glz::quoted_num<&T::brave_coin>,
+        "W9ABuJj2", &T::button_img,
+        "1Dg0vUX3", &T::background_img,
+        "3sdHQb69", &T::caption_msg,
+        "W2c9g0Je", &T::detail_msg,
+        "a632bkyQ", glz::bools_as_numbers<&T::resummon_gacha_flag>,
+        "4N27mkt1", &T::name,
+        "S1oz60Hc", glz::quoted_num<&T::type>,
+        "yu18xScw", glz::quoted_num<&T::priority>,
+        "qA7M9EjP", &T::start_date,
+        "SzV0Nps7", &T::end_date,
+        "2HY3jpgu", &T::start_hour,
+        "v9TR3cDz", &T::end_hour,
+        "J3stQ7jd", glz::quoted_num<&T::need_friends_point>,
+        "4tswNoV9", pkg::glaze::bool_as_string<&T::once_day_flag>(),
+        "uKYf13AH", &T::door_img,
+        "qp37xTDh", &T::description,
+        "TCnm1F4v", glz::quoted_num<&T::group_id>,
+        "gVSj32QH", &T::comment,
+        "8Z9CYQDq", &T::detail_id,
+        "sA9dDAqB", &T::content_banner_img
+    );
+};
+
+template <>
 struct glz::meta<ResummonGachaMst> {
     using T = ResummonGachaMst;
     static constexpr auto value = object(
@@ -3429,44 +3633,6 @@ struct glz::meta<SummonTicketV2Mst> {
     using T = SummonTicketV2Mst;
     static constexpr auto value = object(
         "INVALID", &T::mock
-    );
-};
-
-template <>
-struct glz::meta<ReinforcementInfo> {
-    using T = ReinforcementInfo;
-    static constexpr auto value = object(
-        "INVALID", &T::mock
-    );
-};
-
-template <>
-struct glz::meta<GachaInfo> {
-    using T = GachaInfo;
-    static constexpr auto value = object(
-        "7Ffmi96v", glz::quoted_num<&T::id>,
-        "8HM3v3gg", &T::campaign_info,
-        "03UGMHxF", glz::quoted_num<&T::brave_coin>,
-        "W9ABuJj2", &T::button_img,
-        "1Dg0vUX3", &T::background_img,
-        "3sdHQb69", &T::caption_msg,
-        "W2c9g0Je", &T::detail_msg,
-        "SzV0Nps7", &T::end_date,
-        "a632bkyQ", glz::bools_as_numbers<&T::resummon_gacha_flag>,
-        "4N27mkt1", &T::name,
-        "S1oz60Hc", glz::quoted_num<&T::type>,
-        "yu18xScw", glz::quoted_num<&T::priority>,
-        "qA7M9EjP", &T::start_date,
-        "2HY3jpgu", &T::start_hour,
-        "v9TR3cDz", &T::end_hour,
-        "J3stQ7jd", glz::quoted_num<&T::need_friends_point>,
-        "4tswNoV9", pkg::glaze::bool_as_string<&T::once_day_flag>(),
-        "uKYf13AH", &T::door_img,
-        "qp37xTDh", &T::description,
-        "TCnm1F4v", glz::quoted_num<&T::group_id>,
-        "gVSj32QH", &T::comment,
-        "8Z9CYQDq", &T::detail_id,
-        "sA9dDAqB", &T::content_banner_img
     );
 };
 
@@ -3695,6 +3861,19 @@ struct glz::meta<BannerInfoMst> {
 };
 
 template <>
+struct glz::meta<InteractiveBannerInfoMst> {
+    using T = InteractiveBannerInfoMst;
+    static constexpr auto value = object(
+        "XIvaD6Jp", glz::quoted_num<&T::id>,
+        "s35idar9", &T::name,
+        "b38adb8i", &T::banner_image,
+        "t5R47iwj", pkg::glaze::array_string<T, &T::param, ','>,
+        "qA7M9EjP", pkg::glaze::datetime<&T::start_date>(),
+        "SzV0Nps7", pkg::glaze::datetime<&T::end_date>()
+    );
+};
+
+template <>
 struct glz::meta<ExcludedDungeonMissionMst> {
     using T = ExcludedDungeonMissionMst;
     static constexpr auto value = object(
@@ -3770,6 +3949,259 @@ struct glz::meta<DailyTaskPrizeMst> {
         "D2BlS89M", glz::quoted_num<&T::max_claim_count>,
         "jT3oB57e", &T::current_claim_count,
         "J3l5We66", pkg::glaze::bool_as_string<&T::milestone_prize>()
+    );
+};
+
+template <>
+struct glz::meta<UnitExpPatternMst> {
+    using T = UnitExpPatternMst;
+    static constexpr auto value = object(
+        "5UvTp7q1", glz::quoted_num<&T::id>,
+        "D9wXQI2V", glz::quoted_num<&T::lv>,
+        "grKTq15A", glz::quoted_num<&T::need_exp>
+    );
+};
+
+template <>
+struct glz::meta<UnitMst> {
+    using T = UnitMst;
+    static constexpr auto value = object(
+        "pn16CNah", &T::id,
+        "utP1c0CD", &T::unit_name,
+        "7ofj5xa1", &T::rarity,
+        "gvT2ds0Q", &T::cost,
+        "xP9oi5Z2", &T::kind,
+        "EI1DF8Yt", &T::max_lv,
+        "UZ1Bj7w2", &T::min_hp,
+        "3WMz78t6", &T::max_hp,
+        "i9Tn7kYr", &T::min_atk,
+        "omuyP54D", &T::max_atk,
+        "q78KoWsg", &T::min_def,
+        "32INDST4", &T::max_def,
+        "92ij6UGB", &T::min_rec,
+        "X9P3AN5d", &T::max_rec,
+        "imQJdg64", &T::param_max,
+        "2SH6YsJi", &T::arousal,
+        "iNy0ZU5M", &T::element,
+        "9i2xhMaJ", &T::sex,
+        "07nTrLdD", &T::tribe,
+        "eyUo6a8c", &T::effect_frame,
+        "6Aou5M9r", &T::damage_frame,
+        "n9h7p02P", &T::drop_check_count,
+        "oS3kTZ2W", &T::leader_skill_id,
+        "nj9Lw7mV", &T::skill_id,
+        "iEFZ6H19", &T::extra_skill_id,
+        "cb0P4mp1", &T::ultimate_skill_id,
+        "5SUvj4tM", &T::unknown,
+        "cP83zNsv", &T::extra_passive_skill_id,
+        "QqfI9mM4", &T::anim_cgg,
+        "eKtE6k0n", &T::sell_price,
+        "y4jAZ9nI", pkg::glaze::bool_as_string<&T::caution_type>(),
+        "qp37xTDh", &T::description_type,
+        "J2hPXGo5", &T::move_speed,
+        "mv4o39Uz", &T::attack_move_type,
+        "h2L1YI90", &T::back_move_type,
+        "XE7Yi5c3", &T::skill_move_type,
+        "i74vGUFa", &T::ai_id,
+        "5UvTp7q1", &T::exp_pattern_id,
+        "CEeqs63b", pkg::glaze::array_string<T, &T::bad_state_resists, ':'>,
+        "Gd4NS7H6", &T::adjust_exp,
+        "1W9CxaFK", pkg::glaze::array_string<T, &T::home_img_pos, ','>,
+        "6z54rgb3", pkg::glaze::array_string<T, &T::detail_img_pos, ','>,
+        "MYK1fq6c", pkg::glaze::array_string<T, &T::confirm_img_pos, ','>,
+        "KC3Jk8Br", pkg::glaze::array_string<T, &T::summon_image_pos, ','>,
+        "7hLR6pDN", pkg::glaze::array_string<T, &T::skill_cut_image_pos, ','>,
+        "3BpHN6VD", pkg::glaze::array_string<T, &T::hp_disp_pos, ','>,
+        "XuJL4pc5", &T::disp_order,
+        "jFX0a7qe", pkg::glaze::array_string<T, &T::move_offset, ','>,
+        "9PsmH7tz", &T::category,
+        "PXD4v2KY", &T::skill_up_adjust,
+        "QwN4hqJ2", pkg::glaze::array_string<T, &T::character_voice, ','>,
+        "6yHMXYv1", &T::getting_type,
+        "jyj6bl9P", &T::ext_home_img_pos,
+        "QHhOLCuk", &T::ext_detail_img_pos,
+        "S0BjxW1F", &T::ext_confirm_img_pos,
+        "psOjpTAv", &T::ext_summon_img_pos,
+        "9y1vaEJk", &T::ext_skill_cutin_img_pos,
+        "Lkh6gYkT", pkg::glaze::array_string<T, &T::cursor_disp_pos, ','>,
+        "S4ezp6uK", pkg::glaze::bool_as_string<&T::disp_dict_flag>()
+    );
+};
+
+template <>
+struct glz::meta<ReceipeMst> {
+    using T = ReceipeMst;
+    static constexpr auto value = object(
+        "4HqhTf3a", glz::quoted_num<&T::id>,
+        "kixHbe54", glz::quoted_num<&T::item_id>,
+        "wgV86x1q", glz::quoted_num<&T::item_count>,
+        "75YV2q1i", &T::materials,
+        "HTVh8a65", glz::quoted_num<&T::karma>,
+        "7dEB1Kwj", &T::keyitem_ids,
+        "XuJL4pc5", glz::quoted_num<&T::unk>,
+        "H6k1LIxC", glz::quoted_num<&T::unk2>,
+        "qA7M9EjP", pkg::glaze::datetime<&T::unk3>(),
+        "SzV0Nps7", pkg::glaze::datetime<&T::unk4>()
+    );
+};
+
+template <>
+struct glz::meta<InformationMst> {
+    using T = InformationMst;
+    static constexpr auto value = object(
+        "K89GWSY1", &T::key,
+        "1ziVyEI9", &T::text
+    );
+};
+
+template <>
+struct glz::meta<TrophyGroupMst> {
+    using T = TrophyGroupMst;
+    static constexpr auto value = object(
+        "b96suLJ4", glz::quoted_num<&T::group_id>,
+        "6u5BD9ZA", &T::group_name,
+        "iKY6cC3z", pkg::glaze::array_string<T, &T::font_color, ':'>,
+        "XuJL4pc5", glz::quoted_num<&T::disp_order>
+    );
+};
+
+template <>
+struct glz::meta<TrophyGradeMst> {
+    using T = TrophyGradeMst;
+    static constexpr auto value = object(
+        "ARn3u96q", glz::quoted_num<&T::id>,
+        "0xkdJSX7", glz::quoted_num<&T::trophy_id>,
+        "Moub12sU", glz::quoted_num<&T::grade>,
+        "nVI70ie2", glz::quoted_num<&T::clear_cond>
+    );
+};
+
+template <>
+struct glz::meta<HelpMst> {
+    using T = HelpMst;
+    static constexpr auto value = object(
+        "v9dyS8fi", glz::quoted_num<&T::id>,
+        "v4QT2gbL", &T::name
+    );
+};
+
+template <>
+struct glz::meta<UrlMst> {
+    using T = UrlMst;
+    static constexpr auto value = object(
+        "ut3nd0yV", glz::quoted_num<&T::id>,
+        "ME4h3vDn", &T::official_site,
+        "cH0Kdchp", &T::notice_url,
+        "UMRh8tS2", &T::contact_url,
+        "R4Dk2FYs", &T::friend_refeer_url,
+        "E1oFw94b", &T::appli_dl_url,
+        "D0gMyJ3o", &T::appli_dl_android_url,
+        "UWb9B6sm", &T::fami_app_site_url,
+        "HcIt7G8y", &T::facebook_site_url,
+        "13kI62fP", &T::twitter_site_url,
+        "Rf63vLu7", &T::transfer_site_url,
+        "e4qEPM8j", &T::app_bank_site_url,
+        "t9jT3QKC", &T::lobl_site_url,
+        "Yh6MiF8f", &T::lobl_schema_url,
+        "25oCPAM7", &T::appli_sommelier_url,
+        "iVgm9n6v", &T::credit_url,
+        "wT6cF35V", &T::game_gift_url,
+        "3f9T5d6G", &T::agreement_url,
+        "fNud6c7r", &T::agreement_official_url,
+        "z6q1aUXE", &T::legal_fund_settlement_url,
+        "AZ2mCbU1", &T::specific_trade_url,
+        "9Nrt0SPY", &T::dia_possession_url,
+        "tK24myuj", &T::lobi_rec_help_url,
+        "6Qj8YZtE", &T::lobi_agreement_url,
+        "qlO1kVZZ", &T::gacha_contents_url,
+        "R10T3gFJ", &T::multi_archive_url,
+        "MrK2k7z6", &T::unk
+    );
+};
+
+template <>
+struct glz::meta<ChallengeMst> {
+    using T = ChallengeMst;
+    static constexpr auto value = object(
+        "c5yZnpB4", glz::quoted_num<&T::id>,
+        "MHx05sXt", glz::quoted_num<&T::dungeon_id>,
+        "qA7M9EjP", pkg::glaze::datetime<&T::start_data>(),
+        "SzV0Nps7", pkg::glaze::datetime<&T::end_data>(),
+        "7S5tL21M", pkg::glaze::datetime<&T::cnt_start_data>(),
+        "1JZuvmo7", pkg::glaze::datetime<&T::cnt_end_data>(),
+        "4nq0Zoau", pkg::glaze::datetime<&T::rank_start_data>(),
+        "6dWR3qrQ", pkg::glaze::datetime<&T::rank_end_data>(),
+        "qp37xTDh", &T::description,
+        "Xoj83HJn", &T::comment_1,
+        "T5KjuN1d", &T::comment_2,
+        "jSI1aCJ9", &T::comment_3,
+        "jsRoN50z", &T::url
+    );
+};
+
+template <>
+struct glz::meta<ChallengeHrMst> {
+    using T = ChallengeHrMst;
+    static constexpr auto value = object(
+        "Sv80kL5r", glz::quoted_num<&T::id>,
+        "h6V4weL2", glz::quoted_num<&T::rank_name>,
+        "30Kw4WBa", glz::quoted_num<&T::present_typ>,
+        "TdDHf59J", glz::quoted_num<&T::target_id>,
+        "wJsB35iH", glz::quoted_num<&T::target_cnt>,
+        "37moriMq", &T::reward_param
+    );
+};
+
+template <>
+struct glz::meta<ChallengeMisMst> {
+    using T = ChallengeMisMst;
+    static constexpr auto value = object(
+        "c5yZnpB4", glz::quoted_num<&T::id>,
+        "j28VNcUW", glz::quoted_num<&T::mission_id>,
+        "c6fVJ9qR", &T::entry_termt,
+        "Q1z2IFjZ", &T::score_rate,
+        "gNEbgjmh", &T::score_limit,
+        "d9RLTqo7", glz::quoted_num<&T::item_flag>,
+        "jsRoN50z", &T::url,
+        "qp37xTDh", &T::description,
+        "59b1eE6N", &T::bonus_param,
+        "RlFWcCqN", &T::fix_pt,
+        "WDUyI85C", &T::comment
+    );
+};
+
+template <>
+struct glz::meta<ChallengeGradeMst> {
+    using T = ChallengeGradeMst;
+    static constexpr auto value = object(
+        "j28VNcUW", glz::quoted_num<&T::mission_id>,
+        "Cdv07KEU", glz::quoted_num<&T::grade_id>,
+        "TPR79fyI", glz::quoted_num<&T::scope>
+    );
+};
+
+template <>
+struct glz::meta<ChallengeItemMst> {
+    using T = ChallengeItemMst;
+    static constexpr auto value = object(
+        "j28VNcUW", glz::quoted_num<&T::mission_id>,
+        "gUvjqu39", glz::quoted_num<&T::set_id>,
+        "s35idar9", &T::set_name,
+        "NsZIP0d8", &T::param
+    );
+};
+
+template <>
+struct glz::meta<ChallengeRewardMst> {
+    using T = ChallengeRewardMst;
+    static constexpr auto value = object(
+        "N1b6SUW4", glz::quoted_num<&T::reward_id>,
+        "j28VNcUW", glz::quoted_num<&T::mission_id>,
+        "TPR79fyI", glz::quoted_num<&T::point_start>,
+        "30Kw4WBa", glz::quoted_num<&T::reward_type>,
+        "TdDHf59J", glz::quoted_num<&T::target_id>,
+        "wJsB35iH", glz::quoted_num<&T::target_cnt>,
+        "37moriMq", &T::reward_param
     );
 };
 
@@ -4004,7 +4436,7 @@ struct glz::meta<UserUnitInfo> {
         "oS3kTZ2W", glz::quoted_num<&T::leader_skill_id>,
         "nj9Lw7mV", &T::skill_id,
         "3NbeC8AB", &T::skill_lv,
-        "iEFZ6H19", &T::extra_skill_id,
+        "iEFZ6H19", glz::quoted_num<&T::extra_skill_id>,
         "RQ5GnFE2", &T::extra_skill_lv,
         "Bvkx8s6M", &T::receive_date,
         "5gXxT7LZ", &T::ext_count,
@@ -4130,8 +4562,8 @@ struct glz::meta<UserTeamArenaArchive> {
 };
 
 template <>
-struct glz::meta<ItemFavorite> {
-    using T = ItemFavorite;
+struct glz::meta<PermitPlace> {
+    using T = PermitPlace;
     static constexpr auto value = object(
         "INVALID", &T::mock
     );
@@ -4167,6 +4599,20 @@ struct glz::meta<InitializeResp> {
         "Pk5F1vhx", &T::banner_info,
         "z5U7utsm", &T::extra_passive_skills,
         "Pj6zDW3m", &T::notice_info,
+        "JYFGe9y6", &T::exp_pattern,
+        "8f0bCciN", &T::receipe,
+        "1NTG2oVZ", &T::trophy,
+        "Ked15IpH", &T::trophy_grade,
+        "5nBa3CAe", &T::information,
+        "9x4zZCeN", &T::help,
+        "At7Gny2V", &T::url,
+        "mQC4s5ka", &T::challenge,
+        "h09mEvDR", &T::challenge_hr,
+        "5M8jI4cP", &T::challenge_mis,
+        "zW1i02aG", &T::challenge_grade,
+        "4C1Wt8sS", &T::challenge_reward,
+        "dn0NfRy1", &T::challenge_item,
+        "B8lchAPr", &T::interactive_banner,
         "6FrKacq7", pkg::glaze::single_array<&T::signal_key>(),
         "XGmGpmYW", pkg::glaze::single_array<&T::challenge_arena_user_info>(),
         "p283g07d", pkg::glaze::single_array<&T::daily_task_bonuses>(),
@@ -4177,14 +4623,6 @@ struct glz::meta<InitializeResp> {
         "mebW7mKD", pkg::glaze::single_array<&T::video_ad_slots>(),
         "M3dw18eB", &T::summoner_journal,
         "IKqx1Cn9", pkg::glaze::single_array<&T::login_info>()
-    );
-};
-
-template <>
-struct glz::meta<FriendGetResp> {
-    using T = FriendGetResp;
-    static constexpr auto value = object(
-        "xZH6EIQ7", &T::info
     );
 };
 
@@ -4228,6 +4666,7 @@ struct glz::meta<UserInfoResp> {
         "3da6bd0a", pkg::glaze::single_array<&T::campaign_info>(),
         "M3dw18eB", &T::summoner_journal,
         "6FrKacq7", pkg::glaze::single_array<&T::signal_key>(),
+        "yXNM8kL3", &T::permit_place,
         "1IR86sAv", &T::gacha_info,
         "j129kD6r", &T::video_ad_info,
         "bpD29eiQ", &T::video_ad_region,
@@ -4237,12 +4676,36 @@ struct glz::meta<UserInfoResp> {
 };
 
 template <>
+struct glz::meta<ReinforcementInfo> {
+    using T = ReinforcementInfo;
+    static constexpr auto value = object(
+        "INVALID", &T::mock
+    );
+};
+
+template <>
+struct glz::meta<FriendGetResp> {
+    using T = FriendGetResp;
+    static constexpr auto value = object(
+        "xZH6EIQ7", &T::info
+    );
+};
+
+template <>
+struct glz::meta<ItemFavorite> {
+    using T = ItemFavorite;
+    static constexpr auto value = object(
+
+    );
+};
+
+template <>
 struct glz::meta<UserLoginCampaignInfo> {
     using T = UserLoginCampaignInfo;
     static constexpr auto value = object(
-        "H1Dkq93v", glz::quoted_num<&T::id>,
+        "H1Dkq93v", &T::id,
         "ad6i23pO", &T::current_day,
-        "1adb38d5", glz::quoted_num<&T::total_days>,
+        "1adb38d5", &T::total_days,
         "4tswNoV9", glz::bools_as_numbers<&T::first_for_the_day>
     );
 };
@@ -4258,30 +4721,6 @@ struct glz::meta<MissionBreakInfo> {
 template <>
 struct glz::meta<NpcMessageOverwriteInfo> {
     using T = NpcMessageOverwriteInfo;
-    static constexpr auto value = object(
-
-    );
-};
-
-template <>
-struct glz::meta<PermitPlace> {
-    using T = PermitPlace;
-    static constexpr auto value = object(
-
-    );
-};
-
-template <>
-struct glz::meta<PermitPlaceMl> {
-    using T = PermitPlaceMl;
-    static constexpr auto value = object(
-
-    );
-};
-
-template <>
-struct glz::meta<PermitPlaceSp> {
-    using T = PermitPlaceSp;
     static constexpr auto value = object(
 
     );
