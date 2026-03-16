@@ -74,7 +74,7 @@ HANDLEF(Initialize)
 
 	resp.signal_key.key = "C7vnXA5T";
 
-	resp.challenge_arena_user_info.unk = "n9ZMPC0t"; // rank name?
+	resp.challenge_arena_user_info.user_id = "n9ZMPC0t"; // rank name?
 	resp.challenge_arena_user_info.unkstr2 = "F"; // ranking?
 	resp.challenge_arena_user_info.league_id = 1;
 

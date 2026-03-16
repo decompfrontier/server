@@ -92,10 +92,12 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.video_ad_slots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ads_slot_game_info.json");
 		m_initrsp.exp_pattern = LoadJson<UnitExpPatternMstCache>(mstRoot, "unit_exp_pattern.json").data;
 		m_initrsp.receipe = LoadJson<ReceipeMstCache>(mstRoot, "receipes.json").data;
-		m_initrsp.trophy = LoadJson<TrophyGroupMstCache>(mstRoot, "trophy.json").data;
+		m_initrsp.trophy = LoadJson<TrophyMstCache>(mstRoot, "trophy.json").data;
+		m_initrsp.trophy_group = LoadJson<TrophyGroupMstCache>(mstRoot, "trophy_group.json").data;
 		m_initrsp.trophy_grade = LoadJson<TrophyGradeMstCache>(mstRoot, "trophy_grade.json").data;
 		m_initrsp.information = LoadJson<InformationMstCache>(mstRoot, "information.json").data;
 		m_initrsp.help = LoadJson<HelpMstCache>(mstRoot, "help.json").data;
+		m_initrsp.help_sub = LoadJson<HelpSubMstCache>(mstRoot, "help_sub.json").data;
 		m_initrsp.url = LoadJson<UrlMstCache>(mstRoot, "url.json").data;
 		m_initrsp.challenge = LoadJson<ChallengeMstCache>(mstRoot, "challenge.json").data;
 		m_initrsp.challenge_hr = LoadJson<ChallengeHrMstCache>(mstRoot, "challenge_hr.json").data;
@@ -103,6 +105,8 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.challenge_grade = LoadJson<ChallengeGradeMstCache>(mstRoot, "challenge_grade.json").data;
 		m_initrsp.challenge_reward = LoadJson<ChallengeRewardMstCache>(mstRoot, "challenge_reward.json").data;
 		m_initrsp.challenge_item = LoadJson<ChallengeItemMstCache>(mstRoot, "challenge_item.json").data;
+		m_initrsp.challenge_rank_reward = LoadJson<ChallengeRankRewardMstCache>(mstRoot, "challenge_rank_reward.json").data;
+		m_initrsp.challenge_mvp = LoadJson<ChallengeMvpMstCache>(mstRoot, "challenge_mvp.json").data;
 		m_initrsp.interactive_banner = LoadJson<InteractiveBannerInfoMstCache>(mstRoot, "interactive_banner_info.json").data;
 		m_initrsp.sound = LoadJson<SoundMstCache>(mstRoot, "sound.json").data;
 		
