@@ -3,6 +3,6 @@
 
 HANDLEF(HomeInfo)
 {
-	co_return HandleResult::error("Unsupported");
+	co_return HandleResult::success("{}");
 
 }

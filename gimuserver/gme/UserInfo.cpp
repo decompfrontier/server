@@ -65,7 +65,6 @@ HANDLEF(UserInfo)
         d.limit_over_heal = 1402;
         d.limit_over_hp = 1403;
 
-        d.element = 1;
         d.unit_lv = 1;
         d.new_flag = 1;
 
