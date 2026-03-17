@@ -7,7 +7,7 @@
     "battle_item_limit": 100,
     "bf_achievement_ext": 0,
     "challenge_arena_banner_lock": 0,
-    "corrupted_mst_check": 0,
+    "corrupted_mst_check": 1,
     "cooldown_timer": 5,
     "daily_dungeon_list": "100000,100050,100100,100200,100300,100310,100320,100400,100500",
     "dailylogin_gem": 1,
