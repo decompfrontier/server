@@ -1,0 +1,3 @@
+[submodule "packet-generator"]
+	path = packet-generator
+	url = https://github.com/decompfrontier/packet-generator

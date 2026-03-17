@@ -1,0 +1,868 @@
+{
+  "36Sd0Aub": [
+    {
+      "k7Lf0jTt": "1",
+      "xIRA58fC": "MST_SOUNDDATA_1_NAME",
+      "8R5wDyXb": "bf001_title.mp3",
+      "HSRhkf70": "20",
+      "qp37xTDh": "MST_SOUNDDATA_1_DESCRIPTION",
+      "Rs7bCE3t": "1200"
+    },
+    {
+      "k7Lf0jTt": "2",
+      "xIRA58fC": "MST_SOUNDDATA_2_NAME",
+      "8R5wDyXb": "bf002_mypage.mp3",
+      "HSRhkf70": "30",
+      "qp37xTDh": "MST_SOUNDDATA_2_DESCRIPTION",
+      "Rs7bCE3t": "9600"
+    },
+    {
+      "k7Lf0jTt": "3",
+      "xIRA58fC": "MST_SOUNDDATA_3_NAME",
+      "8R5wDyXb": "bf003_arina.mp3",
+      "HSRhkf70": "40",
+      "qp37xTDh": "MST_SOUNDDATA_3_DESCRIPTION",
+      "Rs7bCE3t": "19000"
+    },
+    {
+      "k7Lf0jTt": "4",
+      "xIRA58fC": "MST_SOUNDDATA_4_NAME",
+      "8R5wDyXb": "bf005_worldmap.mp3",
+      "HSRhkf70": "50",
+      "qp37xTDh": "MST_SOUNDDATA_4_DESCRIPTION",
+      "Rs7bCE3t": "14800"
+    },
+    {
+      "k7Lf0jTt": "5",
+      "xIRA58fC": "MST_SOUNDDATA_5_NAME",
+      "8R5wDyXb": "bf006_btl_boss.mp3",
+      "HSRhkf70": "60",
+      "qp37xTDh": "MST_SOUNDDATA_5_DESCRIPTION",
+      "Rs7bCE3t": "98000"
+    },
+    {
+      "k7Lf0jTt": "6",
+      "xIRA58fC": "MST_SOUNDDATA_6_NAME",
+      "8R5wDyXb": "bf007_btl_arina.mp3",
+      "HSRhkf70": "100400",
+      "qp37xTDh": "MST_SOUNDDATA_6_DESCRIPTION",
+      "Rs7bCE3t": "83500"
+    },
+    {
+      "k7Lf0jTt": "7",
+      "xIRA58fC": "MST_SOUNDDATA_7_NAME",
+      "8R5wDyXb": "bf008_btl_gate.mp3",
+      "HSRhkf70": "100101",
+      "qp37xTDh": "MST_SOUNDDATA_7_DESCRIPTION",
+      "Rs7bCE3t": "34500"
+    },
+    {
+      "k7Lf0jTt": "8",
+      "xIRA58fC": "MST_SOUNDDATA_8_NAME",
+      "8R5wDyXb": "bf009_village.mp3",
+      "HSRhkf70": "100500",
+      "qp37xTDh": "MST_SOUNDDATA_8_DESCRIPTION",
+      "Rs7bCE3t": "27000"
+    },
+    {
+      "k7Lf0jTt": "9",
+      "xIRA58fC": "MST_SOUNDDATA_9_NAME",
+      "8R5wDyXb": "bf010_map_grass.mp3",
+      "HSRhkf70": "12",
+      "qp37xTDh": "MST_SOUNDDATA_9_DESCRIPTION",
+      "Rs7bCE3t": "31000"
+    },
+    {
+      "k7Lf0jTt": "10",
+      "xIRA58fC": "MST_SOUNDDATA_10_NAME",
+      "8R5wDyXb": "bf011_map_firecave.mp3",
+      "HSRhkf70": "23",
+      "qp37xTDh": "MST_SOUNDDATA_10_DESCRIPTION",
+      "Rs7bCE3t": "39500"
+    },
+    {
+      "k7Lf0jTt": "11",
+      "xIRA58fC": "MST_SOUNDDATA_11_NAME",
+      "8R5wDyXb": "bf012_map_snow.mp3",
+      "HSRhkf70": "33",
+      "qp37xTDh": "MST_SOUNDDATA_11_DESCRIPTION",
+      "Rs7bCE3t": "43000"
+    },
+    {
+      "k7Lf0jTt": "12",
+      "xIRA58fC": "MST_SOUNDDATA_12_NAME",
+      "8R5wDyXb": "bf013_map_wood.mp3",
+      "HSRhkf70": "43",
+      "qp37xTDh": "MST_SOUNDDATA_12_DESCRIPTION",
+      "Rs7bCE3t": "41000"
+    },
+    {
+      "k7Lf0jTt": "13",
+      "xIRA58fC": "MST_SOUNDDATA_13_NAME",
+      "8R5wDyXb": "bf014_map_swamp.mp3",
+      "HSRhkf70": "53",
+      "qp37xTDh": "MST_SOUNDDATA_13_DESCRIPTION",
+      "Rs7bCE3t": "34500"
+    },
+    {
+      "k7Lf0jTt": "14",
+      "xIRA58fC": "MST_SOUNDDATA_14_NAME",
+      "8R5wDyXb": "bf015_map_wilds.mp3",
+      "HSRhkf70": "63",
+      "qp37xTDh": "MST_SOUNDDATA_14_DESCRIPTION",
+      "Rs7bCE3t": "49500"
+    },
+    {
+      "k7Lf0jTt": "15",
+      "xIRA58fC": "MST_SOUNDDATA_15_NAME",
+      "8R5wDyXb": "bf016_map_ghost.mp3",
+      "HSRhkf70": "73",
+      "qp37xTDh": "MST_SOUNDDATA_15_DESCRIPTION",
+      "Rs7bCE3t": "42000"
+    },
+    {
+      "k7Lf0jTt": "16",
+      "xIRA58fC": "MST_SOUNDDATA_16_NAME",
+      "8R5wDyXb": "bf017_map_tower01.mp3",
+      "HSRhkf70": "85",
+      "qp37xTDh": "MST_SOUNDDATA_16_DESCRIPTION",
+      "Rs7bCE3t": "53000"
+    },
+    {
+      "k7Lf0jTt": "17",
+      "xIRA58fC": "MST_SOUNDDATA_17_NAME",
+      "8R5wDyXb": "bf018_map_sand.mp3",
+      "HSRhkf70": "204",
+      "qp37xTDh": "MST_SOUNDDATA_17_DESCRIPTION",
+      "Rs7bCE3t": "48000"
+    },
+    {
+      "k7Lf0jTt": "18",
+      "xIRA58fC": "MST_SOUNDDATA_18_NAME",
+      "8R5wDyXb": "bf019_map_shore.mp3",
+      "HSRhkf70": "214",
+      "qp37xTDh": "MST_SOUNDDATA_18_DESCRIPTION",
+      "Rs7bCE3t": "52500"
+    },
+    {
+      "k7Lf0jTt": "19",
+      "xIRA58fC": "MST_SOUNDDATA_19_NAME",
+      "8R5wDyXb": "bf020_map_nightwood.mp3",
+      "HSRhkf70": "224",
+      "qp37xTDh": "MST_SOUNDDATA_19_DESCRIPTION",
+      "Rs7bCE3t": "39000"
+    },
+    {
+      "k7Lf0jTt": "20",
+      "xIRA58fC": "MST_SOUNDDATA_20_NAME",
+      "8R5wDyXb": "bf021_map_wasteland.mp3",
+      "HSRhkf70": "234",
+      "qp37xTDh": "MST_SOUNDDATA_20_DESCRIPTION",
+      "Rs7bCE3t": "44500"
+    },
+    {
+      "k7Lf0jTt": "21",
+      "xIRA58fC": "MST_SOUNDDATA_21_NAME",
+      "8R5wDyXb": "bf022_map_temple.mp3",
+      "HSRhkf70": "244",
+      "qp37xTDh": "MST_SOUNDDATA_21_DESCRIPTION",
+      "Rs7bCE3t": "52000"
+    },
+    {
+      "k7Lf0jTt": "22",
+      "xIRA58fC": "MST_SOUNDDATA_22_NAME",
+      "8R5wDyXb": "bf023_map_ruins.mp3",
+      "HSRhkf70": "254",
+      "qp37xTDh": "MST_SOUNDDATA_22_DESCRIPTION",
+      "Rs7bCE3t": "57000"
+    },
+    {
+      "k7Lf0jTt": "23",
+      "xIRA58fC": "MST_SOUNDDATA_23_NAME",
+      "8R5wDyXb": "bf024_map_cave.mp3",
+      "HSRhkf70": "354",
+      "qp37xTDh": "MST_SOUNDDATA_23_DESCRIPTION",
+      "Rs7bCE3t": "68500"
+    },
+    {
+      "k7Lf0jTt": "24",
+      "xIRA58fC": "MST_SOUNDDATA_24_NAME",
+      "8R5wDyXb": "bf025_map_castle.mp3",
+      "HSRhkf70": "360",
+      "qp37xTDh": "MST_SOUNDDATA_24_DESCRIPTION",
+      "Rs7bCE3t": "72500"
+    },
+    {
+      "k7Lf0jTt": "25",
+      "xIRA58fC": "MST_SOUNDDATA_25_NAME",
+      "8R5wDyXb": "bf026_map_load.mp3",
+      "HSRhkf70": "100100",
+      "qp37xTDh": "MST_SOUNDDATA_25_DESCRIPTION",
+      "Rs7bCE3t": "4850"
+    },
+    {
+      "k7Lf0jTt": "26",
+      "xIRA58fC": "MST_SOUNDDATA_26_NAME",
+      "8R5wDyXb": "bf027_map_god.mp3",
+      "HSRhkf70": "2",
+      "qp37xTDh": "MST_SOUNDDATA_26_DESCRIPTION",
+      "Rs7bCE3t": "2900"
+    },
+    {
+      "k7Lf0jTt": "27",
+      "xIRA58fC": "MST_SOUNDDATA_27_NAME",
+      "8R5wDyXb": "bf028_map_space.mp3",
+      "HSRhkf70": "365",
+      "qp37xTDh": "MST_SOUNDDATA_27_DESCRIPTION",
+      "Rs7bCE3t": "163000"
+    },
+    {
+      "k7Lf0jTt": "28",
+      "xIRA58fC": "MST_SOUNDDATA_28_NAME",
+      "8R5wDyXb": "bf029_btl_mimick.mp3",
+      "HSRhkf70": "100200",
+      "qp37xTDh": "MST_SOUNDDATA_28_DESCRIPTION",
+      "Rs7bCE3t": "94000"
+    },
+    {
+      "k7Lf0jTt": "29",
+      "xIRA58fC": "MST_SOUNDDATA_29_NAME",
+      "8R5wDyXb": "bf030_btl_evboss.mp3",
+      "HSRhkf70": "100600",
+      "qp37xTDh": "MST_SOUNDDATA_29_DESCRIPTION",
+      "Rs7bCE3t": "127000"
+    },
+    {
+      "k7Lf0jTt": "30",
+      "xIRA58fC": "MST_SOUNDDATA_30_NAME",
+      "8R5wDyXb": "bf031_map_summons.mp3",
+      "HSRhkf70": "3",
+      "qp37xTDh": "MST_SOUNDDATA_30_DESCRIPTION",
+      "Rs7bCE3t": "91200"
+    },
+    {
+      "k7Lf0jTt": "31",
+      "xIRA58fC": "MST_SOUNDDATA_31_NAME",
+      "8R5wDyXb": "bf032_btl_pinchi.mp3",
+      "HSRhkf70": "20067",
+      "qp37xTDh": "MST_SOUNDDATA_31_DESCRIPTION",
+      "Rs7bCE3t": "215000"
+    },
+    {
+      "k7Lf0jTt": "32",
+      "xIRA58fC": "MST_SOUNDDATA_32_NAME",
+      "8R5wDyXb": "bf033_map_greskia.mp3",
+      "HSRhkf70": "20004",
+      "qp37xTDh": "MST_SOUNDDATA_32_DESCRIPTION",
+      "Rs7bCE3t": "57000"
+    },
+    {
+      "k7Lf0jTt": "33",
+      "xIRA58fC": "MST_SOUNDDATA_33_NAME",
+      "8R5wDyXb": "bf034_map_ignia.mp3",
+      "HSRhkf70": "20014",
+      "qp37xTDh": "MST_SOUNDDATA_33_DESCRIPTION",
+      "Rs7bCE3t": "66000"
+    },
+    {
+      "k7Lf0jTt": "34",
+      "xIRA58fC": "MST_SOUNDDATA_34_NAME",
+      "8R5wDyXb": "bf035_map_romaus.mp3",
+      "HSRhkf70": "20024",
+      "qp37xTDh": "MST_SOUNDDATA_34_DESCRIPTION",
+      "Rs7bCE3t": "67400"
+    },
+    {
+      "k7Lf0jTt": "35",
+      "xIRA58fC": "MST_SOUNDDATA_35_NAME",
+      "8R5wDyXb": "bf036_map_vadan.mp3",
+      "HSRhkf70": "20034",
+      "qp37xTDh": "MST_SOUNDDATA_35_DESCRIPTION",
+      "Rs7bCE3t": "77000"
+    },
+    {
+      "k7Lf0jTt": "36",
+      "xIRA58fC": "MST_SOUNDDATA_36_NAME",
+      "8R5wDyXb": "bf037_map_lighttower.mp3",
+      "HSRhkf70": "20046",
+      "qp37xTDh": "MST_SOUNDDATA_36_DESCRIPTION",
+      "Rs7bCE3t": "93700"
+    },
+    {
+      "k7Lf0jTt": "37",
+      "xIRA58fC": "MST_SOUNDDATA_37_NAME",
+      "8R5wDyXb": "bf038_map_cordelica.mp3",
+      "HSRhkf70": "20056",
+      "qp37xTDh": "MST_SOUNDDATA_37_DESCRIPTION",
+      "Rs7bCE3t": "124000"
+    },
+    {
+      "k7Lf0jTt": "38",
+      "xIRA58fC": "MST_SOUNDDATA_38_NAME",
+      "8R5wDyXb": "bf039_map_kyozin.mp3",
+      "HSRhkf70": "20067",
+      "qp37xTDh": "MST_SOUNDDATA_38_DESCRIPTION",
+      "Rs7bCE3t": "172000"
+    },
+    {
+      "k7Lf0jTt": "39",
+      "xIRA58fC": "MST_SOUNDDATA_39_NAME",
+      "8R5wDyXb": "bf040_landawl.mp3",
+      "HSRhkf70": "20000",
+      "qp37xTDh": "MST_SOUNDDATA_39_DESCRIPTION",
+      "Rs7bCE3t": "1400"
+    },
+    {
+      "k7Lf0jTt": "40",
+      "xIRA58fC": "MST_SOUNDDATA_40_NAME",
+      "8R5wDyXb": "bf041_map_jewrel.mp3",
+      "HSRhkf70": "400",
+      "qp37xTDh": "MST_SOUNDDATA_40_DESCRIPTION",
+      "Rs7bCE3t": "66000"
+    },
+    {
+      "k7Lf0jTt": "41",
+      "xIRA58fC": "MST_SOUNDDATA_41_NAME",
+      "8R5wDyXb": "bf043_map_sora.mp3",
+      "HSRhkf70": "560",
+      "qp37xTDh": "MST_SOUNDDATA_41_DESCRIPTION",
+      "Rs7bCE3t": "153000"
+    },
+    {
+      "k7Lf0jTt": "42",
+      "xIRA58fC": "MST_SOUNDDATA_42_NAME",
+      "8R5wDyXb": "bf045_map_balmina.mp3",
+      "HSRhkf70": "660",
+      "qp37xTDh": "MST_SOUNDDATA_42_DESCRIPTION",
+      "Rs7bCE3t": "197000"
+    },
+    {
+      "k7Lf0jTt": "43",
+      "xIRA58fC": "MST_SOUNDDATA_43_NAME",
+      "8R5wDyXb": "bf047_raid_valden.mp3",
+      "HSRhkf70": "661",
+      "qp37xTDh": "MST_SOUNDDATA_43_DESCRIPTION",
+      "Rs7bCE3t": "67800"
+    },
+    {
+      "k7Lf0jTt": "44",
+      "xIRA58fC": "MST_SOUNDDATA_44_NAME",
+      "8R5wDyXb": "bf048_raid_batlle003.mp3",
+      "HSRhkf70": "150002",
+      "qp37xTDh": "MST_SOUNDDATA_44_DESCRIPTION",
+      "Rs7bCE3t": "223000"
+    },
+    {
+      "k7Lf0jTt": "45",
+      "xIRA58fC": "MST_SOUNDDATA_45_NAME",
+      "8R5wDyXb": "bf049_raid_boss.mp3",
+      "HSRhkf70": "700",
+      "qp37xTDh": "MST_SOUNDDATA_45_DESCRIPTION",
+      "Rs7bCE3t": "124500"
+    },
+    {
+      "k7Lf0jTt": "46",
+      "xIRA58fC": "MST_SOUNDDATA_46_NAME",
+      "8R5wDyXb": "bf050_raid02_fld.mp3",
+      "HSRhkf70": "710",
+      "qp37xTDh": "MST_SOUNDDATA_46_DESCRIPTION",
+      "Rs7bCE3t": "27900"
+    },
+    {
+      "k7Lf0jTt": "47",
+      "xIRA58fC": "MST_SOUNDDATA_47_NAME",
+      "8R5wDyXb": "bf051_boss02_vari02.mp3",
+      "HSRhkf70": "720",
+      "qp37xTDh": "MST_SOUNDDATA_47_DESCRIPTION",
+      "Rs7bCE3t": "140000"
+    },
+    {
+      "k7Lf0jTt": "48",
+      "xIRA58fC": "MST_SOUNDDATA_48_NAME",
+      "8R5wDyXb": "bf052_map_mgc_swamp.mp3",
+      "HSRhkf70": "730",
+      "qp37xTDh": "MST_SOUNDDATA_48_DESCRIPTION",
+      "Rs7bCE3t": "58000"
+    },
+    {
+      "k7Lf0jTt": "49",
+      "xIRA58fC": "MST_SOUNDDATA_49_NAME",
+      "8R5wDyXb": "bf053_map_zazilba.mp3",
+      "HSRhkf70": "741",
+      "qp37xTDh": "MST_SOUNDDATA_49_DESCRIPTION",
+      "Rs7bCE3t": "55000"
+    },
+    {
+      "k7Lf0jTt": "50",
+      "xIRA58fC": "MST_SOUNDDATA_50_NAME",
+      "8R5wDyXb": "bf055_map_rybahn.mp3",
+      "HSRhkf70": "840",
+      "qp37xTDh": "MST_SOUNDDATA_50_DESCRIPTION",
+      "Rs7bCE3t": "47000"
+    },
+    {
+      "k7Lf0jTt": "51",
+      "xIRA58fC": "MST_SOUNDDATA_51_NAME",
+      "8R5wDyXb": "bf056_map_whitetower.mp3",
+      "HSRhkf70": "860",
+      "qp37xTDh": "MST_SOUNDDATA_51_DESCRIPTION",
+      "Rs7bCE3t": "121000"
+    },
+    {
+      "k7Lf0jTt": "52",
+      "xIRA58fC": "MST_SOUNDDATA_52_NAME",
+      "8R5wDyXb": "bf057_agni_city.mp3",
+      "HSRhkf70": "900",
+      "qp37xTDh": "MST_SOUNDDATA_52_DESCRIPTION",
+      "Rs7bCE3t": "65600"
+    },
+    {
+      "k7Lf0jTt": "53",
+      "xIRA58fC": "MST_SOUNDDATA_53_NAME",
+      "8R5wDyXb": "bf059_alvina.mp3",
+      "HSRhkf70": "960",
+      "qp37xTDh": "MST_SOUNDDATA_53_DESCRIPTION",
+      "Rs7bCE3t": "143000"
+    },
+    {
+      "k7Lf0jTt": "54",
+      "xIRA58fC": "MST_SOUNDDATA_54_NAME",
+      "8R5wDyXb": "bf060_alvest.mp3",
+      "HSRhkf70": "1010",
+      "qp37xTDh": "MST_SOUNDDATA_54_DESCRIPTION",
+      "Rs7bCE3t": "77400"
+    },
+    {
+      "k7Lf0jTt": "55",
+      "xIRA58fC": "MST_SOUNDDATA_55_NAME",
+      "8R5wDyXb": "bf061_narasta.mp3",
+      "HSRhkf70": "1040",
+      "qp37xTDh": "MST_SOUNDDATA_55_DESCRIPTION",
+      "Rs7bCE3t": "82700"
+    },
+    {
+      "k7Lf0jTt": "56",
+      "xIRA58fC": "MST_SOUNDDATA_56_NAME",
+      "8R5wDyXb": "bf062_god_tower.mp3",
+      "HSRhkf70": "1060",
+      "qp37xTDh": "MST_SOUNDDATA_56_DESCRIPTION",
+      "Rs7bCE3t": "180000"
+    },
+    {
+      "k7Lf0jTt": "57",
+      "xIRA58fC": "MST_SOUNDDATA_57_NAME",
+      "8R5wDyXb": "bf48_raid_batlle.mp3",
+      "HSRhkf70": "1366",
+      "qp37xTDh": "MST_SOUNDDATA_57_DESCRIPTION",
+      "Rs7bCE3t": "85000"
+    },
+    {
+      "k7Lf0jTt": "58",
+      "xIRA58fC": "MST_SOUNDDATA_58_NAME",
+      "8R5wDyXb": "br063_sec1_lboss02.mp3",
+      "HSRhkf70": "1577",
+      "qp37xTDh": "MST_SOUNDDATA_58_DESCRIPTION",
+      "Rs7bCE3t": "130000"
+    },
+    {
+      "k7Lf0jTt": "59",
+      "xIRA58fC": "MST_SOUNDDATA_59_NAME",
+      "8R5wDyXb": "br065_sec1_ldung.mp3",
+      "HSRhkf70": "1577",
+      "qp37xTDh": "MST_SOUNDDATA_59_DESCRIPTION",
+      "Rs7bCE3t": "168000"
+    },
+    {
+      "k7Lf0jTt": "60",
+      "xIRA58fC": "MST_SOUNDDATA_60_NAME",
+      "8R5wDyXb": "br064_landall_pfver.mp3",
+      "HSRhkf70": "1577",
+      "qp37xTDh": "MST_SOUNDDATA_60_DESCRIPTION",
+      "Rs7bCE3t": "252500"
+    },
+    {
+      "k7Lf0jTt": "61",
+      "xIRA58fC": "MST_SOUNDDATA_61_NAME",
+      "8R5wDyXb": "bf066_ishu_worldmap.mp3",
+      "HSRhkf70": "1577",
+      "qp37xTDh": "MST_SOUNDDATA_61_DESCRIPTION",
+      "Rs7bCE3t": "175000"
+    },
+    {
+      "k7Lf0jTt": "62",
+      "xIRA58fC": "\u53e4\u306e\u30d5\u30ed\u30f3\u30c6\u30a3\u30a2",
+      "8R5wDyXb": "bf0401_april_fool.mp3",
+      "HSRhkf70": "10000",
+      "qp37xTDh": "\u53e4\u306e\u8a18\u61b6\u304c\u304b\u3064\u3066\u306e\u958b\u62d3\u5730\u3078\u306e\u60f3\u3044\u3068\u3068\u3082\u306b\u7526\u308b",
+      "Rs7bCE3t": "18900"
+    },
+    {
+      "k7Lf0jTt": "63",
+      "xIRA58fC": "Flash ver.2.0",
+      "8R5wDyXb": "bf0401_april_fool02.mp3",
+      "HSRhkf70": "10000",
+      "qp37xTDh": "\u30e9\u30f3\u30c9\u30fc\u30eb\u306e\u4eba\u6c17\u66f2\u3092\u7570\u754c\u306e\u97f3\u697d\u5bb6\u304c\u30a2\u30ec\u30f3\u30b8",
+      "Rs7bCE3t": "144100"
+    },
+    {
+      "k7Lf0jTt": "64",
+      "xIRA58fC": "\u79c1\u306e\u5e30\u308b\u5834\u6240",
+      "8R5wDyXb": "bf0401_april_fool03.mp3",
+      "HSRhkf70": "10000",
+      "qp37xTDh": "\u4f1d\u7d71\u97f3\u697d\u3092\u7570\u754c\u306e\u697d\u66f2\u98a8\u306b\u30a2\u30ec\u30f3\u30b8\u3057\u305f\u66f2",
+      "Rs7bCE3t": "5500"
+    },
+    {
+      "k7Lf0jTt": "65",
+      "xIRA58fC": "\u821e\u3044\u964d\u308a\u308b\u7fbd",
+      "8R5wDyXb": "bf067_map_space04.mp3",
+      "HSRhkf70": "10240",
+      "qp37xTDh": "\u30a4\u30b7\u30e5\u30b0\u30ea\u30a2\u3067\u767a\u898b\u3055\u308c\u305f\u97f3\u697d\u30b9\u30d5\u30a3\u30a2\u3002<br />\u540c\u5730\u306e\u6587\u5316\u3092\u77e5\u308b\u91cd\u8981\u306a\u7814\u7a76\u8cc7\u6599\u3067\u3082\u3042\u308b",
+      "Rs7bCE3t": "180000"
+    },
+    {
+      "k7Lf0jTt": "66",
+      "xIRA58fC": "Twilight Gleam",
+      "8R5wDyXb": "bf068_map_dungeon.mp3",
+      "HSRhkf70": "10440",
+      "qp37xTDh": "Legendary song inspired by the Shining Capital.",
+      "Rs7bCE3t": "200000"
+    },
+    {
+      "k7Lf0jTt": "67",
+      "xIRA58fC": "Warrior Spirit",
+      "8R5wDyXb": "bf070_btl_ishuguria.mp3",
+      "HSRhkf70": "10670",
+      "qp37xTDh": "Tune fit for adventures in another world.",
+      "Rs7bCE3t": "224000"
+    },
+    {
+      "k7Lf0jTt": "68",
+      "xIRA58fC": "To Future You",
+      "8R5wDyXb": "bf071_map_reunion.mp3",
+      "HSRhkf70": "10766",
+      "qp37xTDh": "Tragic love song of two demons in old Estria.",
+      "Rs7bCE3t": "233000"
+    },
+    {
+      "k7Lf0jTt": "69",
+      "xIRA58fC": "Forces Opposed",
+      "8R5wDyXb": "bf069_map_dungeon02.mp3",
+      "HSRhkf70": "10770",
+      "qp37xTDh": "Song of war between ethereal gods and demons.",
+      "Rs7bCE3t": "187000"
+    },
+    {
+      "k7Lf0jTt": "70",
+      "xIRA58fC": "Hope, Despair",
+      "8R5wDyXb": "bf075_sec2_lboss3.mp3",
+      "HSRhkf70": "10864",
+      "qp37xTDh": "An Elgaian refugee's song of gods and hope.",
+      "Rs7bCE3t": "243000"
+    },
+    {
+      "k7Lf0jTt": "71",
+      "xIRA58fC": "Eternal War",
+      "8R5wDyXb": "bf063_sec1_lboss.mp3",
+      "HSRhkf70": "5000013",
+      "qp37xTDh": "A song about the fight against demons.",
+      "Rs7bCE3t": "153000"
+    },
+    {
+      "k7Lf0jTt": "72",
+      "xIRA58fC": "For a New Day",
+      "8R5wDyXb": "bf073_new_years.mp3",
+      "HSRhkf70": "10930",
+      "qp37xTDh": "An otherworldly arrangement of a Randall song.",
+      "Rs7bCE3t": "1230"
+    },
+    {
+      "k7Lf0jTt": "73",
+      "xIRA58fC": "Explosion",
+      "8R5wDyXb": "bf076_aprilfool_rock.mp3",
+      "HSRhkf70": "10930",
+      "qp37xTDh": "A popular song about an otherworldly battle.",
+      "Rs7bCE3t": "164100"
+    },
+    {
+      "k7Lf0jTt": "74",
+      "xIRA58fC": "Old Adventure",
+      "8R5wDyXb": "bf077_aprilfool_chip.mp3",
+      "HSRhkf70": "10930",
+      "qp37xTDh": "A popular song played on ancient instruments.",
+      "Rs7bCE3t": "164100"
+    },
+    {
+      "k7Lf0jTt": "75",
+      "xIRA58fC": "Nothingness",
+      "8R5wDyXb": "bf079_lboss01st.mp3",
+      "HSRhkf70": "10930",
+      "qp37xTDh": "A taboo poem that tells of ancient Ishgria.",
+      "Rs7bCE3t": "244000"
+    },
+    {
+      "k7Lf0jTt": "76",
+      "xIRA58fC": "Future Hope",
+      "8R5wDyXb": "bf078_ark_fin.mp3",
+      "HSRhkf70": "10930",
+      "qp37xTDh": "A song taught to the Oracle Maidens.",
+      "Rs7bCE3t": "250000"
+    },
+    {
+      "k7Lf0jTt": "77",
+      "xIRA58fC": "Knight's Pride",
+      "8R5wDyXb": "bf080_lboss02nd.mp3",
+      "HSRhkf70": "10970",
+      "qp37xTDh": "A song by a certain genius composer.",
+      "Rs7bCE3t": "275000"
+    },
+    {
+      "k7Lf0jTt": "78",
+      "xIRA58fC": "Scrap Stardust",
+      "8R5wDyXb": "bf089_map_vectous_1st.mp3",
+      "HSRhkf70": "20100",
+      "qp37xTDh": "Music Sphere discovered among scrap mountains.",
+      "Rs7bCE3t": "120000"
+    },
+    {
+      "k7Lf0jTt": "79",
+      "xIRA58fC": "Heroism Soars",
+      "8R5wDyXb": "bf088_btl_anotherboss.mp3",
+      "HSRhkf70": "20102",
+      "qp37xTDh": "A vision of heroes battling in a distant world.",
+      "Rs7bCE3t": "150000"
+    },
+    {
+      "k7Lf0jTt": "80",
+      "xIRA58fC": "Leap of Faith",
+      "8R5wDyXb": "bf095_another_worldmap.mp3",
+      "HSRhkf70": "20102",
+      "qp37xTDh": "An ode to departures on new adventures",
+      "Rs7bCE3t": "200000"
+    },
+    {
+      "k7Lf0jTt": "81",
+      "xIRA58fC": "Perpetual Wish",
+      "8R5wDyXb": "bf087_akras_mypage.mp3",
+      "HSRhkf70": "20404",
+      "qp37xTDh": "Sphere of prayer for young Summoners' growth.",
+      "Rs7bCE3t": "200000"
+    },
+    {
+      "k7Lf0jTt": "82",
+      "xIRA58fC": "Thunder Wall",
+      "8R5wDyXb": "bf090_map_vectous_fin.mp3",
+      "HSRhkf70": "20700",
+      "qp37xTDh": "Magical instrument track popular with youths.",
+      "Rs7bCE3t": "170000"
+    },
+    {
+      "k7Lf0jTt": "83",
+      "xIRA58fC": "Sealed Power",
+      "8R5wDyXb": "bf096_btl_shingi.mp3",
+      "HSRhkf70": "20705",
+      "qp37xTDh": "Tune about a heroic Summoner with hidden powers.",
+      "Rs7bCE3t": "300000"
+    },
+    {
+      "k7Lf0jTt": "84",
+      "xIRA58fC": "Dark Pursuit",
+      "8R5wDyXb": "bf097_abell.mp3",
+      "HSRhkf70": "20705",
+      "qp37xTDh": "Tune from the founding of the Elgaia Federation.",
+      "Rs7bCE3t": "150000"
+    },
+    {
+      "k7Lf0jTt": "85",
+      "xIRA58fC": "Snowy Winds",
+      "8R5wDyXb": "bf098_map_viransil_1st.mp3",
+      "HSRhkf70": "21000",
+      "qp37xTDh": "Traditional tune from a frozen world.",
+      "Rs7bCE3t": "190000"
+    },
+    {
+      "k7Lf0jTt": "86",
+      "xIRA58fC": "Moonlit Ice",
+      "8R5wDyXb": "bf099_map_viransil_fin.mp3",
+      "HSRhkf70": "21070",
+      "qp37xTDh": "Final vision-inspired tune by a dying composer.",
+      "Rs7bCE3t": "210000"
+    },
+    {
+      "k7Lf0jTt": "87",
+      "xIRA58fC": "Samurai Honor",
+      "8R5wDyXb": "bf104_Scenario3_1st.mp3",
+      "HSRhkf70": "22000",
+      "qp37xTDh": "A song extolling the fabled samurai honor.",
+      "Rs7bCE3t": "200000"
+    },
+    {
+      "k7Lf0jTt": "88",
+      "xIRA58fC": "Stability",
+      "8R5wDyXb": "bf105_Scenario3_fin.mp3",
+      "HSRhkf70": "22000",
+      "qp37xTDh": "A song of unique, otherworldly beauty.",
+      "Rs7bCE3t": "200000"
+    },
+    {
+      "k7Lf0jTt": "89",
+      "xIRA58fC": "Blending",
+      "8R5wDyXb": "bf112_Scenario3_fin02.mp3",
+      "HSRhkf70": "22070",
+      "qp37xTDh": "A song inspired by otherworldly music.",
+      "Rs7bCE3t": "240000"
+    },
+    {
+      "k7Lf0jTt": "90",
+      "xIRA58fC": "Rough Lands",
+      "8R5wDyXb": "bf107_Scenario4_1st.mp3",
+      "HSRhkf70": "23000",
+      "qp37xTDh": "A song for forbidding otherworldly lands.",
+      "Rs7bCE3t": "210000"
+    },
+    {
+      "k7Lf0jTt": "91",
+      "xIRA58fC": "Patrol Beat",
+      "8R5wDyXb": "bf109_Scenario4_Rokkzalm.mp3",
+      "HSRhkf70": "23013",
+      "qp37xTDh": "A song based on the magical puppets' rhythms.",
+      "Rs7bCE3t": "220000"
+    },
+    {
+      "k7Lf0jTt": "92",
+      "xIRA58fC": "Source Hall",
+      "8R5wDyXb": "bf108_Scenario4_fin.mp3",
+      "HSRhkf70": "23070",
+      "qp37xTDh": "A music Sphere found at another world's heart.",
+      "Rs7bCE3t": "240000"
+    },
+    {
+      "k7Lf0jTt": "93",
+      "xIRA58fC": "A Prank",
+      "8R5wDyXb": "bf0401_Aprilfool2017_01.mp3",
+      "HSRhkf70": "22000",
+      "qp37xTDh": "A melody someone has added changes to for fun.",
+      "Rs7bCE3t": "174100"
+    },
+    {
+      "k7Lf0jTt": "94",
+      "xIRA58fC": "Good Old Town",
+      "8R5wDyXb": "bf0401_Aprilfool2017_02.mp3",
+      "HSRhkf70": "22000",
+      "qp37xTDh": "Music performed where adventurers once gathered.",
+      "Rs7bCE3t": "174100"
+    },
+    {
+      "k7Lf0jTt": "95",
+      "xIRA58fC": "Battle Spirit",
+      "8R5wDyXb": "bf111_Scenario5_lanas.mp3",
+      "HSRhkf70": "24053",
+      "qp37xTDh": "A rousing song used to instill hope.",
+      "Rs7bCE3t": "210000"
+    },
+    {
+      "k7Lf0jTt": "96",
+      "xIRA58fC": "Dragon's Roar",
+      "8R5wDyXb": "bf110_Scenario5_fin.mp3",
+      "HSRhkf70": "24070",
+      "qp37xTDh": "Music for the authority of the Divine Dragon.",
+      "Rs7bCE3t": "250000"
+    },
+    {
+      "k7Lf0jTt": "97",
+      "xIRA58fC": "Pulse",
+      "8R5wDyXb": "bf115_Scenario5_script.mp3",
+      "HSRhkf70": "24080",
+      "qp37xTDh": "A song sent by a god to a friend.",
+      "Rs7bCE3t": "72000"
+    },
+    {
+      "k7Lf0jTt": "98",
+      "xIRA58fC": "Roaring Soul",
+      "8R5wDyXb": "bf100_shinshiren.mp3",
+      "HSRhkf70": "2100003",
+      "qp37xTDh": "A modern take on a lost fragment of a song.",
+      "Rs7bCE3t": "150000"
+    },
+    {
+      "k7Lf0jTt": "99",
+      "xIRA58fC": "To Comrades",
+      "8R5wDyXb": "bf101_multi_lobi.mp3",
+      "HSRhkf70": "661",
+      "qp37xTDh": "Modern mix of a popular old marching tune.",
+      "Rs7bCE3t": "67800"
+    },
+    {
+      "k7Lf0jTt": "100",
+      "xIRA58fC": "Tremors",
+      "8R5wDyXb": "bf102_multi_ready.mp3",
+      "HSRhkf70": "970",
+      "qp37xTDh": "Captures the pre-battle tension in music.",
+      "Rs7bCE3t": "100000"
+    },
+    {
+      "k7Lf0jTt": "101",
+      "xIRA58fC": "Strike! Break!",
+      "8R5wDyXb": "bf103_multi_battle01.mp3",
+      "HSRhkf70": "1370",
+      "qp37xTDh": "A song found on an old Grand Gaian battlefield.",
+      "Rs7bCE3t": "130000"
+    },
+    {
+      "k7Lf0jTt": "102",
+      "xIRA58fC": "Smash Shot",
+      "8R5wDyXb": "bf091_smashshot_1.mp3",
+      "HSRhkf70": "90",
+      "qp37xTDh": "A popular tune at a hot Randall stadium.",
+      "Rs7bCE3t": "1000"
+    },
+    {
+      "k7Lf0jTt": "103",
+      "xIRA58fC": "Smash Shot Mix",
+      "8R5wDyXb": "bf092_smashshot_2.mp3",
+      "HSRhkf70": "20070",
+      "qp37xTDh": "A powerful stadium tune with rich arrangement!",
+      "Rs7bCE3t": "2000"
+    },
+    {
+      "k7Lf0jTt": "104",
+      "xIRA58fC": "Smash Shot 3rd",
+      "8R5wDyXb": "bf093_smashshot_3.mp3",
+      "HSRhkf70": "570",
+      "qp37xTDh": "This remix may be taking it too far...",
+      "Rs7bCE3t": "3000"
+    },
+    {
+      "k7Lf0jTt": "105",
+      "xIRA58fC": "SPEED RUSH",
+      "8R5wDyXb": "bf094_speedrush.mp3",
+      "HSRhkf70": "780",
+      "qp37xTDh": "A legendary doctor's song for traditional games.",
+      "Rs7bCE3t": "7500"
+    },
+    {
+      "k7Lf0jTt": "106",
+      "xIRA58fC": "Promised Fun",
+      "8R5wDyXb": "bf106_Shougatsu2.mp3",
+      "HSRhkf70": "25000",
+      "qp37xTDh": "Otherworldly redux of an adventurer village.",
+      "Rs7bCE3t": "174100"
+    },
+    {
+      "k7Lf0jTt": "107",
+      "xIRA58fC": "Future Resolve",
+      "8R5wDyXb": "bf113_Scenario5_bs1.mp3",
+      "HSRhkf70": "25053",
+      "qp37xTDh": "Song for heroes with resolve, facing trials.",
+      "Rs7bCE3t": "260000"
+    },
+    {
+      "k7Lf0jTt": "108",
+      "xIRA58fC": "Dead God's Law",
+      "8R5wDyXb": "bf114_Scenario5_bs2.mp3",
+      "HSRhkf70": "2100007",
+      "qp37xTDh": "Forbidden track expressing awe for a lost god.",
+      "Rs7bCE3t": "200000"
+    }
+  ]
+}

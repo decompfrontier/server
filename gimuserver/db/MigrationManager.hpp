@@ -1,17 +1,22 @@
 #pragma once
 
-#include "IMigration.hpp"
+#include <drogon/orm/DbClient.h>
 
-class MigrationManager
+/*!
+* Simple class to create database classes without a mapper. (The mapper wasn't used because it didn't seem like to support sqlite)
+*/
+class MigrationManager final : public trantor::NonCopyable
 {
 public:
-	MigrationManager();
+	/*!
+	* Runs the migrations before the system starts up.
+	* @param[in] p Drogon database client
+	*/
+	static void RunMigrations(drogon::orm::DbClientPtr p);
 
-	void RunMigrations(drogon::orm::DbClientPtr p);
-
-protected:
-	void Register();
-	void CreateGetMigrationStatus(drogon::orm::DbClientPtr db, std::vector<std::string>& hashes);
-
-	std::vector<std::shared_ptr<IMigration>> m_migs;
+private:
+	/*!
+	* Private constructor.
+	*/
+	MigrationManager() = default;
 };

@@ -1,0 +1,1187 @@
+{
+  "KeC10fuL": [
+    {
+      "moWQ30GH": "M_LEVEL_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "19",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_GACHA_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "952",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_DEFINE_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "395",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_UNIT_EXP_PATTERN_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "10",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_TROPHY_GRADE_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "21",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_TROPHY_GROUP_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "22",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_TROPHY_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "25",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_RECIPE_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "163",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_INFORMATION_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "33",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_TOWN_FACILITY_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "69",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_TOWN_FACILITY_LV_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "169",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_TOWN_LOCATION_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "21",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_TOWN_LOCATION_LV_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "21",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_HELP_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "58",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_HELP_SUB_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "56",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_ARENA_RANK_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "25",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_SOUND_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "23",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_NPC_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "19",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_GACHA_EFFECT_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "2736",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_URL_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "123",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_HR_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "72",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_MISSION_ITEM_SET_MST",
+      "e3QNsuZ8": "Mission Item Set",
+      "d2RFtP8T": "67",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_MISSION_GRADE_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "67",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_MISSION_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "84",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_MISSION_REWARD_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "84",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "289",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_MVP_RANKING_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "67",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "M_FROHUN_RANKING_REWARD_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "90",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_GATE_MST",
+      "e3QNsuZ8": "F_GATE_MST",
+      "d2RFtP8T": "95",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "5"
+    },
+    {
+      "moWQ30GH": "F_LAND_MST",
+      "e3QNsuZ8": "Trial Mission Table",
+      "d2RFtP8T": "147",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "26"
+    },
+    {
+      "moWQ30GH": "F_AREA_MST",
+      "e3QNsuZ8": "Trial Mission Table",
+      "d2RFtP8T": "669",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "411"
+    },
+    {
+      "moWQ30GH": "F_DUNGEON_MST",
+      "e3QNsuZ8": "Trial Mission Table",
+      "d2RFtP8T": "1002",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1532"
+    },
+    {
+      "moWQ30GH": "F_RAID_WORLD_MST",
+      "e3QNsuZ8": "F_RAID_WORLD_MST",
+      "d2RFtP8T": "12",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1"
+    },
+    {
+      "moWQ30GH": "F_RAID_MAP_MST",
+      "e3QNsuZ8": "F_RAID_MAP_MST",
+      "d2RFtP8T": "54",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "44"
+    },
+    {
+      "moWQ30GH": "F_RAID_POINT_MST",
+      "e3QNsuZ8": "F_RAID_POINT_MST",
+      "d2RFtP8T": "57",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "344"
+    },
+    {
+      "moWQ30GH": "F_RAID_USER_ROUTE_MST",
+      "e3QNsuZ8": "F_RAID_USER_ROUTE_MST",
+      "d2RFtP8T": "56",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "4135"
+    },
+    {
+      "moWQ30GH": "F_RAID_BOSS_ROUTE_MST",
+      "e3QNsuZ8": "F_RAID_BOSS_ROUTE_MST",
+      "d2RFtP8T": "45",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "347"
+    },
+    {
+      "moWQ30GH": "F_RAID_BOSS_MST",
+      "e3QNsuZ8": "F_RAID_BOSS_MST",
+      "d2RFtP8T": "76",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "287"
+    },
+    {
+      "moWQ30GH": "F_RAID_MISSION_MST",
+      "e3QNsuZ8": "F_RAID_MISSION_MST",
+      "d2RFtP8T": "396",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "154"
+    },
+    {
+      "moWQ30GH": "F_RAID_BATTLE_GROUP_MST",
+      "e3QNsuZ8": "F_RAID_BATTLE_GROUP_MST",
+      "d2RFtP8T": "52",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "11121"
+    },
+    {
+      "moWQ30GH": "F_RAID_PLAYSTYLE_MST",
+      "e3QNsuZ8": "F_RAID_PLAYSTYLE_MST",
+      "d2RFtP8T": "6",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_RAID_RC_MST",
+      "e3QNsuZ8": "F_RAID_RC_MST",
+      "d2RFtP8T": "11",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_RAID_MISSION_POINT_MST",
+      "e3QNsuZ8": "F_RAID_MISSION_POINT_MST",
+      "d2RFtP8T": "77",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1378"
+    },
+    {
+      "moWQ30GH": "F_RAID_MISSION_CLEAR_CND_MST",
+      "e3QNsuZ8": "F_RAID_MISSION_CLEAR_CND_MST",
+      "d2RFtP8T": "71",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "235"
+    },
+    {
+      "moWQ30GH": "F_STAMP_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "8",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "100"
+    },
+    {
+      "moWQ30GH": "F_STAMP_SET_MST",
+      "e3QNsuZ8": "F_STAMP_SET_MST",
+      "d2RFtP8T": "10",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_RAID_BOSS_PARTS_MST",
+      "e3QNsuZ8": "F_RAID_BOSS_PARTS_MST",
+      "d2RFtP8T": "78",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "865"
+    },
+    {
+      "moWQ30GH": "F_RAID_MISSION_BOSS_MST",
+      "e3QNsuZ8": "F_RAID_MISSION_BOSS_MST",
+      "d2RFtP8T": "68",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "264"
+    },
+    {
+      "moWQ30GH": "F_SCENARIO_CATEGORY_MST",
+      "e3QNsuZ8": "F_SCENARIO_CATEGORY_MST",
+      "d2RFtP8T": "189",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "119"
+    },
+    {
+      "moWQ30GH": "F_SCENARIO_MST",
+      "e3QNsuZ8": "F_SCENARIO_MST",
+      "d2RFtP8T": "308",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1348"
+    },
+    {
+      "moWQ30GH": "F_CHRONOLOGY_PERIOD_MST",
+      "e3QNsuZ8": "F_CHRONOLOGY_PERIOD_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CHRONOLOGY_MST",
+      "e3QNsuZ8": "F_CHRONOLOGY_MST",
+      "d2RFtP8T": "3",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CHRONOLOGY_DETAIL_MST",
+      "e3QNsuZ8": "F_CHRONOLOGY_DETAIL_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CHRONOLOGY_WORD_MST",
+      "e3QNsuZ8": "F_CHRONOLOGY_WORD_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_FROGATE_MST",
+      "e3QNsuZ8": "F_FROGATE_MST",
+      "d2RFtP8T": "562",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "94"
+    },
+    {
+      "moWQ30GH": "F_FROGATE_REWARD_MST",
+      "e3QNsuZ8": "F_FROGATE_REWARD_MST",
+      "d2RFtP8T": "315",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1452"
+    },
+    {
+      "moWQ30GH": "F_FROGATE_SUPPORT_MST",
+      "e3QNsuZ8": "F_FROGATE_SUPPORT_MST",
+      "d2RFtP8T": "153",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "61"
+    },
+    {
+      "moWQ30GH": "F_FROGATE_AREA_MST",
+      "e3QNsuZ8": "F_FROGATE_AREA_MST",
+      "d2RFtP8T": "135",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "3"
+    },
+    {
+      "moWQ30GH": "F_MISSION_NPC_UNIT_MST",
+      "e3QNsuZ8": "F_MISSION_NPC_UNIT_MST",
+      "d2RFtP8T": "212",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "228"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_MST",
+      "d2RFtP8T": "127",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "26"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_END_CND_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_END_CND_MST",
+      "d2RFtP8T": "55",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "46"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_FLG_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_FLG_MST",
+      "d2RFtP8T": "102",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1420"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_REWARD_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_REWARD_MST",
+      "d2RFtP8T": "108",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "371"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_MAP_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_MAP_MST",
+      "d2RFtP8T": "67",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "28"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_SPOT_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_SPOT_MST",
+      "d2RFtP8T": "92",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "325"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_ROUTE_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_ROUTE_MST",
+      "d2RFtP8T": "92",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "357"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_ICON_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_ICON_MST",
+      "d2RFtP8T": "53",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "118"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_TREASURE_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_TREASURE_MST",
+      "d2RFtP8T": "43",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "30"
+    },
+    {
+      "moWQ30GH": "F_GRAND_MISSION_EVENT_MST",
+      "e3QNsuZ8": "F_GRAND_MISSION_EVENT_MST",
+      "d2RFtP8T": "155",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "965"
+    },
+    {
+      "moWQ30GH": "F_ACHIEVEMENT_SUBJECT_MST",
+      "e3QNsuZ8": "F_ACHIEVEMENT_SUBJECT_MST",
+      "d2RFtP8T": "503",
+      "H6k1LIxC": "3",
+      "5kbnkTp0": "15173"
+    },
+    {
+      "moWQ30GH": "F_ACHIEVEMENT_TRADE_MST",
+      "e3QNsuZ8": "F_ACHIEVEMENT_TRADE_MST",
+      "d2RFtP8T": "432",
+      "H6k1LIxC": "4",
+      "5kbnkTp0": "32500"
+    },
+    {
+      "moWQ30GH": "F_ACHIEVEMENT_DELIVER_RATE_MST",
+      "e3QNsuZ8": "F_ACHIEVEMENT_DELIVER_RATE_MST",
+      "d2RFtP8T": "18",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "53"
+    },
+    {
+      "moWQ30GH": "F_COLOSSEUM_CLASS_MST",
+      "e3QNsuZ8": "F_COLOSSEUM_CLASS_MST",
+      "d2RFtP8T": "8",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "4"
+    },
+    {
+      "moWQ30GH": "F_COLOSSEUM_EXTRA_RULE_MST",
+      "e3QNsuZ8": "F_COLOSSEUM_EXTRA_RULE_MST",
+      "d2RFtP8T": "3",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "16"
+    },
+    {
+      "moWQ30GH": "F_COLOSSEUM_FORMATION_MST",
+      "e3QNsuZ8": "F_COLOSSEUM_FORMATION_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_COLOSSEUM_SUPPORT_MST",
+      "e3QNsuZ8": "F_COLOSSEUM_SUPPORT_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "4"
+    },
+    {
+      "moWQ30GH": "F_UNIT_FE_CATEGORY_MST",
+      "e3QNsuZ8": "F_UNIT_FE_CATEGORY_MST",
+      "d2RFtP8T": "543",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "2041"
+    },
+    {
+      "moWQ30GH": "F_UNIT_FE_SKILL_MST",
+      "e3QNsuZ8": "F_UNIT_FE_SKILL_MST",
+      "d2RFtP8T": "598",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "5124"
+    },
+    {
+      "moWQ30GH": "F_FE_SKILL_MST",
+      "e3QNsuZ8": "F_FE_SKILL_MST",
+      "d2RFtP8T": "618",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "2899"
+    },
+    {
+      "moWQ30GH": "F_SU_ARM_MST",
+      "e3QNsuZ8": "F_SU_ARM_MST",
+      "d2RFtP8T": "16",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "23"
+    },
+    {
+      "moWQ30GH": "F_SU_ABILITY_MST",
+      "e3QNsuZ8": "F_SU_ABILITY_MST",
+      "d2RFtP8T": "25",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "18"
+    },
+    {
+      "moWQ30GH": "F_SU_ABILITY_LEVEL_MST",
+      "e3QNsuZ8": "F_SU_ABILITY_LEVEL_MST",
+      "d2RFtP8T": "29",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "389"
+    },
+    {
+      "moWQ30GH": "F_SU_ABILITY_UP_MST",
+      "e3QNsuZ8": "F_SU_ABILITY_UP_MST",
+      "d2RFtP8T": "19",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "668"
+    },
+    {
+      "moWQ30GH": "F_SU_IMG_MST",
+      "e3QNsuZ8": "F_SU_IMG_MST",
+      "d2RFtP8T": "15",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "828"
+    },
+    {
+      "moWQ30GH": "F_SU_ARM_LEVEL_MST",
+      "e3QNsuZ8": "F_SU_ARM_LEVEL_MST",
+      "d2RFtP8T": "19",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1440"
+    },
+    {
+      "moWQ30GH": "F_SU_ARM_ELEMENT_MST",
+      "e3QNsuZ8": "F_SU_ARM_ELEMENT_MST",
+      "d2RFtP8T": "16",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "276"
+    },
+    {
+      "moWQ30GH": "F_SU_ARM_PASSIVE_MST",
+      "e3QNsuZ8": "F_SU_ARM_PASSIVE_MST",
+      "d2RFtP8T": "15",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "163"
+    },
+    {
+      "moWQ30GH": "F_SU_LEVEL_MST",
+      "e3QNsuZ8": "F_SU_LEVEL_MST",
+      "d2RFtP8T": "12",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "500"
+    },
+    {
+      "moWQ30GH": "F_SU_ELEMENT_LEVEL_MST",
+      "e3QNsuZ8": "F_SU_ELEMENT_LEVEL_MST",
+      "d2RFtP8T": "15",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "600"
+    },
+    {
+      "moWQ30GH": "F_MISSION_EP3_MST",
+      "e3QNsuZ8": "F_MISSION_EP3_MST",
+      "d2RFtP8T": "57",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "204"
+    },
+    {
+      "moWQ30GH": "F_UNIT_EP3_MST",
+      "e3QNsuZ8": "F_UNIT_EP3_MST",
+      "d2RFtP8T": "9",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "31"
+    },
+    {
+      "moWQ30GH": "F_SHOP_ITEM_MST",
+      "e3QNsuZ8": "F_SHOP_ITEM_MST",
+      "d2RFtP8T": "9",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "4"
+    },
+    {
+      "moWQ30GH": "F_SU_EX_SKILL_MST",
+      "e3QNsuZ8": "F_SU_EX_SKILL_MST",
+      "d2RFtP8T": "15",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "59"
+    },
+    {
+      "moWQ30GH": "M_DUNGEON_KEY_MST",
+      "e3QNsuZ8": "Dungeon Key",
+      "d2RFtP8T": "46",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_MONSTER_CGG",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "8",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_MONSTER_CGS",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "8",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_MONSTER_IMG",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "9",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_UNIT_CGG",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "27",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_UNIT_CGS",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "25",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_UNIT_IMG",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "38",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_SYSTEM_RES",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "11",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_GACHA_BG_IMG",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "13",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_EVENT_FILE",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_SAM",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "38",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_SOUND",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "11",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_PARTICLE",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "7",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CDN",
+      "e3QNsuZ8": "CDN Version",
+      "d2RFtP8T": "132",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_UNIT_MST",
+      "e3QNsuZ8": "Unit Table",
+      "d2RFtP8T": "1084",
+      "H6k1LIxC": "2",
+      "5kbnkTp0": "2291"
+    },
+    {
+      "moWQ30GH": "F_UNIT_COMMENT_MST",
+      "e3QNsuZ8": "Unit Comment Table",
+      "d2RFtP8T": "705",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "2282"
+    },
+    {
+      "moWQ30GH": "F_UNIT_EVO_MST",
+      "e3QNsuZ8": "Unit Evo",
+      "d2RFtP8T": "597",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1342"
+    },
+    {
+      "moWQ30GH": "F_UNIT_EVO_CATALYST_COMMENT_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "139",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "125"
+    },
+    {
+      "moWQ30GH": "F_UNIT_EXT_MST",
+      "e3QNsuZ8": "F_UNIT_EXT_MST",
+      "d2RFtP8T": "11",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "8"
+    },
+    {
+      "moWQ30GH": "F_UNIT_CGS_MST",
+      "e3QNsuZ8": "Unit CGS",
+      "d2RFtP8T": "811",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "2292"
+    },
+    {
+      "moWQ30GH": "F_UNIT_TYPE_MST",
+      "e3QNsuZ8": "Unit Type",
+      "d2RFtP8T": "52",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_MISSION_MST",
+      "e3QNsuZ8": "Mission Table",
+      "d2RFtP8T": "1118",
+      "H6k1LIxC": "2",
+      "5kbnkTp0": "3433"
+    },
+    {
+      "moWQ30GH": "F_SKILL_MST",
+      "e3QNsuZ8": "Skill Table",
+      "d2RFtP8T": "1535",
+      "H6k1LIxC": "9",
+      "5kbnkTp0": "33381"
+    },
+    {
+      "moWQ30GH": "F_SKILL_LEVEL_MST",
+      "e3QNsuZ8": "Skill Level Table",
+      "d2RFtP8T": "1487",
+      "H6k1LIxC": "4",
+      "5kbnkTp0": "33381"
+    },
+    {
+      "moWQ30GH": "F_EXTRA_PASSIVE_SKILL_MST",
+      "e3QNsuZ8": "F_EXTRA_PASSIVE_SKILL_MST",
+      "d2RFtP8T": "770",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1560"
+    },
+    {
+      "moWQ30GH": "F_RESOURCE_MST",
+      "e3QNsuZ8": "Resource Table",
+      "d2RFtP8T": "3275",
+      "H6k1LIxC": "2",
+      "5kbnkTp0": "49342"
+    },
+    {
+      "moWQ30GH": "F_ITEM_MST",
+      "e3QNsuZ8": "Item Table",
+      "d2RFtP8T": "1027",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1668"
+    },
+    {
+      "moWQ30GH": "F_RECIPE_MST",
+      "e3QNsuZ8": "Recipe Table",
+      "d2RFtP8T": "345",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "617"
+    },
+    {
+      "moWQ30GH": "F_EFFECT_MST",
+      "e3QNsuZ8": "Effect table",
+      "d2RFtP8T": "583",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "8557"
+    },
+    {
+      "moWQ30GH": "F_EFFECT_GROUP_MST",
+      "e3QNsuZ8": "Effect Group Table",
+      "d2RFtP8T": "608",
+      "H6k1LIxC": "2",
+      "5kbnkTp0": "14290"
+    },
+    {
+      "moWQ30GH": "F_LEADER_SKILL_MST",
+      "e3QNsuZ8": "Leader Skill Table",
+      "d2RFtP8T": "749",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "1812"
+    },
+    {
+      "moWQ30GH": "F_HELP_DETAIL_MST",
+      "e3QNsuZ8": "Help Detail Table",
+      "d2RFtP8T": "42",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "180"
+    },
+    {
+      "moWQ30GH": "F_MISSION_SCRIPT_MST",
+      "e3QNsuZ8": "Mission Script Table",
+      "d2RFtP8T": "288",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "228"
+    },
+    {
+      "moWQ30GH": "F_MEDAL_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "4",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CHLNG_MISSION_MST",
+      "e3QNsuZ8": "F_CHLNG_MISSION_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CHLNG_MISSION_GRADE_MST",
+      "e3QNsuZ8": "F_CHLNG_MISSION_GRADE_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CHLNG_MISSION_REWARD_MST",
+      "e3QNsuZ8": "F_CHLNG_MISSION_REWARD_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_CHLNG_MISSION_ITEM_SET_MST",
+      "e3QNsuZ8": "F_CHLNG_MISSION_ITEM_SET_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_TRIAL_MISSION_MST",
+      "e3QNsuZ8": "Trial Mission Table",
+      "d2RFtP8T": "72",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "34"
+    },
+    {
+      "moWQ30GH": "F_BANNER_INFO_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "87",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "32"
+    },
+    {
+      "moWQ30GH": "F_RELOAD_FILE_MST",
+      "e3QNsuZ8": "RELOAD FILE",
+      "d2RFtP8T": "779",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "562"
+    },
+    {
+      "moWQ30GH": "F_ARENA_EXTRA_RULE_MST",
+      "e3QNsuZ8": "F_ARENA_EXTRA_RULE_MST",
+      "d2RFtP8T": "4",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "15"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_DEFINE_MST",
+      "e3QNsuZ8": "F_MINIGAME_DEFINE_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "31"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_RESOURCE_MST",
+      "e3QNsuZ8": "F_MINIGAME_RESOURCE_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "294"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_BRAVESMASH_LEVEL_MST",
+      "e3QNsuZ8": "F_MINIGAME_BRAVESMASH_LEVEL_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "3"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_BRAVESMASH_MONSTER_GROUP_MST",
+      "e3QNsuZ8": "F_MINIGAME_BRAVESMASH_MONSTER_GROUP_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "28"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_BRAVESMASH_MONSTER_MST",
+      "e3QNsuZ8": "F_MINIGAME_BRAVESMASH_MONSTER_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "9"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_BRAVESMASH_PARTY_DECK_MST",
+      "e3QNsuZ8": "F_MINIGAME_BRAVESMASH_PARTY_DECK_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_BRAVESMASH_POSITION_MST",
+      "e3QNsuZ8": "F_MINIGAME_BRAVESMASH_POSITION_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_SPEEDRUSH_BONUS_MST",
+      "e3QNsuZ8": "F_MINIGAME_SPEEDRUSH_BONUS_MST",
+      "d2RFtP8T": "4",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "2"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_SPEEDRUSH_MONSTER_APPEAR_MST",
+      "e3QNsuZ8": "F_MINIGAME_SPEEDRUSH_MONSTER_APPEAR_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "126"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_SPEEDRUSH_MONSTER_GROUP_MST",
+      "e3QNsuZ8": "F_MINIGAME_SPEEDRUSH_MONSTER_GROUP_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "306"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_SPEEDRUSH_MONSTER_MST",
+      "e3QNsuZ8": "F_MINIGAME_SPEEDRUSH_MONSTER_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "25"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_SPEEDRUSH_PARTY_DECK_MST",
+      "e3QNsuZ8": "F_MINIGAME_SPEEDRUSH_PARTY_DECK_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "6"
+    },
+    {
+      "moWQ30GH": "F_MINIGAME_SPEEDRUSH_ROLE_MST",
+      "e3QNsuZ8": "F_MINIGAME_SPEEDRUSH_ROLE_MST",
+      "d2RFtP8T": "1",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "94"
+    },
+    {
+      "moWQ30GH": "F_PURCHASE_AGE_LIMIT_MST",
+      "e3QNsuZ8": "F_PURCHASE_AGE_LIMIT_MST",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "0"
+    },
+    {
+      "moWQ30GH": "F_FUNCTION_RELEASE_MST",
+      "e3QNsuZ8": "F_FUNCTION_RELEASE_MST",
+      "d2RFtP8T": "10",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "12"
+    },
+    {
+      "moWQ30GH": "F_RESOURCE_BASE_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "24",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "2744"
+    },
+    {
+      "moWQ30GH": "F_GUILD_ART_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "6",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "19"
+    },
+    {
+      "moWQ30GH": "F_GUILD_INFO_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "6",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "180"
+    },
+    {
+      "moWQ30GH": "F_GUILD_POINT_EXCHANGE_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "233",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "8784"
+    },
+    {
+      "moWQ30GH": "F_GUILD_SKILL_DETAILS_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "13",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "80"
+    },
+    {
+      "moWQ30GH": "F_GUILD_SKILL_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "2",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "4"
+    },
+    {
+      "moWQ30GH": "F_UNIT_EVO_OMNI_MST",
+      "e3QNsuZ8": "F_UNIT_EVO_OMNI_MST",
+      "d2RFtP8T": "94",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "18"
+    },
+    {
+      "moWQ30GH": "F_UNIT_EVO_OMNI_TYPE_MST",
+      "e3QNsuZ8": "F_UNIT_EVO_OMNI_TYPE_MST",
+      "d2RFtP8T": "95",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "36"
+    },
+    {
+      "moWQ30GH": "F_UNIT_EVO_OMNI_RECIPE_MST",
+      "e3QNsuZ8": "F_UNIT_EVO_OMNI_RECIPE_MST",
+      "d2RFtP8T": "95",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "70"
+    },
+    {
+      "moWQ30GH": "F_PVP_FIXED_SETTINGS_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "72",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "3"
+    },
+    {
+      "moWQ30GH": "F_FGPLUS_ELEMENTAL_LOCK_MST",
+      "e3QNsuZ8": "F_FGPLUS_ELEMENTAL_LOCK_MST",
+      "d2RFtP8T": "15",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "8"
+    },
+    {
+      "moWQ30GH": "F_DBB_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "136",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "141"
+    },
+    {
+      "moWQ30GH": "F_RAID_ELEMENTAL_LOCK_MST",
+      "e3QNsuZ8": "F_RAID_ELEMENTAL_LOCK_MST",
+      "d2RFtP8T": "22",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "23"
+    },
+    {
+      "moWQ30GH": "F_DBB_BOND_RECIPE_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "10",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "105"
+    },
+    {
+      "moWQ30GH": "F_GACHA_CATEGORY_MST",
+      "e3QNsuZ8": "F_GACHA_CATEGORY_MST",
+      "d2RFtP8T": "503",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "380"
+    },
+    {
+      "moWQ30GH": "F_ET_MISSION_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "176",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "460"
+    },
+    {
+      "moWQ30GH": "F_SG_DAILYLOGIN_REWARDS_MST",
+      "e3QNsuZ8": "",
+      "d2RFtP8T": "14",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "192"
+    },
+    {
+      "moWQ30GH": "F_UNIT_SELECTOR_GACHA_TICKET_MST",
+      "e3QNsuZ8": "F_UNIT_SELECTOR_GACHA_TICKET_MST",
+      "d2RFtP8T": "106",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "16"
+    },
+    {
+      "moWQ30GH": "F_SG_UNIT_TYPE_BONUS_SKILL_MST",
+      "e3QNsuZ8": "F_SG_UNIT_TYPE_BONUS_SKILL_MST",
+      "d2RFtP8T": "19",
+      "H6k1LIxC": "1",
+      "5kbnkTp0": "24"
+    }
+  ]
+}
