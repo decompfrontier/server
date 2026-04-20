@@ -16,7 +16,7 @@
         {
             "name": "default-debug",
             "displayName": "Config Debug",
-            "description": "General default debug configuration",
+            "description": "General default debug configuration (single-config generators only)",
             "inherits": "default-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -26,7 +26,7 @@
         {
             "name": "default-release",
             "displayName": "Config Release",
-            "description": "General default release configuration",
+            "description": "General default release configuration (single-config generators only)",
             "inherits": "default-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
@@ -35,10 +35,11 @@
         },
         {
             "name": "debug-win64",
-            "displayName": "Development config for Windows (64-bit)",
-            "inherits": "default-debug",
-            "generator": "Visual Studio 17 2022",
-            "architecture": "x64",
+            "displayName": "Development config for Windows (Ninja Multi-Config)",
+            "description": "Multi-config (Debug + Release) build for Windows x64. Must be run from an x64 Native Tools environment (VsDevCmd.bat -arch=amd64 -host_arch=amd64) so the x64-hosted cl.exe is on PATH. Do NOT set CMAKE_C/CXX_COMPILER here — let CMake find the compiler from the environment so it inherits the correct host/target architecture.",
+            "inherits": "default-base",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -78,10 +79,15 @@
         },
         {
             "name": "release-win32",
-            "displayName": "Deployment for Brave Frontier for Windows",
-            "inherits": "default-release",
-            "generator": "Visual Studio 17 2022",
-            "architecture": "x64",
+            "displayName": "Deployment for Brave Frontier for Windows (APPX)",
+            "description": "Multi-config build producing the APPX-embedded server. Requires running from a Developer Command Prompt for Visual Studio.",
+            "inherits": "default-base",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
             "condition": {
                 "type": "equals",
                 "lhs": "${hostSystemName}",
@@ -97,6 +103,32 @@
                     "value": "x86-windows-static"
                 }
             }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug-win64-debug",
+            "configurePreset": "debug-win64",
+            "configuration": "Debug"
+        },
+        {
+            "name": "debug-win64-release",
+            "configurePreset": "debug-win64",
+            "configuration": "Release"
+        },
+        {
+            "name": "release-win32-debug",
+            "configurePreset": "release-win32",
+            "configuration": "Debug"
+        },
+        {
+            "name": "release-win32-release",
+            "configurePreset": "release-win32",
+            "configuration": "Release"
+        },
+        {
+            "name": "debug-lnx64",
+            "configurePreset": "debug-lnx64"
         }
     ]
 }
