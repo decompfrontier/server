@@ -50,6 +50,14 @@ public:
 	*/
 	inline const auto& serverConfig() const { return m_serverConfig; }
 
+	/*!
+	* Unit master data (F_UNIT_MST). Empty until deploy/system/unit.json
+	* (hashed-key format, wrapper key "2r9cNSdt") is added and the loader
+	* in ServerCache::Setup is uncommented.
+	* @return Vector of UnitMst entries
+	*/
+	inline const auto& unitMst() const { return m_unitMst; }
+
 private:
 	/*!
 	* DLS cached JSON.
@@ -80,4 +88,9 @@ private:
 	* User info response.
 	*/
 	UserInfoResp m_userrsp;
+
+	/*!
+	* Unit master data, keyed/iterated by Unit handler ports.
+	*/
+	std::vector<UnitMst> m_unitMst;
 };

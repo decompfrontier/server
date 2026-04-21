@@ -1,9 +1,10 @@
 #include "App.hpp"
 #include "MigrationManager.hpp"
 
-using MigrationMap = std::unordered_map<std::string, std::function<void(drogon::orm::DbClientPtr& db)>>;
+using MigrationEntry = std::pair<std::string, std::function<void(drogon::orm::DbClientPtr&)>>;
+using MigrationMap = std::vector<MigrationEntry>;
 
-#define migrate(name, func) map.insert_or_assign(name, [](drogon::orm::DbClientPtr& p) func )
+#define migrate(name, func) map.emplace_back(name, [](drogon::orm::DbClientPtr& p) func )
 
 /*!
 * Register all the available migrations
@@ -49,17 +50,67 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
-#if 0
 	migrate("08032025_CreateUserUnitsTable", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_units ("
-			"id INTEGER PRIMARY KEY AUTOINCREMENT," // Add: Auto-incrementing primary key as per PR comment
-			"user_id TEXT NOT NULL," // Keep: Links unit to a user
-			"unit_id TEXT NOT NULL" // Keep: Stores the unit identifier
+			"id INTEGER PRIMARY KEY AUTOINCREMENT,"
+			"user_id TEXT NOT NULL,"
+			"unit_id TEXT NOT NULL,"
+			"UNIQUE(user_id, unit_id)"
 			");"
 		);
+		// Bump AUTOINCREMENT to >= 10000; the client crashes on instance ids < ~10407.
+		p->execSqlSync(
+			"INSERT INTO user_units (id, user_id, unit_id) VALUES (10000, '__sentinel__', '__sentinel__');"
+		);
+		p->execSqlSync(
+			"DELETE FROM user_units WHERE user_id = '__sentinel__';"
+		);
 	});
-#endif
+
+	migrate("13032025_AddStatsToUserUnitsTable", {
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN unit_lv INTEGER DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN base_hp INTEGER DEFAULT 1000");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_hp INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN ext_hp INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_hp INTEGER DEFAULT 200");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN base_atk INTEGER DEFAULT 1000");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_atk INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN ext_atk INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_atk INTEGER DEFAULT 200");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN base_def INTEGER DEFAULT 1000");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_def INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN ext_def INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_def INTEGER DEFAULT 200");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN base_heal INTEGER DEFAULT 1000");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_heal INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN ext_heal INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_heal INTEGER DEFAULT 200");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN exp INTEGER DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN total_exp INTEGER DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN skill_id INTEGER DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN skill_lv INTEGER DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN extra_skill_id INTEGER DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN extra_skill_lv INTEGER DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN leader_skill_id INTEGER DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN element TEXT DEFAULT 'fire'");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN fe_bp INTEGER DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN fe_max_usable_bp INTEGER DEFAULT 200");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN unit_type_id INTEGER DEFAULT 1");
+	});
+
+	// Sphere equipment slots (UserUnitInfo: Ge8Yo32T/0R3qTPK9, mZA7fH2v/RXfC31FA).
+	migrate("09042026_AddSphereSlotsToUserUnits", {
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_id      INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_frame_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_id2      INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_frame_id2 INTEGER NOT NULL DEFAULT 0");
+	});
+
+	// Lock/favorite flag (UnitFavoriteRequest: req["3kcmQy7B"][0]["5JbjC3Pp"]).
+	migrate("14042026_AddFavoriteFlgToUserUnits", {
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN favorite_flg INTEGER NOT NULL DEFAULT 0");
+	});
 }
 
 /*!

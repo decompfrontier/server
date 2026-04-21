@@ -65,7 +65,17 @@ public:
         return log;
     }
 
+    /*!
+    * Seeds the default user's unit inventory from the cached UnitMst if the
+    * user has no rows in user_units yet. Must be called after migrations have
+    * run (i.e. from registerBeginningAdvice, not initAndStart). No-op if units
+    * already exist.
+    * @param db Synchronous DB client (from drogon::app().getDbClient())
+    */
+    void SeedDefaultUnits(drogon::orm::DbClientPtr db);
+
 private:
+
     /*!
     * DLC error file.
     */

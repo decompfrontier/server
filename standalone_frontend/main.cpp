@@ -37,7 +37,9 @@ int main(int argc, char** argv)
         drogon::app()
             .loadConfigFile(absConfig.filename().string())
             .registerBeginningAdvice([]() {
-                MigrationManager::RunMigrations(drogon::app().getDbClient());
+                auto db = drogon::app().getDbClient();
+                MigrationManager::RunMigrations(db);
+                drogon::app().getPlugin<GimuServer>()->SeedDefaultUnits(db);
             })
             .run();
     }

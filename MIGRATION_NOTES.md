@@ -16,15 +16,23 @@ If you are reverse-engineering a brand-new request from scratch, the old tree's 
 | **Registration** | `REGISTER_HANDLER(FooRequestHandler)` plus auto-registration | Single line in `gimuserver/gme/GmeControllerHandlers.cpp`: `REGISTER("<8-char ID>", FuncName, "<AES key>");` |
 | **Async DB** | Callback pyramids: `GME_DB->execSqlAsync(sql, succ_cb, err_cb, args...)` nested two or three deep | C++20 coroutines: linear `co_await`. No pyramid. |
 | **Crypto** | `BfCrypt::ReadGME` / `BfCrypt::BuildGME` | Same names, unchanged. |
-| **Handlers wired** | 288 | 10 (see list below) |
+| **Handlers wired** | 288 | 12 (see list below) |
 | **Response structs hand-coded** | 326 | 0 — all from KDL |
-| **MST container** | `gimuserver/system/MstConfig.hpp` with hand-typed structs (`UnitMstData`, `ItemMstEntry`, etc.) | `gimuserver/drogon/ServerCacheMst.hpp` with an `auto_cache(key, name)` macro; MST structs come from `packet-generator/assets/mst/*.kdl`. **`UnitMst` is not cached yet** — add it before porting any unit handler. |
+| **MST container** | `gimuserver/system/MstConfig.hpp` with hand-typed structs (`UnitMstData`, `ItemMstEntry`, etc.) | `gimuserver/drogon/ServerCacheMst.hpp` with an `auto_cache(key, name)` macro; MST structs come from `packet-generator/assets/mst/*.kdl`. **`UnitMst` is `auto_cache`d but not loaded** — the `LoadJson<UnitMstCache>` call in `ServerCache.cpp` is commented out pending a hashed-key `unit.json` source file (see "Outstanding blockers" below). |
 
 ### Handlers already ported
 
-`Initialize`, `BadgeInfo`, `ControlCenterEnter`, `DeckEdit`, `FriendGet`, `GatchaList`, `HomeInfo`, `MissionStart`, `UpdateInfoLight`, `UserInfo`.
+`Initialize`, `BadgeInfo`, `ControlCenterEnter`, `DeckEdit`, `FriendGet`, `GatchaList`, `HomeInfo`, `MissionStart`, `UpdateInfoLight`, `UserInfo`, `UnitFavorite`, `UnitEvo` (stub — see notes).
 
-Wired in `gimuserver/gme/GmeControllerHandlers.cpp:67-76`. Skip these when porting.
+Wired in `gimuserver/gme/GmeControllerHandlers.cpp`. Skip these when porting. `UnitEvo` is registered but currently returns `{}`; the real implementation is gated on `UnitMst` being loaded.
+
+### Database schema
+
+The `user_units` table is now created by `gimuserver/db/MigrationManager.cpp` migrations (previously `#if 0`'d out). Schema mirrors the old fork: base columns (`id`, `user_id`, `unit_id`), 28 stat columns (level, base/add/ext/limit_over for hp/atk/def/heal, exp, skill ids, element, fe_bp, unit_type_id), 4 sphere-equip slots, and `favorite_flg`. AUTOINCREMENT is bumped to ≥10000 via a sentinel insert/delete — the client crashes on instance ids below ~10407.
+
+### Outstanding blockers
+
+**Hashed-key `unit.json` MST file.** The new tree's `deploy/system/` does not contain a wire-format `unit.json` for `LoadJson<UnitMstCache>` to consume. The old fork ships friendly-key `F_UNIT_MST_*.json`; the field map for converting friendly → hashed lives in `packet-generator/assets/mst/unit.kdl`. Until this file is produced, `ServerCache::unitMst()` returns an empty vector and any handler that does an MST lookup (`UnitMix`, `UnitEvo` real impl, `UnitSell`) will silently no-op.
 
 ---
 
@@ -160,7 +168,7 @@ The language reference lives in the upstream packet-generator repo's HOWTO. What
 ## Porting order (big picture)
 
 1. **Dry-run: `UnitFavorite`.** Single DB column toggle, no formula math, tiny KDL. Validates the whole workflow before tackling anything larger.
-2. **Prerequisite: surface `UnitMst` in `ServerCacheMst`.** The `UnitMst` struct already exists in `packet-generator/assets/mst/unit.kdl` with `rarity`, `cost`, `sell_price`, etc., but `gimuserver/drogon/ServerCacheMst.hpp` does not yet `auto_cache` it. Add the entry and the file-loading path (mirror `GachaMst` in `gimuserver/drogon/ServerCache.cpp`).
+2. **Prerequisite: surface `UnitMst` in `ServerCacheMst`.** ✅ Partially done. `auto_cache("2r9cNSdt", UnitMst)` is wired in `ServerCacheMst.hpp` and the `unitMst()` getter exists in `ServerCache.hpp/.cpp`. The `LoadJson<UnitMstCache>(mstRoot, "unit.json")` line is **commented out** because no hashed-key `unit.json` exists in `deploy/system/`. Producing that file (friendly-key `F_UNIT_MST_*.json` → hashed wire format using the `unit.kdl` field map) is the gating task before any of the unit-math handlers below.
 3. **Unit verbs**, in this order: `UnitMix` → `UnitEvo` → `UnitSell`. Mix validates the XP-math translation; Evo reuses Mix infrastructure for DELETE; Sell is simplest but depends on `UnitMst.sell_price`, so do it last in the family.
 4. **Item verbs**: `ItemSphereEqp`, `ItemEdit`, `ItemSell`.
 5. **Mission / Campaign Start+End, Gift/Receipt.** Audit the new tree for a `UserState::clear` equivalent before porting — old code relied on that helper.

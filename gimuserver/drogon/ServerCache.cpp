@@ -122,6 +122,8 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_userrsp.summon_ticket_v2 = LoadJson<SummonTicketV2MstCache>(mstRoot, "summon_tickets_v2.json").data;
 		m_userrsp.resummon_gacha = LoadJson<ResummonGachaMstCache>(mstRoot, "resummon_gacha.json").data;
 
+		m_unitMst = LoadJson<UnitMstCache>(mstRoot, "unit.json").data;
+
 		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");
 		m_initrsp.daily_task_prizes = LoadJson<DailyTaskPrizeMstCache>(mstRoot, "TEMP_daily_tasks_prizes.json").data;

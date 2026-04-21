@@ -26,67 +26,91 @@ HANDLEF(UserInfo)
     resp.login_info.tutorial_status = 0;
     resp.login_info.feature_gate = 0;
 
-    UserTeamInfo team = {};
     resp.team_info.reinforcement_deck.emplace_back(0);
     resp.team_info.reinforcement_deck.emplace_back(0);
     resp.team_info.reinforcement_deck.emplace_back(0);
     resp.team_info.user_id = resp.login_info.user_id;
     resp.team_info.level = 1;
     resp.team_info.exp = 0;
-    resp.team_info.warehouse_count = 100;
-    resp.team_info.add_unit_count = 100;
-    resp.team_info.max_unit_count = 100;
+    resp.team_info.warehouse_count = 200;
+    resp.team_info.add_unit_count = 200;
+    resp.team_info.max_unit_count = 200;
 
+    // Load units from DB (seeded by GimuServer::SeedDefaultUnits on boot)
+    const auto& unitRows = co_await theDb()->execSqlCoro(
+        "SELECT id, unit_id, unit_lv,"
+        " base_hp,  add_hp,  ext_hp,  limit_over_hp,"
+        " base_atk, add_atk, ext_atk, limit_over_atk,"
+        " base_def, add_def, ext_def, limit_over_def,"
+        " base_heal,add_heal,ext_heal,limit_over_heal,"
+        " exp, total_exp,"
+        " skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
+        " element, fe_bp, fe_max_usable_bp, unit_type_id,"
+        " eqip_item_id, eqip_item_frame_id, eqip_item_id2, eqip_item_frame_id2"
+        " FROM user_units WHERE user_id=$1;",
+        resp.login_info.user_id
+    );
 
+    for (const auto& row : unitRows)
     {
         UserUnitInfo d = {};
-        d.user_id = resp.login_info.user_id;
-        d.user_unit_id = 100;
-        d.unit_type_id = 1;
-        d.element = "fire";
-        d.base_hp = 1000;
-        d.add_hp = 1001;
-        d.ext_hp = 1002;
-
-        d.base_def = 1100;
-        d.add_def = 1101;
-        d.ext_def = 1102;
-
-        d.base_heal = 1200;
-        d.add_heal = 1201;
-        d.ext_heal = 1202;
-
-        d.base_atk = 1300;
-        d.add_atk = 1301;
-        d.ext_atk = 1302;
-
-        d.limit_over_atk = 1400;
-        d.limit_over_def = 1401;
-        d.limit_over_heal = 1402;
-        d.limit_over_hp = 1403;
-
-        d.unit_lv = 1;
-        d.new_flag = 1;
-
-        d.ext_count = 1500;
-        d.fe_bp = 100;
-        d.fe_used_bp = 0;
-        d.fe_max_usable_bp = 200;
-        d.unit_img_type = 0;
-
-
-        d.exp = 1;
-        d.total_exp = 1;
-
-        d.unit_id = 50253;
+        d.user_id          = resp.login_info.user_id;
+        d.user_unit_id     = row["id"].as<int32_t>();
+        d.unit_id          = std::stoi(row["unit_id"].as<std::string>());
+        d.unit_type_id     = row["unit_type_id"].as<int32_t>();
+        d.unit_lv          = row["unit_lv"].as<int32_t>();
+        d.exp              = row["exp"].as<int32_t>();
+        d.total_exp        = row["total_exp"].as<int32_t>();
+        d.base_hp          = row["base_hp"].as<int32_t>();
+        d.add_hp           = row["add_hp"].as<int32_t>();
+        d.ext_hp           = row["ext_hp"].as<int32_t>();
+        d.limit_over_hp    = row["limit_over_hp"].as<int32_t>();
+        d.base_atk         = row["base_atk"].as<int32_t>();
+        d.add_atk          = row["add_atk"].as<int32_t>();
+        d.ext_atk          = row["ext_atk"].as<int32_t>();
+        d.limit_over_atk   = row["limit_over_atk"].as<int32_t>();
+        d.base_def         = row["base_def"].as<int32_t>();
+        d.add_def          = row["add_def"].as<int32_t>();
+        d.ext_def          = row["ext_def"].as<int32_t>();
+        d.limit_over_def   = row["limit_over_def"].as<int32_t>();
+        d.base_heal        = row["base_heal"].as<int32_t>();
+        d.add_heal         = row["add_heal"].as<int32_t>();
+        d.ext_heal         = row["ext_heal"].as<int32_t>();
+        d.limit_over_heal  = row["limit_over_heal"].as<int32_t>();
+        d.element          = row["element"].as<std::string>();
+        d.leader_skill_id  = row["leader_skill_id"].as<int32_t>();
+        d.skill_id         = row["skill_id"].as<int32_t>();
+        d.skill_lv         = row["skill_lv"].as<int32_t>();
+        d.extra_skill_id   = row["extra_skill_id"].as<int32_t>();
+        d.extra_skill_lv   = row["extra_skill_lv"].as<int32_t>();
+        d.equipitem_id     = row["eqip_item_id"].as<int32_t>();
+        d.equipitem_frame_id  = row["eqip_item_frame_id"].as<int32_t>();
+        d.equipitem_id2    = row["eqip_item_id2"].as<int32_t>();
+        d.equipitem_frame_id2 = row["eqip_item_frame_id2"].as<int32_t>();
+        d.fe_bp            = row["fe_bp"].as<int32_t>();
+        d.fe_used_bp       = 0;
+        d.fe_max_usable_bp = row["fe_max_usable_bp"].as<int32_t>();
+        d.new_flag         = true;
+        d.unit_img_type    = 0;
+        d.omni_level       = 0;
+        d.ext_count        = 0;
+        d.unk              = 0;
+        d.unk2             = 0;
+        d.receive_date     = {}; // epoch (chrono::time_point)
+        d.extra_passive_skill_id  = 0;
+        d.extra_passive_skill_id2 = 0;
+        d.add_extra_passive_skill_id = 0;
+        d.fe_skill_info    = "";
         resp.unit_info.emplace_back(d);
     }
 
+    // Party decks — slot the first owned unit into every deck as a starting point
+    const int32_t firstUnitId = resp.unit_info.empty() ? 0 : resp.unit_info.front().user_unit_id;
     for (int i = 0; i < 10; i++) {
         UserPartyDeckInfo deck = {};
-        deck.deck_num = i;
-        deck.deck_type = 1;
-        deck.user_unit_id = 100; // Now maps to id from user_units
+        deck.deck_num    = i;
+        deck.deck_type   = 1;
+        deck.user_unit_id = firstUnitId;
         resp.party_deck_info.emplace_back(deck);
     }
 

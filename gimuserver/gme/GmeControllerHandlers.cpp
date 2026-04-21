@@ -74,6 +74,9 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
 	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
 	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");
+	REGISTER("2p9LHCNh", UnitFavorite, "cb4ESLa1");
+	REGISTER("0gUSE84e", UnitEvo, "biHf01DxcrPou5Qt");
+	REGISTER("Zw3WIoWu", ChallengeArenaResetInfo, "KlwYMGF1");
 
 	}
 }

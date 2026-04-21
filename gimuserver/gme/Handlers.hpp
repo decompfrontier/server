@@ -89,4 +89,7 @@ namespace GmeHandlers
 	HANDLE(MissionStart);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
+	HANDLE(UnitFavorite);
+	HANDLE(UnitEvo);
+	HANDLE(ChallengeArenaResetInfo);
 }
