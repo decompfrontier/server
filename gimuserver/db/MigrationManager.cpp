@@ -111,6 +111,38 @@ static void RegisterMigrations(MigrationMap& map)
 	migrate("14042026_AddFavoriteFlgToUserUnits", {
 		p->execSqlSync("ALTER TABLE user_units ADD COLUMN favorite_flg INTEGER NOT NULL DEFAULT 0");
 	});
+
+	// Bump free_gems to 95 000 on any DB where the seed row already existed
+	// with the old value of 0.  The original SeedDefaultUserInfo INSERT used
+	// free_gems=0; this migration is a targeted one-shot fix.
+	migrate("22042026_SetFreeGems", {
+		p->execSqlSync(
+			"UPDATE userinfo SET free_gems=95000 WHERE id='12345678';"
+		);
+	});
+
+	migrate("21042026_SeedDefaultUserInfo", {
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO userinfo ("
+			"id, gumi_user_id, device_id, username, level, exp,"
+			"max_unit_count, max_friend_count, zel, karma, brave_coin,"
+			"max_warehouse_count, free_gems, paid_gems, energy"
+			") VALUES ("
+			"'12345678','12345678','offline','DecompDev',900,1009680,"
+			"200,100,99000000,99000000,0,"
+			"200,95000,99000,398);"
+		);
+		p->execSqlSync(
+			"UPDATE userinfo SET"
+			" username='DecompDev',"
+			" level=900,"
+			" zel=99000000,"
+			" karma=99000000,"
+			" paid_gems=99000,"
+			" free_gems=95000"
+			" WHERE id='12345678';"
+		);
+	});
 }
 
 /*!

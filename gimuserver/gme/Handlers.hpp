@@ -91,5 +91,7 @@ namespace GmeHandlers
 	HANDLE(UserInfo);
 	HANDLE(UnitFavorite);
 	HANDLE(UnitEvo);
+	HANDLE(UnitMix);
+	HANDLE(UnitSell);
 	HANDLE(ChallengeArenaResetInfo);
 }

@@ -14,27 +14,62 @@ HANDLEF(UserInfo)
 
 	UserInfoResp resp = theServer()->cache().userInfoResp(); // copy !!
 
-	// TODO: A real server should check if user_id == gumi token...
+	const auto& infoRows = co_await theDb()->execSqlCoro(
+		"SELECT username, level, exp, zel, karma, brave_coin,"
+		" free_gems, paid_gems, energy,"
+		" max_unit_count, max_warehouse_count,"
+		" summon_tickets, rainbow_coins, colosseum_tickets,"
+		" total_brave_points, avail_brave_points, active_deck, want_gift"
+		" FROM userinfo WHERE id=$1;",
+		std::string("12345678")
+	);
+	const auto& infoRow = infoRows.at(0);
+	const int32_t level = infoRow["level"].as<int32_t>();
 
-    // TODO: GET THIS FROM A CACHE TOKEN ETC
-    resp.login_info.user_id = "0839899613932562"; // I think this is a random UUID according to packet-gen
+	// Level-gated caps from the already-cached user_level.json MST.
+	const auto& prog = theServer()->cache().initializeResp().progression;
+	const UserLevelMst* lv = nullptr;
+	for (const auto& e : prog) { if (e.level == level) { lv = &e; break; } }
+	const int32_t maxAP      = lv ? lv->action_points    : 100;
+	const int32_t deckCost   = lv ? lv->deck_cost        : 20;
+	const int32_t friendBase = lv ? lv->friend_count     : 50;
+	const int32_t friendAdd  = lv ? lv->add_friend_count : 0;
 
-    // TEMP HACK!! Skip tutorial flag and put a real name
-    resp.login_info.account_id = "12345678";
-    resp.login_info.handle_name = "OfflineMod!";
-    resp.login_info.tutorial_end_flag = true;
-    resp.login_info.tutorial_status = 0;
-    resp.login_info.feature_gate = 0;
+	resp.login_info.user_id           = "0839899613932562"; // packet-gen UUID
+	resp.login_info.account_id        = "12345678";
+	resp.login_info.handle_name       = infoRow["username"].as<std::string>();
+	resp.login_info.tutorial_end_flag = true;
+	resp.login_info.tutorial_status   = 0;
+	resp.login_info.feature_gate      = 0;
 
-    resp.team_info.reinforcement_deck.emplace_back(0);
-    resp.team_info.reinforcement_deck.emplace_back(0);
-    resp.team_info.reinforcement_deck.emplace_back(0);
-    resp.team_info.user_id = resp.login_info.user_id;
-    resp.team_info.level = 1;
-    resp.team_info.exp = 0;
-    resp.team_info.warehouse_count = 200;
-    resp.team_info.add_unit_count = 200;
-    resp.team_info.max_unit_count = 200;
+	auto& ti = resp.team_info;
+	ti.user_id             = resp.login_info.user_id;
+	ti.level               = level;
+	ti.exp                 = infoRow["exp"].as<int64_t>();
+	ti.zel                 = infoRow["zel"].as<int64_t>();
+	ti.karma               = infoRow["karma"].as<int64_t>();
+	ti.brave_coin          = infoRow["brave_coin"].as<int32_t>();
+	ti.action_point        = infoRow["energy"].as<int32_t>();
+	ti.max_action_point    = maxAP;
+	ti.deck_cost           = deckCost;
+	ti.max_friend_count    = friendBase;
+	ti.add_friend_count    = friendAdd;
+	ti.max_unit_count      = infoRow["max_unit_count"].as<int32_t>();
+	ti.add_unit_count      = 0;
+	ti.warehouse_count     = infoRow["max_warehouse_count"].as<int32_t>();
+	ti.add_warehouse_count = 0;
+	ti.active_deck         = infoRow["active_deck"].as<int32_t>();
+	ti.summon_ticket       = infoRow["summon_tickets"].as<int32_t>();
+	ti.rainbow_coin        = infoRow["rainbow_coins"].as<int32_t>();
+	ti.colosseum_ticket    = infoRow["colosseum_tickets"].as<int32_t>();
+	ti.brave_points_total   = infoRow["total_brave_points"].as<int32_t>();
+	ti.current_brave_points = infoRow["avail_brave_points"].as<int32_t>();
+	ti.want_gift           = infoRow["want_gift"].as<std::string>();
+	ti.paid_gems           = infoRow["paid_gems"].as<int32_t>();
+	ti.free_gems           = infoRow["free_gems"].as<int32_t>();
+	ti.reinforcement_deck.emplace_back(0);
+	ti.reinforcement_deck.emplace_back(0);
+	ti.reinforcement_deck.emplace_back(0);
 
     // Load units from DB (seeded by GimuServer::SeedDefaultUnits on boot)
     const auto& unitRows = co_await theDb()->execSqlCoro(
