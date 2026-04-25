@@ -4,10 +4,21 @@
 #include <gimuserver/db/MigrationManager.hpp>
 #include <gimuserver/drogon/GimuServer.hpp>
 
+#include "DebugCli.hpp"
+
 #include <filesystem>
 
 int main(int argc, char** argv)
 {
+    // CLI-client mode: launched by the server to host the debug console window.
+    // Must be checked before any Drogon / config setup so this process never
+    // starts the web server or runs migrations.
+    if (argc >= 3 && std::string(argv[1]) == "--debug-cli")
+    {
+        RunDebugCliClient(argv[2]);
+        return 0;
+    }
+
 #ifdef _WIN32
     SetConsoleTitleW(L"GimuFrontier standalone server");
 #endif
@@ -40,6 +51,8 @@ int main(int argc, char** argv)
                 auto db = drogon::app().getDbClient();
                 MigrationManager::RunMigrations(db);
                 drogon::app().getPlugin<GimuServer>()->SeedDefaultUnits(db);
+                drogon::app().getPlugin<GimuServer>()->SeedDefaultTown(db);
+                StartDebugCli();
             })
             .run();
     }

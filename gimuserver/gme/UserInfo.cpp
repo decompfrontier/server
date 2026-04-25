@@ -149,6 +149,47 @@ HANDLEF(UserInfo)
         resp.party_deck_info.emplace_back(deck);
     }
 
+    // Town facilities
+    const auto& facilityRows = co_await theDb()->execSqlCoro(
+        "SELECT facility_id, lv, karma FROM user_town_facilities WHERE user_id=$1;",
+        resp.login_info.user_id
+    );
+    for (const auto& row : facilityRows)
+    {
+        UserTownFacilityInfo f = {};
+        f.user_id     = resp.login_info.user_id;
+        f.facility_id = row["facility_id"].as<int32_t>();
+        f.lv          = row["lv"].as<int32_t>();
+        f.karma       = row["karma"].as<int32_t>();
+        resp.town_facility_info.emplace_back(f);
+    }
+
+    // Town locations — populate both info and a matching detail entry for each.
+    // The client dereferences the detail for every location in the info array;
+    // sending info without a corresponding detail causes a null-pointer crash
+    // in the town scene loader.
+    const auto& locationRows = co_await theDb()->execSqlCoro(
+        "SELECT location_id, lv, karma FROM user_town_locations WHERE user_id=$1;",
+        resp.login_info.user_id
+    );
+    for (const auto& row : locationRows)
+    {
+        UserTownLocationInfo l = {};
+        l.user_id     = resp.login_info.user_id;
+        l.location_id = row["location_id"].as<int32_t>();
+        l.lv          = row["lv"].as<int32_t>();
+        l.karma       = row["karma"].as<int32_t>();
+        resp.town_location_info.emplace_back(l);
+
+        UserTownLocationDetail d = {};
+        d.user_id = resp.login_info.user_id;
+        d.unk     = l.location_id;
+        d.unk2    = {};  // epoch — tap period not yet started
+        d.unk3    = 0;   // no taps accumulated
+        d.unk4    = "";
+        resp.town_location_detail.emplace_back(d);
+    }
+
     resp.campaign_info.current_day = 1;
     resp.campaign_info.total_days = 96;
     resp.campaign_info.first_for_the_day = true;

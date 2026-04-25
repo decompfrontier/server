@@ -66,6 +66,38 @@ static std::string_view ElementIdToString(int32_t id)
 	}
 }
 
+void GimuServer::InsertUnitFromMst(drogon::orm::DbClientPtr db,
+                                   const std::string& userId,
+                                   const UnitMst& unit)
+{
+	// Randomise unit_type_id (1-6: Lord/Anima/Breaker/Guardian/Oracle/Rex)
+	// so that stat changes are visually distinguishable across the inventory.
+	static thread_local std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<int32_t> typeDist(1, 6);
+
+	db->execSqlSync(
+		"INSERT INTO user_units "
+		"(user_id, unit_id, unit_lv,"
+		" base_hp,  add_hp,  ext_hp,  limit_over_hp,"
+		" base_atk, add_atk, ext_atk, limit_over_atk,"
+		" base_def, add_def, ext_def, limit_over_def,"
+		" base_heal,add_heal,ext_heal,limit_over_heal,"
+		" exp, total_exp,"
+		" skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
+		" element, fe_bp, fe_max_usable_bp, unit_type_id) "
+		"VALUES ($1,$2,1,"
+		" $3,0,0,0, $4,0,0,0, $5,0,0,0, $6,0,0,0,"
+		" 1,1,"
+		" $7,0,$8,0,$9,"
+		" $10,100,200,$11);",
+		userId, std::to_string(unit.id),
+		unit.min_hp, unit.min_atk, unit.min_def, unit.min_rec,
+		unit.skill_id, unit.extra_skill_id, unit.leader_skill_id,
+		std::string(ElementIdToString(unit.element)),
+		typeDist(rng)
+	);
+}
+
 void GimuServer::SeedDefaultUnits(drogon::orm::DbClientPtr db)
 {
 	const std::string userId = "0839899613932562";
@@ -86,42 +118,81 @@ void GimuServer::SeedDefaultUnits(drogon::orm::DbClientPtr db)
 		return;
 	}
 
-	// Randomise unit_type_id (1-6: Lord/Anima/Breaker/Guardian/Oracle/Rex)
-	// so that stat changes are visually distinguishable across the inventory.
-	std::mt19937 rng(std::random_device{}());
-	std::uniform_int_distribution<int32_t> typeDist(1, 6);
-
 	int seeded = 0;
 	for (const auto& unit : mst)
 	{
 		if (unit.id == 1)  continue; // skip summoner NPC
 		if (seeded >= 100) break;
 
-		db->execSqlSync(
-			"INSERT INTO user_units "
-			"(user_id, unit_id, unit_lv,"
-			" base_hp,  add_hp,  ext_hp,  limit_over_hp,"
-			" base_atk, add_atk, ext_atk, limit_over_atk,"
-			" base_def, add_def, ext_def, limit_over_def,"
-			" base_heal,add_heal,ext_heal,limit_over_heal,"
-			" exp, total_exp,"
-			" skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
-			" element, fe_bp, fe_max_usable_bp, unit_type_id) "
-			"VALUES ($1,$2,1,"
-			" $3,0,0,0, $4,0,0,0, $5,0,0,0, $6,0,0,0,"
-			" 1,1,"
-			" $7,0,$8,0,$9,"
-			" $10,100,200,$11);",
-			userId, std::to_string(unit.id),
-			unit.min_hp, unit.min_atk, unit.min_def, unit.min_rec,
-			unit.skill_id, unit.extra_skill_id, unit.leader_skill_id,
-			std::string(ElementIdToString(unit.element)),
-			typeDist(rng)
-		);
+		InsertUnitFromMst(db, userId, unit);
 		++seeded;
 	}
 
 	LOG_INFO << "SeedDefaultUnits: seeded " << seeded << " units for user " << userId;
+}
+
+void GimuServer::SeedDefaultTown(drogon::orm::DbClientPtr db)
+{
+	const std::string userId = "0839899613932562";
+
+	const auto& resp = m_cache.initializeResp();
+
+	// Seed facilities
+	if (!resp.town_facility.empty())
+	{
+		const auto facilityCount = db->execSqlSync(
+			"SELECT COUNT(*) FROM user_town_facilities WHERE user_id=$1;", userId);
+		if (facilityCount[0][0].as<int64_t>() == 0)
+		{
+			for (const auto& f : resp.town_facility)
+			{
+				// Skip event facilities (id >= 1000); they are dynamic and the
+				// packaged client has no sprites for them, causing a crash on
+				// town scene load.
+				if (f.id >= 1000) continue;
+
+				db->execSqlSync(
+					"INSERT OR IGNORE INTO user_town_facilities (user_id, facility_id, lv, karma)"
+					" VALUES ($1, $2, 1, 0);",
+					userId, f.id);
+			}
+			LOG_INFO << "SeedDefaultTown: seeded " << resp.town_facility.size() << " facilities for user " << userId;
+		}
+		else
+		{
+			LOG_INFO << "SeedDefaultTown: facilities already present, skipping";
+		}
+	}
+	else
+	{
+		LOG_WARN << "SeedDefaultTown: TownFacilityMst is empty, skipping facility seed";
+	}
+
+	// Seed locations
+	if (!resp.town_location.empty())
+	{
+		const auto locationCount = db->execSqlSync(
+			"SELECT COUNT(*) FROM user_town_locations WHERE user_id=$1;", userId);
+		if (locationCount[0][0].as<int64_t>() == 0)
+		{
+			for (const auto& l : resp.town_location)
+			{
+				db->execSqlSync(
+					"INSERT OR IGNORE INTO user_town_locations (user_id, location_id, lv, karma)"
+					" VALUES ($1, $2, 1, 0);",
+					userId, l.id);
+			}
+			LOG_INFO << "SeedDefaultTown: seeded " << resp.town_location.size() << " locations for user " << userId;
+		}
+		else
+		{
+			LOG_INFO << "SeedDefaultTown: locations already present, skipping";
+		}
+	}
+	else
+	{
+		LOG_WARN << "SeedDefaultTown: TownLocationMst is empty, skipping location seed";
+	}
 }
 
 void GimuServer::shutdown() {}

@@ -94,4 +94,7 @@ namespace GmeHandlers
 	HANDLE(UnitMix);
 	HANDLE(UnitSell);
 	HANDLE(ChallengeArenaResetInfo);
+	HANDLE(TownUpdate);
+	HANDLE(TownFacilityUpdate);
+	HANDLE(EventTokenInfo);
 }
