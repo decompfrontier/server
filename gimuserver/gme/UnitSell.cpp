@@ -100,7 +100,6 @@ HANDLEF(UnitSell)
     LOG_INFO << "UnitSell: " << json;
 
     static constexpr std::string_view kUserId   = "0839899613932562";
-    static constexpr std::string_view kInfoId   = "12345678";
 
     // Parse request.  Allow unknown keys so any extra client fields don't abort parsing.
     UnitSellReqBody req = {};
@@ -155,7 +154,7 @@ HANDLEF(UnitSell)
     // Step 3: credit zel.
     co_await theDb()->execSqlCoro(
         "UPDATE userinfo SET zel = zel + $1 WHERE id=$2;",
-        totalZel, std::string(kInfoId)
+        totalZel, std::string(kUserId)
     );
 
     // Step 4: fetch fresh userinfo to build accurate team_info.
@@ -164,7 +163,7 @@ HANDLEF(UnitSell)
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
         " colosseum_tickets, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
-        std::string(kInfoId)
+        std::string(kUserId)
     );
 
     UnitSellRespBody resp = {};

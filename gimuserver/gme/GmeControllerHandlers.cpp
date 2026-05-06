@@ -83,6 +83,29 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("8v43tz7g", TownFacilityUpdate,       "rq7Yd1nG");
 	REGISTER("f49als4D", EventTokenInfo,           "94lDsgh4");
 
+	// Quest / world-map entry point.
+	REGISTER("Zds63G5y", AreaInfo,             "YfAh7gqojdXEtFR1");
+
+	// Campaign subsystem (see HANDLER_BLUEPRINT.md §7).
+	REGISTER("6Y0gaPQN", CampaignStart,        "WM6yr4ej");
+	REGISTER("RSm6p2d4", CampaignMissionGet,   "5jzXN7AH");
+	REGISTER("C3a0VnQK", CampaignDeckGet,      "q2ZtYJ6P");
+	REGISTER("h1RjcD3S", CampaignBattleStart,  "4CKoVAq0");
+	REGISTER("pTNB6yw3", CampaignBattleEnd,    "t06HFsXP");
+	REGISTER("5Imq3wC0", CampaignReceipt,      "4DAgP80B");
+	REGISTER("jF9Kkro4", CampaignEnd,          "4X9tBSg8");
+
+	// Post-battle result acknowledgement.
+	REGISTER("9TvyNR5H", MissionEnd,           "oINq0rfUFPx5MgmT");
+	REGISTER("gLRIn74v", FixGiftInfo,          "15gTE9ft");
+
+	// World-map / Grand Gaia entry sequence stubs.
+	REGISTER("BjAt1D6b", DungeonEventUpdate,     "k5EiNe9x");
+	REGISTER("VRfsv4e3", GetScenarioPlayingInfo, "Bh4WqR01");
+	REGISTER("1MJT6L3W", UpdatePermitPlaceInfo,  "3zip5Htw");
+	REGISTER("rCB7ZI8x", UpdateEventInfo,        "L1o4eGbi");
+	REGISTER("5o8ZlDGX", Chronology,             "SNrhAG29");
+
 	}
 }
 
@@ -146,10 +169,21 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " database exception: " << ex.base().what();
+				logReq << "EXCEPTION (db): " << ex.base().what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
 				err.message = std::format("Unable to run database query: \"{}\"", header.id);
+				resp.error = err;
+			}
+			catch (const std::exception& ex)
+			{
+				LOG_ERROR << "Handler error " << header.id << " unhandled exception: " << ex.what();
+				logReq << "EXCEPTION (std): " << ex.what() << "\n";
+				GmeError err{};
+				err.cmd = GmeErrorCommand::Close;
+				err.flag = GmeErrorFlags::IsInError;
+				err.message = std::format("Unhandled exception in handler: \"{}\"", header.id);
 				resp.error = err;
 			}
 		}

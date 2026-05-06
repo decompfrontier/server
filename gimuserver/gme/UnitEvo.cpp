@@ -222,7 +222,6 @@ HANDLEF(UnitEvo)
     LOG_INFO << "UnitEvo: " << json;
 
     static constexpr std::string_view kUserId = "0839899613932562";
-    static constexpr std::string_view kInfoId = "12345678";
 
     // Allow unknown keys — UnitEvo requests can carry extra client-side fields.
     UnitEvoReqFull req = {};
@@ -349,7 +348,7 @@ HANDLEF(UnitEvo)
     {
         co_await theDb()->execSqlCoro(
             "UPDATE userinfo SET zel = MAX(0, zel - $1) WHERE id=$2;",
-            zelCost, std::string(kInfoId)
+            zelCost, std::string(kUserId)
         );
     }
 
@@ -359,7 +358,7 @@ HANDLEF(UnitEvo)
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
         " colosseum_tickets, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
-        std::string(kInfoId)
+        std::string(kUserId)
     );
 
     // Build response.

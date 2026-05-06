@@ -6,10 +6,11 @@
 HANDLEF(Initialize)
 {
 	InitializeReq req = {};
-	const auto& ec = glz::read_json(req, json);
-	if (ec)
+	// Use lenient parsing so extra envelope keys from the client (e.g. device
+	// metadata) don't cause a spurious parse failure.
+	if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json); ec)
 	{
-		const auto& fmte = glz::format_error(ec, json);
+		const auto fmte = glz::format_error(ec, json);
 		LOG_DEBUG << "Gme Initialize Error during JSON read: " << fmte;
 		co_return HandleResult::error("Deserialization error", fmte);
 	}
@@ -21,11 +22,39 @@ HANDLEF(Initialize)
 
 	const auto& userRows = co_await theDb()->execSqlCoro(
 		"SELECT username, debug_mode FROM userinfo WHERE id=$1;",
-		std::string("12345678")
+		std::string("0839899613932562")
 	);
+
+	// Guard against an empty result — can happen on a fresh or partially-migrated
+	// DB.  Return a successful response with a default handle name so the client
+	// can at least get past the login screen; the row will be created by the
+	// migration on the next server start.
+	if (userRows.empty())
+	{
+		LOG_WARN << "Initialize: no userinfo row for '0839899613932562' — responding with defaults";
+		resp.login_info.account_id        = "0839899613932562";
+		resp.login_info.user_id           = "0839899613932562";
+		resp.login_info.handle_name       = "DecompDev";
+		resp.login_info.debug_mode        = false;
+		resp.login_info.tutorial_end_flag  = true;
+		resp.login_info.tutorial_status    = 12;
+		resp.signal_key.key               = "C7vnXA5T";
+		resp.challenge_arena_user_info.user_id = "n9ZMPC0t";
+		resp.challenge_arena_user_info.unkstr2 = "F";
+		resp.challenge_arena_user_info.league_id = 1;
+		resp.summoner_journal.user_id     = "0839899613932562";
+		resp.daily_login_rewards.id       = 1;
+		resp.daily_login_rewards.current_day = 1;
+		resp.daily_login_rewards.message  = " day(s) more to guaranteed Gem!";
+		std::string buf{};
+		if (const auto ec2 = glz::write_json(resp, buf); ec2)
+			co_return HandleResult::success("{}");
+		co_return HandleResult::success(buf);
+	}
+
 	const auto& userRow = userRows.at(0);
 
-	resp.login_info.account_id       = "12345678";
+	resp.login_info.account_id       = "0839899613932562";
 	resp.login_info.user_id          = "0839899613932562"; // packet-gen UUID
 	resp.login_info.handle_name      = userRow["username"].as<std::string>();
 	resp.login_info.debug_mode       = userRow["debug_mode"].as<bool>();

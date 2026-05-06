@@ -206,7 +206,6 @@ HANDLEF(UnitMix)
     LOG_INFO << "UnitMix: " << json;
 
     static constexpr std::string_view kUserId = "0839899613932562";
-    static constexpr std::string_view kInfoId = "12345678";
 
     // Parse request.  Use error_on_unknown_keys=false so the extra "60subGk3"
     // operation-type group sent by the client doesn't abort parsing.
@@ -355,7 +354,7 @@ HANDLEF(UnitMix)
     {
         co_await theDb()->execSqlCoro(
             "UPDATE userinfo SET zel = MAX(0, zel - $1) WHERE id=$2;",
-            zelCost, std::string(kInfoId)
+            zelCost, std::string(kUserId)
         );
     }
 
@@ -365,7 +364,7 @@ HANDLEF(UnitMix)
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
         " colosseum_tickets, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
-        std::string(kInfoId)
+        std::string(kUserId)
     );
 
     // Build response.

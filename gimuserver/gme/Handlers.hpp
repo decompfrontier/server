@@ -97,4 +97,19 @@ namespace GmeHandlers
 	HANDLE(TownUpdate);
 	HANDLE(TownFacilityUpdate);
 	HANDLE(EventTokenInfo);
+	HANDLE(AreaInfo);
+	HANDLE(CampaignStart);
+	HANDLE(CampaignMissionGet);
+	HANDLE(CampaignDeckGet);
+	HANDLE(CampaignBattleStart);
+	HANDLE(CampaignBattleEnd);
+	HANDLE(CampaignReceipt);
+	HANDLE(CampaignEnd);
+	HANDLE(MissionEnd);
+	HANDLE(FixGiftInfo);
+	HANDLE(DungeonEventUpdate);
+	HANDLE(GetScenarioPlayingInfo);
+	HANDLE(UpdatePermitPlaceInfo);
+	HANDLE(UpdateEventInfo);
+	HANDLE(Chronology);
 }

@@ -1,55 +1,17 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
-// ---------------------------------------------------------------------------
-// Local request types — only used by this handler; no KDL regeneration needed.
-// The client sends the COMPLETE new state for all facilities/locations plus the
-// total karma cost of the batch.  We just persist whatever the client says.
-// ---------------------------------------------------------------------------
-
-struct TownKarmaPayment { int64_t karma = 0; };
-template <>
-struct glz::meta<TownKarmaPayment> {
-    using T = TownKarmaPayment;
-    static constexpr auto value = object("HTVh8a65", glz::quoted_num<&T::karma>);
-};
-
-struct TownFacilityEntry { int32_t facility_id = 0; int32_t lv = 1; };
-template <>
-struct glz::meta<TownFacilityEntry> {
-    using T = TownFacilityEntry;
-    static constexpr auto value = object(
-        "y9ET7Aub", glz::quoted_num<&T::facility_id>,
-        "D9wXQI2V", glz::quoted_num<&T::lv>
-    );
-};
-
-struct TownLocationEntry { int32_t location_id = 0; int32_t lv = 1; };
-template <>
-struct glz::meta<TownLocationEntry> {
-    using T = TownLocationEntry;
-    static constexpr auto value = object(
-        "un80kW9Y", glz::quoted_num<&T::location_id>,
-        "D9wXQI2V", glz::quoted_num<&T::lv>
-    );
-};
-
-struct TownFacilityUpdateReq {
-    std::vector<TownKarmaPayment> karma_payment;  // EuY6L7AX[0]
-    std::vector<TownFacilityEntry> facilities;     // YRgx49WG[]
-    std::vector<TownLocationEntry> locations;      // yj46Q2xw[]
-};
-template <>
-struct glz::meta<TownFacilityUpdateReq> {
-    using T = TownFacilityUpdateReq;
-    static constexpr auto value = object(
-        "EuY6L7AX", &T::karma_payment,
-        "YRgx49WG", &T::facilities,
-        "yj46Q2xw", &T::locations
-    );
-};
-
-// ---------------------------------------------------------------------------
+// TownFacilityUpdate (8v43tz7g) — fired when the player confirms a batch of
+// facility/location upgrades.  The client sends the COMPLETE desired new state
+// for ALL facilities + locations plus the total karma cost of the batch.
+// Server persists whatever the client says and deducts karma.
+//
+// Request struct is generated from KDL (TownFacilityUpdateReq in all.hpp):
+//   EuY6L7AX[0].HTVh8a65  — total karma cost
+//   YRgx49WG[].y9ET7Aub   — facility_id
+//   YRgx49WG[].D9wXQI2V   — lv
+//   yj46Q2xw[].un80kW9Y   — location_id
+//   yj46Q2xw[].D9wXQI2V   — lv
 
 HANDLEF(TownFacilityUpdate)
 {
@@ -59,15 +21,12 @@ HANDLEF(TownFacilityUpdate)
     glz::context ctx{};
     if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
     {
-        // Parse failure — log but don't close the session; client already
-        // updated its own UI state optimistically.
         LOG_WARN << "TownFacilityUpdate: parse error: " << glz::format_error(ec, json);
         co_return HandleResult::success("{}");
     }
 
     const std::string userId    = "0839899613932562";
-    const std::string dbUserId  = "12345678";
-    const int64_t karmaCost     = req.karma_payment.empty() ? 0LL : req.karma_payment[0].karma;
+    const int64_t karmaCost     = req.karma_payment.karma;
 
     // Persist each facility's new level.
     for (const auto& f : req.facilities)
@@ -108,7 +67,7 @@ HANDLEF(TownFacilityUpdate)
         {
             co_await theDb()->execSqlCoro(
                 "UPDATE userinfo SET karma=MAX(0, karma-$1) WHERE id=$2;",
-                karmaCost, dbUserId);
+                karmaCost, userId);
         }
         catch (const drogon::orm::DrogonDbException& ex)
         {

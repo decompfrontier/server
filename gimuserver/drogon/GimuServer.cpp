@@ -75,6 +75,17 @@ void GimuServer::InsertUnitFromMst(drogon::orm::DbClientPtr db,
 	static thread_local std::mt19937 rng(std::random_device{}());
 	std::uniform_int_distribution<int32_t> typeDist(1, 6);
 
+	// skill_lv must be > 0 for the battle engine to allow BB activation.
+	// Match the old-tree convention: level 10 for any unit that has a skill,
+	// 0 if the unit has no skill assigned (skill_id == 0).
+	const int32_t skillLv      = unit.skill_id       > 0 ? 10 : 0;
+	const int32_t extraSkillLv = unit.extra_skill_id > 0 ? 10 : 0;
+
+	// Parameters are strictly sequential ($1..$13) to make the mapping
+	// unambiguous regardless of how the underlying driver handles $N indices:
+	// $1=user_id, $2=unit_id, $3=hp, $4=atk, $5=def, $6=rec,
+	// $7=skill_id, $8=skill_lv, $9=extra_skill_id, $10=extra_skill_lv,
+	// $11=leader_skill_id, $12=element, $13=unit_type_id.
 	db->execSqlSync(
 		"INSERT INTO user_units "
 		"(user_id, unit_id, unit_lv,"
@@ -88,11 +99,11 @@ void GimuServer::InsertUnitFromMst(drogon::orm::DbClientPtr db,
 		"VALUES ($1,$2,1,"
 		" $3,0,0,0, $4,0,0,0, $5,0,0,0, $6,0,0,0,"
 		" 1,1,"
-		" $7,0,$8,0,$9,"
-		" $10,100,200,$11);",
+		" $7,$8,$9,$10,$11,"
+		" $12,100,200,$13);",
 		userId, std::to_string(unit.id),
 		unit.min_hp, unit.min_atk, unit.min_def, unit.min_rec,
-		unit.skill_id, unit.extra_skill_id, unit.leader_skill_id,
+		unit.skill_id, skillLv, unit.extra_skill_id, extraSkillLv, unit.leader_skill_id,
 		std::string(ElementIdToString(unit.element)),
 		typeDist(rng)
 	);

@@ -21,8 +21,13 @@ HANDLEF(UserInfo)
 		" summon_tickets, rainbow_coins, colosseum_tickets,"
 		" total_brave_points, avail_brave_points, active_deck, want_gift"
 		" FROM userinfo WHERE id=$1;",
-		std::string("12345678")
+		std::string("0839899613932562")
 	);
+	if (infoRows.empty())
+	{
+		LOG_ERROR << "UserInfo: no userinfo row for '0839899613932562'";
+		co_return HandleResult::success("{}");
+	}
 	const auto& infoRow = infoRows.at(0);
 	const int32_t level = infoRow["level"].as<int32_t>();
 
@@ -36,7 +41,7 @@ HANDLEF(UserInfo)
 	const int32_t friendAdd  = lv ? lv->add_friend_count : 0;
 
 	resp.login_info.user_id           = "0839899613932562"; // packet-gen UUID
-	resp.login_info.account_id        = "12345678";
+	resp.login_info.account_id        = "0839899613932562";
 	resp.login_info.handle_name       = infoRow["username"].as<std::string>();
 	resp.login_info.tutorial_end_flag = true;
 	resp.login_info.tutorial_status   = 0;
@@ -139,14 +144,44 @@ HANDLEF(UserInfo)
         resp.unit_info.emplace_back(d);
     }
 
-    // Party decks — slot the first owned unit into every deck as a starting point
-    const int32_t firstUnitId = resp.unit_info.empty() ? 0 : resp.unit_info.front().user_unit_id;
-    for (int i = 0; i < 10; i++) {
-        UserPartyDeckInfo deck = {};
-        deck.deck_num    = i;
-        deck.deck_type   = 1;
-        deck.user_unit_id = firstUnitId;
-        resp.party_deck_info.emplace_back(deck);
+    // Party decks — load persisted deck from DB (written by DeckEdit).  Fall
+    // back to seeding all 10 slots with the first owned unit when no rows
+    // exist yet (i.e. before the player edits any deck for the first time).
+    {
+        const auto& deckRows = co_await theDb()->execSqlCoro(
+            "SELECT deck_type, deck_num, user_unit_id, member_type, disp_order"
+            " FROM user_party_decks WHERE user_id=$1"
+            " ORDER BY deck_type, deck_num, disp_order;",
+            resp.login_info.user_id
+        );
+
+        if (!deckRows.empty())
+        {
+            for (const auto& row : deckRows)
+            {
+                UserPartyDeckInfo d = {};
+                d.deck_type    = row["deck_type"].as<int32_t>();
+                d.deck_num     = row["deck_num"].as<int32_t>();
+                d.user_unit_id = row["user_unit_id"].as<int32_t>();
+                d.member_type  = row["member_type"].as<int32_t>();
+                d.disp_order   = row["disp_order"].as<int32_t>();
+                resp.party_deck_info.emplace_back(d);
+            }
+        }
+        else
+        {
+            // No saved decks yet — generate a default (one entry per slot, first
+            // owned unit as leader).  The player can persist their own composition
+            // via DeckEdit at any time.
+            const int32_t firstUnitId = resp.unit_info.empty() ? 0 : resp.unit_info.front().user_unit_id;
+            for (int i = 0; i < 10; i++) {
+                UserPartyDeckInfo deck = {};
+                deck.deck_num     = i;
+                deck.deck_type    = 1;
+                deck.user_unit_id = firstUnitId;
+                resp.party_deck_info.emplace_back(deck);
+            }
+        }
     }
 
     // Town facilities
@@ -207,6 +242,51 @@ HANDLEF(UserInfo)
         LOG_DEBUG << "Gme UserInfo Error during JSON writing: " << glze;
         co_return HandleResult::error("Serialization error", glze);
     }
+
+    // Inject PermitPlace unlock data.  The generated PermitPlace struct is a
+    // stub ("INVALID" key), so we replace the serialised empty array in-place.
+    // Each entry unlocks one entity type — the client reads exactly one key per
+    // entry to determine which area/land/gate/mission/dungeon is accessible.
+    //   VjCY7rX4 = area, 9C64Qwe0 = land, 0Cq2AlXW = gate,
+    //   j28VNcUW = mission, MHx05sXt = dungeon
+    //
+    // Build a comprehensive allow-list once and reuse it for every UserInfo call.
+    // Ranges are derived from the F_*_MST entry counts in version_info.json:
+    //   F_AREA_MST    669 entries, max id ~ 411  → use 1-1000
+    //   F_LAND_MST    147 entries, ~26 unique ids → use 1-200
+    //   F_GATE_MST     95 entries, ~5  unique ids → use 1-100
+    //   F_MISSION_MST 1118 entries, 3433 count   → use 1-4000
+    //   F_DUNGEON_MST 1002 entries, 1532 count   → use 1-2000
+    // The client silently ignores entries for IDs that don't exist in its local MST.
+    static constexpr std::string_view kEmptyPermit = R"("yXNM8kL3":[])";
+    static const std::string kFullPermit = []() {
+        std::string s;
+        s.reserve(200'000);
+        s += R"("yXNM8kL3":[)";
+        bool first = true;
+        auto add = [&](std::string_view key, int id) {
+            if (!first) s += ',';
+            s += "{\"";
+            s += key;
+            s += "\":\"";
+            s += std::to_string(id);
+            s += "\"}";
+            first = false;
+        };
+        for (int i = 1; i <= 1000; ++i) add("VjCY7rX4", i); // areas
+        for (int i = 1; i <=  200; ++i) add("9C64Qwe0", i); // lands
+        for (int i = 1; i <=  100; ++i) add("0Cq2AlXW", i); // gates
+        for (int i = 1; i <= 4000; ++i) add("j28VNcUW", i); // missions
+        for (int i = 1; i <= 2000; ++i) add("MHx05sXt", i); // dungeons
+        s += ']';
+        return s;
+    }();
+
+    const auto pos = buffer.find(kEmptyPermit);
+    if (pos != std::string::npos)
+        buffer.replace(pos, kEmptyPermit.size(), kFullPermit);
+    else
+        LOG_WARN << "UserInfo: yXNM8kL3 token not found in serialised buffer — PermitPlace not injected";
 
     co_return HandleResult::success(buffer);
 }

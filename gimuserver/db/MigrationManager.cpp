@@ -230,6 +230,59 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// Campaign subsystem tables.  user_campaign_missions tracks per-mission
+	// progress (state: 0=locked, 1=available, 2=cleared).  user_campaign_decks
+	// holds the campaign-specific party composition.  user_campaign_state holds
+	// transient state for the active mission/battle.
+	migrate("25042026_CreateUserCampaignTables", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_missions ("
+			"user_id          TEXT    NOT NULL,"
+			"mission_id       TEXT    NOT NULL,"
+			"state            INTEGER NOT NULL DEFAULT 0,"
+			"attain_percent   INTEGER NOT NULL DEFAULT 0,"
+			"clear_count      INTEGER NOT NULL DEFAULT 0,"
+			"last_cleared_at  INTEGER NOT NULL DEFAULT 0,"
+			"reward_claimed   INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, mission_id)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_decks ("
+			"user_id      TEXT    NOT NULL,"
+			"deck_num     INTEGER NOT NULL,"
+			"member_type  INTEGER NOT NULL,"
+			"user_unit_id INTEGER NOT NULL,"
+			"disporder    INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, deck_num, disporder)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_state ("
+			"user_id            TEXT PRIMARY KEY,"
+			"active_mission_id  TEXT    NOT NULL DEFAULT '',"
+			"active_battle_seed INTEGER NOT NULL DEFAULT 0,"
+			"saved_state        TEXT    NOT NULL DEFAULT ''"
+			");"
+		);
+	});
+
+	// Seed a placeholder mission catalog for the dev account.  These IDs are
+	// synthetic — real campaign MST loading is a future task.  All three start
+	// available so the Campaign UI has clickable tiles.
+	migrate("25042026_SeedCampaignMissions", {
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES ('12345678','10001',1,0),"
+			"        ('12345678','10002',1,0),"
+			"        ('12345678','10003',1,0);"
+		);
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_state (user_id) VALUES ('12345678');"
+		);
+	});
+
 	migrate("21042026_SeedDefaultUserInfo", {
 		p->execSqlSync(
 			"INSERT OR IGNORE INTO userinfo ("
@@ -250,6 +303,244 @@ static void RegisterMigrations(MigrationMap& map)
 			" paid_gems=99000,"
 			" free_gems=95000"
 			" WHERE id='12345678';"
+		);
+	});
+
+	// Clamp gem values to 4 200 — values in the tens-of-thousands overflow the
+	// client's gem counter and get silently reset to 0.  4 200 sits comfortably
+	// under the client's safe display limit.
+	migrate("27042026_SetGemsTo4200", {
+		p->execSqlSync(
+			"UPDATE userinfo SET paid_gems=4200, free_gems=4200"
+			" WHERE id='12345678';"
+		);
+	});
+
+	// Create the user_party_decks table that DeckEdit writes to and UserInfo
+	// reads from.  No seed data — UserInfo falls back to a generated default
+	// deck the first time a user logs in, and DeckEdit persists edits from then
+	// on.
+	migrate("27042026_CreateUserPartyDecks", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_party_decks ("
+			"user_id      TEXT    NOT NULL,"
+			"deck_type    INTEGER NOT NULL DEFAULT 1,"
+			"deck_num     INTEGER NOT NULL,"
+			"user_unit_id INTEGER NOT NULL DEFAULT 0,"
+			"member_type  INTEGER NOT NULL DEFAULT 0,"
+			"disp_order   INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, deck_type, deck_num, disp_order)"
+			");"
+		);
+	});
+
+	// Broaden campaign mission availability: seed missions 1-200 as available
+	// under the correct UUID so the client's campaign MST can match its node IDs
+	// against the server list regardless of exact numbering scheme.
+	// INSERT OR IGNORE means already-cleared missions keep their existing state.
+	migrate("28042026_BroadenCampaignMissions", {
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','21',1,0),('0839899613932562','22',1,0),"
+			" ('0839899613932562','23',1,0),('0839899613932562','24',1,0),"
+			" ('0839899613932562','25',1,0),('0839899613932562','26',1,0),"
+			" ('0839899613932562','27',1,0),('0839899613932562','28',1,0),"
+			" ('0839899613932562','29',1,0),('0839899613932562','30',1,0),"
+			" ('0839899613932562','31',1,0),('0839899613932562','32',1,0),"
+			" ('0839899613932562','33',1,0),('0839899613932562','34',1,0),"
+			" ('0839899613932562','35',1,0),('0839899613932562','36',1,0),"
+			" ('0839899613932562','37',1,0),('0839899613932562','38',1,0),"
+			" ('0839899613932562','39',1,0),('0839899613932562','40',1,0),"
+			" ('0839899613932562','41',1,0),('0839899613932562','42',1,0),"
+			" ('0839899613932562','43',1,0),('0839899613932562','44',1,0),"
+			" ('0839899613932562','45',1,0),('0839899613932562','46',1,0),"
+			" ('0839899613932562','47',1,0),('0839899613932562','48',1,0),"
+			" ('0839899613932562','49',1,0),('0839899613932562','50',1,0);"
+		);
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','51',1,0),('0839899613932562','52',1,0),"
+			" ('0839899613932562','53',1,0),('0839899613932562','54',1,0),"
+			" ('0839899613932562','55',1,0),('0839899613932562','56',1,0),"
+			" ('0839899613932562','57',1,0),('0839899613932562','58',1,0),"
+			" ('0839899613932562','59',1,0),('0839899613932562','60',1,0),"
+			" ('0839899613932562','61',1,0),('0839899613932562','62',1,0),"
+			" ('0839899613932562','63',1,0),('0839899613932562','64',1,0),"
+			" ('0839899613932562','65',1,0),('0839899613932562','66',1,0),"
+			" ('0839899613932562','67',1,0),('0839899613932562','68',1,0),"
+			" ('0839899613932562','69',1,0),('0839899613932562','70',1,0),"
+			" ('0839899613932562','71',1,0),('0839899613932562','72',1,0),"
+			" ('0839899613932562','73',1,0),('0839899613932562','74',1,0),"
+			" ('0839899613932562','75',1,0),('0839899613932562','76',1,0),"
+			" ('0839899613932562','77',1,0),('0839899613932562','78',1,0),"
+			" ('0839899613932562','79',1,0),('0839899613932562','80',1,0);"
+		);
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','81',1,0),('0839899613932562','82',1,0),"
+			" ('0839899613932562','83',1,0),('0839899613932562','84',1,0),"
+			" ('0839899613932562','85',1,0),('0839899613932562','86',1,0),"
+			" ('0839899613932562','87',1,0),('0839899613932562','88',1,0),"
+			" ('0839899613932562','89',1,0),('0839899613932562','90',1,0),"
+			" ('0839899613932562','91',1,0),('0839899613932562','92',1,0),"
+			" ('0839899613932562','93',1,0),('0839899613932562','94',1,0),"
+			" ('0839899613932562','95',1,0),('0839899613932562','96',1,0),"
+			" ('0839899613932562','97',1,0),('0839899613932562','98',1,0),"
+			" ('0839899613932562','99',1,0),('0839899613932562','100',1,0),"
+			" ('0839899613932562','101',1,0),('0839899613932562','102',1,0),"
+			" ('0839899613932562','103',1,0),('0839899613932562','104',1,0),"
+			" ('0839899613932562','105',1,0),('0839899613932562','106',1,0),"
+			" ('0839899613932562','107',1,0),('0839899613932562','108',1,0),"
+			" ('0839899613932562','109',1,0),('0839899613932562','110',1,0);"
+		);
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','111',1,0),('0839899613932562','112',1,0),"
+			" ('0839899613932562','113',1,0),('0839899613932562','114',1,0),"
+			" ('0839899613932562','115',1,0),('0839899613932562','116',1,0),"
+			" ('0839899613932562','117',1,0),('0839899613932562','118',1,0),"
+			" ('0839899613932562','119',1,0),('0839899613932562','120',1,0),"
+			" ('0839899613932562','121',1,0),('0839899613932562','122',1,0),"
+			" ('0839899613932562','123',1,0),('0839899613932562','124',1,0),"
+			" ('0839899613932562','125',1,0),('0839899613932562','126',1,0),"
+			" ('0839899613932562','127',1,0),('0839899613932562','128',1,0),"
+			" ('0839899613932562','129',1,0),('0839899613932562','130',1,0),"
+			" ('0839899613932562','131',1,0),('0839899613932562','132',1,0),"
+			" ('0839899613932562','133',1,0),('0839899613932562','134',1,0),"
+			" ('0839899613932562','135',1,0),('0839899613932562','136',1,0),"
+			" ('0839899613932562','137',1,0),('0839899613932562','138',1,0),"
+			" ('0839899613932562','139',1,0),('0839899613932562','140',1,0),"
+			" ('0839899613932562','141',1,0),('0839899613932562','142',1,0),"
+			" ('0839899613932562','143',1,0),('0839899613932562','144',1,0),"
+			" ('0839899613932562','145',1,0),('0839899613932562','146',1,0),"
+			" ('0839899613932562','147',1,0),('0839899613932562','148',1,0),"
+			" ('0839899613932562','149',1,0),('0839899613932562','150',1,0),"
+			" ('0839899613932562','151',1,0),('0839899613932562','152',1,0),"
+			" ('0839899613932562','153',1,0),('0839899613932562','154',1,0),"
+			" ('0839899613932562','155',1,0),('0839899613932562','156',1,0),"
+			" ('0839899613932562','157',1,0),('0839899613932562','158',1,0),"
+			" ('0839899613932562','159',1,0),('0839899613932562','160',1,0),"
+			" ('0839899613932562','161',1,0),('0839899613932562','162',1,0),"
+			" ('0839899613932562','163',1,0),('0839899613932562','164',1,0),"
+			" ('0839899613932562','165',1,0),('0839899613932562','166',1,0),"
+			" ('0839899613932562','167',1,0),('0839899613932562','168',1,0),"
+			" ('0839899613932562','169',1,0),('0839899613932562','170',1,0),"
+			" ('0839899613932562','171',1,0),('0839899613932562','172',1,0),"
+			" ('0839899613932562','173',1,0),('0839899613932562','174',1,0),"
+			" ('0839899613932562','175',1,0),('0839899613932562','176',1,0),"
+			" ('0839899613932562','177',1,0),('0839899613932562','178',1,0),"
+			" ('0839899613932562','179',1,0),('0839899613932562','180',1,0),"
+			" ('0839899613932562','181',1,0),('0839899613932562','182',1,0),"
+			" ('0839899613932562','183',1,0),('0839899613932562','184',1,0),"
+			" ('0839899613932562','185',1,0),('0839899613932562','186',1,0),"
+			" ('0839899613932562','187',1,0),('0839899613932562','188',1,0),"
+			" ('0839899613932562','189',1,0),('0839899613932562','190',1,0),"
+			" ('0839899613932562','191',1,0),('0839899613932562','192',1,0),"
+			" ('0839899613932562','193',1,0),('0839899613932562','194',1,0),"
+			" ('0839899613932562','195',1,0),('0839899613932562','196',1,0),"
+			" ('0839899613932562','197',1,0),('0839899613932562','198',1,0),"
+			" ('0839899613932562','199',1,0),('0839899613932562','200',1,0);"
+		);
+	});
+
+	// Rename the userinfo primary key from the legacy account-ID '12345678' to
+	// the canonical UUID '0839899613932562' so every table uses a single user
+	// identity.  All subsequent handler code queries userinfo by the UUID.
+	migrate("28042026_MigrateUserInfoId", {
+		p->execSqlSync(
+			"UPDATE userinfo"
+			" SET id='0839899613932562', gumi_user_id='0839899613932562'"
+			" WHERE id='12345678';"
+		);
+	});
+
+	// Set skill_lv=10 / extra_skill_lv=10 for all existing user_units rows that
+	// have a non-zero skill_id / extra_skill_id but still have the old default
+	// of 0.  Without skill_lv > 0 the battle engine treats the BB as unlearned
+	// and the gauge never activates.  Mirrors the old-tree PopulateUnitMstTable
+	// migration that did the same UPDATE with CASE WHEN … THEN 10 END.
+	migrate("29042026_FixSkillLevels", {
+		p->execSqlSync(
+			"UPDATE user_units"
+			" SET skill_lv = 10"
+			" WHERE skill_id > 0 AND skill_lv = 0;"
+		);
+		p->execSqlSync(
+			"UPDATE user_units"
+			" SET extra_skill_lv = 10"
+			" WHERE extra_skill_id > 0 AND extra_skill_lv = 0;"
+		);
+	});
+
+	// The initial unit seeding ran with a mismatched parameter order in
+	// InsertUnitFromMst, storing the element string in extra_skill_lv and a
+	// stringified integer in element.  UserInfo.cpp calls
+	// row["extra_skill_lv"].as<int32_t>() which throws std::invalid_argument on
+	// a TEXT value, crashing the handler before any response is sent.
+	// Fix: delete all corrupted units and their stale party-deck references so
+	// that GimuServer::SeedDefaultUnits re-seeds them with the corrected INSERT
+	// on the very next server start (it is idempotent: skips when count > 0).
+	migrate("03052026_FixCorruptedUnitData", {
+		p->execSqlSync(
+			"DELETE FROM user_party_decks WHERE user_id='0839899613932562';"
+		);
+		p->execSqlSync(
+			"DELETE FROM user_units WHERE user_id='0839899613932562';"
+		);
+	});
+
+	// Fix the campaign mission seed: previous migration inserted rows under
+	// user_id='12345678' (the userinfo PK) but the CampaignStart / CampaignMissionGet
+	// handlers query by user_id='0839899613932562' (the login/units UUID).
+	// Delete the wrong rows and re-insert under the correct ID, then broaden the
+	// mission catalog so the Campaign UI has more tiles to render.
+	migrate("27042026_FixCampaignMissionSeeding", {
+		// Remove wrongly-keyed rows.
+		p->execSqlSync(
+			"DELETE FROM user_campaign_missions WHERE user_id='12345678';"
+		);
+		p->execSqlSync(
+			"DELETE FROM user_campaign_state WHERE user_id='12345678';"
+		);
+		// Re-seed under the correct UUID with a broader initial catalog.
+		// Mission IDs 1-20 cover the first chapter; additional IDs can be added
+		// once the exact MST values are known from capture logs.
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','1',1,0),"
+			" ('0839899613932562','2',1,0),"
+			" ('0839899613932562','3',1,0),"
+			" ('0839899613932562','4',1,0),"
+			" ('0839899613932562','5',1,0),"
+			" ('0839899613932562','6',1,0),"
+			" ('0839899613932562','7',1,0),"
+			" ('0839899613932562','8',1,0),"
+			" ('0839899613932562','9',1,0),"
+			" ('0839899613932562','10',1,0),"
+			" ('0839899613932562','11',1,0),"
+			" ('0839899613932562','12',1,0),"
+			" ('0839899613932562','13',1,0),"
+			" ('0839899613932562','14',1,0),"
+			" ('0839899613932562','15',1,0),"
+			" ('0839899613932562','16',1,0),"
+			" ('0839899613932562','17',1,0),"
+			" ('0839899613932562','18',1,0),"
+			" ('0839899613932562','19',1,0),"
+			" ('0839899613932562','20',1,0);"
+		);
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_state (user_id)"
+			" VALUES ('0839899613932562');"
 		);
 	});
 }
