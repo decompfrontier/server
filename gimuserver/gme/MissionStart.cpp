@@ -220,19 +220,40 @@ static UserTeamInfo missionStart_buildTeamInfo(
     return ti;
 }
 
-// ── Minimal request struct ────────────────────────────────────────────────────
-// Parse the deck the player selected when starting the mission (Z0Y4RoD7) and
-// the mission_id (j28VNcUW).  All other request fields are ignored.
+// ── Request struct ────────────────────────────────────────────────────────────
+// Captured live request shape (from http_log_jE6Sp0q4_*.log):
+//   {
+//     "9Q1Lq5FS":[{"h7eY3sAK":"0","J3stQ7jd":"0","j28VNcUW":"11",
+//                  "jkldTrhL":"0","Z0Y4RoD7":"0","nA95Bdj6":"0",
+//                  "5Z1LNoyH":"0","u1iPEVUq":"-1"}],
+//     "JzS3uxsZ":[{"0b4efi1W":"1"}],
+//     ...IKqx1Cn9 envelope...
+//   }
+//
+// Earlier drafts placed mission_id at the top level — that silently failed to
+// parse on every request (the field is one level deeper, inside 9Q1Lq5FS[0]),
+// so req.mission_id was always empty, the fallback "10" kicked in, and every
+// mission was answered with mission-10 data.  Mission 10 worked by accident;
+// mission 11 crashed the client on load because the response said "this is
+// mission 10".
+struct MissionStartItem {
+    std::string mission_id  = {};   // j28VNcUW
+    int32_t     active_deck = 0;    // Z0Y4RoD7
+};
+template<> struct glz::meta<MissionStartItem> {
+    using T = MissionStartItem;
+    static constexpr auto value = glz::object(
+        "j28VNcUW", &T::mission_id,
+        "Z0Y4RoD7", glz::quoted_num<&T::active_deck>
+    );
+};
+
 struct MissionStartReq {
-    int32_t     active_deck = 0;   // Z0Y4RoD7 — which squad deck (0-based)
-    std::string mission_id  = {};  // j28VNcUW
+    std::vector<MissionStartItem> items;   // 9Q1Lq5FS
 };
 template<> struct glz::meta<MissionStartReq> {
     using T = MissionStartReq;
-    static constexpr auto value = glz::object(
-        "Z0Y4RoD7", glz::quoted_num<&T::active_deck>,
-        "j28VNcUW", &T::mission_id
-    );
+    static constexpr auto value = glz::object("9Q1Lq5FS", &T::items);
 };
 
 // ── Handler ──────────────────────────────────────────────────────────────────
@@ -250,8 +271,22 @@ HANDLEF(MissionStart)
         if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
             LOG_WARN << "MissionStart: parse warning: " << glz::format_error(ec, json);
     }
-    LOG_INFO << "MissionStart: active_deck=" << req.active_deck
-             << " mission_id=" << req.mission_id;
+
+    // Pull mission_id + active_deck out of the (single) entry inside 9Q1Lq5FS.
+    // Fall back to "10" / 0 only when the array is absent — defensive default
+    // for malformed requests.
+    const std::string missionIdStr = (!req.items.empty() && !req.items[0].mission_id.empty())
+                                     ? req.items[0].mission_id : std::string("10");
+    const int32_t reqActiveDeck    = req.items.empty() ? 0 : req.items[0].active_deck;
+
+    // Parse mission_id as integer for battle-group struct fields.  Defaults to
+    // 10 if the string is non-numeric (event missions with non-numeric IDs).
+    uint32_t missionIdNum = 10;
+    try { missionIdNum = static_cast<uint32_t>(std::stoul(missionIdStr)); }
+    catch (...) { LOG_WARN << "MissionStart: mission_id '" << missionIdStr << "' not numeric, using 10"; }
+
+    LOG_INFO << "MissionStart: active_deck=" << reqActiveDeck
+             << " mission_id=" << missionIdStr << " (num=" << missionIdNum << ")";
 
     // ── DB writes: deduct energy + persist active deck selection ─────────────
     try
@@ -261,7 +296,7 @@ HANDLEF(MissionStart)
             " energy     = MAX(energy - 10, 0),"
             " active_deck = $2"
             " WHERE id=$1;",
-            std::string(kUserId), req.active_deck);
+            std::string(kUserId), reqActiveDeck);
     }
     catch (const drogon::orm::DrogonDbException& ex)
     {
@@ -301,13 +336,18 @@ HANDLEF(MissionStart)
     // ── Battle-engine MST data ───────────────────────────────────────────────
     MsBattleData bd{};
 
-    // BattleGroupMst — wave ordering
+    // BattleGroupMst — wave ordering.  The mission_id field (second column)
+    // MUST match the request's mission_id, otherwise the client treats the
+    // response as belonging to a different mission and crashes on load.
+    // Wave content (group_id, monster_groups) stays as captured mission-10
+    // data; until F_MISSION_MST loading is wired up, every mission gets
+    // mission-10's enemies but the headers are correct so the client renders.
     bd.battle_groups = {
-        {11, 10, 1, 0, 101301, 0},
-        {12, 10, 2, 0, 101302, 0},
-        {14, 10, 3, 0, 101300, 0},
-        {16, 10, 4, 0, 101302, 0},
-        {18, 10, 5, 0, 101304, 1},
+        {11, missionIdNum, 1, 0, 101301, 0},
+        {12, missionIdNum, 2, 0, 101302, 0},
+        {14, missionIdNum, 3, 0, 101300, 0},
+        {16, missionIdNum, 4, 0, 101302, 0},
+        {18, missionIdNum, 5, 0, 101304, 1},
     };
 
     // BattleMonsterGroupMst — enemy placement per wave
@@ -478,7 +518,7 @@ HANDLEF(MissionStart)
     // deck the player selected when tapping "Start", not a hardcoded index.
     resp = twJson.substr(0, twJson.size() - 2);
     resp += R"(,{"h7eY3sAK":"n9ZMPC0t","J3stQ7jd":"42640","j28VNcUW":")";
-    resp += req.mission_id.empty() ? "10" : req.mission_id;
+    resp += missionIdStr;
     resp += R"(","Z0Y4RoD7":")";
     resp += std::to_string(activeDeck);
     resp += R"("}])";

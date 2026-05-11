@@ -543,6 +543,110 @@ static void RegisterMigrations(MigrationMap& map)
 			" VALUES ('0839899613932562');"
 		);
 	});
+
+	// Restrict the campaign mission catalog to the very first three story missions
+	// (1, 2, 3).  Hypothesis: the client replays an "area-unlock" cutscene for
+	// every newly-available mission it sees on a fresh session, and seeding the
+	// full 1-200 list was triggering a cutscene cascade because EVERY mission
+	// looked "newly unlocked" to the client.
+	//
+	// HYPOTHESIS RESULT: WRONG.  The client kept playing all area-open cutscenes
+	// regardless of how many missions were in PermitPlace, AND additionally
+	// crashed on second Grand Gaia entry because lands/areas/dungeons remained
+	// broadly unlocked while their mission lists became empty (the world-map
+	// renderer does not tolerate this inconsistency).  Migration is kept in
+	// the history (it ran on existing DBs) but is paired with the recovery
+	// migration below that restores the full mission catalog.
+	migrate("06052026_RestrictToFirstThreeMissions", {
+		// Wipe the broad seed from earlier migrations.
+		p->execSqlSync(
+			"DELETE FROM user_campaign_missions WHERE user_id='0839899613932562';"
+		);
+		// Seed only the first three missions as available.
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','1',1,0),"
+			" ('0839899613932562','2',1,0),"
+			" ('0839899613932562','3',1,0);"
+		);
+		// Ensure the per-user campaign state row exists for active-mission tracking.
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_state (user_id)"
+			" VALUES ('0839899613932562');"
+		);
+	});
+
+	// Recovery migration paired with 06052026_RestrictToFirstThreeMissions.
+	// Re-seeds missions 1-50 as available so the world map's mission list is
+	// non-empty under every land/area the player has access to.  Restores the
+	// pre-restriction stable state without requiring the player to delete
+	// gme.sqlite manually.  INSERT OR IGNORE means already-cleared missions
+	// keep their existing state (state=2, attain_percent=100).
+	migrate("07052026_RestoreMissionCatalog", {
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','1',1,0),('0839899613932562','2',1,0),"
+			" ('0839899613932562','3',1,0),('0839899613932562','4',1,0),"
+			" ('0839899613932562','5',1,0),('0839899613932562','6',1,0),"
+			" ('0839899613932562','7',1,0),('0839899613932562','8',1,0),"
+			" ('0839899613932562','9',1,0),('0839899613932562','10',1,0),"
+			" ('0839899613932562','11',1,0),('0839899613932562','12',1,0),"
+			" ('0839899613932562','13',1,0),('0839899613932562','14',1,0),"
+			" ('0839899613932562','15',1,0),('0839899613932562','16',1,0),"
+			" ('0839899613932562','17',1,0),('0839899613932562','18',1,0),"
+			" ('0839899613932562','19',1,0),('0839899613932562','20',1,0),"
+			" ('0839899613932562','21',1,0),('0839899613932562','22',1,0),"
+			" ('0839899613932562','23',1,0),('0839899613932562','24',1,0),"
+			" ('0839899613932562','25',1,0),('0839899613932562','26',1,0),"
+			" ('0839899613932562','27',1,0),('0839899613932562','28',1,0),"
+			" ('0839899613932562','29',1,0),('0839899613932562','30',1,0),"
+			" ('0839899613932562','31',1,0),('0839899613932562','32',1,0),"
+			" ('0839899613932562','33',1,0),('0839899613932562','34',1,0),"
+			" ('0839899613932562','35',1,0),('0839899613932562','36',1,0),"
+			" ('0839899613932562','37',1,0),('0839899613932562','38',1,0),"
+			" ('0839899613932562','39',1,0),('0839899613932562','40',1,0),"
+			" ('0839899613932562','41',1,0),('0839899613932562','42',1,0),"
+			" ('0839899613932562','43',1,0),('0839899613932562','44',1,0),"
+			" ('0839899613932562','45',1,0),('0839899613932562','46',1,0),"
+			" ('0839899613932562','47',1,0),('0839899613932562','48',1,0),"
+			" ('0839899613932562','49',1,0),('0839899613932562','50',1,0);"
+		);
+	});
+
+	// Realign campaign mission catalogue to the same three IDs PermitPlace now
+	// emits (10, 11, 12 — the first three real Grand Gaia story missions, as
+	// confirmed by http_log_jE6Sp0q4_*.log captures of the client's
+	// MissionStart requests for the first/second/third campaign tiles).
+	//
+	// Hypothesis: the cutscene cascade fires once per "newly-visible mission"
+	// the client sees, so by limiting the catalogue from ~50 down to 3 the
+	// client should fire at most 3 cutscenes, and zero on subsequent entries
+	// once those scenarios have been viewed locally.
+	//
+	// Earlier migration 06052026 tried this with mission IDs {1, 2, 3} and
+	// crashed the client on second entry — those IDs are likely tutorial-only
+	// content that the world-map renderer can't paint into Grand Gaia's
+	// chapter-1 area.  Real story IDs (10/11/12) should be safe.
+	migrate("07052026_RestrictToStoryMissions10_11_12", {
+		// Wipe everything for our user — including the broad 1-50 seed from
+		// the recovery migration above — so the campaign menu shows exactly
+		// the same three tiles the world map allows.
+		p->execSqlSync(
+			"DELETE FROM user_campaign_missions WHERE user_id='0839899613932562';"
+		);
+		p->execSqlSync(
+			"INSERT OR IGNORE INTO user_campaign_missions"
+			" (user_id, mission_id, state, attain_percent)"
+			" VALUES"
+			" ('0839899613932562','10',1,0),"
+			" ('0839899613932562','11',1,0),"
+			" ('0839899613932562','12',1,0);"
+		);
+	});
 }
 
 /*!

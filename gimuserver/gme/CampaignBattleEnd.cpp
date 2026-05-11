@@ -146,6 +146,36 @@ HANDLEF(CampaignBattleEnd)
         {
             LOG_WARN << "CampaignBattleEnd: mission UPDATE failed: " << ex.base().what();
         }
+
+        // Step 1b: unlock the next sequential mission, if any.  This keeps the
+        // player on a one-mission-at-a-time progression: only the missions
+        // they've earned (cleared one earlier) become available.  Pairs with
+        // the PermitPlace mission filter in UserInfo.cpp — the client only
+        // sees missions whose row exists in user_campaign_missions, so adding
+        // a row here is what makes the next mission visible on the map.
+        //
+        // INSERT OR IGNORE means we never downgrade a mission that's already
+        // available or cleared; we only add brand-new rows.
+        try
+        {
+            const int32_t curId   = std::stoi(missionId);
+            const std::string nextId = std::to_string(curId + 1);
+
+            co_await theDb()->execSqlCoro(
+                "INSERT OR IGNORE INTO user_campaign_missions"
+                " (user_id, mission_id, state, attain_percent)"
+                " VALUES ($1, $2, 1, 0);",
+                std::string(kUserId), nextId);
+
+            LOG_INFO << "CampaignBattleEnd: cleared mission " << missionId
+                     << " — unlocked next mission " << nextId;
+        }
+        catch (const std::exception& ex)
+        {
+            // std::stoi throws on non-numeric mission IDs (e.g. event campaigns
+            // with alphabetic suffixes).  Skip the unlock step in that case.
+            LOG_WARN << "CampaignBattleEnd: next-mission unlock skipped: " << ex.what();
+        }
     }
 
     // Step 2: credit zel reward.
