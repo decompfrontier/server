@@ -9,9 +9,9 @@
 //   "fEi17cnx" — [UserTeamInfo]  — refreshes zel / karma / exp in HUD
 //   "UT1SVg59" — { "h7eY3sAK": user_id }  — UserClearMissionInfo stub
 //
-// Fixed rewards (placeholder until real per-mission MST is wired):
-//   +500 zel, +100 karma, +100 exp
-
+// TODO: replace fixed rewards with F_MISSION_MST per-mission reward lookup
+// (zel/karma/exp + drop chance fields keyed on mission_id).  Pairs with
+// the MissionStart and CampaignBattleEnd MST loading TODOs.
 static constexpr int64_t kMissionZelReward   = 500;
 static constexpr int64_t kMissionKarmaReward = 100;
 static constexpr int64_t kMissionExpReward   = 100;

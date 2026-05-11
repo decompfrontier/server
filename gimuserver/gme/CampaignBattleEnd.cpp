@@ -18,7 +18,11 @@
 //   2. UPDATE userinfo SET zel = zel + <reward>
 //   3. UPDATE user_campaign_state SET active_mission_id=''
 
-static constexpr int64_t kBattleZelReward = 5000;  // placeholder until real MST rewards
+// TODO: replace fixed reward with F_MISSION_MST per-mission reward lookup
+// (zel + karma + exp fields per mission_id).  Pairs with the MissionStart
+// MST loading TODO — once F_MISSION_MST is parsed at boot, key the reward
+// off the cleared mission_id from CampaignBattleEndReq.mission_id.
+static constexpr int64_t kBattleZelReward = 5000;
 
 // ---------------------------------------------------------------------------
 // Minimal request struct — just enough to parse without aborting on the

@@ -336,12 +336,17 @@ HANDLEF(MissionStart)
     // ── Battle-engine MST data ───────────────────────────────────────────────
     MsBattleData bd{};
 
+    // TODO: load real per-mission battle waves from F_MISSION_MST +
+    // F_BATTLE_GROUP_MST + F_MONSTER_MST (decode the encrypted .dat files
+    // in deploy/game_content/mst/ via scripts/mstdec.py into deploy/system/
+    // JSON, then read at boot in ServerCache.cpp).  Currently every mission
+    // returns the SAME enemy waves (mission-10's captured live data) — the
+    // mission_id header is dynamic so the client renders without crashing,
+    // but the boss, monsters, and rewards are always mission-10's.
+
     // BattleGroupMst — wave ordering.  The mission_id field (second column)
     // MUST match the request's mission_id, otherwise the client treats the
     // response as belonging to a different mission and crashes on load.
-    // Wave content (group_id, monster_groups) stays as captured mission-10
-    // data; until F_MISSION_MST loading is wired up, every mission gets
-    // mission-10's enemies but the headers are correct so the client renders.
     bd.battle_groups = {
         {11, missionIdNum, 1, 0, 101301, 0},
         {12, missionIdNum, 2, 0, 101302, 0},

@@ -47,30 +47,14 @@ HANDLEF(UserInfo)
 	resp.login_info.tutorial_status   = 0;
 	resp.login_info.feature_gate      = 0;
 
-	// ── EXPERIMENTAL: cutscene "already viewed" injection — ABANDONED ────────
-	//
-	// Two attempts were made on LoginInfoResp.user_scenario_info (key N4XVE1uA)
-	// and LoginInfoResp.user_special_scenario_info (key 9yVsu21R):
-	//
-	//   1. comma-separated ID list "1,2,3,...,308"
-	//      - 9yVsu21R echoed back with trailing comma (format accepted)
-	//      - N4XVE1uA truncated to "1,2" then appended dungeon state
-	//      - cutscenes still played
-	//
-	//   2. colon-paired "id:flag" "1:1,2:1,...,308:1"
-	//      - both fields landed in the response intact
-	//      - cutscenes still played
-	//
-	// GetScenarioPlayingInfo (VRfsv4e3) is NOT involved — never fires during
-	// normal play (no log file exists for it across any session).
-	//
-	// Conclusion: either these fields control DIFFERENT cutscenes (event /
-	// raid / chronology rather than story map-open), or the format requires
-	// reverse engineering the client binary.  Leaving empty for now — the
-	// next attempt below targets UT1SVg59 (cleared-mission list) instead,
-	// since the server log shows it's permanently empty and the client may
-	// gate "first time entering this map" cutscenes on whether the missions
-	// inside the map have been cleared at least once.
+	// TODO: cutscene-replay persistence.  user_scenario_info (N4XVE1uA) and
+	// user_special_scenario_info (9yVsu21R) were investigated as candidate
+	// "viewed scenario" gates with both comma-separated and colon-paired
+	// formats — neither stopped the per-session cutscene replay (see the
+	// handbook §7.4.5 for the full dead-end list).  GetScenarioPlayingInfo
+	// (VRfsv4e3) is also NOT the gate — the client never sends it during
+	// normal play.  The real control point likely requires reverse-engineering
+	// the client binary.  Quality-of-life only, not a blocker.
 	resp.login_info.user_scenario_info         = "";
 	resp.login_info.user_special_scenario_info = "";
 
@@ -277,42 +261,27 @@ HANDLEF(UserInfo)
     //   VjCY7rX4 = area, 9C64Qwe0 = land, 0Cq2AlXW = gate,
     //   j28VNcUW = mission, MHx05sXt = dungeon
     //
-    // ── CUTSCENE-CASCADE EXPERIMENT (running) ─────────────────────────────────
-    // Cutscene script files are named "mapN-open.txt", and restricting AREAS
-    // (VjCY7rX4) from 1-1000 to just 1-5 dropped the cutscene cascade from
-    // "every Grand Gaia entry plays them all" down to a single Mistral intro
-    // cutscene.  That confirms AREA unlocks are the cutscene trigger — the
-    // 1-5 ceiling is therefore load-bearing for the cutscene fix.
+    // Category roles (empirically established — see handbook §6.9):
+    //   - Areas are the MISSION-PARENT TOPOLOGY LINK.  Narrow → no missions
+    //     resolve under any land → world map renders empty → click crashes.
+    //     Keep at the full 1-1000 range.
+    //   - Lands are the CUTSCENE GATE.  Each visible land plays its
+    //     `mapN-open.txt` intro cutscene the first time the player enters
+    //     Grand Gaia.  Keeping lands at 1-2 caps the cascade at one
+    //     cutscene (Mistral intro).
+    //   - Gates / missions / dungeons are availability flags only.  Safe
+    //     to leave full.
     //
-    // EXPERIMENT HISTORY:
-    //   - areas 1-5..50 narrow, lands 1-2 narrow, others narrow → 1 cutscene, no missions
-    //   - areas 1-50 narrow, lands 1-200 full,    others full   → all cutscenes, no missions
-    //
-    // DECISIVE FINDINGS from those two runs:
-    //   1. Cutscene count tracked LANDS, not areas.  Lands=1-2 capped cutscenes
-    //      at 1 regardless of areas count; lands=1-200 brought them all back
-    //      regardless of areas count.  Cutscene file naming `Map4Coldelica`
-    //      confirms "Map N" = Land N, so each LAND has at most one intro
-    //      cutscene and the cascade was driven by land count all along.
-    //   2. AREAS being narrow BREAKS mission topology.  In every test where
-    //      areas were < 1000, no land ever rendered playable missions, even
-    //      with full lands/gates/missions/dungeons elsewhere.  Areas are the
-    //      mission-parent topology link the client needs.
-    //
-    // Conclusion: the variables we should narrow are SWAPPED.  Lands should
-    // be narrow (cutscene gate), areas should be full (topology requirement).
-    //
-    // Current pass: lands 1-2 (keeps cutscenes capped at 1), everything else
-    // FULL — including areas at the original 1-1000 known-good value.  The
-    // five-land chooser will drop back to Mistral + Cordelica visible only,
-    // but the lands that ARE visible should now have working mission topology.
+    // TODO: when Cordelica's click-crash is solved, widen lands incrementally
+    // (1-3, 1-5, etc.) to expose more chapters.  Each additional land adds
+    // one intro cutscene on first session entry.
     //
     // Static-category ranges (from version_info.json):
-    //   F_AREA_MST    669 entries, max id ~ 411  → 1-1000  (FULL — was 1-50)
+    //   F_AREA_MST    669 entries, max id ~ 411  → 1-1000  (topology)
     //   F_LAND_MST    147 entries, ~26 unique ids → 1-2    (cutscene gate)
-    //   F_GATE_MST     95 entries, ~5  unique ids → 1-100  (full)
-    //   F_MISSION_MST 1118 entries, 3433 count   → 1-4000 (full)
-    //   F_DUNGEON_MST 1002 entries, 1532 count   → 1-2000 (full)
+    //   F_GATE_MST     95 entries, ~5  unique ids → 1-100
+    //   F_MISSION_MST 1118 entries, 3433 count   → 1-4000
+    //   F_DUNGEON_MST 1002 entries, 1532 count   → 1-2000
     // The client silently ignores entries for IDs that don't exist in its local MST.
     static constexpr std::string_view kEmptyPermit = R"("yXNM8kL3":[])";
     static const std::string kFullPermit = []() {
@@ -329,11 +298,11 @@ HANDLEF(UserInfo)
             s += "\"}";
             first = false;
         };
-        for (int i = 1; i <= 1000; ++i) add("VjCY7rX4", i); // areas    (FULL — topology requirement)
-        for (int i = 1; i <=    2; ++i) add("9C64Qwe0", i); // lands    (cutscene gate — 1-2 = 1 cutscene)
-        for (int i = 1; i <=  100; ++i) add("0Cq2AlXW", i); // gates    (full)
-        for (int i = 1; i <= 4000; ++i) add("j28VNcUW", i); // missions (full)
-        for (int i = 1; i <= 2000; ++i) add("MHx05sXt", i); // dungeons (full)
+        for (int i = 1; i <= 1000; ++i) add("VjCY7rX4", i); // areas    (topology)
+        for (int i = 1; i <=    2; ++i) add("9C64Qwe0", i); // lands    (cutscene gate)
+        for (int i = 1; i <=  100; ++i) add("0Cq2AlXW", i); // gates
+        for (int i = 1; i <= 4000; ++i) add("j28VNcUW", i); // missions
+        for (int i = 1; i <= 2000; ++i) add("MHx05sXt", i); // dungeons
         s += ']';
         return s;
     }();
@@ -350,24 +319,13 @@ HANDLEF(UserInfo)
     else
         LOG_WARN << "UserInfo: yXNM8kL3 token not found in serialised buffer — PermitPlace not injected";
 
-    // ── ABANDONED: UT1SVg59 cleared-mission injection ────────────────────────
-    //
-    // Tested: 1118 cleared-mission entries with full schema (h7eY3sAK,
-    // j28VNcUW, JATWnN57=1, HIQoGb10=100, Wi4EFe6f/RWX38boG=0, bGx5ku0F=0).
-    // Confirmed landing in the response (verified via http_log_cTZ3W2JG_*.log:
-    // 1118 entries present in UT1SVg59 array).  Cutscenes still played.
-    //
-    // Cutscene gating is therefore NOT controlled by:
-    //   - PermitPlace mission whitelist (yXNM8kL3)
-    //   - user_scenario_info (N4XVE1uA in LoginInfoResp)
-    //   - user_special_scenario_info (9yVsu21R)
-    //   - UT1SVg59 cleared-mission list
-    //
-    // The control point lives somewhere else — likely a client-side local
-    // cache of "viewed scenario IDs" that we haven't yet identified, or
-    // a server signal we haven't replicated.  Reverse-engineering the
-    // client binary (libgame.so / BraveFrontier.exe) is the only reliable
-    // way forward; documentation has been updated to capture the dead ends.
+    // TODO: investigate Cordelica click-crash.  With lands 1-2 the chooser
+    // shows Mistral + Cordelica, but clicking Cordelica soft-crashes back
+    // to home (Mistral works fine).  Likely a per-land asset / NPC unit /
+    // cutscene-script dependency present for Mistral but missing for
+    // Cordelica.  Diff `deploy/log/dlc_404.log` before/after the crash
+    // and check captured requests for any land-2-specific handler we
+    // haven't implemented.
 
     co_return HandleResult::success(buffer);
 }
