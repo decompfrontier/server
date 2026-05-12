@@ -1,46 +1,48 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
-// ChallengeArenaResetInfo — "Zw3WIoWu" / key "KlwYMGF1"
+// ChallengeArenaResetInfo
 //
-// Spam loop (before this handler was registered):
-// 1. How it starts:
-//    Parent scene calls createConnectSceneToHome() (0xE9B6A0), which creates a
-//    ChallengeArenaResetInfoConnectScene. On activation, initConnect() (0xE9B7A8)
-//    calls needServerRefresh() (0xE7FA00). Since all internal fields are zero,
-//    this always returns true, triggering accessPhpChallengeArena() (0x16082E0).
+// By default the server returns GmeError{cmd=Close}, which the
+// client interpreted as a connection failure. The connect scene never
+// transitioned away, so the game loop re-fired the request every frame.
 //
-// 2. Why no handler caused infinite retry:
-//    The server hit default: in getHandler(), returning GmeError{cmd=Close}.
-//    checkConnectResult() (0xE9B828) saw the error and returned false.
-//    updateEvent() never reached changeScene(), so the connect scene never
-//    transitioned away. The game loop kept calling initConnect() on this
-//    still-alive scene, producing an endless request stream at ~50ms intervals.
+// With this handler returning empty timestamps (instead of an error), the client parses
+// a valid response and stores server_time + a local snapshot. needServerRefresh() computes:
 //
-// 3. Why changeScene breaks the loop:
-//    This is a transient bridge scene. Its only job is to fetch the response,
-//    then hand off to a permanent arena scene via changeScene() and self-destruct.
-//    When the server returned Close, the transition never happened, so the scene
-//    stayed alive forever. error -4000 in noticeOK() (0xE9B8A8) is the escape
-//    hatch that force-transitions without checking response validity, but our
-//    Close error did not map to -4000.
+//     server_time + now() - local_snapshot > daily_cooling_end
 //
-// 4. Future retriggers:
-//    Once a response populates the timestamp fields, needServerRefresh() will
-//    eventually return true again after enough time passes. At that point the
-//    parent scene recreates the bridge scene, which sends a single request.
-//    This is normal behavior, not a spam loop.
-
+// Assume fields start at zero. After parsing the empty response, server_time stays 0,
+// local_snapshot is set to the current time (via time()), and daily_cooling_end stays 0.
+// So the check becomes: 0 + now() - local_snapshot > 0.
+//
+// Since local_snapshot == the time() value from just after parsing, this is false until
+// now() ticks forward to the next second.
+//
+// To stop the client from retrying every second, we'll set daily_cooling_end to an hour in the
+// future.
+//
+// TODO: figure out the actual intended cooldown time and use that instead.
 HANDLEF(ChallengeArenaResetInfo)
 {
-	// Currently returns empty timestamps — client retries ~every 1s until real values are provided.
-	// TODO: populate with real timestamps
+	using namespace std::chrono;
+	using namespace std::chrono_literals;
+
 	::ChallengeArenaResetInfoResp resp{};
+
+	// I've tested this with 5 seconds as well, which causes the client to retry every 6 seconds.
+	// This makes sense since its an explicit greater-than check.
+	// Using an hour here as a placeholder to prevent the client from constantly retrying and polluting
+	// our logs (and our disks :D).
+	resp.reset_info.server_time = floor<milliseconds>(system_clock::now());
+	resp.reset_info.daily_cooling_end = resp.reset_info.server_time + 1h;
 
 	std::string buffer{};
 	const auto& ec = glz::write_json(resp, buffer);
 	if (ec) {
-		co_return HandleResult::error("Serialization error", glz::format_error(ec, buffer));
+		const auto& glze = glz::format_error(ec, buffer);
+		LOG_DEBUG << "Gme ChallengeArenaResetInfo Error during JSON writing: " << glze;
+		co_return HandleResult::error("Serialization error", glze);
 	}
 
 	co_return HandleResult::success(buffer);
