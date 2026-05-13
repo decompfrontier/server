@@ -3,7 +3,12 @@
 
 HANDLEF(BadgeInfo)
 {
-	::BadgeInfo resp{};
+	// IMPORTANT: must use BadgeInfoResp (the wrapper), NOT BadgeInfo (the inner struct).
+	// The wrapper carries the "h23iRjGN" dispatch key that the client's response
+	// pipeline looks for; sending the inner BadgeInfo directly produces "u7Htm9P4"
+	// at the root and the client silently drops the packet.  Discovered upstream
+	// in decompfrontier/server PR #23.
+	::BadgeInfoResp resp{};
 	std::string buffer{};
 	const auto& ec = glz::write_json(resp, buffer);
 	if (ec)
