@@ -479,8 +479,18 @@ Makefile
 .ninja_log
 *.ninja
 
-deploy/
+# Per-deploy state and large game assets stay untracked, but
+# `deploy/system/*.json` (decoded MST data the server reads at boot)
+# must be committed — without it, fresh checkouts can't run the server.
+deploy/gme.sqlite
+deploy/log/
+deploy/game_content/
+deploy/config.json
 config.json
+
+# IDA Pro audit tooling — kept off the public repo because the binary
+# pseudocode dumps are private reverse-engineering artifacts.
+tools/ida/
 vcpkg_installed/
 .idea
 .vscode

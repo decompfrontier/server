@@ -85,6 +85,8 @@ namespace GmeHandlers
 	HANDLE(DeckEdit);
 	HANDLE(FriendGet);
 	HANDLE(GatchaList);
+	HANDLE(GachaAction);
+	HANDLE(UnitSelectorGachaTicket);
 	HANDLE(HomeInfo);
 	HANDLE(MissionStart);
 	HANDLE(UpdateInfoLight);

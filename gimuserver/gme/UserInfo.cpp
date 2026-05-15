@@ -18,7 +18,7 @@ HANDLEF(UserInfo)
 		"SELECT username, level, exp, zel, karma, brave_coin,"
 		" free_gems, paid_gems, energy,"
 		" max_unit_count, max_warehouse_count,"
-		" summon_tickets, rainbow_coins, colosseum_tickets,"
+		" summon_tickets, rainbow_coins, colosseum_tickets, friend_point,"
 		" total_brave_points, avail_brave_points, active_deck, want_gift"
 		" FROM userinfo WHERE id=$1;",
 		std::string("0839899613932562")
@@ -78,6 +78,7 @@ HANDLEF(UserInfo)
 	ti.summon_ticket       = infoRow["summon_tickets"].as<int32_t>();
 	ti.rainbow_coin        = infoRow["rainbow_coins"].as<int32_t>();
 	ti.colosseum_ticket    = infoRow["colosseum_tickets"].as<int32_t>();
+	ti.friend_point        = infoRow["friend_point"].as<int32_t>();
 	ti.brave_points_total   = infoRow["total_brave_points"].as<int32_t>();
 	ti.current_brave_points = infoRow["avail_brave_points"].as<int32_t>();
 	ti.want_gift           = infoRow["want_gift"].as<std::string>();
@@ -243,6 +244,34 @@ HANDLEF(UserInfo)
 
     resp.summoner_journal.user_id = req.login_info.user_id; // we are really trusting the client here (bad)
     resp.signal_key.key = "5EdKHavF";
+
+    // V2 typed summon-ticket inventory (a3d5d12i / SummonTicketV2UserInfo).
+    // Shape per the IDA readParam audit (tools/ida/audits/a3d5d12i_audit.txt):
+    // ONE entry per ticket TYPE carrying both fields —
+    //   b0D2iq2d → setSummonTicketV2Id (the ticket-type id)
+    //   Rs7bCE3t → setAmount (the owned count, parsed via StrToInt)
+    // The legacy server (BF-WorkingDir/server/...SummonTicketV2UserInfoResponse.hpp)
+    // emitted only b0D2iq2d, but it never actually populated the list (no
+    // handler invokes the response class), so its shape was untested.  The
+    // audit is the source of truth.  See handbook §7.11.
+    //
+    // Backing store: user_summon_tickets_v2 (user_id, ticket_id, count) seeded
+    // by migration 13052026_CreateUserSummonTicketsV2.  GachaAction's ticket
+    // branch decrements the matching row.
+    {
+        const auto& ticketRows = co_await theDb()->execSqlCoro(
+            "SELECT ticket_id, count FROM user_summon_tickets_v2"
+            " WHERE user_id=$1 AND count > 0;",
+            resp.login_info.user_id);
+
+        for (const auto& row : ticketRows)
+        {
+            SummonTicketV2UserInfo t = {};
+            t.id     = row["ticket_id"].as<int32_t>();
+            t.amount = row["count"].as<int32_t>();
+            resp.summon_ticket_v2_user.emplace_back(t);
+        }
+    }
 
 
     std::string buffer{};

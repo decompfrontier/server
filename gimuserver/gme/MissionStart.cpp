@@ -209,6 +209,7 @@ static UserTeamInfo missionStart_buildTeamInfo(
     ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
     ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
     ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
+    ti.friend_point         = row["friend_point"].as<int32_t>();
     ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
     ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
     ti.want_gift            = row["want_gift"].as<std::string>();
@@ -220,43 +221,19 @@ static UserTeamInfo missionStart_buildTeamInfo(
     return ti;
 }
 
-// ── Request struct ────────────────────────────────────────────────────────────
-// Captured live request shape (from http_log_jE6Sp0q4_*.log):
-//   {
-//     "9Q1Lq5FS":[{"h7eY3sAK":"0","J3stQ7jd":"0","j28VNcUW":"11",
-//                  "jkldTrhL":"0","Z0Y4RoD7":"0","nA95Bdj6":"0",
-//                  "5Z1LNoyH":"0","u1iPEVUq":"-1"}],
-//     "JzS3uxsZ":[{"0b4efi1W":"1"}],
-//     ...IKqx1Cn9 envelope...
-//   }
-//
-// Earlier drafts placed mission_id at the top level — that silently failed to
-// parse on every request (the field is one level deeper, inside 9Q1Lq5FS[0]),
-// so req.mission_id was always empty, the fallback "10" kicked in, and every
-// mission was answered with mission-10 data.  Mission 10 worked by accident;
-// mission 11 crashed the client on load because the response said "this is
-// mission 10".
-struct MissionStartItem {
-    std::string mission_id  = {};   // j28VNcUW
-    int32_t     active_deck = 0;    // Z0Y4RoD7
-};
-template<> struct glz::meta<MissionStartItem> {
-    using T = MissionStartItem;
-    static constexpr auto value = glz::object(
-        "j28VNcUW", &T::mission_id,
-        "Z0Y4RoD7", glz::quoted_num<&T::active_deck>
-    );
-};
-
-struct MissionStartReq {
-    std::vector<MissionStartItem> items;   // 9Q1Lq5FS
-};
-template<> struct glz::meta<MissionStartReq> {
-    using T = MissionStartReq;
-    static constexpr auto value = glz::object("9Q1Lq5FS", &T::items);
-};
-
 // ── Handler ──────────────────────────────────────────────────────────────────
+//
+// Request shape is generated from packet-generator/assets/net/mission.kdl
+// (MissionStartReq / MissionStartReqItem) — declares all 8 fields the client
+// sends inside 9Q1Lq5FS[0], so glaze's lenient parse no longer has to skip
+// 6 unknown sibling keys and silently fail on Z0Y4RoD7 the way it did when
+// only mission_id + active_deck were declared locally.
+//
+// Earlier drafts placed mission_id at the top level — that silently failed
+// to parse on every request and every mission was answered with mission-10
+// data; see handbook §7.4.1.  The substring-fallback for Z0Y4RoD7 added
+// during the team-loading debugging is now redundant with the full struct
+// declaration but is kept as a defensive belt-and-braces.
 
 HANDLEF(MissionStart)
 {
@@ -264,20 +241,39 @@ HANDLEF(MissionStart)
 
     static constexpr std::string_view kUserId = "0839899613932562";
 
-    // Parse request — lenient so the IKqx1Cn9 envelope doesn't abort.
-    MissionStartReq req{};
-    {
-        glz::context ctx{};
-        if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
-            LOG_WARN << "MissionStart: parse warning: " << glz::format_error(ec, json);
-    }
+    // Parse using the generated struct (handles all 8 inner-item keys).
+    ::MissionStartReq req{};
+    if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json); ec)
+        LOG_WARN << "MissionStart: parse warning: " << glz::format_error(ec, json);
 
-    // Pull mission_id + active_deck out of the (single) entry inside 9Q1Lq5FS.
-    // Fall back to "10" / 0 only when the array is absent — defensive default
-    // for malformed requests.
-    const std::string missionIdStr = (!req.items.empty() && !req.items[0].mission_id.empty())
-                                     ? req.items[0].mission_id : std::string("10");
-    const int32_t reqActiveDeck    = req.items.empty() ? 0 : req.items[0].active_deck;
+    // Generated mission_id is i32::str → parsed as int32_t.  Convert to a
+    // string view for the existing response-building path that emits the
+    // mission_id back to the client as a quoted JSON value.
+    std::string missionIdStr = std::to_string(req.items.mission_id);
+    if (req.items.mission_id == 0)
+        missionIdStr = "10";   // defensive fallback for malformed requests
+
+    int32_t reqActiveDeck = req.items.active_deck;
+
+    // Belt-and-braces substring extraction kept from the team-loading fix —
+    // historically glaze silently returned 0 here when only 2 of 8 keys
+    // were declared; with the generated struct declaring all 8 it shouldn't
+    // be needed, but leaving the safety net costs us nothing.
+    if (reqActiveDeck == 0)
+    {
+        const std::string_view needle = "\"Z0Y4RoD7\":\"";
+        const auto pos = json.find(needle);
+        if (pos != std::string::npos)
+        {
+            const auto valStart = pos + needle.size();
+            const auto valEnd   = json.find('"', valStart);
+            if (valEnd != std::string::npos && valEnd > valStart)
+            {
+                try { reqActiveDeck = std::stoi(std::string(json.substr(valStart, valEnd - valStart))); }
+                catch (...) { /* leave at 0 */ }
+            }
+        }
+    }
 
     // Parse mission_id as integer for battle-group struct fields.  Defaults to
     // 10 if the string is non-numeric (event missions with non-numeric IDs).
@@ -289,24 +285,57 @@ HANDLEF(MissionStart)
              << " mission_id=" << missionIdStr << " (num=" << missionIdNum << ")";
 
     // ── DB writes: deduct energy + persist active deck selection ─────────────
+    //
+    // Look up the per-mission energy cost from F_MISSION_MST (cached at
+    // boot from deploy/system/mission.json, wrapper key oXeC1Ak9 — see
+    // ServerCache::missionMst()).  Field 69vnphig on each MissionMst row
+    // is the stamina cost.  Tutorial / early-chapter missions cost 3;
+    // endgame missions can be 30+.  Falls back to 10 (the old hardcoded
+    // value) if the mission_id isn't present in the cache, so handlers
+    // for synthetic / event mission IDs not in F_MISSION_MST still
+    // deduct *something*.
+    int32_t energyCost = 10;
+    {
+        const auto& missionMst = theServer()->cache().missionMst();
+        for (const auto& m : missionMst)
+        {
+            if (m.id == static_cast<int32_t>(missionIdNum))
+            {
+                energyCost = m.stamina_cost;
+                break;
+            }
+        }
+    }
+    LOG_INFO << "MissionStart: energy cost for mission_id=" << missionIdStr
+             << " = " << energyCost
+             << " (from F_MISSION_MST.69vnphig)";
+
     try
     {
         co_await theDb()->execSqlCoro(
-            "UPDATE userinfo SET"
-            " energy     = MAX(energy - 10, 0),"
-            " active_deck = $2"
-            " WHERE id=$1;",
-            std::string(kUserId), reqActiveDeck);
+            "UPDATE userinfo SET energy = MAX(0, energy - $1) WHERE id=$2;",
+            energyCost, std::string(kUserId));
     }
     catch (const drogon::orm::DrogonDbException& ex)
     {
-        LOG_WARN << "MissionStart: energy/deck UPDATE failed: " << ex.base().what();
+        LOG_WARN << "MissionStart: energy UPDATE failed: " << ex.base().what();
+    }
+
+    try
+    {
+        co_await theDb()->execSqlCoro(
+            "UPDATE userinfo SET active_deck = $1 WHERE id=$2;",
+            reqActiveDeck, std::string(kUserId));
+    }
+    catch (const drogon::orm::DrogonDbException& ex)
+    {
+        LOG_WARN << "MissionStart: active_deck UPDATE failed: " << ex.base().what();
     }
 
     const auto infoRows = co_await theDb()->execSqlCoro(
         "SELECT level, exp, zel, karma, brave_coin, free_gems, paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, total_brave_points, avail_brave_points,"
+        " colosseum_tickets, friend_point, total_brave_points, avail_brave_points,"
         " active_deck, want_gift, username FROM userinfo WHERE id=$1;",
         std::string(kUserId));
 

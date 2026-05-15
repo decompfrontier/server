@@ -647,6 +647,130 @@ static void RegisterMigrations(MigrationMap& map)
 			" ('0839899613932562','12',1,0);"
 		);
 	});
+
+	// Add a friend_point column to userinfo.  The wire UserTeamInfo carries
+	// `friend_point` at key J3stQ7jd (used by the Honor Summon door's 200-FP
+	// cost), but until now there was no DB column to back it — UserInfo and
+	// GachaList both left ti.friend_point at the zero-initialised default.
+	migrate("13052026_AddFriendPointColumn", {
+		p->execSqlSync(
+			"ALTER TABLE userinfo ADD COLUMN friend_point INTEGER NOT NULL DEFAULT 0;"
+		);
+	});
+
+	// Top up testing currencies on the seed user so the summon flow has
+	// values to spend.  Caps were chosen empirically — see handbook §10
+	// ("Client currency display limits"):
+	//   - paid_gems / free_gems: 9999 each.  The userinfo column hint is
+	//     INTEGER(4) and the prior 95 000 seed silently overflowed the
+	//     client's gem counter to 0 (see migration 27042026_SetGemsTo4200
+	//     for the original incident).  9999 + 9999 = 19 998 total gems,
+	//     enough for ~3 999 Rare-Summon pulls at 5 gems each.
+	//   - friend_point: 9999.  Honor Summon costs 200 FP/pull, so this
+	//     gives ~49 pulls before refill.  Real BF caps FP higher, but 9999
+	//     stays in the same 4-digit safe band as gems.
+	//   - summon_tickets / rainbow_coins / colosseum_tickets: 99 each.
+	//     Tickets render in narrow 2-3 digit UI counters; 99 is the safe
+	//     ceiling.
+	//   - brave_coin: 9999.  Brave Coin is a separate currency from gems
+	//     (despite both being keyed at "03UGMHxF" — gems on the door cost
+	//     field, brave_coin in team_info).  Same 4-digit safe band.
+	// Adjust here when the real client caps are pinned down; document any
+	// observed overflow in the handbook §10 table.
+	migrate("13052026_BumpCurrencyForSummonTesting", {
+		p->execSqlSync(
+			"UPDATE userinfo SET"
+			" paid_gems        = 9999,"
+			" free_gems        = 9999,"
+			" friend_point     = 9999,"
+			" summon_tickets   = 99,"
+			" rainbow_coins    = 99,"
+			" colosseum_tickets= 99,"
+			" brave_coin       = 9999"
+			" WHERE id='0839899613932562';"
+		);
+	});
+
+	// V2 typed-ticket inventory.  Each row is "user_id owns `count` of ticket
+	// type `ticket_id`".  UserInfo emits one `a3d5d12i` array entry per ticket
+	// (so `count` entries per row); GachaAction with `324b023k`=1 against an
+	// eligible door decrements the matching row.  Ticket-id → door mapping
+	// lives in deploy/system/summon_tickets_v2.json (SummonTicketV2Mst at wire
+	// key hE1d083b).  The seed grants 5 Brave Summon Tickets (id=8 → door
+	// 17160 / Veteran summon's Brave half) so the ticket UI button surfaces
+	// for testing.  See handbook §7.10.
+	migrate("13052026_CreateUserSummonTicketsV2", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_summon_tickets_v2 ("
+			"user_id   TEXT    NOT NULL,"
+			"ticket_id INTEGER NOT NULL,"
+			"count     INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, ticket_id)"
+			");"
+		);
+		p->execSqlSync(
+			"INSERT OR REPLACE INTO user_summon_tickets_v2 (user_id, ticket_id, count)"
+			" VALUES ('0839899613932562', 8, 5);"
+		);
+	});
+
+	// One-shot reset for DBs corrupted by the earlier MissionEnd level-up
+	// loop that treated user_level.json d96tuT2E values as cumulative
+	// thresholds.  See gimuserver/gme/MissionEnd.cpp comments and
+	// mst/user_level.kdl `exp` doc for the full writeup.
+	//
+	// HISTORICAL: this migration originally set exp=0, based on a
+	// misreading of d96tuT2E as a per-level chunk.  d96tuT2E is actually
+	// a CUMULATIVE threshold (seed exp=1009680 IS lv 900's threshold,
+	// not the lv-900 chunk).  Zeroing exp made the experience bar look
+	// almost empty at login when it should be sitting right at the lv-900
+	// baseline.  The follow-up migration below restores the correct seed.
+	migrate("13052026_ResetLevelExpToCleanSeed", {
+		p->execSqlSync(
+			"UPDATE userinfo"
+			" SET level = 900, exp = 0"
+			" WHERE id = '0839899613932562';"
+		);
+	});
+
+	// Restore the seed userinfo.exp to lv 900's cumulative threshold so
+	// the player starts exactly at the lv 900 baseline (0 progress toward
+	// lv 901).  See mst/user_level.kdl `exp` doc — d96tuT2E is cumulative,
+	// so the value 1009680 corresponds to "you are at lv 900 with 0
+	// progress; you need 173 more exp to reach lv 901".  The previous
+	// migration zeroed this in error.
+	//
+	// HISTORICAL NOTE: this migration was written under the cumulative
+	// interpretation of d96tuT2E.  The interpretation got flipped back
+	// to per-level chunk in the follow-up migration below — see that
+	// migration and mst/user_level.kdl `exp` doc for the final reading.
+	migrate("13052026_RestoreSeedExpToLv900Threshold", {
+		p->execSqlSync(
+			"UPDATE userinfo"
+			" SET level = 900, exp = 1009680"
+			" WHERE id = '0839899613932562';"
+		);
+	});
+
+	// Final reset to clean per-level-chunk baseline.  d96tuT2E in
+	// user_level.json is per-level chunk; userinfo.exp is progress at the
+	// current level (subtracted on level-up).  Seed values: level=900,
+	// exp=1009680 means "1009680 progress at lv 900 toward the 1009853
+	// chunk needed to ding lv 901" — bar reads ~99% full at login.
+	//
+	// Any DB that drifted into a higher level under the cumulative-style
+	// MissionEnd loop (which never subtracted) ends up with exp values
+	// that are absurd under per-level semantics (e.g. exp=1009880 at
+	// lv 901, which would be "almost ready to ding 902" but in fact came
+	// from cumulative carry-over).  Reset all such DBs to the clean
+	// baseline.  Offline single-player — no legit progression lost.
+	migrate("14052026_ResetToPerLevelChunkBaseline", {
+		p->execSqlSync(
+			"UPDATE userinfo"
+			" SET level = 900, exp = 1009680"
+			" WHERE id = '0839899613932562';"
+		);
+	});
 }
 
 /*!

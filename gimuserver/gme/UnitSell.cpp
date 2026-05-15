@@ -80,6 +80,7 @@ static UserTeamInfo unitSell_buildTeamInfo(const drogon::orm::Row& row,
     ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
     ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
     ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
+    ti.friend_point         = row["friend_point"].as<int32_t>();
     ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
     ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
     ti.want_gift            = row["want_gift"].as<std::string>();
@@ -161,7 +162,7 @@ HANDLEF(UnitSell)
     const auto infoRows = co_await theDb()->execSqlCoro(
         "SELECT level, exp, zel, karma, brave_coin, free_gems, paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, total_brave_points, avail_brave_points,"
+        " colosseum_tickets, friend_point, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
         std::string(kUserId)
     );

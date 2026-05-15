@@ -115,6 +115,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region.json").data;
 		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info.json").data;
 		m_userrsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info.json").data;
+		m_gachaCategories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_categories.json").data;
 		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeons.json").data;
 		m_userrsp.gift = LoadJson<GiftItemMstCache>(mstRoot, "gift.json").data;
 		m_userrsp.general_event = LoadJson<GeneralEventMstCache>(mstRoot, "general_event.json").data;
@@ -123,6 +124,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_userrsp.resummon_gacha = LoadJson<ResummonGachaMstCache>(mstRoot, "resummon_gacha.json").data;
 
 		m_unitMst = LoadJson<UnitMstCache>(mstRoot, "unit.json").data;
+		m_missionMst = LoadJson<MissionMstCache>(mstRoot, "mission.json").data;
 
 		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");

@@ -50,25 +50,49 @@ HANDLEF(DeckEdit)
         co_return HandleResult::success("{}");
     }
 
-    const int32_t deckType = req.deck[0].deck_type;
-    const int32_t deckNum  = req.deck[0].deck_num;
+    // The client sends FULL multi-deck state in one DeckEdit packet — captured
+    // requests contain entries spanning deck_num 0..9 inclusive (one row per
+    // member per deck).  Earlier the handler DELETEd only req.deck[0]'s slot
+    // and then INSERTed every entry, which left the rows for decks 1..9
+    // colliding with the prior save's PRIMARY KEY (user_id, deck_type,
+    // deck_num, disp_order).  The leader row at disp_order=0 always conflicts,
+    // so newly-edited teams kept their old leader (the default unit 10001 from
+    // first-launch seeding), making "take team 4 into battle" load what
+    // appeared to be team 1's leader.
+    //
+    // Fix: collect every (deck_type, deck_num) slot referenced in the request
+    // and DELETE each slot before INSERTing the new rows.  Works for both
+    // full-state saves (10 slots) and any future partial save the client
+    // might send.
 
-    LOG_INFO << "DeckEdit: saving deck_type=" << deckType
-             << " deck_num=" << deckNum
-             << " (" << req.deck.size() << " members)";
-
-    // Remove existing entries for this deck slot, then insert the new ones.
-    try
+    std::vector<std::pair<int32_t, int32_t>> slotsToClear;
+    slotsToClear.reserve(req.deck.size());
+    for (const auto& e : req.deck)
     {
-        co_await theDb()->execSqlCoro(
-            "DELETE FROM user_party_decks"
-            " WHERE user_id=$1 AND deck_type=$2 AND deck_num=$3;",
-            std::string(kUserId), deckType, deckNum);
+        const auto slot = std::make_pair(e.deck_type, e.deck_num);
+        bool seen = false;
+        for (const auto& s : slotsToClear) { if (s == slot) { seen = true; break; } }
+        if (!seen) slotsToClear.emplace_back(slot);
     }
-    catch (const drogon::orm::DrogonDbException& ex)
+
+    LOG_INFO << "DeckEdit: saving " << req.deck.size() << " members across "
+             << slotsToClear.size() << " deck slot(s)";
+
+    for (const auto& [dt, dn] : slotsToClear)
     {
-        LOG_WARN << "DeckEdit: DELETE failed: " << ex.base().what();
-        // Non-fatal — proceed to insert.
+        try
+        {
+            co_await theDb()->execSqlCoro(
+                "DELETE FROM user_party_decks"
+                " WHERE user_id=$1 AND deck_type=$2 AND deck_num=$3;",
+                std::string(kUserId), dt, dn);
+        }
+        catch (const drogon::orm::DrogonDbException& ex)
+        {
+            LOG_WARN << "DeckEdit: DELETE failed for deck_type=" << dt
+                     << " deck_num=" << dn << ": " << ex.base().what();
+            // Non-fatal — proceed to insert.
+        }
     }
 
     for (const auto& e : req.deck)
@@ -88,8 +112,51 @@ HANDLEF(DeckEdit)
         }
         catch (const drogon::orm::DrogonDbException& ex)
         {
-            LOG_WARN << "DeckEdit: INSERT failed for disp_order="
-                     << e.disp_order << ": " << ex.base().what();
+            LOG_WARN << "DeckEdit: INSERT failed for deck_num=" << e.deck_num
+                     << " disp_order=" << e.disp_order
+                     << ": " << ex.base().what();
+        }
+    }
+
+    // Persist the active deck selection.  The captured DeckEdit request carries
+    // an extra group "Ti62XfZK" whose first element holds Z0Y4RoD7 — the client
+    // is telling us "this is now the active deck" at the moment of save.  We
+    // extract it with a substring scan rather than declaring another glaze
+    // struct because the inner item also contains unrelated state (arena
+    // counters etc.) we don't otherwise track, and a strict struct would risk
+    // the same kind of silent parse failure that previously broke MissionStart.
+    //
+    // Without this, the home scene's "current team" would stay on deck 0 even
+    // after the player edited and selected team 2/3/4 — they'd have to start a
+    // mission first for MissionStart's UPDATE to fire.
+    {
+        const std::string_view ti = "\"Ti62XfZK\":[";
+        const auto tiPos = json.find(ti);
+        if (tiPos != std::string::npos)
+        {
+            const std::string_view needle = "\"Z0Y4RoD7\":\"";
+            const auto pos = json.find(needle, tiPos);
+            if (pos != std::string::npos)
+            {
+                const auto valStart = pos + needle.size();
+                const auto valEnd   = json.find('"', valStart);
+                if (valEnd != std::string::npos && valEnd > valStart)
+                {
+                    try
+                    {
+                        const int32_t newActiveDeck = std::stoi(
+                            std::string(json.substr(valStart, valEnd - valStart)));
+                        co_await theDb()->execSqlCoro(
+                            "UPDATE userinfo SET active_deck=$2 WHERE id=$1;",
+                            std::string(kUserId), newActiveDeck);
+                        LOG_INFO << "DeckEdit: active_deck set to " << newActiveDeck;
+                    }
+                    catch (const std::exception& ex)
+                    {
+                        LOG_WARN << "DeckEdit: active_deck UPDATE failed: " << ex.what();
+                    }
+                }
+            }
         }
     }
 

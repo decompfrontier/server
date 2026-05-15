@@ -61,9 +61,10 @@ bool ParseInt(const std::string& s, int64_t& out)
     catch (...) { return false; }
 }
 
-// Client overflows zel/karma above 99 000 000 and resets to 0, which breaks
+// Client overflows zel/karma above 99 999 999 and resets to 0, which breaks
 // evo/mix cost checks.  Hard-cap every write so the DB never goes above this.
-static constexpr int64_t kMaxZelKarma = 99'000'000LL;
+// (Seed values in MigrationManager remain at 99 000 000 to leave headroom.)
+static constexpr int64_t kMaxZelKarma = 99'999'999LL;
 
 // Returns the UnitMst element id (1–6) for a name, or 0 if unrecognised.
 static int32_t ParseElement(const std::string& s)
