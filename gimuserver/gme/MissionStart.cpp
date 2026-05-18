@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <ctime>
+
 // MissionStart (jE6Sp0q4) — fired when the player taps "Quest" and selects
 // a mission.  Returns the full battle-engine seed: 5 enemy waves with monster
 // stats/skills/AI, plus the player's UserTeamInfo and misc session keys.
@@ -287,7 +289,7 @@ HANDLEF(MissionStart)
     // ── DB writes: deduct energy + persist active deck selection ─────────────
     //
     // Look up the per-mission energy cost from F_MISSION_MST (cached at
-    // boot from deploy/system/mission.json, wrapper key oXeC1Ak9 — see
+    // boot from deploy/system/mission_mst.json, wrapper key oXeC1Ak9 — see
     // ServerCache::missionMst()).  Field 69vnphig on each MissionMst row
     // is the stamina cost.  Tutorial / early-chapter missions cost 3;
     // endgame missions can be 30+.  Falls back to 10 (the old hardcoded
@@ -488,6 +490,134 @@ HANDLEF(MissionStart)
         LOG_WARN << "MissionStart: deck skill query failed: " << ex.base().what();
     }
 
+    // ── Reinforce slot — tojMy68W (FriendInfoResponse).  The squad-select
+    // friend picker reads from the client's FriendInfoList singleton; that
+    // singleton is populated by the tojMy68W readParam (see audit at
+    // tools/ida/audits/tojMy68W_audit.txt, handler at 0x13D93C0 in
+    // libgame.so).  Previous attempts emitted xZH6EIQ7 (ReinforcementInfo)
+    // and T_FIXED_REINFORCEMENT (FixedReinforcementInfo) which feed
+    // different singletons that the squad-select UI doesn't appear to
+    // consult — those were correctly received by the binary but landed in
+    // lists nothing was reading.
+    //
+    // We don't have a real friend system on an offline server, so the
+    // entry stands in for the player's own active-deck leader (or their
+    // highest-level unit as a fallback).  TODO: once a curated set of
+    // pre-made friends exists, emit an array of FriendInfo entries
+    // instead of just one.
+    //
+    // KDL schema is in packet-generator/assets/net/friends.kdl.
+    FriendInfo friend_entry{};
+    bool       haveFriend = false;
+    try
+    {
+        auto reinforceRows = co_await theDb()->execSqlCoro(
+            "SELECT uu.id, uu.unit_id, uu.unit_lv,"
+            " uu.base_hp,  uu.add_hp,  uu.ext_hp,"
+            " uu.base_atk, uu.add_atk, uu.ext_atk,"
+            " uu.base_def, uu.add_def, uu.ext_def,"
+            " uu.base_heal,uu.add_heal,uu.ext_heal,"
+            " uu.skill_id, uu.skill_lv, uu.extra_skill_id, uu.extra_skill_lv,"
+            " uu.unit_type_id, uu.element"
+            " FROM user_party_decks pd"
+            " JOIN user_units uu ON uu.id = pd.user_unit_id"
+            " WHERE pd.user_id=$1 AND pd.deck_num=$2 AND pd.member_type=0"
+            " LIMIT 1;",
+            std::string(kUserId), activeDeck);
+
+        if (reinforceRows.empty())
+        {
+            // No active-deck leader row — fall back to the player's
+            // highest-level unit so the slot still has data.
+            reinforceRows = co_await theDb()->execSqlCoro(
+                "SELECT id, unit_id, unit_lv,"
+                " base_hp,  add_hp,  ext_hp,"
+                " base_atk, add_atk, ext_atk,"
+                " base_def, add_def, ext_def,"
+                " base_heal,add_heal,ext_heal,"
+                " skill_id, skill_lv, extra_skill_id, extra_skill_lv,"
+                " unit_type_id, element"
+                " FROM user_units"
+                " WHERE user_id=$1"
+                " ORDER BY unit_lv DESC, id DESC LIMIT 1;",
+                std::string(kUserId));
+        }
+
+        if (!reinforceRows.empty())
+        {
+            const auto& r = reinforceRows[0];
+
+            // user_units.unit_id is TEXT and may carry a "_100" suffix on
+            // evolved units.  Strip it for the MST id we put on the wire.
+            const auto raw = r["unit_id"].as<std::string>();
+            const auto sep = raw.find('_');
+            int32_t mstId = 0;
+            try { mstId = std::stoi(sep != std::string::npos ? raw.substr(0, sep) : raw); }
+            catch (...) {}
+
+            // FriendInfo's element field is uint32_t (int element id) — NOT
+            // a string like UserUnitInfo.element.  user_units.element stores
+            // the string form ("fire"/"water"/etc); invert for the wire.
+            const auto elemStr = r["element"].as<std::string>();
+            int32_t elemId = 1;  // default fire
+            if      (elemStr == "fire")    elemId = 1;
+            else if (elemStr == "water")   elemId = 2;
+            else if (elemStr == "earth")   elemId = 3;
+            else if (elemStr == "thunder") elemId = 4;
+            else if (elemStr == "light")   elemId = 5;
+            else if (elemStr == "dark")    elemId = 6;
+
+            // user_id "n9ZMPC0t" matches the placeholder friend already used
+            // in zI2tJB7R above; keeps the squad-selection UI internally
+            // consistent.
+            friend_entry.user_id            = "n9ZMPC0t";
+            friend_entry.handle_name        = "DecompFriend";
+            friend_entry.team_lv            = 999;  // placeholder account level
+            friend_entry.friend_type        = 1;    // 1 = friend (UNVERIFIED enum)
+            friend_entry.last_login_date    = static_cast<int32_t>(std::time(nullptr));
+            friend_entry.unit_id            = mstId;
+            friend_entry.unit_lv            = r["unit_lv"].as<int32_t>();
+            friend_entry.base_hp            = r["base_hp"].as<int32_t>();
+            friend_entry.add_hp             = r["add_hp"].as<int32_t>();
+            friend_entry.ext_hp             = r["ext_hp"].as<int32_t>();
+            friend_entry.base_atk           = r["base_atk"].as<int32_t>();
+            friend_entry.add_atk            = r["add_atk"].as<int32_t>();
+            friend_entry.ext_atk            = r["ext_atk"].as<int32_t>();
+            friend_entry.base_def           = r["base_def"].as<int32_t>();
+            friend_entry.add_def            = r["add_def"].as<int32_t>();
+            friend_entry.ext_def            = r["ext_def"].as<int32_t>();
+            friend_entry.base_heal          = r["base_heal"].as<int32_t>();
+            friend_entry.add_heal           = r["add_heal"].as<int32_t>();
+            friend_entry.ext_heal           = r["ext_heal"].as<int32_t>();
+            friend_entry.skill_id           = std::to_string(r["skill_id"].as<int32_t>());
+            friend_entry.skill_lv           = r["skill_lv"].as<int32_t>();
+            friend_entry.extra_skill_id     = std::to_string(r["extra_skill_id"].as<int32_t>());
+            friend_entry.extra_skill_lv    = r["extra_skill_lv"].as<int32_t>();
+            friend_entry.unit_type_id       = r["unit_type_id"].as<int32_t>();
+            friend_entry.element            = elemId;
+            friend_entry.friend_id          = "DECOMP01";       // displayable in-game ID
+            friend_entry.friend_message     = "GG WP";          // profile/status string
+            friend_entry.favorite           = 1;                // mark as favorite so it sorts to the top
+            friend_entry.priority           = 1;                // ditto
+            friend_entry.deck_no            = 0;
+            friend_entry.guild_id           = 0;
+            // All other unk_* / arena fields default to 0/"" — that matches
+            // the bfdata typed handler's initial values.
+
+            haveFriend = true;
+            LOG_INFO << "MissionStart: tojMy68W friend slot populated from unit "
+                     << mstId << " (lv " << friend_entry.unit_lv << ")";
+        }
+        else
+        {
+            LOG_WARN << "MissionStart: no units in inventory — friend slot will be empty";
+        }
+    }
+    catch (const drogon::orm::DrogonDbException& ex)
+    {
+        LOG_WARN << "MissionStart: friend query failed: " << ex.base().what();
+    }
+
     // AIMst — enemy AI behaviour (ai_id 20017)
     auto mkai = [](uint32_t pri, const char* term, uint32_t tgt,
                    const char* search, const char* atk, uint32_t pct) -> MsAI {
@@ -562,6 +692,31 @@ HANDLEF(MissionStart)
 
     // Reinforce/friend user snapshot (captured live-server data for user n9ZMPC0t)
     resp += R"(,"zI2tJB7R":[{"h7eY3sAK":"n9ZMPC0t","dD64grYH":"334","3w6YDS4z":"20","d96tuT2E":"36216751","pThS5FE3":"152762744","mn5Tj3fz":"125539575","jG91JRxN":"36137127","06phPeqv":"35791092","Zq8ej5IN":"346035","isRx41jy":"147217074","20qd9shE":"48090082","Sf95jez7":146280,"I29Qgxot":"124800","WMC6rNF1":"702","Z93pUQhG":"2180","Rc6St9h1":"45","k5Sjn9Zq":"7849","c3Bo97kI":"2674","Gt2msFb1":"7050","07HgoLtC":"1","AEz43gai":"0","8CEu9Kcm":"0","3DBVLY8H":"2887","c4im6B2v":2092,"UCN04WxE":"1994","ovFJ6Hp0":"15045","TW1Mrtp5":"502","5NRJQ1LU":"824760049","XP06YWdT":"569","U8uZLA34":"666505","rZQJF5G9":"51673","0LwvAF3H":"10523","rQ3TAy6I":"10116","hoG2ieT5":"5461379","6PLsn8xo":"2114221","84BC2kXw":"3418","5pg7MYCQ":"576","mFID53JZ":"1124","e6BKoYy9":"1814061344"}])";
+
+    // tojMy68W — FriendInfoResponse.  Populates the FriendInfoList
+    // singleton the squad-select reinforce picker reads from.  Replaces
+    // the earlier xZH6EIQ7 + T_FIXED_REINFORCEMENT emission, which fed
+    // ReinforcementInfoList / FixedReinforcementInfoList — both correctly
+    // received by the binary but neither consulted by the squad-select UI
+    // (confirmed via tools/ida/audits/tojMy68W_audit.txt — FriendInfoList
+    // is the singleton populated at 0x13D93C0).  zI2tJB7R above still
+    // carries the friend's account-stats archive blob for the per-friend
+    // detail / online-status display.
+    if (haveFriend)
+    {
+        std::string friendArrJson;
+        if (const auto ec = glz::write_json(
+                std::vector<FriendInfo>{friend_entry}, friendArrJson); ec)
+        {
+            LOG_WARN << "MissionStart: serialize tojMy68W: "
+                     << glz::format_error(ec, friendArrJson);
+        }
+        else
+        {
+            resp += R"(,"tojMy68W":)";
+            resp += friendArrJson;
+        }
+    }
 
     // Bonus info
     resp += R"(,"Kz7qfSs5":[{"k9cxD7Ba":"58844709","j3g5P4cq":"1","nA95Bdj6":"0","5Z1LNoyH":"0","LE6JkUp7":"1|0:25:30030:1:1| @2|0:25:10030:1:1| @3| |1/1/4:25:10000:1@4|1:30:50030:2:2| @5| | "}])";

@@ -695,7 +695,7 @@ static void RegisterMigrations(MigrationMap& map)
 	// type `ticket_id`".  UserInfo emits one `a3d5d12i` array entry per ticket
 	// (so `count` entries per row); GachaAction with `324b023k`=1 against an
 	// eligible door decrements the matching row.  Ticket-id → door mapping
-	// lives in deploy/system/summon_tickets_v2.json (SummonTicketV2Mst at wire
+	// lives in deploy/system/summon_ticket_v2_mst.json (SummonTicketV2Mst at wire
 	// key hE1d083b).  The seed grants 5 Brave Summon Tickets (id=8 → door
 	// 17160 / Veteran summon's Brave half) so the ticket UI button surfaces
 	// for testing.  See handbook §7.10.
@@ -715,7 +715,7 @@ static void RegisterMigrations(MigrationMap& map)
 	});
 
 	// One-shot reset for DBs corrupted by the earlier MissionEnd level-up
-	// loop that treated user_level.json d96tuT2E values as cumulative
+	// loop that treated user_level_mst.json d96tuT2E values as cumulative
 	// thresholds.  See gimuserver/gme/MissionEnd.cpp comments and
 	// mst/user_level.kdl `exp` doc for the full writeup.
 	//
@@ -753,7 +753,7 @@ static void RegisterMigrations(MigrationMap& map)
 	});
 
 	// Final reset to clean per-level-chunk baseline.  d96tuT2E in
-	// user_level.json is per-level chunk; userinfo.exp is progress at the
+	// user_level_mst.json is per-level chunk; userinfo.exp is progress at the
 	// current level (subtracted on level-up).  Seed values: level=900,
 	// exp=1009680 means "1009680 progress at lv 900 toward the 1009853
 	// chunk needed to ding lv 901" — bar reads ~99% full at login.

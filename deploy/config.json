@@ -59,7 +59,10 @@
 					"initial_free_gems": 5,
 					"initial_zel": 10000000,
 					"initial_karma": 10000000,
-					"initial_bcoins": 0
+					"initial_bcoins": 0,
+					// Client render-loop cap delivered to the offline-proxy via
+					// GET /offline_mod/fps_cap. 0 disables the client-side cap.
+					"fps_cap": 60
                 }
             }
         }

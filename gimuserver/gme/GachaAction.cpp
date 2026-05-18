@@ -18,7 +18,7 @@
 //                                          (results screen renders N tiles)
 //   "fEi17cnx": [UserTeamInfo]            refreshed HUD currency after deduction
 //
-// Currency rules (derived from gacha_info.json + bfdata createbody analysis):
+// Currency rules (derived from gacha_info_mst.json + bfdata createbody analysis):
 //   - If request `324b023k` == 1 → ticket flow: decrement userinfo.summon_tickets
 //     by N (one ticket per pull).  Door's J3stQ7jd/03UGMHxF are ignored.
 //   - Else if door's `J3stQ7jd` > 0 → friend-point flow: deduct N * J3stQ7jd
@@ -34,7 +34,7 @@
 //
 // Remaining TODOs:
 //   1. Drop-table rolls.  Currently hardcoded to MST id 10017; real BF rolls
-//      from gacha_effects.json per-gacha rate buckets keyed by 7Ffmi96v.
+//      from gacha_effect_mst.json per-gacha rate buckets keyed by 7Ffmi96v.
 //   2. UnitSelectorGachaTicket and GachaFixAction (separate handlers).
 //   3. Per-gacha effect_id pick — Km35HAXv.u0vkt9yH currently constant 13762
 //      (a Light Featured effect id) regardless of which door rolled.  Wire to
@@ -179,7 +179,7 @@ HANDLEF(GachaAction)
 
     // ----------------------------------------------------------------------
     // Look up the gacha door in the catalog so we can read its cost fields.
-    // gacha_info.json is loaded into m_userrsp.gacha_info at boot; entries are
+    // gacha_info_mst.json is loaded into m_userrsp.gacha_info at boot; entries are
     // keyed by `id` (7Ffmi96v on wire, generated as `int32_t GachaInfoMst::id`).
     // ----------------------------------------------------------------------
     int32_t gachaIdNum = 0;

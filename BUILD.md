@@ -56,6 +56,64 @@ cmake --build --preset debug-win64-release
 
 Artifacts land under `out/build/debug-win64/`.
 
+### Release / APPX deployment build (`release-win32`)
+
+The `release-win32` preset produces the **PROXYAPPX** server — a 32-bit
+static library that's embedded into the BF game's APPX package, loaded
+by the game process at startup. There is no separate executable.
+
+**Use `rebuild_release.bat`** — the release counterpart to `rebuild.bat`.
+It runs from any prompt and handles the environment setup automatically:
+
+```cmd
+cd C:\path\to\BF-WorkingDirRust
+rebuild_release.bat
+```
+
+The script prompts for Debug vs Release at the configuration menu and
+auto-detects whether to reconfigure (first build, or after editing
+CMake/KDL files). Artifacts land under `out/build/release-win32/`.
+
+**Manual recipe** (if you'd rather call CMake directly):
+
+```cmd
+:: x86 cross-compile env (x64 host, x86 target — uses Hostx64\x86\cl.exe).
+:: NOTE: -arch=x86, NOT -arch=amd64 like the debug build.
+call "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\VsDevCmd.bat" -arch=x86 -host_arch=amd64
+
+set VCPKG_ROOT=C:\Users\Evan\BF\vcpkg
+
+cd C:\path\to\BF-WorkingDirRust
+cmake --preset release-win32
+cmake --build --preset release-win32-release
+```
+
+**Important gotchas specific to `release-win32`** (also documented in
+handbook §8.X if landed):
+
+1. **`drogon[ctl]` must NOT be in `vcpkg.json`.** The upstream drogon
+   port marks the `ctl` feature (the `drogon_ctl` CLI scaffolding tool)
+   as `supports: "native"` — vcpkg refuses to install it on the
+   `x86-windows-static` triplet. Our `vcpkg.json` lists only
+   `sqlite3` and `orm` for drogon. If you see
+   `drogon[ctl] is only supported on 'native'` in
+   `out/build/release-win32/vcpkg-manifest-install.log`, someone has
+   re-added the feature.
+
+2. **cl.exe arch must match the target.** Using `-arch=amd64`
+   (the debug script's flag) builds x64 objects that fail to link
+   against the x86-windows-static vcpkg deps. Always use `-arch=x86
+   -host_arch=amd64` for release-win32.
+
+3. **A failed configure leaves a half-broken `CMakeCache.txt` behind**
+   that downstream cmake invocations interpret as "no compiler found".
+   If you see `CMAKE_CXX_COMPILER not set, after EnableLanguage` and
+   `CMake was unable to find a build program corresponding to "Ninja
+   Multi-Config"`, the real failure happened earlier — usually vcpkg.
+   Always read `out/build/release-win32/vcpkg-manifest-install.log`
+   first; the toolchain errors are almost always downstream symptoms.
+   `rebuild_release.bat` auto-wipes a partial cache before reconfiguring.
+
 ### Linux
 
 ```bash
@@ -107,3 +165,12 @@ Cargo is compiling `packet-generator` from source. Wait it out; subsequent build
 
 **Generated types don't exist after editing a KDL file**
 Build again — the custom target re-runs on any `.kdl` change. If it still doesn't regenerate, delete `gimuserver/packets/all.hpp` and build; that forces a rerun.
+
+**`release-win32` configure fails with `drogon[ctl] is only supported on 'native'`**
+The upstream drogon port refuses to build the `ctl` feature on cross-compile triplets. Drop `"ctl"` from the drogon features list in `vcpkg.json`. The `drogon_ctl` binary is a project-scaffolding helper not used by the offline server.
+
+**`release-win32` configure fails with `Ninja Multi-Config not found` / `CMAKE_CXX_COMPILER not set`**
+These are almost always downstream symptoms of a vcpkg dependency-install failure (the configure aborted before compiler probing). Read `out/build/release-win32/vcpkg-manifest-install.log` for the real cause. If you're running from a fresh shell, also confirm you sourced `VsDevCmd.bat -arch=x86 -host_arch=amd64` — not the debug build's `-arch=amd64`. `rebuild_release.bat` handles both.
+
+**`release-win32` build fails in `game_frontend/bootstrap_windows.cpp` with `error C2059: syntax error: '__declspec(dllexport)'`**
+MSVC requires `__declspec(dllexport)` BEFORE the return type, not between `__stdcall` and the function name. The `__APPX__`-gated block in this file had never been compiled before because the debug-win64 preset uses `STANDALONE` (no `__APPX__` define) — the bug only surfaces on the first real release build. Fix: rewrite the declaration as `extern "C" __declspec(dllexport) void __stdcall <name>(args)`.

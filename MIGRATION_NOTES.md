@@ -18,7 +18,7 @@ If you are reverse-engineering a brand-new request from scratch, the old tree's 
 | **Crypto** | `BfCrypt::ReadGME` / `BfCrypt::BuildGME` | Same names, unchanged. |
 | **Handlers wired** | 288 | 12 (see list below) |
 | **Response structs hand-coded** | 326 | 0 — all from KDL |
-| **MST container** | `gimuserver/system/MstConfig.hpp` with hand-typed structs (`UnitMstData`, `ItemMstEntry`, etc.) | `gimuserver/drogon/ServerCacheMst.hpp` with an `auto_cache(key, name)` macro; MST structs come from `packet-generator/assets/mst/*.kdl`. **`UnitMst` is `auto_cache`d but not loaded** — the `LoadJson<UnitMstCache>` call in `ServerCache.cpp` is commented out pending a hashed-key `unit.json` source file (see "Outstanding blockers" below). |
+| **MST container** | `gimuserver/system/MstConfig.hpp` with hand-typed structs (`UnitMstData`, `ItemMstEntry`, etc.) | `gimuserver/drogon/ServerCacheMst.hpp` with an `auto_cache(key, name)` macro; MST structs come from `packet-generator/assets/mst/*.kdl`. **`UnitMst` is `auto_cache`d but not loaded** — the `LoadJson<UnitMstCache>` call in `ServerCache.cpp` is commented out pending a hashed-key `unit_mst.json` source file (see "Outstanding blockers" below). |
 
 ### Handlers already ported
 
@@ -32,7 +32,7 @@ The `user_units` table is now created by `gimuserver/db/MigrationManager.cpp` mi
 
 ### Outstanding blockers
 
-**Hashed-key `unit.json` MST file.** The new tree's `deploy/system/` does not contain a wire-format `unit.json` for `LoadJson<UnitMstCache>` to consume. The old fork ships friendly-key `F_UNIT_MST_*.json`; the field map for converting friendly → hashed lives in `packet-generator/assets/mst/unit.kdl`. Until this file is produced, `ServerCache::unitMst()` returns an empty vector and any handler that does an MST lookup (`UnitMix`, `UnitEvo` real impl, `UnitSell`) will silently no-op.
+**Hashed-key `unit_mst.json` MST file.** The new tree's `deploy/system/` does not contain a wire-format `unit_mst.json` for `LoadJson<UnitMstCache>` to consume. The old fork ships friendly-key `F_UNIT_MST_*.json`; the field map for converting friendly → hashed lives in `packet-generator/assets/mst/unit.kdl`. Until this file is produced, `ServerCache::unitMst()` returns an empty vector and any handler that does an MST lookup (`UnitMix`, `UnitEvo` real impl, `UnitSell`) will silently no-op.
 
 ---
 
@@ -168,7 +168,7 @@ The language reference lives in the upstream packet-generator repo's HOWTO. What
 ## Porting order (big picture)
 
 1. **Dry-run: `UnitFavorite`.** Single DB column toggle, no formula math, tiny KDL. Validates the whole workflow before tackling anything larger.
-2. **Prerequisite: surface `UnitMst` in `ServerCacheMst`.** ✅ Partially done. `auto_cache("2r9cNSdt", UnitMst)` is wired in `ServerCacheMst.hpp` and the `unitMst()` getter exists in `ServerCache.hpp/.cpp`. The `LoadJson<UnitMstCache>(mstRoot, "unit.json")` line is **commented out** because no hashed-key `unit.json` exists in `deploy/system/`. Producing that file (friendly-key `F_UNIT_MST_*.json` → hashed wire format using the `unit.kdl` field map) is the gating task before any of the unit-math handlers below.
+2. **Prerequisite: surface `UnitMst` in `ServerCacheMst`.** ✅ Partially done. `auto_cache("2r9cNSdt", UnitMst)` is wired in `ServerCacheMst.hpp` and the `unitMst()` getter exists in `ServerCache.hpp/.cpp`. The `LoadJson<UnitMstCache>(mstRoot, "unit_mst.json")` line is **commented out** because no hashed-key `unit_mst.json` exists in `deploy/system/`. Producing that file (friendly-key `F_UNIT_MST_*.json` → hashed wire format using the `unit.kdl` field map) is the gating task before any of the unit-math handlers below.
 3. **Unit verbs**, in this order: `UnitMix` → `UnitEvo` → `UnitSell`. Mix validates the XP-math translation; Evo reuses Mix infrastructure for DELETE; Sell is simplest but depends on `UnitMst.sell_price`, so do it last in the family.
 4. **Item verbs**: `ItemSphereEqp`, `ItemEdit`, `ItemSell`.
 5. **Mission / Campaign Start+End, Gift/Receipt.** Audit the new tree for a `UserState::clear` equivalent before porting — old code relied on that helper.

@@ -51,7 +51,7 @@ public:
 	inline const auto& serverConfig() const { return m_serverConfig; }
 
 	/*!
-	* Unit master data (F_UNIT_MST). Empty until deploy/system/unit.json
+	* Unit master data (F_UNIT_MST). Empty until deploy/system/unit_mst.json
 	* (hashed-key format, wrapper key "2r9cNSdt") is added and the loader
 	* in ServerCache::Setup is uncommented.
 	* @return Vector of UnitMst entries
@@ -61,8 +61,8 @@ public:
 	/*!
 	* Gacha category banners (wire wrapper "IBs49NiH").  The summon screen
 	* renders categories as horizontal banners; each entry maps to a list
-	* of door ids via gatcha_id_list.  Loaded from gacha_categories.json
-	* (extracted from the legacy server's gacha.json `gacha_categories`
+	* of door ids via gatcha_id_list.  Loaded from gacha_category_mst.json
+	* (extracted from the legacy server's gacha_mst.json `gacha_categories`
 	* section — see handbook §7.6.1).
 	* @return Vector of GachaCategory entries
 	*/
@@ -124,7 +124,7 @@ private:
 
 	/*!
 	* Mission master data (wrapper key "oXeC1Ak9"), looked up by mission_id
-	* in MissionStart / MissionEnd.  Loaded from deploy/system/mission.json.
+	* in MissionStart / MissionEnd.  Loaded from deploy/system/mission_mst.json.
 	*/
 	std::vector<MissionMst> m_missionMst;
 };

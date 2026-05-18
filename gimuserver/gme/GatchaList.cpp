@@ -10,9 +10,9 @@
 // Response:
 //   "6FrKacq7": [{"Kn51uR4Y":"axhp8Sin"}]   SignalKey dispatch tag
 //   "fEi17cnx": [UserTeamInfo]              refreshed currency / counts
-//   "1IR86sAv": [GachaInfoMst...]           door catalog from deploy/system/gacha_info.json
+//   "1IR86sAv": [GachaInfoMst...]           door catalog from deploy/system/gacha_info_mst.json
 //   "IBs49NiH": [GachaCategory...]          banner categories (Veteran / Honor / etc.)
-//                                            from deploy/system/gacha_categories.json
+//                                            from deploy/system/gacha_category_mst.json
 //
 // Without the IBs49NiH categories the summon screen renders no banner tiles —
 // each category is one horizontal banner whose `3rCmq58M` (gatcha_id_list)

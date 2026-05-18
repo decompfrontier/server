@@ -31,7 +31,7 @@ HANDLEF(UserInfo)
 	const auto& infoRow = infoRows.at(0);
 	const int32_t level = infoRow["level"].as<int32_t>();
 
-	// Level-gated caps from the already-cached user_level.json MST.
+	// Level-gated caps from the already-cached user_level_mst.json MST.
 	const auto& prog = theServer()->cache().initializeResp().progression;
 	const UserLevelMst* lv = nullptr;
 	for (const auto& e : prog) { if (e.level == level) { lv = &e; break; } }
@@ -305,7 +305,7 @@ HANDLEF(UserInfo)
     // (1-3, 1-5, etc.) to expose more chapters.  Each additional land adds
     // one intro cutscene on first session entry.
     //
-    // Static-category ranges (from version_info.json):
+    // Static-category ranges (from version_info_mst.json):
     //   F_AREA_MST    669 entries, max id ~ 411  → 1-1000  (topology)
     //   F_LAND_MST    147 entries, ~26 unique ids → 1-2    (cutscene gate)
     //   F_GATE_MST     95 entries, ~5  unique ids → 1-100

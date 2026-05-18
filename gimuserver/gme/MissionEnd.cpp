@@ -1,6 +1,9 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <random>
+#include <set>
+
 // MissionEnd (9TvyNR5H) — fired by the client after the battle-result screen
 // is acknowledged.  Grants fixed rewards, persists them to DB, and returns an
 // updated UserTeamInfo so the home-screen HUD reflects the new zel/karma/exp.
@@ -26,6 +29,47 @@ template<> struct glz::meta<MeTeamWrapper> {
         "fEi17cnx", pkg::glaze::single_array<&T::team_info>()
     );
 };
+
+// Mirrors GimuServer::ElementIdToString / unitEvo_elementStr.  Kept local to
+// avoid a cross-TU dependency just for a six-entry switch.
+static std::string missionEnd_elementStr(int32_t e)
+{
+    switch (e) {
+        case 1: return "fire";
+        case 2: return "water";
+        case 3: return "earth";
+        case 4: return "thunder";
+        case 5: return "light";
+        case 6: return "dark";
+        default: return "fire";
+    }
+}
+
+// Parses req.battle_result.unit_drops into a list of MST ids.
+// Wire format is "<mst_id>:<rarity>:<flag>,<mst_id>:<rarity>:<flag>,..."
+// (e.g. "30030:1:1,10030:1:1,50030:2:2").  We only need the first value;
+// rarity/flag are derivable from F_UNIT_MST so we don't trust the client to
+// supply them.
+static std::vector<int32_t> missionEnd_parseUnitDrops(std::string_view raw)
+{
+    std::vector<int32_t> ids;
+    size_t i = 0;
+    while (i < raw.size())
+    {
+        const size_t idStart = i;
+        while (i < raw.size() && raw[i] != ':' && raw[i] != ',') ++i;
+        const auto tok = raw.substr(idStart, i - idStart);
+        if (!tok.empty())
+        {
+            try { ids.push_back(std::stoi(std::string(tok))); }
+            catch (...) { /* skip malformed entry */ }
+        }
+        // Advance past rarity:flag (if present) to the next ','.
+        while (i < raw.size() && raw[i] != ',') ++i;
+        if (i < raw.size() && raw[i] == ',') ++i;
+    }
+    return ids;
+}
 
 // ── Build UserTeamInfo from a fresh DB row ────────────────────────────────────
 static UserTeamInfo missionEnd_buildTeamInfo(
@@ -141,11 +185,9 @@ HANDLEF(MissionEnd)
              << " HC=" << req.battle_result.heart_crystal_num
              << " max_turn_damage=" << req.battle_result.max_turn_damage
              << ")";
-    // TODO: actually credit BC/HC/item_drops/unit_drops once the
-    // corresponding DB tables exist.  Item drops format is
-    // \"item_id:count,item_id:count,...\" in req.battle_result.item_drops;
-    // unit drops are colon-separated triples in
-    // req.battle_result.unit_drops.
+    // Unit drops are credited below (Step 1c).  BC/HC/item_drops are still
+    // TODO — they need a user_brave_crystals counter and a user_items table
+    // respectively, neither of which is wired up yet.
 
     // Step 2: credit rewards via three narrow single-column UPDATEs.
     //
@@ -190,7 +232,7 @@ HANDLEF(MissionEnd)
 
     // Step 1b: level-up check (PER-LEVEL CHUNK interpretation).
     //
-    // d96tuT2E in user_level.json is the EXP required to GAIN AT level N-1
+    // d96tuT2E in user_level_mst.json is the EXP required to GAIN AT level N-1
     // to reach level N — a per-level chunk, NOT a cumulative threshold.
     // The values stay roughly flat across levels (lv 901 chunk = 1009853,
     // lv 902 chunk = 1010025 — small inter-row deltas come from the
@@ -267,6 +309,246 @@ HANDLEF(MissionEnd)
     catch (const drogon::orm::DrogonDbException& ex)
     {
         LOG_WARN << "MissionEnd: level-up check failed: " << ex.base().what();
+    }
+
+    // Step 1c: credit unit drops.  Parse the comma-separated triples from the
+    // request, insert one user_units row per drop seeded from F_UNIT_MST, and
+    // collect the resulting UserUnitInfo entries for the qC2tJs4E push below.
+    //
+    // The qC2tJs4E array is the same incremental-inventory channel
+    // UnitMix/UnitEvo use to tell the client "a unit was added".  The client
+    // appears to drive the result-screen unit-drop card animation off that
+    // push — F5Vs19mb.RewardUnits alone only populates summary text.
+    //
+    // We trust only the unit_id (first triple slot) and re-derive stats from
+    // F_UNIT_MST, so the client can't smuggle in fabricated drops.  Triples
+    // for ids not present in UnitMst are dropped with a warning.
+    //
+    // Inventory cap is not yet enforced — userinfo.max_unit_count is 4000 on
+    // the dev account so we'd hit a real BF gift-box overflow only after
+    // thousands of unhandled drops.  TODO once a gift_box table exists.
+    std::string droppedUnitsJson;
+    // Dictionary entries for first-encounter drops — drives the "Unit
+    // Discovered" / encyclopedia-unlock screen.  Wire schema is the
+    // UserUnitDictionaryResponse (response_key GV81ctzR, params
+    // [h7eY3sAK, pn16CNah, 2pAyFjmZ] per response_mappings.json).  Only the
+    // UserID setter is reached via typed readParam at 0x1404abc; pn16CNah
+    // (unit_id) and 2pAyFjmZ (UnitImgType) come through the hand-coded
+    // getValue() path so they're not in readparam_analysis but they are
+    // listed in the params catalog and must be emitted.
+    std::string dictionaryJson;
+    {
+        const auto dropIds = missionEnd_parseUnitDrops(req.battle_result.unit_drops);
+        if (!dropIds.empty())
+        {
+            const auto& unitMst = theServer()->cache().unitMst();
+
+            struct DropResolved {
+                const UnitMst* mst;
+                int32_t        unit_type_id;
+                int32_t        skill_lv;
+                int32_t        extra_skill_lv;
+                std::string    element;
+            };
+            std::vector<DropResolved> resolved;
+            resolved.reserve(dropIds.size());
+
+            static thread_local std::mt19937 rng(std::random_device{}());
+            std::uniform_int_distribution<int32_t> typeDist(1, 6);
+
+            for (int32_t id : dropIds)
+            {
+                const UnitMst* mst = nullptr;
+                for (const auto& u : unitMst) { if (u.id == id) { mst = &u; break; } }
+                if (!mst)
+                {
+                    LOG_WARN << "MissionEnd: unit_drop id " << id
+                             << " not in UnitMst, skipping";
+                    continue;
+                }
+                DropResolved r{};
+                r.mst            = mst;
+                r.unit_type_id   = typeDist(rng);
+                r.skill_lv       = (mst->skill_id       > 0) ? 10 : 0;
+                r.extra_skill_lv = (mst->extra_skill_id > 0) ? 10 : 0;
+                r.element        = missionEnd_elementStr(mst->element);
+                resolved.emplace_back(std::move(r));
+            }
+
+            if (!resolved.empty())
+            {
+                // Pre-INSERT inventory check: find which of the resolved MST
+                // ids the user already owns (in any form, including evolved
+                // _100 variants).  Anything NOT in this set is a first
+                // encounter and triggers the dictionary-unlock screen via
+                // the GV81ctzR push appended to the response below.
+                //
+                // The query pulls every owned unit_id rather than filtering
+                // server-side because the dev account's inventory is small
+                // (<= max_unit_count of 4000) and the column is TEXT — the
+                // suffix-stripping is cleaner in C++ than in an IN-clause
+                // with both bare and _suffix variants per id.
+                std::set<int32_t> alreadyOwned;
+                try
+                {
+                    const auto seenRows = co_await theDb()->execSqlCoro(
+                        "SELECT DISTINCT unit_id FROM user_units WHERE user_id=$1;",
+                        std::string(kUserId));
+                    for (const auto& row : seenRows)
+                    {
+                        const std::string s = row["unit_id"].as<std::string>();
+                        const auto pos = s.find('_');
+                        const auto base = (pos != std::string::npos) ? s.substr(0, pos) : s;
+                        try { alreadyOwned.insert(std::stoi(base)); }
+                        catch (...) { /* skip non-numeric ids */ }
+                    }
+                }
+                catch (const drogon::orm::DrogonDbException& ex)
+                {
+                    LOG_WARN << "MissionEnd: pre-INSERT inventory check failed: "
+                             << ex.base().what();
+                }
+
+                // One batched INSERT — same Drogon-SQLite-worker-thread
+                // mitigation as GachaAction (handbook §6.14).  Integer cols
+                // are inlined from trusted UnitMst+RNG; only the user_id
+                // string is parameter-bound.
+                std::string sql =
+                    "INSERT INTO user_units "
+                    "(user_id, unit_id, unit_lv,"
+                    " base_hp,  add_hp,  ext_hp,  limit_over_hp,"
+                    " base_atk, add_atk, ext_atk, limit_over_atk,"
+                    " base_def, add_def, ext_def, limit_over_def,"
+                    " base_heal,add_heal,ext_heal,limit_over_heal,"
+                    " exp, total_exp,"
+                    " skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
+                    " element, fe_bp, fe_max_usable_bp, unit_type_id) VALUES ";
+
+                for (size_t i = 0; i < resolved.size(); ++i)
+                {
+                    const auto& r = resolved[i];
+                    const auto& m = *r.mst;
+                    if (i) sql += ',';
+                    sql += "($1,'"; sql += std::to_string(m.id); sql += "',1,";
+                    sql += std::to_string(m.min_hp);  sql += ",0,0,0,";
+                    sql += std::to_string(m.min_atk); sql += ",0,0,0,";
+                    sql += std::to_string(m.min_def); sql += ",0,0,0,";
+                    sql += std::to_string(m.min_rec); sql += ",0,0,0,1,1,";
+                    sql += std::to_string(m.skill_id);       sql += ',';
+                    sql += std::to_string(r.skill_lv);       sql += ',';
+                    sql += std::to_string(m.extra_skill_id); sql += ',';
+                    sql += std::to_string(r.extra_skill_lv); sql += ',';
+                    sql += std::to_string(m.leader_skill_id);
+                    sql += ",'"; sql += r.element; sql += "',100,200,";
+                    sql += std::to_string(r.unit_type_id);
+                    sql += ')';
+                }
+                sql += ';';
+
+                try
+                {
+                    co_await theDb()->execSqlCoro(sql, std::string(kUserId));
+
+                    // SQLite increments rowid monotonically within a single
+                    // INSERT statement, so the N rows just inserted have ids
+                    // last-N+1 .. last.
+                    const auto idRows = co_await theDb()->execSqlCoro(
+                        "SELECT last_insert_rowid() AS id;");
+                    if (idRows.empty())
+                    {
+                        LOG_ERROR << "MissionEnd: last_insert_rowid returned no row after unit-drop INSERT";
+                    }
+                    else
+                    {
+                        const int32_t lastId  = idRows[0]["id"].as<int32_t>();
+                        const int32_t firstId = lastId - static_cast<int32_t>(resolved.size()) + 1;
+
+                        std::vector<UserUnitInfo> drops;
+                        drops.reserve(resolved.size());
+                        for (size_t i = 0; i < resolved.size(); ++i)
+                        {
+                            const auto& r = resolved[i];
+                            const auto& m = *r.mst;
+                            UserUnitInfo u = {};
+                            u.user_id          = std::string(kUserId);
+                            u.user_unit_id     = firstId + static_cast<int32_t>(i);
+                            u.unit_id          = m.id;
+                            u.unit_type_id     = r.unit_type_id;
+                            u.unit_lv          = 1;
+                            u.exp              = 1;
+                            u.total_exp        = 1;
+                            u.base_hp          = m.min_hp;
+                            u.base_atk         = m.min_atk;
+                            u.base_def         = m.min_def;
+                            u.base_heal        = m.min_rec;
+                            u.element          = r.element;
+                            u.leader_skill_id  = m.leader_skill_id;
+                            u.skill_id         = m.skill_id;
+                            u.skill_lv         = r.skill_lv;
+                            u.extra_skill_id   = m.extra_skill_id;
+                            u.extra_skill_lv   = r.extra_skill_lv;
+                            u.fe_bp            = 100;
+                            u.fe_max_usable_bp = 200;
+                            u.new_flag         = true;
+                            drops.emplace_back(std::move(u));
+                        }
+
+                        // Serialize each UserUnitInfo via glaze so we don't
+                        // have to escape strings/types by hand, then join
+                        // with commas.  This mirrors the string-append style
+                        // the rest of MissionEnd uses for UT1SVg59 / F5Vs19mb.
+                        for (size_t i = 0; i < drops.size(); ++i)
+                        {
+                            std::string item;
+                            if (const auto ec = glz::write_json(drops[i], item); ec)
+                            {
+                                LOG_ERROR << "MissionEnd: serialize UserUnitInfo[" << i
+                                          << "]: " << glz::format_error(ec, item);
+                                continue;
+                            }
+                            if (!droppedUnitsJson.empty()) droppedUnitsJson += ',';
+                            droppedUnitsJson += item;
+                        }
+
+                        LOG_INFO << "MissionEnd: credited " << drops.size()
+                                 << " unit drop(s); ids " << firstId << ".." << lastId;
+
+                        // Build dictionary-unlock entries for MST ids that
+                        // weren't already in the user's inventory pre-INSERT.
+                        // Deduped across the drop set so two copies of the
+                        // same unit only produce one dictionary entry.
+                        std::set<int32_t> firstEncounterMstIds;
+                        for (const auto& r : resolved)
+                        {
+                            if (alreadyOwned.find(r.mst->id) == alreadyOwned.end())
+                                firstEncounterMstIds.insert(r.mst->id);
+                        }
+                        for (int32_t id : firstEncounterMstIds)
+                        {
+                            if (!dictionaryJson.empty()) dictionaryJson += ',';
+                            dictionaryJson += R"({"h7eY3sAK":")";
+                            dictionaryJson += std::string(kUserId);
+                            dictionaryJson += R"(","pn16CNah":")";
+                            dictionaryJson += std::to_string(id);
+                            // 2pAyFjmZ = UnitImgType (uint32_t per readparam_analysis).
+                            // Default 0 matches the typed handler's m_UnitImgType
+                            // initial value; unit_img_type variants exist for
+                            // omni/limit-break art but the base entry uses 0.
+                            dictionaryJson += R"(","2pAyFjmZ":"0"})";
+                        }
+                        if (!firstEncounterMstIds.empty())
+                        {
+                            LOG_INFO << "MissionEnd: GV81ctzR first-encounter dictionary entries: "
+                                     << firstEncounterMstIds.size();
+                        }
+                    }
+                }
+                catch (const drogon::orm::DrogonDbException& ex)
+                {
+                    LOG_WARN << "MissionEnd: unit-drop INSERT failed: " << ex.base().what();
+                }
+            }
+        }
     }
 
     // Step 2: fetch fresh userinfo for the response.
@@ -396,17 +678,7 @@ HANDLEF(MissionEnd)
         teamJson += R"("4sQ8vBXm":"",)";                                                                  // ClearDungeonID (TODO)
         teamJson += R"("NgPQbA46":"",)";                                                                  // ClearAreaID    (TODO)
         teamJson += R"("mauD5qZ1":"",)";                                                                  // ClearMissionID (TODO)
-        teamJson += R"("3MAT6quo":")" + req.battle_result.unit_drops       + R"(",)";                     // RewardUnits
-        // NOTE: 3MAT6quo (setRewardUnits) populates the per-mission
-        // unit-drops summary text on the result screen but does NOT
-        // trigger the "you obtained unit X" animation/card render.
-        // That likely comes from an incremental qC2tJs4E
-        // UserUnitInfoResponse push carrying the newly-added user_units
-        // row(s) — same channel UnitMix/UnitEvo use for unit changes.
-        // To wire this up properly: (1) parse unit_drops, (2) INSERT
-        // into user_units with stats from F_UNIT_MST, (3) emit
-        // qC2tJs4E entries for each new row.  Audit script for the
-        // 46 setters is at tools/ida/readparam_audit_qC2tJs4E.py.
+        teamJson += R"("3MAT6quo":")" + req.battle_result.unit_drops       + R"(",)";                     // RewardUnits (echoed for summary text; the "you obtained unit X" animation is driven by the qC2tJs4E push below)
         teamJson += R"("Najhr8m6":")" + std::to_string(zelReward)          + R"(",)";                     // Zel
         teamJson += R"("HTVh8a65":")" + std::to_string(karmaReward)        + R"(",)";                     // Karma
         // teamJson += R"("3vXLQFjt":"",)";                                                               // ExpUpType   (event-multiplier badge — keep commented)
@@ -418,6 +690,33 @@ HANDLEF(MissionEnd)
         teamJson += R"("03fFk30f":"0",)";                                                                 // EToken
         teamJson += R"("S2ChOKo6":"")";                                                                   // RepeatClearBonus
         teamJson += R"(}])";
+
+        // qC2tJs4E — incremental UserUnitInfo push for every freshly-credited
+        // unit drop.  Only emitted when at least one drop survived MST
+        // validation; sending an empty array would harmlessly be a no-op but
+        // we omit the key to match UnitMix/UnitEvo's behaviour (they only
+        // emit when there's something to push).  The entries themselves were
+        // serialized inline above via glz::write_json on each UserUnitInfo.
+        if (!droppedUnitsJson.empty())
+        {
+            teamJson += R"(,"qC2tJs4E":[)";
+            teamJson += droppedUnitsJson;
+            teamJson += ']';
+        }
+
+        // GV81ctzR — UserUnitDictionaryResponse.  One entry per MST id the
+        // user just encountered for the first time (i.e. didn't already own
+        // a copy of).  Drives the post-mission "Unit Discovered" / dictionary-
+        // unlock screen.  Per response_mappings.json the wire schema is
+        // {h7eY3sAK, pn16CNah, 2pAyFjmZ}; the dictionary-unlock animation is
+        // separate from the "obtained unit X" card (driven by qC2tJs4E above)
+        // and from the result-screen summary text (driven by F5Vs19mb.3MAT6quo).
+        if (!dictionaryJson.empty())
+        {
+            teamJson += R"(,"GV81ctzR":[)";
+            teamJson += dictionaryJson;
+            teamJson += ']';
+        }
 
         teamJson += '}';
     }
