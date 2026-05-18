@@ -56,25 +56,56 @@ cmake --build --preset debug-win64-release
 
 Artifacts land under `out/build/debug-win64/`.
 
-### Release / APPX deployment build (`release-win32`)
+### Portable standalone release (`rebuild_release.bat`)
 
-The `release-win32` preset produces the **PROXYAPPX** server — a 32-bit
-static library that's embedded into the BF game's APPX package, loaded
-by the game process at startup. There is no separate executable.
+Builds the `debug-win64` preset in Release config and stages a portable,
+drag-and-drop server folder at `out/build/release-win64/`:
 
-**Use `rebuild_release.bat`** — the release counterpart to `rebuild.bat`.
-It runs from any prompt and handles the environment setup automatically:
+```
+out/build/release-win64/
+  gimuserverw.exe
+  *.dll                  (drogon, trantor, sqlite3, openssl, brotli, zlib, …)
+  config.json            (copied from deploy/)
+  system/                (master data JSONs, copied from deploy/system/)
+```
+
+`game_content/` is intentionally **not** bundled — those are game-owned
+static assets the operator drops in alongside the bundle before
+distributing. `gme.sqlite` is auto-created by `MigrationManager` on
+first run. No `.pdb` is shipped.
 
 ```cmd
 cd C:\path\to\BF-WorkingDirRust
 rebuild_release.bat
 ```
 
-The script prompts for Debug vs Release at the configuration menu and
-auto-detects whether to reconfigure (first build, or after editing
-CMake/KDL files). Artifacts land under `out/build/release-win32/`.
+The script sources `VsDevCmd.bat -arch=amd64 -host_arch=amd64` itself,
+so it works from any prompt. It auto-detects whether to reconfigure
+(first build, or after editing CMake/KDL files) and wipes the dist dir
+between runs so deleted/renamed system files don't linger.
 
 **Manual recipe** (if you'd rather call CMake directly):
+
+```cmd
+call "C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\VsDevCmd.bat" -arch=amd64 -host_arch=amd64
+set VCPKG_ROOT=C:\Users\Evan\BF\vcpkg
+
+cd C:\path\to\BF-WorkingDirRust
+cmake --preset debug-win64
+cmake --build --preset debug-win64-release
+cmake --install out\build\debug-win64 --config Release --prefix out\build\release-win64
+```
+
+### APPX deployment build (`release-win32`)
+
+The `release-win32` preset produces the **PROXYAPPX** server — a 32-bit
+static library that's embedded into the BF game's APPX package, loaded
+by the game process at startup. There is no separate executable.
+
+This is a **different deliverable** from the portable standalone release
+above. `rebuild_release.bat` does NOT build it.
+
+**Manual recipe**:
 
 ```cmd
 :: x86 cross-compile env (x64 host, x86 target — uses Hostx64\x86\cl.exe).

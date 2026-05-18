@@ -2,29 +2,32 @@
 setlocal
 
 :: ─────────────────────────────────────────────────────────────────────────────
-::  BF Server — Release rebuild (APPX-embedded, 32-bit, PROXYAPPX frontend)
+::  BF Server — Release rebuild (standalone, portable, x64)
 ::
-::  Parallel to rebuild.bat (debug) but targets the release-win32 preset:
-::    - VCPKG_TARGET_TRIPLET = x86-windows-static   (deps as 32-bit)
-::    - GIMUSRV_FRONTEND      = PROXYAPPX            (statically embeds the
-::                                                    server into the BF game's
-::                                                    APPX package)
-::    - VsDevCmd flags        = -arch=x86 -host_arch=amd64
-::                              (x64-hosted cl.exe targeting x86 — uses
-::                              Hostx64\x86\cl.exe.  The default rebuild.bat
-::                              uses -arch=amd64 which is wrong for x86 output.)
+::  Builds the debug-win64 preset in Release config and stages a portable
+::  drag-and-drop server folder at:
 ::
-::  Requires drogon WITHOUT the `ctl` feature in vcpkg.json — the upstream
-::  drogon[ctl] port is marked `supports: "native"` and refuses to install on
-::  the x86-windows-static (cross-compile) triplet.  This script does NOT edit
-::  vcpkg.json; if the configure step trips on `drogon[ctl]`, see vcpkg.json
-::  and drop "ctl" from the drogon features list.
+::      out/build/release-win64/
+::        gimuserverw.exe
+::        *.dll                   (resolved by vcpkg applocal.ps1)
+::        config.json             (from deploy/)
+::        system/                 (from deploy/system/, master data)
+::
+::  Drop game_content/ in alongside before distributing (game-owned static
+::  assets, not bundled here).  gme.sqlite is auto-created by MigrationManager
+::  on first run.  No .pdb is shipped.
+::
+::  NOTE: this is the STANDALONE release, NOT the release-win32 APPX build.
+::  The release-win32 preset is for embedding the server into the BF game's
+::  APPX package; that's a different deliverable.  If you need that, build it
+::  manually per BUILD.md §"Release / APPX deployment build".
 :: ─────────────────────────────────────────────────────────────────────────────
 
 set "SERVER_DIR=%~dp0"
 set "VCPKG_ROOT=C:\Users\Evan\BF\vcpkg"
 set "VSWHERE=%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe"
-set "BUILD_DIR=%SERVER_DIR%out\build\release-win32"
+set "BUILD_DIR=%SERVER_DIR%out\build\debug-win64"
+set "DIST_DIR=%SERVER_DIR%out\build\release-win64"
 
 :: ── Locate VsDevCmd.bat via vswhere (VS 2017-2026+) ──────────────────────────
 if not exist "%VSWHERE%" (
@@ -57,28 +60,13 @@ if not exist "%VCPKG_ROOT%\vcpkg.exe" (
 )
 
 echo ============================================================
-echo  BF Server Rebuild  (Release / APPX / x86 / Ninja Multi-Config)
-echo  VS:       %VS_PATH%
-echo  vcpkg:    %VCPKG_ROOT%
+echo  BF Server Release Rebuild  (standalone / portable / x64)
+echo  VS:        %VS_PATH%
+echo  vcpkg:     %VCPKG_ROOT%
 echo  Build dir: %BUILD_DIR%
+echo  Dist dir:  %DIST_DIR%
 echo ============================================================
 echo.
-
-:: ── Config choice ─────────────────────────────────────────────────────────────
-set CONFIG=Release
-set /p CONFIG="Build configuration? (Debug/Release, default Release): "
-if /i "%CONFIG%"=="" set CONFIG=Release
-if /i "%CONFIG%"=="d" set CONFIG=Debug
-if /i "%CONFIG%"=="r" set CONFIG=Release
-
-:: Map to the build preset name
-if /i "%CONFIG%"=="Debug"   set BUILD_PRESET=release-win32-debug
-if /i "%CONFIG%"=="Release" set BUILD_PRESET=release-win32-release
-
-if not defined BUILD_PRESET (
-    echo ERROR: Unknown configuration "%CONFIG%". Use Debug or Release.
-    pause & exit /b 1
-)
 
 :: ── Configure choice ──────────────────────────────────────────────────────────
 :: Auto-suggest reconfigure if the build directory doesn't exist yet.
@@ -91,49 +79,54 @@ if /i "%RECONFIGURE%"=="Y" goto :configure
 goto :build_only
 
 :configure
-:: If a previous configure failed (no build.ninja but cache files present),
-:: wipe the build dir.  Half-configured caches frequently cause "compiler not
-:: set" errors that look like missing toolchain but are really cache corruption.
+:: Wipe a half-broken cache from a previous failed configure.  A
+:: CMakeCache.txt without build.ninja means a downstream error (usually
+:: vcpkg) aborted before the toolchain probe completed.
 if exist "%BUILD_DIR%\CMakeCache.txt" if not exist "%BUILD_DIR%\build.ninja" (
-    echo Detected partial / failed previous configure — wiping %BUILD_DIR%
+    echo Detected partial / failed previous configure - wiping %BUILD_DIR%
     rmdir /s /q "%BUILD_DIR%"
 )
 
 echo.
-echo [1/2] Configuring (release-win32 preset, x86 target via -arch=x86)...
+echo [1/3] Configuring (debug-win64 preset, x64 target)...
 echo NOTE: First build will compile the Rust packet-generator (~2-5 min).
-echo NOTE: vcpkg may take 10-20 min on a cold cache to build x86-windows-static deps.
 echo.
-cmd /c ""%VSDEVCMD%" -arch=x86 -host_arch=amd64 && cd /d "%SERVER_DIR%" && cmake --preset release-win32"
+cmd /c ""%VSDEVCMD%" -arch=amd64 -host_arch=amd64 && cd /d "%SERVER_DIR%" && cmake --preset debug-win64"
 if errorlevel 1 (
     echo.
     echo ERROR: CMake configure failed.
-    echo.
-    echo Common causes:
-    echo   * drogon[ctl] in vcpkg.json — the `ctl` feature is unsupported on
-    echo     x86-windows-static. Drop "ctl" from the drogon features list.
-    echo   * VCPKG_ROOT not pointing at a valid vcpkg checkout.
-    echo   * First-time build: check out/build/release-win32/vcpkg-manifest-install.log
-    echo     for the real vcpkg failure (errors elsewhere are often downstream symptoms).
     pause & exit /b 1
 )
 echo.
 
 :build_only
-echo [Building %CONFIG%]...
-cmd /c ""%VSDEVCMD%" -arch=x86 -host_arch=amd64 && cd /d "%SERVER_DIR%" && cmake --build --preset %BUILD_PRESET%"
-
-:done
+echo [2/3] Building Release...
+cmd /c ""%VSDEVCMD%" -arch=amd64 -host_arch=amd64 && cd /d "%SERVER_DIR%" && cmake --build --preset debug-win64-release"
 if errorlevel 1 (
     echo.
     echo BUILD FAILED. Check the output above for errors.
-) else (
-    echo.
-    echo Build succeeded.  Artifacts: %BUILD_DIR%\%CONFIG%\
-    echo.
-    echo Drop the resulting binaries into the BF game's APPX package directory
-    echo to embed the server.  PROXYAPPX-mode binaries are loaded by the game
-    echo process at startup; no separate standalone executable is produced.
+    pause & exit /b 1
 )
+echo.
+
+echo [3/3] Staging portable release at %DIST_DIR% ...
+:: Wipe any previous dist so deleted/renamed system files don't linger.
+if exist "%DIST_DIR%" rmdir /s /q "%DIST_DIR%"
+cmd /c ""%VSDEVCMD%" -arch=amd64 -host_arch=amd64 && cd /d "%SERVER_DIR%" && cmake --install out\build\debug-win64 --config Release --prefix "%DIST_DIR%""
+if errorlevel 1 (
+    echo.
+    echo INSTALL FAILED. Check the output above for errors.
+    pause & exit /b 1
+)
+
+echo.
+echo ============================================================
+echo  Release succeeded.
+echo  Portable server bundle: %DIST_DIR%
+echo.
+echo  Before distributing, drop deploy\game_content\ into the bundle
+echo  if your release needs the master .dat files. gme.sqlite is
+echo  auto-created by MigrationManager on first run.
+echo ============================================================
 pause
 endlocal
