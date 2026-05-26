@@ -3,6 +3,7 @@
 #include "ServerCacheMst.hpp"
 
 #include <gimuserver/utils/BfCrypt.hpp>
+#include <gimuserver/utils/JsonFile.hpp>
 
 /*!
 * Builds a JSON
@@ -20,24 +21,6 @@ static std::string BuildJson(const T& d)
 	}
 
 	return buffer;
-}
-
-/*!
-* Loads a JSON from the file system.
-*/
-template <typename T>
-static T LoadJson(std::string_view mst_root, std::string_view file)
-{
-	T obj{};
-	std::string path = std::string(mst_root) + "/" + std::string(file);
-	std::string buffer{};
-	const auto& ec = glz::read_file_json(obj, path, buffer);
-	if (ec)
-	{
-		throw std::runtime_error(std::format("Cannot read JSON file \"{}\", error:\n{}", file, glz::format_error(ec, buffer)));
-	}
-
-	return obj;
 }
 
 void ServerCache::Setup(const Json::Value& serverObj)
@@ -85,7 +68,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.gacha_effects = LoadJson<GachaEffectMstCache>(mstRoot, "gacha_effects.json").data;
 		m_initrsp.gachas = LoadJson<GachaMstCache>(mstRoot, "gacha.json").data;
 		m_initrsp.npcs = LoadJson<NpcMstCache>(mstRoot, "npc.json").data;
-		m_initrsp.banner_info = LoadJson <BannerInfoMstCache>(mstRoot, "banner_info.json").data;
+		m_initrsp.banner_info = LoadJson<BannerInfoMstCache>(mstRoot, "banner_info.json").data;
 		m_initrsp.extra_passive_skills = LoadJson<ExtraPassiveSkillMstCache>(mstRoot, "extra_passive_skills.json").data;
 		m_initrsp.notice_info = LoadJson<NoticeInfo>(mstRoot, "notice_info.json");
 		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines.json");
@@ -129,3 +112,4 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		// ---
 	}
 }
+

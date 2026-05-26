@@ -1,6 +1,9 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/archive/UnitArchiver.hpp>
+#include <gimuserver/db/UserUnitService.hpp>
+
 HANDLEF(UserInfo)
 {
 	UserInfoReq req = {};
@@ -37,56 +40,44 @@ HANDLEF(UserInfo)
     resp.team_info.add_unit_count = 100;
     resp.team_info.max_unit_count = 100;
 
-
+    const auto db = theDb();
+    if (!co_await UserUnitService::getUnits(db, resp.login_info.user_id, resp.unit_info))
     {
-        UserUnitInfo d = {};
-        d.user_id = resp.login_info.user_id;
-        d.user_unit_id = 100;
-        d.unit_type_id = 1;
-        d.element = "fire";
-        d.base_hp = 1000;
-        d.add_hp = 1001;
-        d.ext_hp = 1002;
-
-        d.base_def = 1100;
-        d.add_def = 1101;
-        d.ext_def = 1102;
-
-        d.base_heal = 1200;
-        d.add_heal = 1201;
-        d.ext_heal = 1202;
-
-        d.base_atk = 1300;
-        d.add_atk = 1301;
-        d.ext_atk = 1302;
-
-        d.limit_over_atk = 1400;
-        d.limit_over_def = 1401;
-        d.limit_over_heal = 1402;
-        d.limit_over_hp = 1403;
-
-        d.unit_lv = 1;
-        d.new_flag = 1;
-
-        d.ext_count = 1500;
-        d.fe_bp = 100;
-        d.fe_used_bp = 0;
-        d.fe_max_usable_bp = 200;
-        d.unit_img_type = 0;
-
-
-        d.exp = 1;
-        d.total_exp = 1;
-
-        d.unit_id = 50253;
-        resp.unit_info.emplace_back(d);
+        co_return HandleResult::error("Database error", "Unable to load user units");
     }
+
+    if (resp.unit_info.empty())
+    {
+        UserUnitInfo d = {
+            .unit_id = 50253,
+            .unit_type_id = 1,
+        };
+
+        if (!UnitArchiver::Instance().Lookup(d))
+        {
+            co_return HandleResult::error("Archive error", "Unable to find placeholder unit record");
+        }
+
+        d.user_id = resp.login_info.user_id;
+
+        if (!co_await UserUnitService::AddUnit(db, resp.login_info.user_id, d))
+        {
+            co_return HandleResult::error("Database error", "Unable to add placeholder user unit");
+        }
+
+        if (!co_await UserUnitService::getUnits(db, resp.login_info.user_id, resp.unit_info) || resp.unit_info.empty())
+        {
+            co_return HandleResult::error("Database error", "Unable to reload user units");
+        }
+    }
+
+    const auto activeUserUnitId = resp.unit_info.front().user_unit_id;
 
     for (int i = 0; i < 10; i++) {
         UserPartyDeckInfo deck = {};
         deck.deck_num = i;
         deck.deck_type = 1;
-        deck.user_unit_id = 100; // Now maps to id from user_units
+        deck.user_unit_id = activeUserUnitId;
         resp.party_deck_info.emplace_back(deck);
     }
 

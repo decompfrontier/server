@@ -49,17 +49,24 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
-#if 0
 	migrate("08032025_CreateUserUnitsTable", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_units ("
-			"id INTEGER PRIMARY KEY AUTOINCREMENT," // Add: Auto-incrementing primary key as per PR comment
-			"user_id TEXT NOT NULL," // Keep: Links unit to a user
-			"unit_id TEXT NOT NULL" // Keep: Stores the unit identifier
+			"user_unit_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+			"user_id TEXT NOT NULL,"
+			"unit_id INTEGER NOT NULL,"
+			"unit_type_id INTEGER NOT NULL,"
+			"base_hp INTEGER NOT NULL,"
+			"base_atk INTEGER NOT NULL,"
+			"base_def INTEGER NOT NULL,"
+			"base_rec INTEGER NOT NULL,"
+			"ext_hp INTEGER NOT NULL DEFAULT 0,"
+			"ext_atk INTEGER NOT NULL DEFAULT 0,"
+			"ext_def INTEGER NOT NULL DEFAULT 0,"
+			"ext_rec INTEGER NOT NULL DEFAULT 0"
 			");"
 		);
 	});
-#endif
 }
 
 /*!
