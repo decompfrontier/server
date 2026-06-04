@@ -1,8 +1,7 @@
 #pragma once
 
-#include <gimuserver/db/PacketInterface.hpp>
+#include <drogon/orm/DbClient.h>
 
-#include <cstdint>
 #include <string>
 #include <string_view>
 
@@ -13,7 +12,6 @@ class UserInfoService final
 {
 public:
 	using Database = drogon::orm::DbClientPtr;
-	using Exception = drogon::orm::DrogonDbException;
 	using Result = drogon::orm::Result;
 
 	UserInfoService() = delete;
@@ -59,5 +57,4 @@ public:
 		const std::string_view gumi_user_id,
 		const std::string_view user_id,
 		const std::string_view username);
-
 };

@@ -1,6 +1,6 @@
 #pragma once
+
 #include <drogon/orm/DbClient.h>
-#include <gimuserver/db/PacketInterface.hpp>
 #include <gimuserver/packets/all.hpp>
 
 #include <string_view>
@@ -12,7 +12,6 @@ class UserUnitService final
 {
 public:
 	using Database = drogon::orm::DbClientPtr;
-	using Exception = drogon::orm::DrogonDbException;
 	using Result = drogon::orm::Result;
 
 	/*!

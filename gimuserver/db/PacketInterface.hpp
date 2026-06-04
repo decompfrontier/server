@@ -4,12 +4,12 @@
 #include <gimuserver/packets/all.hpp>
 
 #include <algorithm>
-#include <array>
 #include <cstdint>
 #include <map>
 #include <string>
 #include <string_view>
 #include <stdexcept>
+#include <type_traits>
 #include <variant>
 #include <vector>
 
@@ -25,7 +25,6 @@ class PacketInterfaceFor
 {
 public:
 	using Database = drogon::orm::DbClientPtr;
-	using Exception = drogon::orm::DrogonDbException;
 	using Result = drogon::orm::Result;
 	using Row = drogon::orm::Row;
 
@@ -74,7 +73,7 @@ public:
 
 private:
 	// Intentionally undefined for unsupported packet types.
-	static PacketFields getPacketFields();
+	static const PacketFields& getPacketFields();
 
 	/*!
 	* Filters a packet field mapping by database column name.
@@ -123,14 +122,15 @@ private:
 
 	// Field declarations use these helpers when specializing getPacketFields().
 	// Reads one typed DB column into one packet member.
-	template <typename T, T Packet::* Field>
+	template <auto Field>
 	static void readField(const Row& row, Packet& packet, const std::string_view column)
 	{
+		using T = std::remove_cvref_t<decltype(packet.*Field)>;
 		packet.*Field = row[std::string(column)].as<T>();
 	}
 
 	// Writes one packet member into the SQL bind-value list.
-	template <typename T, T Packet::* Field>
+	template <auto Field>
 	static void writeField(const Packet& packet, std::vector<FieldType>& fields)
 	{
 		fields.push_back(packet.*Field);
@@ -346,8 +346,7 @@ public:
 		const Criteria criteria,
 		Packet& packet)
 	{
-		std::vector<Packet> packets;
-		packets.emplace_back(packet);
+		std::vector<Packet> packets{ packet };
 
 		auto result = co_await readToPackets(db, table, criteria, packets);
 		if (result.empty())
@@ -430,113 +429,116 @@ public:
 */
 
 template <>
-inline PacketInterfaceFor<LoginInfoResp>::PacketFields PacketInterfaceFor<LoginInfoResp>::getPacketFields()
+inline const PacketInterfaceFor<LoginInfoResp>::PacketFields&
+PacketInterfaceFor<LoginInfoResp>::getPacketFields()
 {
-	static constexpr std::array<PacketField, 4> fields = {{
-		{ "id", &readField<std::string, &LoginInfoResp::user_id>, nullptr },
-		{ "gumi_user_id", &readField<std::string, &LoginInfoResp::gumi_live_userid>, nullptr },
+	static const PacketFields fields = {
+		{ "id", &readField<&LoginInfoResp::user_id>, nullptr },
+		{ "gumi_user_id", &readField<&LoginInfoResp::gumi_live_userid>, nullptr },
 		{
 			"username",
-			&readField<std::string, &LoginInfoResp::handle_name>,
-			&writeField<std::string, &LoginInfoResp::handle_name>
+			&readField<&LoginInfoResp::handle_name>,
+			&writeField<&LoginInfoResp::handle_name>
 		},
 		{
 			"tutorial_status",
-			&readField<int32_t, &LoginInfoResp::tutorial_status>,
-			&writeField<int32_t, &LoginInfoResp::tutorial_status>
+			&readField<&LoginInfoResp::tutorial_status>,
+			&writeField<&LoginInfoResp::tutorial_status>
 		},
-	}};
+	};
 
-	return { fields.begin(), fields.end() };
+	return fields;
 }
 
 template <>
-inline PacketInterfaceFor<UserTeamInfo>::PacketFields PacketInterfaceFor<UserTeamInfo>::getPacketFields()
+inline const PacketInterfaceFor<UserTeamInfo>::PacketFields&
+PacketInterfaceFor<UserTeamInfo>::getPacketFields()
 {
-	static constexpr std::array<PacketField, 5> fields = {{
-		{ "id", &readField<std::string, &UserTeamInfo::user_id>, nullptr },
+	static const PacketFields fields = {
+		{ "id", &readField<&UserTeamInfo::user_id>, nullptr },
 		{
 			"level",
-			&readField<int32_t, &UserTeamInfo::level>,
-			&writeField<int32_t, &UserTeamInfo::level>
+			&readField<&UserTeamInfo::level>,
+			&writeField<&UserTeamInfo::level>
 		},
 		{
 			"max_unit_count",
-			&readField<int32_t, &UserTeamInfo::max_unit_count>,
-			&writeField<int32_t, &UserTeamInfo::max_unit_count>
+			&readField<&UserTeamInfo::max_unit_count>,
+			&writeField<&UserTeamInfo::max_unit_count>
 		},
 		{
 			"max_warehouse_count",
-			&readField<int32_t, &UserTeamInfo::warehouse_count>,
-			&writeField<int32_t, &UserTeamInfo::warehouse_count>
+			&readField<&UserTeamInfo::warehouse_count>,
+			&writeField<&UserTeamInfo::warehouse_count>
 		},
 		{
 			"active_deck",
-			&readField<int32_t, &UserTeamInfo::active_deck>,
-			&writeField<int32_t, &UserTeamInfo::active_deck>
+			&readField<&UserTeamInfo::active_deck>,
+			&writeField<&UserTeamInfo::active_deck>
 		},
-	}};
+	};
 
-	return { fields.begin(), fields.end() };
+	return fields;
 }
 
 template <>
-inline PacketInterfaceFor<UserUnitInfo>::PacketFields PacketInterfaceFor<UserUnitInfo>::getPacketFields()
+inline const PacketInterfaceFor<UserUnitInfo>::PacketFields&
+PacketInterfaceFor<UserUnitInfo>::getPacketFields()
 {
-	static constexpr std::array<PacketField, 12> fields = {{
-		{ "user_unit_id", &readField<uint32_t, &UserUnitInfo::user_unit_id>, nullptr },
-		{ "user_id", &readField<std::string, &UserUnitInfo::user_id>, nullptr },
+	static const PacketFields fields = {
+		{ "user_unit_id", &readField<&UserUnitInfo::user_unit_id>, nullptr },
+		{ "user_id", &readField<&UserUnitInfo::user_id>, nullptr },
 		{
 			"unit_id",
-			&readField<uint32_t, &UserUnitInfo::unit_id>,
-			&writeField<uint32_t, &UserUnitInfo::unit_id>
+			&readField<&UserUnitInfo::unit_id>,
+			&writeField<&UserUnitInfo::unit_id>
 		},
 		{
 			"unit_type_id",
-			&readField<uint32_t, &UserUnitInfo::unit_type_id>,
-			&writeField<uint32_t, &UserUnitInfo::unit_type_id>
+			&readField<&UserUnitInfo::unit_type_id>,
+			&writeField<&UserUnitInfo::unit_type_id>
 		},
 		{
 			"base_hp",
-			&readField<uint32_t, &UserUnitInfo::base_hp>,
-			&writeField<uint32_t, &UserUnitInfo::base_hp>
+			&readField<&UserUnitInfo::base_hp>,
+			&writeField<&UserUnitInfo::base_hp>
 		},
 		{
 			"base_atk",
-			&readField<uint32_t, &UserUnitInfo::base_atk>,
-			&writeField<uint32_t, &UserUnitInfo::base_atk>
+			&readField<&UserUnitInfo::base_atk>,
+			&writeField<&UserUnitInfo::base_atk>
 		},
 		{
 			"base_def",
-			&readField<uint32_t, &UserUnitInfo::base_def>,
-			&writeField<uint32_t, &UserUnitInfo::base_def>
+			&readField<&UserUnitInfo::base_def>,
+			&writeField<&UserUnitInfo::base_def>
 		},
 		{
 			"base_rec",
-			&readField<uint32_t, &UserUnitInfo::base_rec>,
-			&writeField<uint32_t, &UserUnitInfo::base_rec>
+			&readField<&UserUnitInfo::base_rec>,
+			&writeField<&UserUnitInfo::base_rec>
 		},
 		{
 			"ext_hp",
-			&readField<uint32_t, &UserUnitInfo::ext_hp>,
-			&writeField<uint32_t, &UserUnitInfo::ext_hp>
+			&readField<&UserUnitInfo::ext_hp>,
+			&writeField<&UserUnitInfo::ext_hp>
 		},
 		{
 			"ext_atk",
-			&readField<uint32_t, &UserUnitInfo::ext_atk>,
-			&writeField<uint32_t, &UserUnitInfo::ext_atk>
+			&readField<&UserUnitInfo::ext_atk>,
+			&writeField<&UserUnitInfo::ext_atk>
 		},
 		{
 			"ext_def",
-			&readField<uint32_t, &UserUnitInfo::ext_def>,
-			&writeField<uint32_t, &UserUnitInfo::ext_def>
+			&readField<&UserUnitInfo::ext_def>,
+			&writeField<&UserUnitInfo::ext_def>
 		},
 		{
 			"ext_rec",
-			&readField<uint32_t, &UserUnitInfo::ext_rec>,
-			&writeField<uint32_t, &UserUnitInfo::ext_rec>
+			&readField<&UserUnitInfo::ext_rec>,
+			&writeField<&UserUnitInfo::ext_rec>
 		},
-	}};
+	};
 
-	return { fields.begin(), fields.end() };
+	return fields;
 }

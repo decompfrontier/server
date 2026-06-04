@@ -89,7 +89,7 @@ drogon::Task<void> runTransaction(
 * is complete.
 * @param status The tutorial_status to derive the end flag from.
 */
-inline bool getTutorialEndFlag(uint32_t status)
+constexpr bool getTutorialEndFlag(uint32_t status)
 {
 	return status >= 12;
 }
