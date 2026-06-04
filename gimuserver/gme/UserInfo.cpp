@@ -1,8 +1,9 @@
 #include "App.hpp"
 #include "Handlers.hpp"
+#include "common.hpp"
 
-#include <gimuserver/archive/UnitArchiver.hpp>
-#include <gimuserver/db/UserUnitService.hpp>
+#include <gimuserver/db/PacketInterface.hpp>
+#include <gimuserver/db/UserInfoService.hpp>
 
 HANDLEF(UserInfo)
 {
@@ -15,64 +16,69 @@ HANDLEF(UserInfo)
 		co_return HandleResult::error("Deserialization error", fmte);
 	}
 
-	UserInfoResp resp = theServer()->cache().userInfoResp(); // copy !!
+    // Copy the cached response and build on top of it.
+	UserInfoResp resp = theServer()->cache().userInfoResp();
 
 	// TODO: A real server should check if user_id == gumi token...
 
-    // TODO: GET THIS FROM A CACHE TOKEN ETC
-    resp.login_info.user_id = "0839899613932562"; // I think this is a random UUID according to packet-gen
-
-    // TEMP HACK!! Skip tutorial flag and put a real name
-    resp.login_info.account_id = "12345678";
-    resp.login_info.handle_name = "OfflineMod!";
-    resp.login_info.tutorial_end_flag = true;
-    resp.login_info.tutorial_status = 0;
-    resp.login_info.feature_gate = 0;
-
-    UserTeamInfo team = {};
-    resp.team_info.reinforcement_deck.emplace_back(0);
-    resp.team_info.reinforcement_deck.emplace_back(0);
-    resp.team_info.reinforcement_deck.emplace_back(0);
-    resp.team_info.user_id = resp.login_info.user_id;
-    resp.team_info.level = 1;
-    resp.team_info.exp = 0;
-    resp.team_info.warehouse_count = 100;
-    resp.team_info.add_unit_count = 100;
-    resp.team_info.max_unit_count = 100;
-
     const auto db = theDb();
-    if (!co_await UserUnitService::getUnits(db, resp.login_info.user_id, resp.unit_info))
-    {
-        co_return HandleResult::error("Database error", "Unable to load user units");
-    }
+	std::string gumiUserId = req.login_info.gumi_live_userid;
+	if (gumiUserId.empty())
+	{
+		LOG_ERROR << "UserInfo request did not include gumi_live_userid. "
+			"We cannot proceed without this information.";
+		co_return HandleResult::error("Missing gumi_live_userid", "UserInfo request did not include gumi_live_userid");
+	}
 
-    if (resp.unit_info.empty())
-    {
-        UserUnitInfo d = {
-            .unit_id = 50253,
-            .unit_type_id = 1,
-        };
+	// If the client sent us an explicit user id, we should verify that it matches
+	// what we have in the database.
+	CO_AWAIT_DB(gme::nonEmpty(UserInfoService::fetchUserForGumiUser(
+		theDb(),
+		gumiUserId,
+		resp.login_info.user_id)));
+	if (!req.login_info.user_id.empty() && resp.login_info.user_id != req.login_info.user_id)
+	{
+		LOG_ERROR << "User ID mismatch for Gumi Live user " << gumiUserId
+			<< ": client sent " << req.login_info.user_id
+			<< ", database has " << resp.login_info.user_id;
+		co_return HandleResult::error("User ID mismatch", "User ID mismatch for Gumi Live user " + std::string(gumiUserId));
+	}
 
-        if (!UnitArchiver::Instance().Lookup(d))
+    // We must have a valid user entry in the database at this point.
+	CO_AWAIT_DB(gme::nonEmpty(PacketInterfaceFor<LoginInfoResp>::readToPacket(
+        db,
+        "userinfo",
         {
-            co_return HandleResult::error("Archive error", "Unable to find placeholder unit record");
-        }
+            { "gumi_user_id", gumiUserId },
+            { "id", resp.login_info.user_id },
+        },
+        resp.login_info)));
+    resp.login_info.tutorial_end_flag = gme::getTutorialEndFlag(resp.login_info.tutorial_status);
 
-        d.user_id = resp.login_info.user_id;
+	CO_AWAIT_DB(gme::nonEmpty(PacketInterfaceFor<UserTeamInfo>::readToPacket(
+		db,
+		"userinfo",
+		{
+			{ "gumi_user_id", gumiUserId },
+			{ "id", resp.login_info.user_id },
+		},
+		resp.team_info)));
+    resp.team_info.reinforcement_deck.emplace_back(0);
+    resp.team_info.reinforcement_deck.emplace_back(0);
+    resp.team_info.reinforcement_deck.emplace_back(0);
+    resp.team_info.exp = 0;
+    resp.team_info.add_unit_count = 100;
+    resp.team_info.deck_cost = gme::deckCostForLevel(resp.team_info.level);
 
-        if (!co_await UserUnitService::AddUnit(db, resp.login_info.user_id, d))
-        {
-            co_return HandleResult::error("Database error", "Unable to add placeholder user unit");
-        }
-
-        if (!co_await UserUnitService::getUnits(db, resp.login_info.user_id, resp.unit_info) || resp.unit_info.empty())
-        {
-            co_return HandleResult::error("Database error", "Unable to reload user units");
-        }
-    }
+    // We should always have at least one unit, since the game will not let users
+    // delete their only unit on the squad.
+	CO_AWAIT_DB(gme::nonEmpty(PacketInterfaceFor<UserUnitInfo>::readToPackets(
+        db,
+        "user_units",
+        { { "user_id", resp.login_info.user_id } },
+        resp.unit_info)));
 
     const auto activeUserUnitId = resp.unit_info.front().user_unit_id;
-
     for (int i = 0; i < 10; i++) {
         UserPartyDeckInfo deck = {};
         deck.deck_num = i;
@@ -86,7 +92,7 @@ HANDLEF(UserInfo)
     resp.campaign_info.first_for_the_day = true;
     resp.campaign_info.id = 1;
 
-    resp.summoner_journal.user_id = req.login_info.user_id; // we are really trusting the client here (bad)
+    resp.summoner_journal.user_id = resp.login_info.user_id;
     resp.signal_key.key = "5EdKHavF";
 
 

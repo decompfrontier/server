@@ -87,6 +87,9 @@ namespace GmeHandlers
 	HANDLE(GatchaList);
 	HANDLE(HomeInfo);
 	HANDLE(MissionStart);
+	HANDLE(NgwordCheck);
+	HANDLE(CreateUser);
+	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
 }

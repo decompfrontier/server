@@ -6,7 +6,7 @@
 #include <json/value.h>
 
 #include <cstdint>
-#include <stdexcept>
+#include <optional>
 #include <unordered_map>
 
 /*!
@@ -28,51 +28,45 @@ public:
 	* Setup() must be called during server initialization before request handlers
 	* depend on archive data.
 	*/
-	static UnitArchiver& Instance();
+	static UnitArchiver& instance();
 
 	/*!
 	* Loads unit archive records from archive_root/unit.json.
 	* @param serverObj Server configuration object from the Drogon plugin config.
 	*/
-	void Setup(const Json::Value& serverObj);
+	void setup(const Json::Value& serverObj);
 
 	/*!
 	* Looks up a unit archive record.
 	*
-	* The caller must set record.unit_id before calling. When found, the
-	* matching archive record replaces record.
-	* @param record Input lookup key and output archive record.
-	* @return True if the archive contains the unit, false otherwise.
+	* @param unit_id Master unit ID from the unit archive.
+	* @return Matching immutable archive record, or std::nullopt when not found.
 	*/
-	bool Lookup(UnitRecord& record);
+	std::optional<UnitRecord> lookup(UnitId unit_id) const;
 
 	/*!
-	* Looks up a unit archive record and converts it to the DB-backed subset of
-	* UserUnitInfo.
+	* Converts archive data to a subset of UserUnitInfo.
 	*
-	* The caller must set unit.unit_id and unit.unit_type_id before calling.
 	* Ownership fields such as user_id and user_unit_id are not modified.
-	* @param unit Input lookup/type keys and output user unit info.
-	* @return True if the archive contains the unit, false otherwise.
+	* @param unitRecord Archive record to read from.
+	* @param unit_type_id Unit type to select from the archive stats.
+	* @param unit Packet/database object to populate.
+	* @return True if the packet was populated, false if the unit type is unsupported.
 	*/
-	bool Lookup(UserUnitInfo& unit);
+	static bool populatePacket(
+		const UnitRecord& unitRecord,
+		UnitType unit_type_id,
+		UserUnitInfo& unit);
 
 	/*!
 	* Gets the stat block for a unit type.
 	*
 	* Currently only unit_type_id 1 is understood and maps to lord_stats.
-	* @throws std::runtime_error when the unit type is not supported.
+	* @return Matching stat block, or std::nullopt when the unit type is unsupported.
 	*/
-	static const UnitRecordStats& UnitTypeStats(const UnitRecord& unitRecord, UnitType unit_type_id)
-	{
-		switch (unit_type_id)
-		{
-		case 1:
-			return unitRecord.lord_stats;
-		default:
-			throw std::runtime_error("Unsupported unit type " + std::to_string(unit_type_id));
-		}
-	}
+	static std::optional<UnitRecordStats> unitTypeStats(
+		const UnitRecord& unitRecord,
+		UnitType unit_type_id);
 
 	UnitArchiver(const UnitArchiver&) = delete;
 	UnitArchiver& operator=(const UnitArchiver&) = delete;

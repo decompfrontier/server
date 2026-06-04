@@ -38,6 +38,7 @@ static void RegisterMigrations(MigrationMap& map)
 			"free_gems INTEGER(4) NOT NULL DEFAULT 0,"
 			"paid_gems INTEGER(4) NOT NULL DEFAULT 0,"
 			"active_deck INTEGER(1) NOT NULL DEFAULT 0,"
+			"tutorial_status INTEGER(3) NOT NULL DEFAULT 0,"
 			"summon_tickets INTEGER(4) NOT NULL DEFAULT 0,"
 			"rainbow_coins INTEGER(4) NOT NULL DEFAULT 0,"
 			"colosseum_tickets INTEGER(4) NOT NULL DEFAULT 0,"

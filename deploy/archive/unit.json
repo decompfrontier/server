@@ -1,5 +1,41 @@
 [
     {
+        "unit_id": 10011,
+        "lord_stats": {
+            "hp": 1948,
+            "atk": 700,
+            "def": 574,
+            "rec": 448
+        }
+    },
+    {
+        "unit_id": 20011,
+        "lord_stats": {
+            "hp": 1830,
+            "atk": 706,
+            "def": 468,
+            "rec": 693
+        }
+    },
+    {
+        "unit_id": 30011,
+        "lord_stats": {
+            "hp": 1876,
+            "atk": 720,
+            "def": 700,
+            "rec": 248
+        }
+    },
+    {
+        "unit_id": 40011,
+        "lord_stats": {
+            "hp": 2070,
+            "atk": 812,
+            "def": 420,
+            "rec": 210
+        }
+    },
+    {
         "unit_id": 50253,
         "lord_stats": {
             "hp": 4500,

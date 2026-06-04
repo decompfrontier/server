@@ -47,7 +47,7 @@ void GimuServer::initAndStart(const Json::Value& config)
 
 	const auto& server = config["server"];
 	m_cache.Setup(server);
-	UnitArchiver::Instance().Setup(server);
+	UnitArchiver::instance().setup(server);
 }
 
 void GimuServer::shutdown() {}
