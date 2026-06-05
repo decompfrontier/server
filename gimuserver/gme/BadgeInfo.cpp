@@ -3,7 +3,7 @@
 
 HANDLEF(BadgeInfo)
 {
-	::BadgeInfo resp{};
+	::BadgeInfoResp resp{};
 	std::string buffer{};
 	const auto& ec = glz::write_json(resp, buffer);
 	if (ec)

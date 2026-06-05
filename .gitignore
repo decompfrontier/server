@@ -486,3 +486,7 @@ vcpkg_installed/
 .vscode
 generated/
 .cmake/
+
+# Project-specific
+CONTEXT.md
+out/

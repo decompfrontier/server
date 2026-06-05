@@ -81,6 +81,7 @@ namespace GmeHandlers
 {
 	HANDLE(Initialize);
 	HANDLE(BadgeInfo);
+	HANDLE(ChallengeArenaResetInfo);
 	HANDLE(ControlCenterEnter);
 	HANDLE(DeckEdit);
 	HANDLE(FriendGet);
