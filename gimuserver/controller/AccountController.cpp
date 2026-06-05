@@ -1,6 +1,12 @@
 #include "App.hpp"
 #include "AccountController.hpp"
 
+#include <gimuserver/db/UserInfoService.hpp>
+#include <gimuserver/gme/common.hpp>
+#include <gimuserver/utils/Random.hpp>
+
+#include <stdexcept>
+
 using namespace drogon;
 using namespace drogon::orm;
 
@@ -18,46 +24,47 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
 
     try
     {
-        // Note: something real should be used here if you want multi-user
-        login.user_id = "00000001";
+        // For the login flow, this is the first server endpoint the client hits.
+        // The client sends device/login identifiers such as vid, altvid, ak, and
+        // identifiers, but not a local Gumi Live user ID. This local server currently
+        // behaves as a single-user system: it reuses the first Gumi Live user in the
+        // database, or creates one if none exists, and returns that ID as game_user_id.
+        //
+        // Note: this only creates an entry in the gumi_live_users table. The actual
+        // game user row in userinfo is created later, after the client sends the
+        // CreateUser request.
+        std::string currentGumiUser;
+        co_await UserInfoService::fetchCurrentGumiUser(theDb(), currentGumiUser);
 
-        try
+        // We found a Gumi Live user in the database, so we can just return that one.
+        if (!currentGumiUser.empty())
         {
-            // Check if user exists in users table
-            const auto& result = co_await theDb()->execSqlCoro("SELECT id FROM gumi_live_users WHERE id = $1", login.user_id);
-            if (result.empty()) {
-                /*
-                    How should it work in an actual system that uses an external API for login?
-
-                    1. Game client tries to login or make a new account "GuestLogin"
-                    2. Based from ak and other identifiers a userid and token is computed
-                    3. Token is passed back to the game
-                    4. The game will try to initialize with the gumi user token
-                    5. Once the token is validated, the initialize request should make a new user
-
-                    Here there is only the user creation step.
-                */
-
-                // NOTE: This should be de-hardcoded if someone plans to make a multiuser or multiprofile system.
-
-                // User does not exist, add him to the table
-                co_await theDb()->execSqlCoro("INSERT INTO gumi_live_users(id) VALUES ($1);", login.user_id);
-                LOG_DEBUG << "AccountController: new user " << login.user_id;
-            }
-
-            login.status = StatusEnum::Success;
-            login.token = "test_token"; // Note: Should we use a proper token with drogon session?
-            login.status_number = 0;
-
+            login.user_id = currentGumiUser;
         }
-        catch (drogon::orm::DrogonDbException ex)
+        else
         {
-            LOG_ERROR << "AccountController: Query execution failed: " << ex.base().what();
+            // No Gumi Live user exists yet, so we create one with a random ID and return that.
+            login.user_id = RandomId();
+
+            // Add him as the only local Gumi Live user.
+            co_await gme::nonEmpty(UserInfoService::addGumiUser(
+                theDb(),
+                login.user_id));
+
+            LOG_DEBUG << "AccountController: new user " << login.user_id;
         }
+
+        login.status = StatusEnum::Success;
+        login.token = "test_token"; // Note: Should we use a proper token with drogon session?
+        login.status_number = 0;
     }
-    catch (std::invalid_argument ex)
+    catch (const DrogonDbException& ex)
     {
-        LOG_DEBUG << "AccountController: invalid parameters " << ex.what();
+        LOG_ERROR << "AccountController: login failed " << ex.base().what();
+    }
+    catch (const std::exception& ex)
+    {
+        LOG_ERROR << "AccountController: login failed " << ex.what();
     }
 
     auto resp = HttpResponse::newHttpResponse();

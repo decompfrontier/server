@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "GimuServer.hpp"
 
+#include <gimuserver/archive/UnitArchiver.hpp>
+
 GimuServer::GimuServer() : m_dlc_error_log(), m_have_log(false), m_cache() {}
 
 void GimuServer::initAndStart(const Json::Value& config)
@@ -45,6 +47,7 @@ void GimuServer::initAndStart(const Json::Value& config)
 
 	const auto& server = config["server"];
 	m_cache.Setup(server);
+	UnitArchiver::instance().setup(server);
 }
 
 void GimuServer::shutdown() {}
