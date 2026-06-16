@@ -65,6 +65,7 @@ static GmeHandler getHandler(std::string_view cmd)
 
 
 	REGISTER("MfZyu1q9", Initialize, "EmcshnQoDr20TZz1");
+	REGISTER("Zw3WIoWu", ChallengeArenaResetInfo, "KlwYMGF1");
 	REGISTER("nJ3A7qFp", BadgeInfo, "bGxX67KB");
 	REGISTER("uYF93Mhc", ControlCenterEnter, "d0k6LGUu");
 	REGISTER("m2Ve9PkJ", DeckEdit, "d7UuQsq8");
