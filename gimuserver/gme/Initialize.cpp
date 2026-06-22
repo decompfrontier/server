@@ -1,7 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
+#include "Common.hpp"
 
-#include <gimuserver/utils/Random.hpp>
+#include <gimuserver/db/PacketInterface.hpp>
 
 HANDLEF(Initialize)
 {
@@ -17,57 +18,29 @@ HANDLEF(Initialize)
 	// NOTE: A real server would verify the gumi token first...
 	// TODO: Handle MSTs to answer
 
-	InitializeResp resp = theServer()->cache().initializeResp(); // copy !!
+	// Copy the cached response and build on top of it.
+	InitializeResp resp = theServer()->cache().initializeResp();
 
-#if 0
-	const auto& res = co_await theDb()->execSqlCoro("SELECT id, username, debug_mode FROM userinfo WHERE gumi_user_id=$1", req.login_info.gumi_live_userid);
-	if (res.empty())
-	{
-		// Gumi user does not exist! Create a new user and add it to the database
-
-		const auto& cache = theServer()->cache();
-		const auto& scfg = cache.serverConfig();
-		const auto& def = cache.initializeResp().defines;
-
-		// No handle! We are a new user after all!
-		resp.login_info.account_id = "1111";
-
-		co_await theDb()->execSqlCoro("INSERT INTO userinfo (id, gumi_user_id, device_id, debug_mode, "
-			"level, "
-			"max_unit_count, max_friend_count, "
-			"zel, karma, brave_coin, "
-			"max_warehouse_count, free_gems, energy) "
-			"VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13);",
-			// id, gumi_user_id, device_id, debug_mode
-			resp.login_info.account_id, req.login_info.gumi_live_userid, req.login_info.device_id, false,
-			// level
-			scfg.initialLevel,
-			// max_unit_count, max_friend_count
-			50, 200,
-			// zel, karma, brave_coin
-			scfg.initialZel, scfg.initialKarma, scfg.initialBraveCoins,
-			// max_warehouse, free_gems, energy
-			10, 5, 20);
-	}
-	else
-	{
-		// only one query pls
-		const auto& sql = res[0];
-		size_t col = 0;
-		resp.login_info.account_id = sql[col++].as<std::string>();
-		resp.login_info.handle_name = sql[col++].as<std::string>();
-		resp.login_info.debug_mode = sql[col++].as<bool>();
-	}
-#endif
-
-
-	// TODO: GET THIS FROM A CACHE TOKEN ETC
+	// This is something to do with account transfer, ignore for now.
 	resp.login_info.account_id = "12345678";
-	resp.login_info.handle_name = "OfflineMod!";
-	resp.login_info.user_id = "0839899613932562"; // I think this is a random UUID according to packet-gen
-	// TEMP HACK!! Skip tutorial flag and put a real name
-	resp.login_info.tutorial_end_flag = true;
-	resp.login_info.tutorial_status = 12;
+	// Assume we are a new user until proven otherwise. The game checks if these
+	// values are empty to decide whether to enter the tutorial flow or not.
+	resp.login_info.handle_name = "";
+	resp.login_info.user_id = "";
+
+	// After GuestLogin, Initialize is the first encrypted GME request the client
+	// sends during normal startup. It receives the Gumi Live ID returned by the
+	// account login flow and decides whether the client should resume an existing
+	// game user or enter the new-user/tutorial flow.
+	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).data;
+
+	// If we didn't find a user for this Gumi Live ID, we just return an empty user_id
+	// and let the client enter the tutorial flow. Otherwise, we return the user info
+	// stored in the database.
+	if (!identity.userId.empty())
+	{
+		resp.login_info = std::move((co_await gme::getLoginInfo(theDb(), identity)).nonEmpty());
+	}
 
 	//resp.user_info.gumi_live_token = req.user_info.gumi_live_token;
 	//resp.user_info.gumi_live_userid = req.user_info.gumi_live_userid;
@@ -78,7 +51,7 @@ HANDLEF(Initialize)
 	resp.challenge_arena_user_info.unkstr2 = "F"; // ranking?
 	resp.challenge_arena_user_info.league_id = 1;
 
-	resp.summoner_journal.user_id = resp.login_info.user_id;
+	resp.summoner_journal.user_id = identity.userId;
 
 	resp.daily_login_rewards.id = 1;
 	resp.daily_login_rewards.current_day = 1;

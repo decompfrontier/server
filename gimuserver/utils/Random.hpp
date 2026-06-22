@@ -1,7 +1,8 @@
 #pragma once
 
-#include <string>
 #include <cstdlib>
+#include <cstdint>
+#include <string>
 
 /*!
 * Allowed alphanumeric characters for random.
@@ -22,4 +23,12 @@ static std::string RandomId()
 		r += Random_alphanum[rand() % (sizeof(Random_alphanum) - 1)];
 
 	return r;
+}
+
+/*!
+* Generates a random unsigned integer in the inclusive range [min, max].
+*/
+static uint32_t RandomUInt(const uint32_t min, const uint32_t max)
+{
+	return min + (std::rand() % (max - min + 1));
 }

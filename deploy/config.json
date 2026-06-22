@@ -55,6 +55,7 @@
                     "game_version": 21900, // game version (must be this one or it might cry about an update)
                     "notice_url": "http://ios21900.bfww.gumi.sg/pages/versioninfo", // notice url (this points to a drogon orm page)
                     "mst_root": "./system", // MST cache directory
+                    "archive_root": "./archive", // Server-owned curated archive data directory
 					"initial_level": 1,
 					"initial_free_gems": 5,
 					"initial_zel": 10000000,

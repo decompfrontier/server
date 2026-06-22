@@ -87,7 +87,11 @@ namespace GmeHandlers
 	HANDLE(FriendGet);
 	HANDLE(GatchaList);
 	HANDLE(HomeInfo);
+	HANDLE(MissionEnd);
 	HANDLE(MissionStart);
+	HANDLE(NgwordCheck);
+	HANDLE(CreateUser);
+	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
 }

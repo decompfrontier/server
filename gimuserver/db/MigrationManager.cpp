@@ -38,6 +38,7 @@ static void RegisterMigrations(MigrationMap& map)
 			"free_gems INTEGER(4) NOT NULL DEFAULT 0,"
 			"paid_gems INTEGER(4) NOT NULL DEFAULT 0,"
 			"active_deck INTEGER(1) NOT NULL DEFAULT 0,"
+			"tutorial_status INTEGER(3) NOT NULL DEFAULT 1,"
 			"summon_tickets INTEGER(4) NOT NULL DEFAULT 0,"
 			"rainbow_coins INTEGER(4) NOT NULL DEFAULT 0,"
 			"colosseum_tickets INTEGER(4) NOT NULL DEFAULT 0,"
@@ -49,17 +50,43 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
-#if 0
 	migrate("08032025_CreateUserUnitsTable", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_units ("
-			"id INTEGER PRIMARY KEY AUTOINCREMENT," // Add: Auto-incrementing primary key as per PR comment
-			"user_id TEXT NOT NULL," // Keep: Links unit to a user
-			"unit_id TEXT NOT NULL" // Keep: Stores the unit identifier
+			"user_unit_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+			"user_id TEXT NOT NULL,"
+			"unit_id INTEGER NOT NULL,"
+			"unit_type_id INTEGER NOT NULL,"
+			"unit_lvl INTEGER NOT NULL DEFAULT 0,"
+			"base_hp INTEGER NOT NULL,"
+			"base_atk INTEGER NOT NULL,"
+			"base_def INTEGER NOT NULL,"
+			"base_rec INTEGER NOT NULL,"
+			"ext_hp INTEGER NOT NULL DEFAULT 0,"
+			"ext_atk INTEGER NOT NULL DEFAULT 0,"
+			"ext_def INTEGER NOT NULL DEFAULT 0,"
+			"ext_rec INTEGER NOT NULL DEFAULT 0,"
+			"bb_id TEXT NOT NULL DEFAULT '',"
+			"bb_lvl INTEGER NOT NULL DEFAULT 0,"
+			"sbb_id TEXT NOT NULL DEFAULT '',"
+			"sbb_lvl INTEGER NOT NULL DEFAULT 0"
 			");"
 		);
 	});
-#endif
+
+	migrate("07062026_CreateUserDecksTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_decks ("
+			"user_id TEXT NOT NULL,"
+			"user_unit_id INTEGER NOT NULL,"
+			"deck_type INTEGER NOT NULL,"
+			"deck_num INTEGER NOT NULL,"
+			"member_type INTEGER NOT NULL,"
+			"disp_order INTEGER NOT NULL,"
+			"PRIMARY KEY (user_id, deck_type, deck_num, member_type, disp_order)"
+			");"
+		);
+	});
 }
 
 /*!

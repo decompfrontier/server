@@ -59,17 +59,17 @@ private:
 	/*!
 	* Cached data of response.
 	*/
-	FeatureCheck m_feature;
+	FeatureCheck m_feature{};
 
 	/*!
 	* Cached common data of the Initialize response
 	*/
-	InitializeResp m_initrsp;
+	InitializeResp m_initrsp{};
 
 	/*!
 	* Cached slot response
 	*/
-	SlotGameInfoR m_controlCenterRsp;
+	SlotGameInfoR m_controlCenterRsp{};
 
 	/*!
 	* Server configuration.
@@ -79,5 +79,5 @@ private:
 	/*!
 	* User info response.
 	*/
-	UserInfoResp m_userrsp;
+	UserInfoResp m_userrsp{};
 };
