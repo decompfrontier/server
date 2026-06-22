@@ -1,19 +1,16 @@
 #include "App.hpp"
 #include "Handlers.hpp"
-#include "common.hpp"
+#include "Common.hpp"
 
-#include <gimuserver/archive/UnitArchiver.hpp>
 #include <gimuserver/db/PacketInterface.hpp>
-#include <gimuserver/db/UserInfoService.hpp>
-#include <gimuserver/db/UserUnitService.hpp>
 #include <gimuserver/utils/Random.hpp>
 
 #include <cstdint>
 #include <optional>
-#include <string>
 
 namespace
 {
+// Assume lord type for starter unit.
 constexpr uint32_t TutorialStarterUnitType = 1;
 
 std::optional<uint32_t> getStarterUnit(uint32_t element)
@@ -46,21 +43,11 @@ HANDLEF(CreateUser)
 	if (ec)
 	{
 		const auto error = glz::format_error(ec, json);
-		LOG_ERROR << "CreateUserReq deserialization failed:\n"
-			<< error << "\n"
-			<< "Raw decrypted request JSON:\n"
-			<< json;
+		LOG_ERROR << "CreateUserReq deserialization failed:\n" << error;
 		co_return HandleResult::error("Deserialization error", error);
 	}
 
 	const auto& handleName = req.login_info.handle_name;
-	const auto& gumiUserId = req.login_info.gumi_live_userid;
-	if (gumiUserId.empty())
-	{
-		co_return HandleResult::error(
-			"Missing gumi_live_userid",
-			"CreateUser request did not include gumi_live_userid");
-	}
 	if (handleName.empty())
 	{
 		co_return HandleResult::error(
@@ -68,86 +55,130 @@ HANDLEF(CreateUser)
 			"CreateUser request did not include a handle name");
 	}
 
-	const auto starterUnitId = getStarterUnit(req.selected_element.element);
-	if (!starterUnitId)
-	{
-		co_return HandleResult::error("Invalid tutorial starter element");
-	}
-
-	const auto unitRecord = UnitArchiver::instance().lookup(*starterUnitId);
-	if (!unitRecord)
-	{
-		co_return HandleResult::error("Archive error", "Unable to find tutorial starter unit");
-	}
-
-	UserUnitInfo unit;
-	if (!UnitArchiver::populatePacket(*unitRecord, TutorialStarterUnitType, unit))
-	{
-		co_return HandleResult::error("Archive error", "Unable to populate tutorial starter unit");
-	}
-
-	// GuestLogin should have established the Gumi Live user before CreateUser runs.
-	std::string storedGumiUserId;
-	CO_AWAIT_DB(gme::nonEmpty(UserInfoService::fetchCurrentGumiUser(
-		theDb(),
-		storedGumiUserId)));
-	if (storedGumiUserId != gumiUserId)
-	{
-		co_return HandleResult::error(
-			"Gumi Live user mismatch",
-			"CreateUser gumi_live_userid does not match the active Gumi Live user");
-	}
-
-	std::string userId;
-	CO_AWAIT_DB(UserInfoService::fetchUserForGumiUser(theDb(), gumiUserId, userId));
-	if (!userId.empty())
+	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).data;
+	if (!identity.userId.empty())
 	{
 		co_return HandleResult::error(
 			"User already exists",
 			"CreateUser cannot create a second user for this Gumi Live user");
 	}
+	const auto userId = RandomId();
 
-	userId = RandomId();
+	// Grab the starter units.
+	const auto starterUnitId = getStarterUnit(req.selected_element.element);
+	if (!starterUnitId)
+	{
+		co_return HandleResult::error("Invalid tutorial starter element");
+	}
+	auto starter = gme::fromArchivedUnit(*starterUnitId, TutorialStarterUnitType);
+	auto burny = gme::fromArchivedUnit(10030, TutorialStarterUnitType);
+	auto sparky = gme::fromArchivedUnit(40030, TutorialStarterUnitType);
+	if (!starter || !burny || !sparky)
+	{
+		co_return HandleResult::error("Archive error", "Unable to create tutorial units from archive");
+	}
 
 	// We need to wrap these operations in a transaction to avoid an invalid
-	// intermediate state.
-	CO_AWAIT_DB(gme::runTransaction(
-		theDb(),
-		// Add the user in the userinfo table.
-		[&](const auto transaction)
+	// intermediate state. Keep this directly in the handler coroutine so local
+	// packet objects remain alive across co_await suspension points.
+	{
+		auto transaction = co_await theDb()->newTransactionCoro();
+		try
 		{
-			return gme::nonEmpty(UserInfoService::addUser(
-				transaction,
-				gumiUserId,
-				userId,
-				handleName));
-		},
-		// Update the tutorial status to mark as completed.
-		[&](const auto transaction)
-		{
-			return gme::nonEmpty(PacketInterfaceFor<LoginInfoResp>::updateFromPacket(
+			// Create the new user.
+			(co_await db::DatabaseInterface::insert(
 				transaction,
 				"userinfo",
 				{
-					{ "gumi_user_id", gumiUserId },
-					{ "id", userId },
-				},
-				LoginInfoResp{ .tutorial_status = 12 },
-				{ "tutorial_status" }));
-		},
-		// Add the starter unit to the user's collection.
-		[&](const auto transaction)
-		{
-			return gme::nonEmpty(UserUnitService::addUnit(
+					db::Data("id", userId),
+					db::Data("gumi_user_id", identity.gumiUserId),
+					db::Data("device_id", std::string()),
+					db::Data("username", handleName),
+					db::Data("level", 1),
+					db::Data("max_warehouse_count", 100),
+				})).nonEmpty();
+
+			starter->user_unit_id = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
 				transaction,
-				userId,
-				unit));
-		}));
+				"user_units",
+				*starter,
+				{ db::Data("user_id", userId) })).front<uint32_t>("user_unit_id");
+
+			(co_await gme::addDefaultDecks(
+				transaction,
+				{
+					.gumiUserId = identity.gumiUserId,
+					.userId = userId,
+				},
+				*starter)).nonEmpty();
+
+			burny->user_unit_id = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
+				transaction,
+				"user_units",
+				*burny,
+				{ db::Data("user_id", userId) })).front<uint32_t>("user_unit_id");
+
+			(co_await db::PacketInterfaceFor<UserPartyDeckInfo>::insert(
+				transaction,
+				"user_decks",
+				{
+					.user_unit_id = burny->user_unit_id,
+					.deck_type = 1,
+					.deck_num = 0,
+					.member_type = 1,
+					.disp_order = 0,
+				},
+				{ db::Data("user_id", userId) })).nonEmpty();
+
+			sparky->user_unit_id = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
+				transaction,
+				"user_units",
+				*sparky,
+				{ db::Data("user_id", userId) })).front<uint32_t>("user_unit_id");
+
+			(co_await db::PacketInterfaceFor<UserPartyDeckInfo>::insert(
+				transaction,
+				"user_decks",
+				{
+					.user_unit_id = sparky->user_unit_id,
+					.deck_type = 1,
+					.deck_num = 0,
+					.member_type = 1,
+					.disp_order = 1,
+				},
+				{ db::Data("user_id", userId) })).nonEmpty();
+		}
+		catch (...)
+		{
+			transaction->rollback();
+			throw;
+		}
+	}
 
 	co_return HandleResult::success("{}");
 }
 
 HANDLEF(TutorialUpdate)
 {
+	TutorialUpdateReq req = {};
+	const auto& ec = glz::read_json(req, json);
+	if (ec)
+	{
+		const auto error = glz::format_error(ec, json);
+		LOG_ERROR << "TutorialUpdateReq deserialization failed:\n" << error;
+		co_return HandleResult::error("Deserialization error", error);
+	}
+
+	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+
+	(co_await db::DatabaseInterface::update(
+		theDb(),
+		"userinfo",
+		{
+			db::Data("tutorial_status", req.login_info.tutorial_status),
+			db::Lookup("gumi_user_id", identity.gumiUserId),
+			db::Lookup("id", identity.userId),
+		})).nonEmpty();
+
 	co_return HandleResult::success("{}");
 }

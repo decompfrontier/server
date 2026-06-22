@@ -1,7 +1,35 @@
 #include "App.hpp"
 #include "Handlers.hpp"
+#include "Common.hpp"
 
 HANDLEF(DeckEdit)
 {
-	co_return HandleResult::error("Unsupported");
+	DeckEditReq req = {};
+	const auto& ec = glz::read<glz::opts{ .error_on_unknown_keys = false }>(req, json);
+	if (ec)
+	{
+		const auto error = glz::format_error(ec, json);
+		LOG_ERROR << "DeckEditReq deserialization failed:\n" << error;
+		co_return HandleResult::error("Deserialization error", error);
+	}
+
+	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).nonEmpty();
+
+	(co_await db::DatabaseInterface::update(
+		theDb(),
+		"userinfo",
+		{
+			db::Data("active_deck", req.team_info.active_deck),
+			db::Lookup("id", identity.userId),
+		})).nonEmpty();
+
+	if (!req.party_deck_info.empty())
+	{
+		(co_await gme::updateDecks(
+			theDb(),
+			identity,
+			req.party_deck_info)).nonEmpty();
+	}
+
+	co_return HandleResult::success("{}");
 }

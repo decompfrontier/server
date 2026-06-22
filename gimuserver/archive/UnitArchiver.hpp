@@ -3,6 +3,8 @@
 #include <gimuserver/archive/archive.hpp>
 #include <gimuserver/packets/all.hpp>
 
+#include <drogon/drogon.h>
+
 #include <json/value.h>
 
 #include <cstdint>
@@ -57,16 +59,6 @@ public:
 		const UnitRecord& unitRecord,
 		UnitType unit_type_id,
 		UserUnitInfo& unit);
-
-	/*!
-	* Gets the stat block for a unit type.
-	*
-	* Currently only unit_type_id 1 is understood and maps to lord_stats.
-	* @return Matching stat block, or std::nullopt when the unit type is unsupported.
-	*/
-	static std::optional<UnitRecordStats> unitTypeStats(
-		const UnitRecord& unitRecord,
-		UnitType unit_type_id);
 
 	UnitArchiver(const UnitArchiver&) = delete;
 	UnitArchiver& operator=(const UnitArchiver&) = delete;

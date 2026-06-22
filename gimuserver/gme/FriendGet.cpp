@@ -3,7 +3,7 @@
 
 HANDLEF(FriendGet)
 {
-	FriendGetResp resp;
+	FriendGetResp resp{};
 
 	std::string buffer{};
 	const auto& ec2 = glz::write_json(resp, buffer);

@@ -8,6 +8,11 @@
 struct GmeHandler
 {
 	/*!
+	* Handler name.
+	*/
+	const char* name;
+
+	/*!
 	* JSON AES cryptation key.
 	*/
 	const char* key;
@@ -49,7 +54,7 @@ static constexpr auto operator"" _hash(const char* str, size_t len)
 * @param[in] func Handler function
 * @param[in] key Handler AES key
 */
-#define REGISTER(id, func, key) case id##_hash: return { key, GmeHandlers::func }
+#define REGISTER(id, func, key) case id##_hash: return { #func, key, GmeHandlers::func }
 
 /*!
 * Gets the handler of a message.
@@ -61,7 +66,7 @@ static GmeHandler getHandler(std::string_view cmd)
 	switch (hash(cmd))
 	{
 	default:
-		return { nullptr, nullptr };
+		return { nullptr, nullptr, nullptr };
 
 
 	REGISTER("MfZyu1q9", Initialize, "EmcshnQoDr20TZz1");
@@ -72,6 +77,7 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("2o4axPIC", FriendGet, "EoYuZ2nbImhCU1c0");
 	REGISTER("Uo86DcRh", GatchaList, "8JbxFvuSaB2CK7Ln");
 	REGISTER("NiYWKdzs", HomeInfo, "f6uOewOD");
+	REGISTER("9TvyNR5H", MissionEnd, "oINq0rfUFPx5MgmT");
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
 	REGISTER("TA4MnZX8", NgwordCheck, "r4Smw5TX");
 	REGISTER("uV6yH5MX", CreateUser, "4agnATy2DrJsWzQk");
@@ -141,11 +147,20 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			}
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
-				LOG_ERROR << "Handler error " << header.id << " database exception: " << ex.base().what();
+				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") database exception: " << ex.base().what();
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
 				err.message = std::format("Unable to run database query: \"{}\"", header.id);
+				resp.error = err;
+			}
+			catch (const std::exception& ex)
+			{
+				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") exception: " << ex.what();
+				GmeError err{};
+				err.cmd = GmeErrorCommand::Close;
+				err.flag = GmeErrorFlags::IsInError;
+				err.message = std::format("Unable to handle request: \"{}\", Error: \"{}\"", header.id, ex.what());
 				resp.error = err;
 			}
 		}

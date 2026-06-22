@@ -1,47 +1,332 @@
 [
     {
-        "unit_id": 10011,
-        "lord_stats": {
-            "hp": 1948,
-            "atk": 700,
-            "def": 574,
-            "rec": 448
-        }
+        "id":  10011,
+        "name":  "Fencer Vargas",
+        "element":  1,
+        "effect_frame":  "20:121:1,38:121:1,56:121:1",
+        "damage_frame":  "26:50:2:2,44:30:2:2,62:20:2:2",
+        "drop_check_count":  2,
+        "move_speed":  3,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  1030,
+                          "atk":  500,
+                          "def":  410,
+                          "rec":  320
+                      },
+                      {
+                          "hp":  1948,
+                          "atk":  700,
+                          "def":  574,
+                          "rec":  448
+                      }
+                  ],
+        "bb_id":  "10011",
+        "sbb_id":  "110011"
     },
     {
-        "unit_id": 20011,
-        "lord_stats": {
-            "hp": 1830,
-            "atk": 706,
-            "def": 468,
-            "rec": 693
-        }
+        "id":  20011,
+        "name":  "Selena",
+        "element":  2,
+        "effect_frame":  "20:122:1,24:122:1",
+        "damage_frame":  "26:50:2:1,30:50:2:1",
+        "drop_check_count":  3,
+        "move_speed":  4,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  1000,
+                          "atk":  490,
+                          "def":  360,
+                          "rec":  420
+                      },
+                      {
+                          "hp":  1830,
+                          "atk":  706,
+                          "def":  468,
+                          "rec":  693
+                      }
+                  ],
+        "bb_id":  "20011",
+        "sbb_id":  "120011"
     },
     {
-        "unit_id": 30011,
-        "lord_stats": {
-            "hp": 1876,
-            "atk": 720,
-            "def": 700,
-            "rec": 248
-        }
+        "id":  20030,
+        "name":  "Squirty",
+        "element":  2,
+        "effect_frame":  "24:122:1",
+        "damage_frame":  "30:100:2:1",
+        "drop_check_count":  2,
+        "move_speed":  2,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  800,
+                          "atk":  300,
+                          "def":  280,
+                          "rec":  250
+                      },
+                      {
+                          "hp":  1596,
+                          "atk":  396,
+                          "def":  392,
+                          "rec":  408
+                      }
+                  ],
+        "bb_id":  "20030",
+        "sbb_id":  "120030"
     },
     {
-        "unit_id": 40011,
-        "lord_stats": {
-            "hp": 2070,
-            "atk": 812,
-            "def": 420,
-            "rec": 210
-        }
+        "id":  20031,
+        "name":  "King Squirty",
+        "element":  2,
+        "effect_frame":  "36:122:1",
+        "damage_frame":  "42:100:2:1",
+        "drop_check_count":  2,
+        "move_speed":  2,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  1170,
+                          "atk":  360,
+                          "def":  350,
+                          "rec":  360
+                      },
+                      {
+                          "hp":  2244,
+                          "atk":  660,
+                          "def":  672,
+                          "rec":  734
+                      }
+                  ],
+        "bb_id":  "20031",
+        "sbb_id":  "120031"
     },
     {
-        "unit_id": 50253,
-        "lord_stats": {
-            "hp": 4500,
-            "atk": 1340,
-            "def": 1340,
-            "rec": 1680
-        }
+        "id":  30011,
+        "name":  "Pikeman Lance",
+        "element":  3,
+        "effect_frame":  "20:123:1,26:123:1,32:123:1",
+        "damage_frame":  "26:50:2:1,32:20:2:4,38:30:2:4",
+        "drop_check_count":  3,
+        "move_speed":  2,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  1010,
+                          "atk":  500,
+                          "def":  500,
+                          "rec":  150
+                      },
+                      {
+                          "hp":  1876,
+                          "atk":  720,
+                          "def":  700,
+                          "rec":  248
+                      }
+                  ],
+        "bb_id":  "30011",
+        "sbb_id":  "130011"
+    },
+    {
+        "id":  40011,
+        "name":  "Warrior Eze",
+        "element":  4,
+        "effect_frame":  "24:124:1",
+        "damage_frame":  "30:100:2:1",
+        "drop_check_count":  8,
+        "move_speed":  3,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  1180,
+                          "atk":  580,
+                          "def":  320,
+                          "rec":  120
+                      },
+                      {
+                          "hp":  2070,
+                          "atk":  812,
+                          "def":  420,
+                          "rec":  210
+                      }
+                  ],
+        "bb_id":  "40011",
+        "sbb_id":  "140011"
+    },
+    {
+        "id":  10030,
+        "name":  "Burny",
+        "element":  1,
+        "effect_frame":  "24:121:1",
+        "damage_frame":  "30:100:2:1",
+        "drop_check_count":  2,
+        "move_speed":  2,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  830,
+                          "atk":  320,
+                          "def":  280,
+                          "rec":  210
+                      },
+                      {
+                          "hp":  1628,
+                          "atk":  432,
+                          "def":  367,
+                          "rec":  273
+                      }
+                  ],
+        "bb_id":  "10030",
+        "sbb_id":  "110030"
+    },
+    {
+        "id":  30030,
+        "name":  "Mossy",
+        "element":  3,
+        "effect_frame":  "24:123:1",
+        "damage_frame":  "30:100:2:1",
+        "drop_check_count":  2,
+        "move_speed":  2,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  850,
+                          "atk":  260,
+                          "def":  350,
+                          "rec":  220
+                      },
+                      {
+                          "hp":  1745,
+                          "atk":  338,
+                          "def":  501,
+                          "rec":  286
+                      }
+                  ],
+        "bb_id":  "30030",
+        "sbb_id":  "130030"
+    },
+    {
+        "id":  30031,
+        "name":  "King Mossy",
+        "element":  3,
+        "effect_frame":  "36:123:1",
+        "damage_frame":  "42:100:2:1",
+        "drop_check_count":  2,
+        "move_speed":  2,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  1300,
+                          "atk":  300,
+                          "def":  450,
+                          "rec":  260
+                      },
+                      {
+                          "hp":  2425,
+                          "atk":  598,
+                          "def":  787,
+                          "rec":  551
+                      }
+                  ],
+        "bb_id":  "30031",
+        "sbb_id":  "130031"
+    },
+    {
+        "id":  40030,
+        "name":  "Sparky",
+        "element":  4,
+        "effect_frame":  "24:124:1",
+        "damage_frame":  "30:100:2:1",
+        "drop_check_count":  2,
+        "move_speed":  2,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  830,
+                          "atk":  320,
+                          "def":  280,
+                          "rec":  210
+                      },
+                      {
+                          "hp":  1628,
+                          "atk":  432,
+                          "def":  367,
+                          "rec":  273
+                      }
+                  ],
+        "bb_id":  "40030",
+        "sbb_id":  "140030"
+    },
+    {
+        "id":  60050,
+        "name":  "Skeleton",
+        "element":  6,
+        "effect_frame":  "24:126:1",
+        "damage_frame":  "30:100:2:1",
+        "drop_check_count":  2,
+        "move_speed":  1,
+        "attack_move_type":  1,
+        "back_move_type":  1,
+        "after_image":  1,
+        "skill_move_type":  1,
+        "cursor_disp_pos":  "0,0",
+        "stats":  [
+                      {
+                          "hp":  930,
+                          "atk":  480,
+                          "def":  230,
+                          "rec":  90
+                      },
+                      {
+                          "hp":  1695,
+                          "atk":  634,
+                          "def":  302,
+                          "rec":  151
+                      }
+                  ],
+        "bb_id":  "60050",
+        "sbb_id":  "0"
     }
 ]

@@ -29,7 +29,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 
 
 	{
-		GameDls dls;
+		GameDls dls{};
 		dls.game_ip = GetDrogonBindHostname();
 		dls.resource_ip = dls.game_ip;
 		dls.version = serverObj["game_version"].asUInt();

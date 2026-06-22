@@ -42,8 +42,11 @@ void UnitArchiver::setup(const Json::Value& serverObj)
 	cache_.reserve(units.size());
 	for (auto& unit : units)
 	{
-		cache_.insert_or_assign(unit.unit_id, std::move(unit));
+		cache_.insert_or_assign(unit.id, std::move(unit));
 	}
+
+	LOG_INFO << "Loaded " << cache_.size()
+		<< " unit archive records from " << archiveRoot << "/unit.json";
 }
 
 std::optional<UnitRecord> UnitArchiver::lookup(UnitId unit_id) const
@@ -69,33 +72,28 @@ bool UnitArchiver::populatePacket(
 	UnitType unit_type_id,
 	UserUnitInfo& unit)
 {
-	// Grab the stats for the given unit type.
-	const auto stats = unitTypeStats(unitRecord, unit_type_id);
-	if (!stats)
-	{
-		return false;
-	}
+	// Grab the base stats for the given unit type.
+	const auto& stats = unitRecord.stats[0];
 
-	unit.unit_id = unitRecord.unit_id;
+	// TODO: Accept a unit level here and compute
+	// stats from both the unit type and level.
+
+	unit.unit_id = unitRecord.id;
+	unit.unit_lvl = 1;
 	unit.unit_type_id = unit_type_id;
-	unit.base_hp = stats->hp;
-	unit.base_atk = stats->atk;
-	unit.base_def = stats->def;
-	unit.base_rec = stats->rec;
+	unit.bb_id = unitRecord.bb_id;
+	unit.bb_lvl = 1;
+	unit.sbb_id = "";
+	unit.sbb_lvl = 0;
+	unit.base_hp = stats.hp;
+	unit.base_atk = stats.atk;
+	unit.base_def = stats.def;
+	unit.base_rec = stats.rec;
+	unit.ext_hp = 0;
+	unit.ext_atk = 0;
+	unit.ext_def = 0;
+	unit.ext_rec = 0;
+
 	return true;
 }
 
-std::optional<UnitRecordStats> UnitArchiver::unitTypeStats(
-	const UnitRecord& unitRecord,
-	UnitType unit_type_id)
-{
-	switch (unit_type_id)
-	{
-	case 1:
-		return unitRecord.lord_stats;
-	default:
-		LOG_ERROR << "Unsupported unit type " << unit_type_id
-			<< " for unit archive record " << unitRecord.unit_id;
-		return std::nullopt;
-	}
-}

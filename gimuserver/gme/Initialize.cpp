@@ -1,10 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
-#include "common.hpp"
+#include "Common.hpp"
 
 #include <gimuserver/db/PacketInterface.hpp>
-#include <gimuserver/db/UserInfoService.hpp>
-#include <gimuserver/utils/Random.hpp>
 
 HANDLEF(Initialize)
 {
@@ -34,43 +32,15 @@ HANDLEF(Initialize)
 	// sends during normal startup. It receives the Gumi Live ID returned by the
 	// account login flow and decides whether the client should resume an existing
 	// game user or enter the new-user/tutorial flow.
-	std::string gumiUserId = req.login_info.gumi_live_userid;
-	if (gumiUserId.empty())
-	{
-		LOG_ERROR << "Initialize request did not include gumi_live_userid. "
-			"We cannot proceed without this information.";
-		co_return HandleResult::error("Missing gumi_live_userid", "Initialize request did not include gumi_live_userid");
-	}
-
-	// If the client sent us an explicit user id, we should verify that it matches
-	// what we have in the database.
-	CO_AWAIT_DB(UserInfoService::fetchUserForGumiUser(
-		theDb(),
-		gumiUserId,
-		resp.login_info.user_id));
-	if (!req.login_info.user_id.empty() && resp.login_info.user_id != req.login_info.user_id)
-	{
-		LOG_ERROR << "User ID mismatch for Gumi Live user " << gumiUserId
-			<< ": client sent " << req.login_info.user_id
-			<< ", database has " << resp.login_info.user_id;
-		co_return HandleResult::error("User ID mismatch", "User ID mismatch for Gumi Live user " + std::string(gumiUserId));
-	}
+	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).data;
 
 	// If we didn't find a user for this Gumi Live ID, we just return an empty user_id
 	// and let the client enter the tutorial flow. Otherwise, we return the user info
 	// stored in the database.
-	if (!resp.login_info.user_id.empty())
+	if (!identity.userId.empty())
 	{
-		CO_AWAIT_DB(gme::nonEmpty(PacketInterfaceFor<LoginInfoResp>::readToPacket(
-			theDb(),
-			"userinfo",
-			{
-				{ "gumi_user_id", gumiUserId },
-				{ "id", resp.login_info.user_id },
-			},
-			resp.login_info)));
+		resp.login_info = std::move((co_await gme::getLoginInfo(theDb(), identity)).nonEmpty());
 	}
-	resp.login_info.tutorial_end_flag = gme::getTutorialEndFlag(resp.login_info.tutorial_status);
 
 	//resp.user_info.gumi_live_token = req.user_info.gumi_live_token;
 	//resp.user_info.gumi_live_userid = req.user_info.gumi_live_userid;
@@ -81,7 +51,7 @@ HANDLEF(Initialize)
 	resp.challenge_arena_user_info.unkstr2 = "F"; // ranking?
 	resp.challenge_arena_user_info.league_id = 1;
 
-	resp.summoner_journal.user_id = resp.login_info.user_id;
+	resp.summoner_journal.user_id = identity.userId;
 
 	resp.daily_login_rewards.id = 1;
 	resp.daily_login_rewards.current_day = 1;

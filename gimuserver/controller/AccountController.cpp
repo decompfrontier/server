@@ -1,8 +1,7 @@
 #include "App.hpp"
 #include "AccountController.hpp"
 
-#include <gimuserver/db/UserInfoService.hpp>
-#include <gimuserver/gme/common.hpp>
+#include <gimuserver/db/DatabaseInterface.h>
 #include <gimuserver/utils/Random.hpp>
 
 #include <stdexcept>
@@ -18,7 +17,7 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
 
     // Extract parameters
     const auto& params = rq->getParameters();
-    GuestLogin login;
+    GuestLogin login{};
     login.status = StatusEnum::Error;
     login.status_number = 1; // TODO: what was this again?
 
@@ -33,13 +32,15 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
         // Note: this only creates an entry in the gumi_live_users table. The actual
         // game user row in userinfo is created later, after the client sends the
         // CreateUser request.
-        std::string currentGumiUser;
-        co_await UserInfoService::fetchCurrentGumiUser(theDb(), currentGumiUser);
+        auto currentGumiUser = (co_await db::DatabaseInterface::read(
+            theDb(),
+            "gumi_live_users",
+            { db::Data("id", std::string()) }));
 
         // We found a Gumi Live user in the database, so we can just return that one.
-        if (!currentGumiUser.empty())
+        if (currentGumiUser.affected > 0)
         {
-            login.user_id = currentGumiUser;
+            login.user_id = currentGumiUser.front<std::string>("id");
         }
         else
         {
@@ -47,11 +48,10 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
             login.user_id = RandomId();
 
             // Add him as the only local Gumi Live user.
-            co_await gme::nonEmpty(UserInfoService::addGumiUser(
+            (co_await db::DatabaseInterface::insert(
                 theDb(),
-                login.user_id));
-
-            LOG_DEBUG << "AccountController: new user " << login.user_id;
+                "gumi_live_users",
+                { db::Data("id", login.user_id) })).nonEmpty();
         }
 
         login.status = StatusEnum::Success;

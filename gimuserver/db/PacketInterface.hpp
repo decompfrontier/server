@@ -1,544 +1,288 @@
 #pragma once
 
-#include <drogon/orm/DbClient.h>
+#include "DatabaseInterface.h"
+
 #include <gimuserver/packets/all.hpp>
 
-#include <algorithm>
-#include <cstdint>
-#include <map>
 #include <string>
-#include <string_view>
-#include <stdexcept>
 #include <type_traits>
-#include <variant>
-#include <vector>
+
+namespace db
+{
 
 /*!
-* Packet-to-database bridge for packet structs backed by a SQL table.
+* Bridges generated packet structs and database rows.
 *
-* Each supported packet type specializes getPacketFields() below to describe
-* which database columns can be read from or written to that packet. Callers
-* should use the public read/update APIs instead of reaching into the mapping.
+* Most persisted user data is eventually read from or written back into packet
+* structs, so this interface lets us reuse the packet schema as the database
+* mapping layer instead of maintaining separate DTOs. Each packet specialization
+* declares which fields are readable, updatable, or insertable, while callers can
+* still provide extra cells for lookup keys or database columns that are not part
+* of the packet.
 */
 template <typename Packet>
 class PacketInterfaceFor
 {
 public:
-	using Database = drogon::orm::DbClientPtr;
-	using Result = drogon::orm::Result;
-	using Row = drogon::orm::Row;
-
 	/*!
-	* This interface is used only through static methods.
+	* Declares which database operations may use a packet field.
 	*/
-	PacketInterfaceFor() = delete;
-
-	// Used to build a variant that bridges C++ types with SQL bind values for
-	// Drogon's ORM layer. Only types currently supported by the packet system
-	// are listed; extend as needed.
-	using FieldType = std::variant<int32_t, uint32_t, std::string, bool>;
-
-	/*!
-	* Optional owning list of database columns to operate on.
-	*
-	* Empty means "use every mapped field that is valid for the operation".
-	* updateFromPacket uses this to patch a small subset of a packet without
-	* first hydrating the full packet from the database.
-	*/
-	using Columns = std::vector<std::string_view>;
-
-	/*!
-	* Maps one database column to one packet field.
-	*
-	* A null read pointer means the column is write-only. A null write pointer
-	* means the column is read-only. This lets identity columns participate in
-	* SELECT queries without being overwritten by UPDATE queries.
-	*/
-	struct PacketField
+	struct Ops
 	{
-		// The literal name of the column in the database table (e.g., "username").
-		std::string_view column;
-
-		// Function pointer that reads a column from a DB row and assigns it to a struct member.
-		void (*read)(const Row& row, Packet& packet, const std::string_view column);
-
-		// Function pointer that writes a struct member's value into a type-safe parameter vector.
-		void (*write)(const Packet& packet, std::vector<FieldType>& fields);
+		bool read = false;
+		bool update = false;
+		bool insert = false;
 	};
 
 	/*!
-	* Owning field list returned by getPacketFields().
+	* One packet/database field mapping.
+	*
+	* The field stores the SQL column name plus generated accessors for reading
+	* from a packet and writing row values back into a packet.
 	*/
-	using PacketFields = std::vector<PacketField>;
+	struct Field
+	{
+		/*!
+		* Creates a packet/database field mapping.
+		*
+		* @param name SQL column name.
+		* @param ops Operations this field participates in.
+		* @param getter Reads this field from a packet.
+		* @param setter Writes this field from a database row into a packet.
+		*/
+		Field(
+			Key name,
+			Ops ops,
+			Value (*getter)(const Packet& packet),
+			void (*setter)(Packet& packet, const Row& row, const Key& key))
+			: name(std::move(name)),
+			  ops(ops),
+			  getter(getter),
+			  setter(setter)
+		{
+		}
+
+		/*!
+		* Reads this field from a packet.
+		*
+		* @param packet Packet to read from.
+		* @return Field value as a database value variant.
+		*/
+		Value get(const Packet& packet) const
+		{
+			return getter(packet);
+		}
+
+		/*!
+		* Writes this field from a database row into a packet.
+		*
+		* @param packet Packet to populate.
+		* @param row Database row to read from.
+		*/
+		void set(Packet& packet, const Row& row) const
+		{
+			setter(packet, row, name);
+		}
+
+		Key name;
+		Ops ops;
+
+	private:
+		Value (*getter)(const Packet& packet);
+		void (*setter)(Packet& packet, const Row& row, const Key& key);
+	};
+
+	using Fields = std::vector<Field>;
+
+	PacketInterfaceFor() = delete;
+
+	/*!
+	* Reads packet rows from a table.
+	*
+	* Schema fields marked read become selected columns. Extra cells are passed
+	* through to DatabaseInterface and are normally lookup predicates.
+	*
+	* @param database Database client or transaction to use.
+	* @param table SQL table name.
+	* @param cells Extra lookup/data cells for the database query.
+	* @return Packets populated from matching database rows.
+	*/
+	static drogon::Task<InterfaceResult<std::vector<Packet>>> read(
+		const Database database,
+		const std::string table,
+		const Cells cells = {})
+	{
+		Fields filtered;
+		for (const auto& field : fields())
+		{
+			if (field.ops.read)
+			{
+				filtered.push_back(field);
+			}
+		}
+
+		const auto rows = co_await DatabaseInterface::read(
+			database,
+			table,
+			mergeCells(filtered, Packet{}, cells));
+
+		std::vector<Packet> packets;
+		packets.reserve(rows.data.size());
+		for (const auto& row : rows.data)
+		{
+			Packet packet{};
+			for (const auto& field : filtered)
+			{
+				field.set(packet, row);
+			}
+			packets.push_back(std::move(packet));
+		}
+
+		co_return InterfaceResult<std::vector<Packet>>{
+			.data = std::move(packets),
+			.affected = rows.affected,
+		};
+	}
+
+	/*!
+	* Updates database rows from a packet.
+	*
+	* Schema fields marked update become SET assignments. Extra cells are passed
+	* through to DatabaseInterface.
+	*
+	* @param database Database client or transaction to use.
+	* @param table SQL table name.
+	* @param packet Packet to read update values from.
+	* @param cells Extra lookup/data cells for the database update.
+	* @return Number of affected rows.
+	*/
+	static drogon::Task<InterfaceResult<>> update(
+		const Database database,
+		const std::string table,
+		const Packet packet,
+		const Cells cells = {})
+	{
+		Fields filtered;
+		for (const auto& field : fields())
+		{
+			if (field.ops.update)
+			{
+				filtered.push_back(field);
+			}
+		}
+
+		co_return co_await DatabaseInterface::update(
+			database,
+			table,
+			mergeCells(filtered, packet, cells));
+	}
+
+	/*!
+	* Inserts a database row from a packet.
+	*
+	* Schema fields marked insert become inserted values. Extra cells are passed
+	* through to DatabaseInterface.
+	*
+	* @param database Database client or transaction to use.
+	* @param table SQL table name.
+	* @param packet Packet to read insert values from.
+	* @param cells Extra data cells for the database insert.
+	* @return Inserted row, when SQLite inserted one.
+	*/
+	static drogon::Task<InterfaceResult<Result>> insert(
+		const Database database,
+		const std::string table,
+		const Packet packet,
+		const Cells cells = {})
+	{
+		Fields filtered;
+		for (const auto& field : fields())
+		{
+			if (field.ops.insert)
+			{
+				filtered.push_back(field);
+			}
+		}
+
+		co_return co_await DatabaseInterface::insert(
+			database,
+			table,
+			mergeCells(filtered, packet, cells));
+	}
 
 private:
-	// Intentionally undefined for unsupported packet types.
-	static const PacketFields& getPacketFields();
+	/*!
+	* Returns the packet schema specialization.
+	*/
+	static Fields fields();
 
 	/*!
-	* Filters a packet field mapping by database column name.
-	* @param fields Complete packet-to-column mapping for the packet type.
-	* @param columns Optional list of columns to keep. Empty keeps all fields.
+	* Creates a schema field for one packet member.
+	*
+	* @param name SQL column name.
+	* @param ops Operations this field participates in.
+	* @return Field mapping for the member.
 	*/
-	static PacketFields filterPacketFields(
-		const PacketFields& fields,
-		const Columns& columns)
+	template <auto Member>
+	static Field field(Key name, Ops ops)
 	{
-		PacketFields selected;
-
-		if (columns.empty())
-		{
-			selected.reserve(fields.size());
-			selected.insert(selected.end(), fields.begin(), fields.end());
-			return selected;
-		}
-
-		selected.reserve(columns.size());
-		for (const auto& column : columns)
-		{
-			const auto it = std::find_if(
-				fields.begin(),
-				fields.end(),
-				[column](const PacketField& field) {
-					return field.column == column;
-				});
-
-			if (it == fields.end())
-			{
-				LOG_ERROR << "Unknown packet column '" << column << "'";
-				return {};
-			}
-			if (!it->write)
-			{
-				LOG_ERROR << "Packet column '" << column << "' is read-only";
-				return {};
-			}
-
-			selected.push_back(*it);
-		}
-
-		return selected;
-	}
-
-	// Field declarations use these helpers when specializing getPacketFields().
-	// Reads one typed DB column into one packet member.
-	template <auto Field>
-	static void readField(const Row& row, Packet& packet, const std::string_view column)
-	{
-		using T = std::remove_cvref_t<decltype(packet.*Field)>;
-		packet.*Field = row[std::string(column)].as<T>();
-	}
-
-	// Writes one packet member into the SQL bind-value list.
-	template <auto Field>
-	static void writeField(const Packet& packet, std::vector<FieldType>& fields)
-	{
-		fields.push_back(packet.*Field);
+		return Field(
+			std::move(name),
+			ops,
+			&PacketInterfaceFor::template get<Member>,
+			&PacketInterfaceFor::template set<Member>);
 	}
 
 	/*!
-	* Iterates the field mapping to extract every readable column from a DB row into a packet.
-	* Fields whose read function pointer is null (write-only fields) are skipped.
-	* @param row The source database row containing the query results.
-	* @param packet The target packet instance being populated.
-	* @param fields The field mapping guiding the extraction.
+	* Reads a packet member as a database value.
 	*/
-	static void readFields(
-		const Row& row,
-		Packet& packet,
-		const PacketFields& fields)
+	template <auto Member>
+	static Value get(const Packet& packet)
 	{
-		for (const auto& field : fields)
-		{
-			// Some fields may be write-only, so we check if the read function is
-			// defined before calling it.
-			if (field.read)
-			{
-				field.read(row, packet, field.column);
-			}
-		}
+		return packet.*Member;
 	}
 
 	/*!
-	* Generates a comma-separated list of column names for a SELECT statement.
-	* Only readable columns (those with a non-null read function pointer) are included.
-	* @param fields The field mapping guiding the column list.
+	* Writes a database row value into a packet member.
 	*/
-	static std::string selectList(const PacketFields& fields)
+	template <auto Member>
+	static void set(Packet& packet, const Row& row, const Key& key)
 	{
-		std::string sql;
-		for (const auto& field : fields)
-		{
-			// Only include fields that have a read function defined.
-			if (!field.read)
-			{
-				continue;
-			}
-			if (!sql.empty())
-			{
-				sql += ", ";
-			}
-			sql += field.column;
-		}
-		return sql;
+		using T = std::remove_cvref_t<decltype(packet.*Member)>;
+		packet.*Member = row[key].as<T>();
 	}
 
 	/*!
-	* Serializes every writable field into a type-safe SQL parameter vector.
-	* @param packet The packet instance containing the source values.
-	* @param fields The field mapping guiding serialization.
+	* Converts schema fields and caller-provided cells into database cells.
+	*
+	* Schema fields are always emitted as data cells. Caller cells keep their
+	* original use, so callers can provide lookup predicates or extra data values.
 	*/
-	static std::vector<FieldType> writeFields(
+	static Cells mergeCells(
+		const Fields& fields,
 		const Packet& packet,
-		const PacketFields& fields)
+		const Cells& cells)
 	{
-		std::vector<FieldType> f;
-		f.reserve(fields.size());
+		Cells output;
 
 		for (const auto& field : fields)
 		{
-			// Some fields may be read-only, so we check if the write function
-			// is defined before calling it.
-			if (field.write)
-			{
-				field.write(packet, f);
-			}
+			output.push_back({
+				.use = Cell::Use::Data,
+				.name = field.name,
+				.value = field.get(packet),
+			});
 		}
-		return f;
-	}
 
-	/*!
-	* Generates assignment placeholders for an UPDATE SET clause.
-	* Only writable columns (those with a non-null write function pointer) are included.
-	* @param fields The field mapping guiding the clause.
-	*/
-	static std::string updateList(const PacketFields& fields)
-	{
-		std::string sql;
-		size_t idx = 1;
-
-		for (const auto& field : fields)
+		for (const auto& cell : cells)
 		{
-			// Only include fields that have a write function defined.
-			if (!field.write)
-			{
-				continue;
-			}
-			if (!sql.empty())
-			{
-				sql += ", ";
-			}
-			sql += std::string(field.column) + " = $" + std::to_string(idx++);
-		}
-		return sql;
-	}
-
-	// Ordered criteria keeps generated WHERE placeholders and bound values in sync.
-	using Criteria = std::map<std::string_view, FieldType>;
-
-	/*!
-	* Generates a deterministic WHERE clause from criteria columns.
-	* @param criteria Map containing lookup constraints, automatically sorted alphabetically by key.
-	* @param from The SQL placeholder index offset ($1, $2, etc.) to start printing at.
-	*/
-	static std::string whereClause(const Criteria& criteria, const size_t from = 1)
-	{
-		if (criteria.empty())
-		{
-			return "";
-		}
-		std::string sql = " WHERE ";
-		size_t index = from;
-
-		for (auto it = criteria.begin(); it != criteria.end(); ++it)
-		{
-			if (it != criteria.begin())
-			{
-				sql += " AND ";
-			}
-			sql += std::string(it->first) + " = $" + std::to_string(index++);
-		}
-		return sql;
-	}
-
-public:
-	/*!
-	* Updates the given table using packet field mappings.
-	*
-	* By default this writes every writable field from the packet. Pass Columns
-	* to update only a named subset; this is useful for patching a single field
-	* without reading the whole packet first or risking default values from other
-	* packet members being written back to the database.
-	*
-	* @param db Database connection.
-	* @param table Table name to update.
-	* @param criteria WHERE clause constraints (column -> value map).
-	* @param packet Source packet to update the table with.
-	* @param columns Optional database column filter. Empty updates every writable field.
-	*/
-	static drogon::Task<Result> updateFromPacket(
-		const Database db,
-		const std::string_view table,
-		const Criteria criteria,
-		const Packet packet,
-		const Columns columns = {})
-	{
-		const auto fields = filterPacketFields(getPacketFields(), columns);
-		const auto clause = updateList(fields);
-		const auto values = writeFields(packet, fields);
-
-		// Fail-fast if
-		// - No database connection
-		// - No table name provided
-		// - No criteria provided (to prevent accidental updates)
-		// - No fields to update (to prevent invalid SQL)
-		// - No values to bind (to prevent invalid SQL)
-		if (!db || table.empty() || criteria.empty() || clause.empty() || values.empty())
-		{
-			LOG_ERROR << "Invalid updateFromPacket call: "
-				<< "db=" << static_cast<bool>(db)
-				<< ", table='" << table << "'"
-				<< ", criteria=" << criteria.size()
-				<< ", clause_empty=" << clause.empty()
-				<< ", values=" << values.size();
-			throw std::invalid_argument("Invalid updateFromPacket call");
+			output.push_back(cell);
 		}
 
-		const auto sql = "UPDATE " + std::string(table) + " SET " + clause +
-			whereClause(criteria, /*from=*/values.size() + 1) + ";";
-
-		auto binder = *db << sql;
-
-		// Bind payload parameters first ($1 to $N).
-		for (const auto& value : values)
-		{
-			std::visit([&binder](const auto& v) -> void {
-				binder << v;
-			}, value);
-		}
-
-		// Bind lookup criteria parameters ($N+1 onwards).
-		for (const auto& [column, value] : criteria)
-		{
-			std::visit([&binder](const auto& v) -> void {
-				binder << v;
-			}, value);
-		}
-
-		auto result = co_await drogon::orm::internal::SqlAwaiter(std::move(binder));
-		co_return result;
-	}
-
-	/*!
-	* Reads the first matching row from the given table into a packet.
-	*
-	* This is a convenience wrapper over readToPackets for call sites that only
-	* care about fetching one row.
-	*
-	* @param db Database connection.
-	* @param table Table name to query.
-	* @param criteria WHERE clause constraints (column -> value map).
-	* @param packet Output packet to populate with.
-	*/
-	static drogon::Task<Result> readToPacket(
-		const Database db,
-		const std::string_view table,
-		const Criteria criteria,
-		Packet& packet)
-	{
-		std::vector<Packet> packets{ packet };
-
-		auto result = co_await readToPackets(db, table, criteria, packets);
-		if (result.empty())
-		{
-			co_return result;
-		}
-
-		packet = std::move(packets.front());
-		co_return result;
-	}
-
-	/*!
-	* Reads every matching row from the given table into packet instances.
-	*
-	* The input vector may grow if the query returns more rows than it
-	* already has, but it is never shrunk by this function.
-	*
-	* @param db Database connection.
-	* @param table Table name to query.
-	* @param criteria WHERE clause constraints (column -> value map).
-	* @param packets Packet collection to update in place with query results.
-	*/
-	static drogon::Task<Result> readToPackets(
-		const Database db,
-		const std::string_view table,
-		const Criteria criteria,
-		std::vector<Packet>& packets)
-	{
-		const auto fields = getPacketFields();
-		const auto columnsList = selectList(fields);
-
-		// Fail-fast if:
-		// - No database connection
-		// - No table name provided
-		// - No criteria provided (to prevent accidental reads)
-		// - No fields to read (to prevent invalid SQL)
-		if (!db || table.empty() || criteria.empty() || columnsList.empty())
-		{
-			LOG_ERROR << "Invalid readToPackets call: "
-				<< "db=" << static_cast<bool>(db)
-				<< ", table='" << table << "'"
-				<< ", criteria=" << criteria.size()
-				<< ", columns_empty=" << columnsList.empty();
-			throw std::invalid_argument("Invalid readToPackets call");
-		}
-
-		const std::string sql = "SELECT " + columnsList +
-			" FROM " + std::string(table) +
-			whereClause(criteria, /*from=*/1) + ";";
-
-		auto binder = *db << sql;
-
-		for (const auto& [column, value] : criteria)
-		{
-			std::visit([&binder](const auto& v) -> void {
-				binder << v;
-			}, value);
-		}
-
-		auto result = co_await drogon::orm::internal::SqlAwaiter(std::move(binder));
-		if (result.size() > packets.size())
-		{
-			packets.resize(result.size());
-		}
-
-		size_t rowIndex = 0;
-		for (const auto& row : result)
-		{
-			readFields(row, packets[rowIndex], fields);
-			++rowIndex;
-		}
-
-		co_return result;
+		return output;
 	}
 };
 
-/*!
-* Specializations for supported packet types go here. Each specialization defines a static
-* constexpr array of PacketField structs that map database columns to packet members.
-*/
+} // namespace db
 
-template <>
-inline const PacketInterfaceFor<LoginInfoResp>::PacketFields&
-PacketInterfaceFor<LoginInfoResp>::getPacketFields()
-{
-	static const PacketFields fields = {
-		{ "id", &readField<&LoginInfoResp::user_id>, nullptr },
-		{ "gumi_user_id", &readField<&LoginInfoResp::gumi_live_userid>, nullptr },
-		{
-			"username",
-			&readField<&LoginInfoResp::handle_name>,
-			&writeField<&LoginInfoResp::handle_name>
-		},
-		{
-			"tutorial_status",
-			&readField<&LoginInfoResp::tutorial_status>,
-			&writeField<&LoginInfoResp::tutorial_status>
-		},
-	};
-
-	return fields;
-}
-
-template <>
-inline const PacketInterfaceFor<UserTeamInfo>::PacketFields&
-PacketInterfaceFor<UserTeamInfo>::getPacketFields()
-{
-	static const PacketFields fields = {
-		{ "id", &readField<&UserTeamInfo::user_id>, nullptr },
-		{
-			"level",
-			&readField<&UserTeamInfo::level>,
-			&writeField<&UserTeamInfo::level>
-		},
-		{
-			"max_unit_count",
-			&readField<&UserTeamInfo::max_unit_count>,
-			&writeField<&UserTeamInfo::max_unit_count>
-		},
-		{
-			"max_warehouse_count",
-			&readField<&UserTeamInfo::warehouse_count>,
-			&writeField<&UserTeamInfo::warehouse_count>
-		},
-		{
-			"active_deck",
-			&readField<&UserTeamInfo::active_deck>,
-			&writeField<&UserTeamInfo::active_deck>
-		},
-	};
-
-	return fields;
-}
-
-template <>
-inline const PacketInterfaceFor<UserUnitInfo>::PacketFields&
-PacketInterfaceFor<UserUnitInfo>::getPacketFields()
-{
-	static const PacketFields fields = {
-		{ "user_unit_id", &readField<&UserUnitInfo::user_unit_id>, nullptr },
-		{ "user_id", &readField<&UserUnitInfo::user_id>, nullptr },
-		{
-			"unit_id",
-			&readField<&UserUnitInfo::unit_id>,
-			&writeField<&UserUnitInfo::unit_id>
-		},
-		{
-			"unit_type_id",
-			&readField<&UserUnitInfo::unit_type_id>,
-			&writeField<&UserUnitInfo::unit_type_id>
-		},
-		{
-			"base_hp",
-			&readField<&UserUnitInfo::base_hp>,
-			&writeField<&UserUnitInfo::base_hp>
-		},
-		{
-			"base_atk",
-			&readField<&UserUnitInfo::base_atk>,
-			&writeField<&UserUnitInfo::base_atk>
-		},
-		{
-			"base_def",
-			&readField<&UserUnitInfo::base_def>,
-			&writeField<&UserUnitInfo::base_def>
-		},
-		{
-			"base_rec",
-			&readField<&UserUnitInfo::base_rec>,
-			&writeField<&UserUnitInfo::base_rec>
-		},
-		{
-			"ext_hp",
-			&readField<&UserUnitInfo::ext_hp>,
-			&writeField<&UserUnitInfo::ext_hp>
-		},
-		{
-			"ext_atk",
-			&readField<&UserUnitInfo::ext_atk>,
-			&writeField<&UserUnitInfo::ext_atk>
-		},
-		{
-			"ext_def",
-			&readField<&UserUnitInfo::ext_def>,
-			&writeField<&UserUnitInfo::ext_def>
-		},
-		{
-			"ext_rec",
-			&readField<&UserUnitInfo::ext_rec>,
-			&writeField<&UserUnitInfo::ext_rec>
-		},
-	};
-
-	return fields;
-}
+#include "PacketInterfaceSchemas.hpp"
