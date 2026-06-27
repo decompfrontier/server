@@ -22,7 +22,7 @@ using Result = drogon::orm::Result;
 using Database = drogon::orm::DbClientPtr;
 
 // Value types currently supported by the database interface binder.
-using Value = std::variant<int32_t, int64_t, uint32_t, std::string, bool>;
+using Value = std::variant<int32_t, int64_t, uint32_t, uint64_t, std::string, bool>;
 using Values = std::vector<Value>;
 
 // One named database value plus its role in a SQL operation.

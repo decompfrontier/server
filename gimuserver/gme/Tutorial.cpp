@@ -94,7 +94,9 @@ HANDLEF(CreateUser)
 					db::Data("gumi_user_id", identity.gumiUserId),
 					db::Data("device_id", std::string()),
 					db::Data("username", handleName),
-					db::Data("level", 1),
+					db::Data("level", uint32_t(1)),
+					db::Data("zel", uint64_t(5000)),
+					db::Data("karma", uint64_t(1000)),
 					db::Data("max_warehouse_count", 100),
 				})).nonEmpty();
 

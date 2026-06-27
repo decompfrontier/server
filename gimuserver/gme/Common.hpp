@@ -227,7 +227,6 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 	packet.reinforcement_deck.emplace_back(0);
 	packet.reinforcement_deck.emplace_back(0);
 	packet.reinforcement_deck.emplace_back(0);
-	packet.exp = 0;
 	packet.add_unit_count = 100;
 
 	// Derives the deck cost for a given user level based on the progression data.

@@ -76,6 +76,52 @@ std::string encodeUnitDrops(const std::vector<UserUnitInfo>& unitDrops)
 
 	return encoded;
 }
+
+/*!
+* Applies pending EXP to the current user level.
+*
+* The caller should pass exp after adding the mission reward. This function
+* treats UserLevelMst::exp as the per-level chunk required to reach level + 1,
+* then mutates level and exp so exp remains the residual progress at the new
+* level.
+*
+* @return True if at least one level was gained.
+*/
+bool levelUp(uint32_t& level, uint32_t& exp)
+{
+	const auto& progression = theServer()->cache().initializeResp().progression;
+
+	bool leveled = false;
+	while (true)
+	{
+		// Level doesn't exist.
+		if (level >= progression.size())
+		{
+			break;
+		}
+
+		// Progression is ordered by level, with level 1 at index 0.
+		const auto& mst = progression[level];
+		if (mst.level != level + 1)
+		{
+			LOG_ERROR << "User level progression is not ordered at level " << level;
+			break;
+		}
+
+		// We don't have enough to level up.
+		if (exp < mst.exp)
+		{
+			break;
+		}
+		
+		// Advance a level.
+		level++;
+		exp -= mst.exp;
+		leveled = true;
+	}
+
+	return leveled;
+}
 }
 
 HANDLEF(MissionEnd)
@@ -90,6 +136,12 @@ HANDLEF(MissionEnd)
 	}
 
 	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).data;
+	const auto missionRecord = MissionArchiver::instance().lookup(req.mission_num.serial_id);
+	if (!missionRecord)
+	{
+		co_return HandleResult::error("Archive error", "Unable to find mission record");
+	}
+
 	MissionEndResp resp{};
 
 	// This needs to be wrapped as a transcation to prevent cases where we issue
@@ -102,17 +154,31 @@ HANDLEF(MissionEnd)
 				transaction,
 				"userinfo",
 				{
-					db::Data("level", int32_t()),
-					db::Data("zel", int64_t()),
-					db::Data("karma", int64_t()),
+					db::Data("level", uint32_t()),
+					db::Data("exp", uint32_t()),
+					db::Data("zel", uint64_t()),
+					db::Data("karma", uint64_t()),
 					db::Data("brave_coin", int32_t()),
 					db::Lookup("gumi_user_id", identity.gumiUserId),
 					db::Lookup("id", identity.userId),
 			});
-			const auto currentZel = userInfo.front<int64_t>("zel");
-			const auto currentKarma = userInfo.front<int64_t>("karma");
-			const auto currentLevel = userInfo.front<int32_t>("level");
+
+			// Fetch the current user state.
+			const auto currentZel = userInfo.front<uint64_t>("zel");
+			const auto currentKarma = userInfo.front<uint64_t>("karma");
+			const auto currentLevel = userInfo.front<uint32_t>("level");
+			const auto currentExp = userInfo.front<uint32_t>("exp");
 			const auto currentBraveCoin = userInfo.front<int32_t>("brave_coin");
+
+			// Fetch mission rewards from archive.
+			const auto rewardZel = req.battle_result.zel + missionRecord->zel;
+			const auto rewardKarma = req.battle_result.karma + missionRecord->karma;
+			const auto rewardExp = missionRecord->exp;
+	
+			// See if we leveled up.
+			auto newLevel = currentLevel;
+			auto newExp = currentExp + rewardExp;
+			const auto leveledUp = levelUp(newLevel, newExp);
 
 			// The client expects the post-mission total, including the amount earned
 			// during this mission.
@@ -120,8 +186,10 @@ HANDLEF(MissionEnd)
 				transaction,
 				"userinfo",
 				{
-					db::Data("zel", currentZel + req.battle_result.zel),
-					db::Data("karma", currentKarma + req.battle_result.karma),
+					db::Data("level", newLevel),
+					db::Data("exp", newExp),
+					db::Data("zel", currentZel + rewardZel),
+					db::Data("karma", currentKarma + rewardKarma),
 					db::Lookup("gumi_user_id", identity.gumiUserId),
 					db::Lookup("id", identity.userId)
 				})).nonEmpty();
@@ -172,9 +240,11 @@ HANDLEF(MissionEnd)
 				{ db::Lookup("user_id", identity.userId) })).nonEmpty());
 
 			resp.reward_info.clear_mission_id = req.mission_num.serial_id;
-			resp.reward_info.zel = req.battle_result.zel;
-			resp.reward_info.karma = req.battle_result.karma;
+			resp.reward_info.zel = rewardZel;
+			resp.reward_info.karma = rewardKarma;
 			resp.reward_info.before_level = currentLevel;
+			resp.reward_info.lvlup_flag = leveledUp ? 1 : 0;
+			resp.reward_info.inc_exp = rewardExp;
 			resp.reward_info.reward_units = encodeUnitDrops(droppedUnits);
 			resp.login_info = std::move(loginInfo);
 			resp.team_info = std::move(teamInfo);

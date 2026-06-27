@@ -2,6 +2,9 @@
     {
         "id": 1,
         "name": "Basics of Battle",
+        "zel": 500,
+        "karma": 100,
+        "exp": 5,
         "stages": [
             {
                 "is_boss": false,
@@ -131,6 +134,9 @@
     {
         "id": 2,
         "name": "Element & Skill",
+        "zel": 1000,
+        "karma": 200,
+        "exp": 8,
         "stages": [
             {
                 "is_boss": false,

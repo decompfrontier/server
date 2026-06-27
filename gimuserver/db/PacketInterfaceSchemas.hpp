@@ -51,6 +51,11 @@ PacketInterfaceFor<::UserTeamInfo>::fields()
 			.update = true,
 			.insert = true,
 		}),
+		field<&::UserTeamInfo::exp>("exp", {
+			.read = true,
+			.update = true,
+			.insert = true,
+		}),
 		field<&::UserTeamInfo::max_unit_count>("max_unit_count", {
 			.read = true,
 			.update = true,
