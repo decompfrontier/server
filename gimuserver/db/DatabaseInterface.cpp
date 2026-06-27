@@ -107,4 +107,30 @@ drogon::Task<InterfaceResult<Result>> DatabaseInterface::insert(
 	};
 }
 
+drogon::Task<InterfaceResult<>> DatabaseInterface::remove(
+	const Database database,
+	const std::string table,
+	const Cells cells)
+{
+	const auto lookup = getCellsFor<Use::Lookup>(cells);
+	validate(database, table, lookup);
+
+	const auto whereSql = joinSql(lookup, [](const Cell& cell, const size_t index) {
+		return std::string(index == 0 ? "" : " AND ") +
+			cell.name + " = $" + std::to_string(index + 1);
+	});
+
+	const auto sql = "DELETE FROM " + table +
+		" WHERE " + whereSql + ";";
+
+	auto binder = *database << sql;
+	bind(binder, lookup);
+
+	auto result = co_await drogon::orm::internal::SqlAwaiter(std::move(binder));
+	co_return InterfaceResult<>{
+		.data = {},
+		.affected = result.affectedRows(),
+	};
+}
+
 } // namespace db

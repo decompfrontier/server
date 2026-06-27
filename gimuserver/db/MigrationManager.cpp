@@ -83,7 +83,7 @@ static void RegisterMigrations(MigrationMap& map)
 			"deck_num INTEGER NOT NULL,"
 			"member_type INTEGER NOT NULL,"
 			"disp_order INTEGER NOT NULL,"
-			"PRIMARY KEY (user_id, deck_type, deck_num, member_type, disp_order)"
+			"PRIMARY KEY (user_id, deck_type, deck_num, disp_order)"
 			");"
 		);
 	});

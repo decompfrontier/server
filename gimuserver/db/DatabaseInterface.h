@@ -72,6 +72,23 @@ public:
 		const std::string table,
 		const Cells cells);
 
+	/*!
+	* Deletes rows from a table.
+	*
+	* Lookup cells specify the WHERE predicates. Table-wide deletes are not
+	* supported by this helper because callers should be explicit about destructive
+	* operations.
+	*
+	* @param database Database client or transaction to use.
+	* @param table SQL table name.
+	* @param cells Lookup cells for this delete.
+	* @return Number of affected rows.
+	*/
+	static drogon::Task<InterfaceResult<>> remove(
+		const Database database,
+		const std::string table,
+		const Cells cells);
+
 private:
 	/*!
 	* Joins SQL fragments produced from an item collection.

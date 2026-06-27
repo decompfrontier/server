@@ -15,20 +15,31 @@ HANDLEF(DeckEdit)
 
 	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).nonEmpty();
 
-	(co_await db::DatabaseInterface::update(
-		theDb(),
-		"userinfo",
-		{
-			db::Data("active_deck", req.team_info.active_deck),
-			db::Lookup("id", identity.userId),
-		})).nonEmpty();
-
-	if (!req.party_deck_info.empty())
 	{
-		(co_await gme::updateDecks(
-			theDb(),
-			identity,
-			req.party_deck_info)).nonEmpty();
+		auto transaction = co_await theDb()->newTransactionCoro();
+		try
+		{
+			(co_await db::DatabaseInterface::update(
+				transaction,
+				"userinfo",
+				{
+					db::Data("active_deck", req.team_info.active_deck),
+					db::Lookup("id", identity.userId),
+				})).nonEmpty();
+
+			if (!req.party_deck_info.empty())
+			{
+				(co_await gme::updateDecks(
+					transaction,
+					identity,
+					req.party_deck_info)).nonEmpty();
+			}
+		}
+		catch (...)
+		{
+			transaction->rollback();
+			throw;
+		}
 	}
 
 	co_return HandleResult::success("{}");

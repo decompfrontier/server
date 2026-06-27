@@ -4,16 +4,10 @@
 #include <gimuserver/archive/MissionArchiver.hpp>
 #include <gimuserver/archive/UnitArchiver.hpp>
 
-#include <cstdlib>
-#include <ctime>
-
 GimuServer::GimuServer() : m_dlc_error_log(), m_have_log(false), m_cache() {}
 
 void GimuServer::initAndStart(const Json::Value& config)
 {
-	// So every server start can have different random seed.
-	std::srand(static_cast<unsigned>(std::time(nullptr)));
-
 	const auto& extralog = config["extra_log"];
 	if (extralog["enable"].asBool())
 	{

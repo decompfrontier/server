@@ -9,8 +9,10 @@
 
 #include <cstdint>
 #include <optional>
+#include <set>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace gme
@@ -113,7 +115,8 @@ inline drogon::Task<db::InterfaceResult<>> addDefaultDecks(
 
 /*!
 * Persists deck rows posted by DeckEditRequest.
-* Existing slots are updated first; missing slots are inserted.
+* For each deck included in the request, existing rows are replaced with the
+* occupied slots sent by the client. Missing slots are treated as removed.
 *
 * @param database Database client or transaction to use.
 * @param identity Resolved user identity that owns the deck rows.
@@ -133,29 +136,32 @@ inline drogon::Task<db::InterfaceResult<>> updateDecks(
 		throw std::invalid_argument("Invalid updateDecks call");
 	}
 
-	size_t affected = 0;
+	// For each modified party, the client sends the full current party state.
+	// Any missing slot should therefore be treated as a removed unit.
+	//
+	// The simplest way to persist that is to clear each affected deck first,
+	// then insert the UserPartyDeckInfo rows the client sent.
+	std::set<std::pair<int32_t, int32_t>> affectedDecks;
 	for (const auto& deck : decks)
 	{
-		// Try to update an existing row first.
-		const auto write = co_await db::PacketInterfaceFor<UserPartyDeckInfo>::update(
+		affectedDecks.emplace(deck.deck_type, deck.deck_num);
+	}
+
+	size_t affected = 0;
+	for (const auto& [deckType, deckNum] : affectedDecks)
+	{
+		const auto result = co_await db::DatabaseInterface::remove(
 			database,
 			"user_decks",
-			deck,
 			{
 				db::Lookup("user_id", identity.userId),
-				db::Lookup("deck_type", deck.deck_type),
-				db::Lookup("deck_num", deck.deck_num),
-				db::Lookup("member_type", deck.member_type),
-				db::Lookup("disp_order", deck.disp_order),
+				db::Lookup("deck_type", deckType),
+				db::Lookup("deck_num", deckNum),
 			});
-		// There's already an entry for this slot, so we're done.
-		if (write.affected > 0)
-		{
-			affected += write.affected;
-			continue;
-		}
+	}
 
-		// No existing entry for this slot, so insert a new one.
+	for (const auto& deck : decks)
+	{
 		const auto insert = co_await db::PacketInterfaceFor<UserPartyDeckInfo>::insert(
 			database,
 			"user_decks",
