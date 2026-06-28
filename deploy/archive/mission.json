@@ -5,6 +5,7 @@
         "zel": 500,
         "karma": 100,
         "exp": 5,
+        "energy_cost": 0,
         "stages": [
             {
                 "is_boss": false,
@@ -137,6 +138,7 @@
         "zel": 1000,
         "karma": 200,
         "exp": 8,
+        "energy_cost": 0,
         "stages": [
             {
                 "is_boss": false,

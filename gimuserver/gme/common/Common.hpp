@@ -1,9 +1,8 @@
 #pragma once
 
-#include "Handlers.hpp"
-
 #include <gimuserver/archive/UnitArchiver.hpp>
 #include <gimuserver/db/PacketInterface.hpp>
+#include <gimuserver/gme/common/Energy.hpp>
 
 #include <drogon/orm/DbClient.h>
 
@@ -50,6 +49,35 @@ inline std::optional<UserUnitInfo> fromArchivedUnit(uint32_t unit_id, uint32_t u
 	}
 
 	return unit;
+}
+
+/*!
+* Looks up player progression MST data for a specific user level.
+*
+* The progression cache is expected to be ordered by level, with level 1 at
+* index 0. This helper centralizes that assumption and validates the row before
+* returning it.
+*
+* @param level Player level to look up.
+* @return Progression row for the level, or std::nullopt if unavailable.
+*/
+inline std::optional<UserLevelMst> getLevelMst(uint32_t level)
+{
+	const auto& progression = theServer()->cache().initializeResp().progression;
+	if (level == 0 || level > progression.size())
+	{
+		LOG_ERROR << "Unable to find user level MST for level " << level;
+		return std::nullopt;
+	}
+
+	const auto& mst = progression[level - 1];
+	if (mst.level != level)
+	{
+		LOG_ERROR << "User level progression is not ordered at level " << level;
+		return std::nullopt;
+	}
+
+	return mst;
 }
 
 /*!
@@ -229,16 +257,24 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 	packet.reinforcement_deck.emplace_back(0);
 	packet.add_unit_count = 100;
 
-	// Derives the deck cost for a given user level based on the progression data.
-	packet.deck_cost = 0;
-	const auto& progression = theServer()->cache().initializeResp().progression;
-	for (const auto& levelMst : progression)
+	if (const auto mst = getLevelMst(packet.level))
 	{
-		if (levelMst.level == packet.level)
-		{
-			packet.deck_cost = levelMst.deck_cost;
-		}
+		packet.deck_cost = mst->deck_cost;
+		packet.max_action_point = mst->energy;
 	}
+
+	// Calculate the current energy points of the user.
+	const auto energyFullTs = (co_await db::DatabaseInterface::read(
+		database,
+		"userinfo",
+		{
+			db::Data("energy_full_ts", uint64_t()),
+			db::Lookup("id", identity.userId),
+		})).front<uint64_t>("energy_full_ts");
+	packet.energy_full_seconds = UserEnergy::derive(
+		packet.level,
+		energyFullTs,
+		packet.energy);
 
 	co_return db::InterfaceResult<UserTeamInfo>{
 		.data = std::move(packet),

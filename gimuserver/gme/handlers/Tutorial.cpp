@@ -1,8 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
-#include "Common.hpp"
 
 #include <gimuserver/db/PacketInterface.hpp>
+#include <gimuserver/gme/common/Common.hpp>
 #include <gimuserver/utils/Random.hpp>
 
 #include <cstdint>
@@ -86,6 +86,12 @@ HANDLEF(CreateUser)
 		try
 		{
 			// Create the new user.
+			const auto levelMst = gme::getLevelMst(1);
+			if (!levelMst)
+			{
+				throw std::runtime_error("Unable to create user without level MST");
+			}
+
 			(co_await db::DatabaseInterface::insert(
 				transaction,
 				"userinfo",
@@ -97,6 +103,8 @@ HANDLEF(CreateUser)
 					db::Data("level", uint32_t(1)),
 					db::Data("zel", uint64_t(5000)),
 					db::Data("karma", uint64_t(1000)),
+					db::Data("energy", levelMst->energy),
+					db::Data("energy_full_ts", uint64_t(0)),
 					db::Data("max_warehouse_count", 100),
 				})).nonEmpty();
 

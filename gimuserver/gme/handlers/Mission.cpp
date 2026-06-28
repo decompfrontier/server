@@ -1,8 +1,8 @@
 #include "App.hpp"
-#include "Common.hpp"
 #include "Handlers.hpp"
 
 #include <gimuserver/archive/MissionArchiver.hpp>
+#include <gimuserver/gme/common/Common.hpp>
 
 #include <sstream>
 #include <vector>
@@ -89,35 +89,24 @@ std::string encodeUnitDrops(const std::vector<UserUnitInfo>& unitDrops)
 */
 bool levelUp(uint32_t& level, uint32_t& exp)
 {
-	const auto& progression = theServer()->cache().initializeResp().progression;
-
 	bool leveled = false;
 	while (true)
 	{
-		// Level doesn't exist.
-		if (level >= progression.size())
+		if (const auto mst = gme::getLevelMst(level + 1))
 		{
-			break;
-		}
-
-		// Progression is ordered by level, with level 1 at index 0.
-		const auto& mst = progression[level];
-		if (mst.level != level + 1)
-		{
-			LOG_ERROR << "User level progression is not ordered at level " << level;
-			break;
-		}
-
-		// We don't have enough to level up.
-		if (exp < mst.exp)
-		{
-			break;
-		}
+			// We don't have enough to level up.
+			if (exp < mst->exp)
+			{
+				break;
+			}
 		
-		// Advance a level.
-		level++;
-		exp -= mst.exp;
-		leveled = true;
+			// Advance a level.
+			level++;
+			exp -= mst->exp;
+			leveled = true;
+			continue;
+		}
+		break;
 	}
 
 	return leveled;
@@ -193,6 +182,11 @@ HANDLEF(MissionEnd)
 					db::Lookup("gumi_user_id", identity.gumiUserId),
 					db::Lookup("id", identity.userId)
 				})).nonEmpty();
+
+			if (leveledUp)
+			{
+				(co_await gme::UserEnergy::refresh(transaction, identity, newLevel, true)).nonEmpty();
+			}
 
 			// Persist tutorial checkpoints so leaving and returning mid-tutorial does not
 			// replay completed steps.
@@ -284,6 +278,17 @@ HANDLEF(MissionStart)
 	if (!missionRecord)
 	{
 		co_return HandleResult::error("Archive error", "Unable to find mission record");
+	}
+
+	if (missionRecord->energy_cost > 0)
+	{
+		const auto identity = (co_await gme::getUserIdentity(
+			theDb(),
+			req.login_info)).nonEmpty();
+		(co_await gme::UserEnergy::consume(
+			theDb(),
+			identity,
+			missionRecord->energy_cost)).nonEmpty();
 	}
 
 	MissionStartResp resp{};

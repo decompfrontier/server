@@ -45,7 +45,8 @@ static void RegisterMigrations(MigrationMap& map)
 			"active_arena_deck INTEGER(1) NOT NULL DEFAULT 0,"
 			"total_brave_points INTEGER(9) NOT NULL DEFAULT 0,"
 			"avail_brave_points INTEGER(9) NOT NULL DEFAULT 0,"
-			"energy INTEGER(10) NOT NULL DEFAULT 0"
+			"energy INTEGER(10) NOT NULL DEFAULT 0,"
+			"energy_full_ts INTEGER(10) NOT NULL DEFAULT 0"
 			");"
 		);
 	});

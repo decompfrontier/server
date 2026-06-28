@@ -1,7 +1,7 @@
 #include "App.hpp"
 #include "Handlers.hpp"
-#include "Common.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
 HANDLEF(DeckEdit)
 {
 	DeckEditReq req = {};
