@@ -9,15 +9,11 @@
 
 namespace
 {
-constexpr uint32_t FirstTutorialMission = 1;
-constexpr uint32_t SecondTutorialMission = 2;
+constexpr uint32_t kFirstTutorialMission = 1;
+constexpr uint32_t kSecondTutorialMission = 2;
 
-constexpr uint8_t FirstTutorialCheckpoint = 2;
-constexpr uint8_t SecondTutorialCheckpoint = 10;
-
-// TODO: After the second tutorial mission, we should set the number of
-// gems to 5 to trigger the post mission cutscene.
-constexpr uint8_t TutorialRewardGems = 5;
+constexpr uint8_t kFirstTutorialCheckpoint = 2;
+constexpr uint8_t kSecondTutorialCheckpoint = 10;
 
 std::vector<UserUnitInfo> parseUnitDrops(const std::string& unitDrops)
 {
@@ -143,11 +139,11 @@ HANDLEF(MissionEnd)
 				transaction,
 				"userinfo",
 				{
-					db::Data("level", uint32_t()),
-					db::Data("exp", uint32_t()),
-					db::Data("zel", uint64_t()),
-					db::Data("karma", uint64_t()),
-					db::Data("brave_coin", int32_t()),
+					db::Data("level"),
+					db::Data("exp"),
+					db::Data("zel"),
+					db::Data("karma"),
+					db::Data("brave_coin"),
 					db::Lookup("gumi_user_id", identity.gumiUserId),
 					db::Lookup("id", identity.userId),
 			});
@@ -190,24 +186,24 @@ HANDLEF(MissionEnd)
 
 			// Persist tutorial checkpoints so leaving and returning mid-tutorial does not
 			// replay completed steps.
-			if (req.mission_num.serial_id == FirstTutorialMission)
+			if (req.mission_num.serial_id == kFirstTutorialMission)
 			{
 				(co_await db::DatabaseInterface::update(
 					transaction,
 					"userinfo",
 					{
-						db::Data("tutorial_status", FirstTutorialCheckpoint),
+						db::Data("tutorial_status", kFirstTutorialCheckpoint),
 						db::Lookup("gumi_user_id", identity.gumiUserId),
 						db::Lookup("id", identity.userId),
 					})).nonEmpty();
 			}
-			else if (req.mission_num.serial_id == SecondTutorialMission)
+			else if (req.mission_num.serial_id == kSecondTutorialMission)
 			{
 				(co_await db::DatabaseInterface::update(
 					transaction,
 					"userinfo",
 					{
-						db::Data("tutorial_status", SecondTutorialCheckpoint),
+						db::Data("tutorial_status", kSecondTutorialCheckpoint),
 						db::Lookup("gumi_user_id", identity.gumiUserId),
 						db::Lookup("id", identity.userId),
 					})).nonEmpty();

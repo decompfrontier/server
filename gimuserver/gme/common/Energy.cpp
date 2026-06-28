@@ -61,9 +61,9 @@ drogon::Task<db::InterfaceResult<>> UserEnergy::consume(
 		database,
 		"userinfo",
 		{
-			db::Data("level", uint32_t()),
-			db::Data("energy", uint32_t()),
-			db::Data("energy_full_ts", uint64_t()),
+			db::Data("level"),
+			db::Data("energy"),
+			db::Data("energy_full_ts"),
 			db::Lookup("gumi_user_id", identity.gumiUserId),
 			db::Lookup("id", identity.userId),
 		});
@@ -164,8 +164,8 @@ drogon::Task<db::InterfaceResult<>> UserEnergy::refresh(
 			database,
 			"userinfo",
 			{
-				db::Data("energy", uint32_t()),
-				db::Data("energy_full_ts", uint64_t()),
+				db::Data("energy"),
+				db::Data("energy_full_ts"),
 				db::Lookup("gumi_user_id", identity.gumiUserId),
 				db::Lookup("id", identity.userId),
 			});

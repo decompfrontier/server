@@ -11,7 +11,7 @@
 namespace
 {
 // Assume lord type for starter unit.
-constexpr uint32_t TutorialStarterUnitType = 1;
+constexpr uint32_t kTutorialStarterUnitType = 1;
 
 std::optional<uint32_t> getStarterUnit(uint32_t element)
 {
@@ -70,9 +70,9 @@ HANDLEF(CreateUser)
 	{
 		co_return HandleResult::error("Invalid tutorial starter element");
 	}
-	auto starter = gme::fromArchivedUnit(*starterUnitId, TutorialStarterUnitType);
-	auto burny = gme::fromArchivedUnit(10030, TutorialStarterUnitType);
-	auto sparky = gme::fromArchivedUnit(40030, TutorialStarterUnitType);
+	auto starter = gme::fromArchivedUnit(*starterUnitId, kTutorialStarterUnitType);
+	auto burny = gme::fromArchivedUnit(10030, kTutorialStarterUnitType);
+	auto sparky = gme::fromArchivedUnit(40030, kTutorialStarterUnitType);
 	if (!starter || !burny || !sparky)
 	{
 		co_return HandleResult::error("Archive error", "Unable to create tutorial units from archive");

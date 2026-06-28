@@ -1,7 +1,7 @@
 #pragma once
 
 // TODO: move this to a view so we can add version checking
-constexpr auto WEB_TERMS_DATA = R"AADATA(
+constexpr auto kWebTermsData = R"AADATA(
 	<!DOCTYPE html>
 	<html>
 	<body>

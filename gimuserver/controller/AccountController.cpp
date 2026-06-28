@@ -35,7 +35,7 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
         auto currentGumiUser = (co_await db::DatabaseInterface::read(
             theDb(),
             "gumi_live_users",
-            { db::Data("id", std::string()) }));
+            { db::Data("id") }));
 
         // We found a Gumi Live user in the database, so we can just return that one.
         if (currentGumiUser.affected > 0)

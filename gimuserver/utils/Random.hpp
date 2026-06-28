@@ -10,7 +10,7 @@
 /*!
 * Allowed alphanumeric characters for random.
 */
-inline constexpr const char Random_alphanum[] =
+inline constexpr const char kRandomAlphanum[] =
 	"0123456789"
 	"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 	"abcdefghijklmnopqrstuvwxyz";
@@ -64,7 +64,7 @@ inline std::string RandomId()
 
 	for (int i = 0; i < 8; i++)
 	{
-		r += Random_alphanum[RandomUInt(0, sizeof(Random_alphanum) - 2)];
+		r += kRandomAlphanum[RandomUInt(0, sizeof(kRandomAlphanum) - 2)];
 	}
 
 	return r;

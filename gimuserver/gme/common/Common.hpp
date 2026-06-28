@@ -268,7 +268,7 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 		database,
 		"userinfo",
 		{
-			db::Data("energy_full_ts", uint64_t()),
+			db::Data("energy_full_ts"),
 			db::Lookup("id", identity.userId),
 		})).front<uint64_t>("energy_full_ts");
 	packet.energy_full_seconds = UserEnergy::derive(
@@ -304,7 +304,7 @@ inline drogon::Task<db::InterfaceResult<UserIdentity>> getUserIdentity(
 	const auto gumiUserId = (co_await db::DatabaseInterface::read(
 		database,
 		"gumi_live_users",
-		{ db::Data("id", std::string()) })).front<std::string>("id");
+		{ db::Data("id") })).front<std::string>("id");
 	if (gumiUserId != req.gumi_live_userid)
 	{
 		LOG_ERROR << "Gumi Live user ID mismatch: client sent " << req.gumi_live_userid
@@ -326,7 +326,7 @@ inline drogon::Task<db::InterfaceResult<UserIdentity>> getUserIdentity(
 		database,
 		"userinfo",
 		{
-			db::Data("id", std::string()),
+			db::Data("id"),
 			db::Lookup("gumi_user_id", gumiUserId),
 	});
 	std::string userId;

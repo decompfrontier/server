@@ -155,8 +155,17 @@ private:
 	{
 		for (const auto& cell : cells)
 		{
-			std::visit([&binder](const auto& typedValue) {
-				binder << typedValue;
+			std::visit([&binder, &cell](const auto& typedValue) {
+				if constexpr (!std::is_same_v<
+					std::decay_t<decltype(typedValue)>,
+					std::monostate>)
+				{
+					binder << typedValue;
+					return;
+				}
+
+				LOG_ERROR << "Cannot bind value-less database cell: " << cell.name;
+				throw std::invalid_argument("Cannot bind value-less database cell");
 			}, cell.value);
 		}
 	}
