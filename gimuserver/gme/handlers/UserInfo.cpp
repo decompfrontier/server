@@ -15,7 +15,7 @@ HANDLEF(UserInfo)
 		co_return HandleResult::error("Deserialization error", fmte);
 	}
 
-    // Copy the cached response and build on top of it.
+	// Copy the cached response and build on top of it.
 	UserInfoResp resp = theServer()->cache().userInfoResp();
 
     const auto db = theDb();

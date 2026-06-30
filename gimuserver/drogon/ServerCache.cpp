@@ -97,13 +97,16 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_userrsp.notice_info = m_initrsp.notice_info;
 		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region.json").data;
 		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info.json").data;
-		m_userrsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info.json").data;
 		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeons.json").data;
 		m_userrsp.gift = LoadJson<GiftItemMstCache>(mstRoot, "gift.json").data;
 		m_userrsp.general_event = LoadJson<GeneralEventMstCache>(mstRoot, "general_event.json").data;
 		m_userrsp.first_desc = LoadJson<FirstDescMstCache>(mstRoot, "first_desc.json").data;
 		m_userrsp.summon_ticket_v2 = LoadJson<SummonTicketV2MstCache>(mstRoot, "summon_tickets_v2.json").data;
 		m_userrsp.resummon_gacha = LoadJson<ResummonGachaMstCache>(mstRoot, "resummon_gacha.json").data;
+
+		// cache: GatchaList response
+		m_gatchaListRsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info.json").data;
+		m_gatchaListRsp.gacha_categories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_category.json").data;
 
 		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");
