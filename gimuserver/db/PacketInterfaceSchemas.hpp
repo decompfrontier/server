@@ -86,10 +86,18 @@ PacketInterfaceFor<::UserTeamInfo>::fields()
 			.update = true,
 			.insert = true,
 		}),
-		field<&::UserTeamInfo::brave_coin>("brave_coin", {
+		field<&::UserTeamInfo::brave_coin>("gems", {
 			.read = true,
 			.update = true,
 			.insert = true,
+		}),
+		field<&::UserTeamInfo::friend_point>("friend_points", {
+			.read = true,
+			.update = true,
+			.insert = true,
+		}),
+		field<&::UserTeamInfo::paid_gems>("gems", {
+			.read = true,
 		}),
 	};
 }

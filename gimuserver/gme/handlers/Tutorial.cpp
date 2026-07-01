@@ -168,6 +168,22 @@ HANDLEF(CreateUser)
 	co_return HandleResult::success("{}");
 }
 
+HANDLEF(TutorialSkip)
+{
+	// Client just needs an acknowledgment.
+	TutorialSkipResp resp{};
+	resp.tutorial_skip_info.ack = true;
+
+	std::string buffer{};
+	const auto& ec = glz::write_json(resp, buffer);
+	if (ec)
+	{
+		co_return HandleResult::error("Serialization error");
+	}
+
+	co_return HandleResult::success(buffer);
+}
+
 HANDLEF(TutorialUpdate)
 {
 	TutorialUpdateReq req = {};

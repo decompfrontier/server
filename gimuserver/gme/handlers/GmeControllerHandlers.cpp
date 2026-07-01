@@ -81,6 +81,7 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
 	REGISTER("TA4MnZX8", NgwordCheck, "r4Smw5TX");
 	REGISTER("uV6yH5MX", CreateUser, "4agnATy2DrJsWzQk");
+	REGISTER("d36DaiJl", TutorialSkip, "p3qD61db");
 	REGISTER("T1nCVvx4", TutorialUpdate, "7hqzmR3T");
 	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
 	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");

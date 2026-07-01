@@ -91,6 +91,7 @@ namespace GmeHandlers
 	HANDLE(MissionStart);
 	HANDLE(NgwordCheck);
 	HANDLE(CreateUser);
+	HANDLE(TutorialSkip);
 	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
