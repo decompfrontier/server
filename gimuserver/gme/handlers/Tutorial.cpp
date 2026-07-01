@@ -94,7 +94,7 @@ HANDLEF(CreateUser)
 
 			(co_await db::DatabaseInterface::insert(
 				transaction,
-				"userinfo",
+				"user_info",
 				{
 					db::Data("id", userId),
 					db::Data("gumi_user_id", identity.gumiUserId),
@@ -199,7 +199,7 @@ HANDLEF(TutorialUpdate)
 
 	(co_await db::DatabaseInterface::update(
 		theDb(),
-		"userinfo",
+		"user_info",
 		{
 			db::Data("tutorial_status", req.login_info.tutorial_status),
 			db::Lookup("gumi_user_id", identity.gumiUserId),

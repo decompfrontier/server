@@ -20,7 +20,7 @@ static void RegisterMigrations(MigrationMap& map)
 			");"
 		);
 		p->execSqlSync(
-			"CREATE TABLE userinfo("
+			"CREATE TABLE user_info("
 			"id TEXT PRIMARY KEY NOT NULL,"
 			"gumi_user_id TEXT NOT NULL,"
 			"device_id TEXT NOT NULL,"
@@ -88,6 +88,7 @@ static void RegisterMigrations(MigrationMap& map)
 			");"
 		);
 	});
+
 }
 
 /*!

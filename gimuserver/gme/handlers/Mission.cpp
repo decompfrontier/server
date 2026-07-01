@@ -137,7 +137,7 @@ HANDLEF(MissionEnd)
 		{
 			auto userInfo = co_await db::DatabaseInterface::read(
 				transaction,
-				"userinfo",
+				"user_info",
 				{
 					db::Data("level"),
 					db::Data("exp"),
@@ -169,7 +169,7 @@ HANDLEF(MissionEnd)
 			// during this mission.
 			(co_await db::DatabaseInterface::update(
 				transaction,
-				"userinfo",
+				"user_info",
 				{
 					db::Data("level", newLevel),
 					db::Data("exp", newExp),
@@ -190,7 +190,7 @@ HANDLEF(MissionEnd)
 			{
 				(co_await db::DatabaseInterface::update(
 					transaction,
-					"userinfo",
+					"user_info",
 					{
 						db::Data("tutorial_status", kFirstTutorialCheckpoint),
 						db::Lookup("gumi_user_id", identity.gumiUserId),
@@ -201,7 +201,7 @@ HANDLEF(MissionEnd)
 			{
 				(co_await db::DatabaseInterface::update(
 					transaction,
-					"userinfo",
+					"user_info",
 					{
 						db::Data("tutorial_status", kSecondTutorialCheckpoint),
 						db::Lookup("gumi_user_id", identity.gumiUserId),

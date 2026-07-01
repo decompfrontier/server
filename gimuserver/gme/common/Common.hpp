@@ -217,7 +217,7 @@ inline drogon::Task<db::InterfaceResult<LoginInfoResp>> getLoginInfo(
 {
 	auto result = co_await db::PacketInterfaceFor<LoginInfoResp>::read(
 		database,
-		"userinfo",
+		"user_info",
 		{
 			db::Lookup("gumi_user_id", identity.gumiUserId),
 			db::Lookup("id", identity.userId),
@@ -248,7 +248,7 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 {
 	auto result = co_await db::PacketInterfaceFor<UserTeamInfo>::read(
 		database,
-		"userinfo",
+		"user_info",
 		{ db::Lookup("id", identity.userId) });
 	auto packet = std::move(result.nonEmpty().front());
 
@@ -266,7 +266,7 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 	// Calculate the current energy points of the user.
 	const auto energyFullTs = (co_await db::DatabaseInterface::read(
 		database,
-		"userinfo",
+		"user_info",
 		{
 			db::Data("energy_full_ts"),
 			db::Lookup("id", identity.userId),
@@ -286,7 +286,7 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 * Resolves and validates the current local user identity.
 *
 * The server stores one current Gumi Live user id, then maps it to the local
-* userinfo id. Requests must send the same Gumi Live id, and normally must also
+* user_info id. Requests must send the same Gumi Live id, and normally must also
 * send the same user id. During user creation, the client may not have a local
 * user id yet, so allowUnspecifiedUser lets callers accept an empty request
 * user_id and use the database value instead.
@@ -324,7 +324,7 @@ inline drogon::Task<db::InterfaceResult<UserIdentity>> getUserIdentity(
 
 	auto user = co_await db::DatabaseInterface::read(
 		database,
-		"userinfo",
+		"user_info",
 		{
 			db::Data("id"),
 			db::Lookup("gumi_user_id", gumiUserId),

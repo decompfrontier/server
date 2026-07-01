@@ -6,7 +6,7 @@ namespace db
 {
 
 /*!
-* Database mapping for login/user identity fields stored in userinfo.
+* Database mapping for login/user identity fields stored in user_info.
 */
 template <>
 inline PacketInterfaceFor<::LoginInfoResp>::Fields
@@ -35,7 +35,7 @@ PacketInterfaceFor<::LoginInfoResp>::fields()
 }
 
 /*!
-* Database mapping for team/account summary fields stored in userinfo.
+* Database mapping for team/account summary fields stored in user_info.
 */
 template <>
 inline PacketInterfaceFor<::UserTeamInfo>::Fields

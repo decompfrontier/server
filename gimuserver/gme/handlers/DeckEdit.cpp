@@ -21,7 +21,7 @@ HANDLEF(DeckEdit)
 		{
 			(co_await db::DatabaseInterface::update(
 				transaction,
-				"userinfo",
+				"user_info",
 				{
 					db::Data("active_deck", req.team_info.active_deck),
 					db::Lookup("id", identity.userId),
