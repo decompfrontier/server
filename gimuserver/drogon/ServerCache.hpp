@@ -65,16 +65,6 @@ public:
 	inline const auto& unitMst() const { return m_unitMst; }
 
 	/*!
-	* Gacha category banners (wire wrapper "IBs49NiH").  The summon screen
-	* renders categories as horizontal banners; each entry maps to a list
-	* of door ids via gatcha_id_list.  Loaded from gacha_category_mst.json
-	* (extracted from the legacy server's gacha_mst.json `gacha_categories`
-	* section — see handbook §7.6.1).
-	* @return Vector of GachaCategory entries
-	*/
-	inline const auto& gachaCategories() const { return m_gachaCategories; }
-
-	/*!
 	* Mission master data (F_MISSION_MST_1 + F_MISSION_MST_2 merged).
 	* Wire wrapper key "oXeC1Ak9".  Server uses this to look up per-mission
 	* energy cost (69vnphig), exp reward (d96tuT2E), zel/karma rewards
@@ -126,12 +116,6 @@ private:
 	* Unit master data, keyed/iterated by Unit handler ports.
 	*/
 	std::vector<UnitMst> m_unitMst;
-
-	/*!
-	* Cached gacha category banners (wrapper key "IBs49NiH"), surfaced
-	* to the client by GachaList.
-	*/
-	std::vector<GachaCategory> m_gachaCategories;
 
 	/*!
 	* Mission master data (wrapper key "oXeC1Ak9"), looked up by mission_id

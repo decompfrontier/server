@@ -71,8 +71,8 @@ static UserTeamInfo unitSell_buildTeamInfo(const drogon::orm::Row& row,
     ti.zel                  = row["zel"].as<int64_t>();
     ti.karma                = row["karma"].as<int64_t>();
     ti.brave_coin           = row["brave_coin"].as<int32_t>();
-    ti.action_point         = row["energy"].as<int32_t>();
-    ti.max_action_point     = lv ? lv->action_points    : 100;
+    ti.energy         = row["energy"].as<int32_t>();
+    ti.max_action_point     = lv ? lv->energy    : 100;
     ti.deck_cost            = lv ? lv->deck_cost        : 20;
     ti.max_friend_count     = lv ? lv->friend_count     : 50;
     ti.add_friend_count     = lv ? lv->add_friend_count : 0;

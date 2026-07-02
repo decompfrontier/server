@@ -50,8 +50,9 @@ int main(int argc, char** argv)
             .registerBeginningAdvice([]() {
                 auto db = drogon::app().getDbClient();
                 MigrationManager::RunMigrations(db);
-                drogon::app().getPlugin<GimuServer>()->SeedDefaultUnits(db);
-                drogon::app().getPlugin<GimuServer>()->SeedDefaultTown(db);
+                // Legacy SeedDefaultUnits/SeedDefaultTown removed: the
+                // tutorial (CreateUser + UnitArchiver) provisions the user
+                // under the fresh-DB model adopted from upstream dev.
                 StartDebugCli();
             })
             .run();

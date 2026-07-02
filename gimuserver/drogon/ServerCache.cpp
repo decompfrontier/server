@@ -103,7 +103,6 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region_mst.json").data;
 		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info_mst.json").data;
 		m_userrsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info_mst.json").data;
-		m_gachaCategories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_category_mst.json").data;
 		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeon_mission_mst.json").data;
 		m_userrsp.gift = LoadJson<GiftItemMstCache>(mstRoot, "gift_item_mst.json").data;
 		m_userrsp.general_event = LoadJson<GeneralEventMstCache>(mstRoot, "general_event_mst.json").data;

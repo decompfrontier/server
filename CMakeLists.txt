@@ -65,12 +65,23 @@ file(GLOB_RECURSE KDL_SCHEMAS CONFIGURE_DEPENDS
 
 file(MAKE_DIRECTORY "${PKGEN_OUT_DIR}")
 
+# The archive schema (assets/archive.kdl) generates a second header consumed
+# by gimuserver/archive/*Archiver; gimuserver/archive/.gitignore keeps it out
+# of version control just like packets/all.hpp.
+set(PKGEN_ARCHIVE_ENTRY "assets/archive.kdl")
+set(PKGEN_ARCHIVE_OUT_DIR "${CMAKE_SOURCE_DIR}/gimuserver/archive")
+set(PKGEN_ARCHIVE_OUT_HEADER "${PKGEN_ARCHIVE_OUT_DIR}/archive.hpp")
+
 add_custom_command(
-    OUTPUT "${PKGEN_OUT_HEADER}"
+    OUTPUT "${PKGEN_OUT_HEADER}" "${PKGEN_ARCHIVE_OUT_HEADER}"
     COMMAND "${CARGO_EXECUTABLE}" run --release --
         generate --cxx --glaze
         -i "${PKGEN_ENTRY}"
         -o "${PKGEN_OUT_DIR}"
+    COMMAND "${CARGO_EXECUTABLE}" run --release --
+        generate --cxx --glaze
+        -i "${PKGEN_ARCHIVE_ENTRY}"
+        -o "${PKGEN_ARCHIVE_OUT_DIR}"
     WORKING_DIRECTORY "${PKGEN_SRC_DIR}"
     DEPENDS ${KDL_SCHEMAS}
     COMMENT "Regenerating C++ packet headers from KDL schemas"
@@ -78,7 +89,7 @@ add_custom_command(
 )
 
 add_custom_target(pkgen_generate ALL
-    DEPENDS "${PKGEN_OUT_HEADER}"
+    DEPENDS "${PKGEN_OUT_HEADER}" "${PKGEN_ARCHIVE_OUT_HEADER}"
     SOURCES ${KDL_SCHEMAS}
 )
 

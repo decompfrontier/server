@@ -446,6 +446,16 @@ done:
 
 void StartDebugCli()
 {
+    // Headless guard: when the server runs without a console (redirected
+    // stdio, CI, test harness), CreateProcess(CREATE_NEW_CONSOLE) can wedge
+    // in the console driver with an unkillable process. Only spawn the CLI
+    // when the server itself owns a console window.
+    if (GetConsoleWindow() == nullptr)
+    {
+        LOG_INFO << "StartDebugCli: no console attached; skipping debug CLI";
+        return;
+    }
+
     const std::string pipeName =
         R"(\\.\pipe\gimudebug_)" + std::to_string(GetCurrentProcessId());
 

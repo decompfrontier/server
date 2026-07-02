@@ -66,28 +66,11 @@ public:
     }
 
     /*!
-    * Seeds the default user's unit inventory from the cached UnitMst if the
-    * user has no rows in user_units yet. Must be called after migrations have
-    * run (i.e. from registerBeginningAdvice, not initAndStart). No-op if units
-    * already exist.
-    * @param db Synchronous DB client (from drogon::app().getDbClient())
-    */
-    void SeedDefaultUnits(drogon::orm::DbClientPtr db);
-
-    /*!
-    * Seeds the default user's town from the cached TownFacilityMst/TownLocationMst
-    * if the user has no rows yet. Must be called after migrations have run.
-    * No-op if rows already exist.
-    * @param db Synchronous DB client (from drogon::app().getDbClient())
-    */
-    void SeedDefaultTown(drogon::orm::DbClientPtr db);
-
-    /*!
     * Inserts one user_units row for the given user/MST entry with sane
     * starter values (lv=1, base stats from min_*, randomised unit_type_id).
-    * Shared by SeedDefaultUnits and the standalone debug CLI.
+    * Used by the standalone debug CLI (giveunit).
     * @param db Synchronous DB client
-    * @param userId Packet-format user id ("0839899613932562" for the dev user)
+    * @param userId Packet-format user id
     * @param unit MST entry to materialise
     */
     static void InsertUnitFromMst(drogon::orm::DbClientPtr db,
