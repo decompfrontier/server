@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // CampaignMissionGet (RSm6p2d4) — returns per-mission progress/state.
 // Response is the CampaignMissionInfoResponse shape (group "2I9V0o6J"):
 //   [{ "j28VNcUW": <MissionID>,
@@ -37,7 +39,9 @@ HANDLEF(CampaignMissionGet)
 {
     LOG_INFO << "CampaignMissionGet: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     CampaignMissionGetResp resp{};
 

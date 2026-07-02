@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 #include <ctime>
 
 // FriendGet (2o4axPIC) — fires when the player opens the Reinforcement /
@@ -50,7 +52,9 @@ HANDLEF(FriendGet)
     (void)session;
     LOG_INFO << "FriendGet: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     FriendGetResp resp{};
 
@@ -59,15 +63,15 @@ HANDLEF(FriendGet)
         // Active-deck leader first, fall back to highest-level unit so the
         // friend slot always has data.  Matches MissionStart's query shape.
         auto rows = co_await theDb()->execSqlCoro(
-            "SELECT uu.id, uu.unit_id, uu.unit_lv,"
+            "SELECT uu.user_unit_id, uu.unit_id, uu.unit_lv,"
             " uu.base_hp,  uu.add_hp,  uu.ext_hp,"
             " uu.base_atk, uu.add_atk, uu.ext_atk,"
             " uu.base_def, uu.add_def, uu.ext_def,"
             " uu.base_heal,uu.add_heal,uu.ext_heal,"
             " uu.skill_id, uu.skill_lv, uu.extra_skill_id, uu.extra_skill_lv,"
             " uu.unit_type_id, uu.element"
-            " FROM user_party_decks pd"
-            " JOIN user_units uu ON uu.id = pd.user_unit_id"
+            " FROM user_decks pd"
+            " JOIN user_units uu ON uu.user_unit_id = pd.user_unit_id"
             " JOIN userinfo ui ON ui.id = pd.user_id"
             " WHERE pd.user_id=$1 AND pd.deck_num=ui.active_deck AND pd.member_type=0"
             " LIMIT 1;",
@@ -76,7 +80,7 @@ HANDLEF(FriendGet)
         if (rows.empty())
         {
             rows = co_await theDb()->execSqlCoro(
-                "SELECT id, unit_id, unit_lv,"
+                "SELECT user_unit_id, unit_id, unit_lv,"
                 " base_hp,  add_hp,  ext_hp,"
                 " base_atk, add_atk, ext_atk,"
                 " base_def, add_def, ext_def,"
@@ -85,7 +89,7 @@ HANDLEF(FriendGet)
                 " unit_type_id, element"
                 " FROM user_units"
                 " WHERE user_id=$1"
-                " ORDER BY unit_lv DESC, id DESC LIMIT 1;",
+                " ORDER BY unit_lv DESC, user_unit_id DESC LIMIT 1;",
                 std::string(kUserId));
         }
 

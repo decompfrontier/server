@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // CampaignEnd (jF9Kkro4) — fired when the player exits the Campaign menu.
 // Clears any in-flight battle state.  Empty {} response keeps the session
 // alive (mirrors EventTokenInfo / TownUpdate stubs).
@@ -8,7 +10,9 @@ HANDLEF(CampaignEnd)
 {
     LOG_INFO << "CampaignEnd: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     try
     {

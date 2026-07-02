@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // CampaignStart (6Y0gaPQN) — fired when the player opens the Campaign menu.
 // Returns the mission catalog (state, progress), party deck list, item slots,
 // and misc event flags so the UI can render the mission-select screen.
@@ -117,7 +119,9 @@ HANDLEF(CampaignStart)
 {
     LOG_INFO << "CampaignStart: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     CampaignStartResp resp{};
 
@@ -146,7 +150,7 @@ HANDLEF(CampaignStart)
     }
 
     // Load campaign party decks.  If user_campaign_decks is empty (not yet
-    // edited), fall back to the regular user_party_decks so the deck panel
+    // edited), fall back to the regular user_decks so the deck panel
     // isn't blank on first launch.
     try
     {
@@ -159,7 +163,7 @@ HANDLEF(CampaignStart)
         {
             rows = co_await theDb()->execSqlCoro(
                 "SELECT deck_num, member_type, user_unit_id, disp_order AS disporder"
-                " FROM user_party_decks WHERE user_id=$1 ORDER BY deck_num, disp_order;",
+                " FROM user_decks WHERE user_id=$1 ORDER BY deck_num, disp_order;",
                 std::string(kUserId));
         }
 

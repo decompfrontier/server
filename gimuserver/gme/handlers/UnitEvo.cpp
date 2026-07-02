@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // UnitEvo — evolve a unit into its next form.
 //
 // Request  (group 0gUSE84e, key biHf01DxcrPou5Qt):
@@ -189,7 +191,7 @@ static UserTeamInfo unitEvo_buildTeamInfo(const drogon::orm::Row& row,
     ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
     ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
     ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_point"].as<int32_t>();
+    ti.friend_point         = row["friend_points"].as<int32_t>();
     ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
     ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
     ti.want_gift            = row["want_gift"].as<std::string>();
@@ -222,7 +224,9 @@ HANDLEF(UnitEvo)
     (void)session;
     LOG_INFO << "UnitEvo: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     // Allow unknown keys — UnitEvo requests can carry extra client-side fields.
     UnitEvoReqFull req = {};
@@ -279,7 +283,7 @@ HANDLEF(UnitEvo)
         " limit_over_hp, limit_over_atk, limit_over_def, limit_over_heal,"
         " fe_bp, fe_max_usable_bp, unit_type_id,"
         " eqip_item_id, eqip_item_frame_id, eqip_item_id2, eqip_item_frame_id2"
-        " FROM user_units WHERE user_id=$1 AND id=$2 LIMIT 1;",
+        " FROM user_units WHERE user_id=$1 AND user_unit_id=$2 LIMIT 1;",
         std::string(kUserId), baseId
     );
 
@@ -320,7 +324,7 @@ HANDLEF(UnitEvo)
         " leader_skill_id=$10, skill_id=$11, extra_skill_id=$12,"
         " skill_lv=1, extra_skill_lv=0,"
         " element=$13"
-        " WHERE id=$14 AND user_id=$15;",
+        " WHERE user_unit_id=$14 AND user_id=$15;",
         unitEvo_addSuffix(targetMstId),
         targetMst->min_hp,  targetMst->min_atk,  targetMst->min_def,  targetMst->min_rec,
         keepAddHp,           keepAddAtk,           keepAddDef,          keepAddHeal,
@@ -339,7 +343,7 @@ HANDLEF(UnitEvo)
             matList += std::to_string(matIds[i]);
         }
         co_await theDb()->execSqlCoro(
-            "DELETE FROM user_units WHERE user_id=$1 AND id IN (" + matList + ");",
+            "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + matList + ");",
             std::string(kUserId)
         );
     }
@@ -355,9 +359,9 @@ HANDLEF(UnitEvo)
 
     // Step 5: fresh userinfo for team_info.
     const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, free_gems, paid_gems, energy,"
+        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_point, total_brave_points, avail_brave_points,"
+        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
         std::string(kUserId)
     );

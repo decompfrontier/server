@@ -30,7 +30,7 @@ HANDLEF(UnitFavorite)
 		try
 		{
 			co_await theDb()->execSqlCoro(
-				"UPDATE user_units SET favorite_flg=$1 WHERE user_id=$2 AND id=$3",
+				"UPDATE user_units SET favorite_flg=$1 WHERE user_id=$2 AND user_unit_id=$3",
 				e.favorite, userId, e.user_unit_id);
 		}
 		catch (const drogon::orm::DrogonDbException& ex)

@@ -3,6 +3,7 @@
 #include "ServerCacheMst.hpp"
 
 #include <gimuserver/utils/BfCrypt.hpp>
+#include <gimuserver/utils/JsonFile.hpp>
 
 /*!
 * Builds a JSON
@@ -22,24 +23,6 @@ static std::string BuildJson(const T& d)
 	return buffer;
 }
 
-/*!
-* Loads a JSON from the file system.
-*/
-template <typename T>
-static T LoadJson(std::string_view mst_root, std::string_view file)
-{
-	T obj{};
-	std::string path = std::string(mst_root) + "/" + std::string(file);
-	std::string buffer{};
-	const auto& ec = glz::read_file_json(obj, path, buffer);
-	if (ec)
-	{
-		throw std::runtime_error(std::format("Cannot read JSON file \"{}\", error:\n{}", file, glz::format_error(ec, buffer)));
-	}
-
-	return obj;
-}
-
 void ServerCache::Setup(const Json::Value& serverObj)
 {
 	const auto& mstRoot = serverObj["mst_root"].asString();
@@ -51,7 +34,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 
 
 	{
-		GameDls dls;
+		GameDls dls{};
 		dls.game_ip = GetDrogonBindHostname();
 		dls.resource_ip = dls.game_ip;
 		dls.version = serverObj["game_version"].asUInt();
@@ -131,6 +114,10 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_unitMst = LoadJson<UnitMstCache>(mstRoot, "unit_mst.json").data;
 		m_missionMst = LoadJson<MissionMstCache>(mstRoot, "mission_mst.json").data;
 
+		// cache: GatchaList response (same data files the UserInfo cache uses)
+		m_gatchaListRsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info_mst.json").data;
+		m_gatchaListRsp.gacha_categories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_category_mst.json").data;
+
 		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "daily_task_bonus_mst.json");
 		m_initrsp.daily_task_prizes = LoadJson<DailyTaskPrizeMstCache>(mstRoot, "daily_task_prize_mst.json").data;
@@ -138,3 +125,4 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		// ---
 	}
 }
+

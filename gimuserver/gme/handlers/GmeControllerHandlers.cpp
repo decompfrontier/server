@@ -8,6 +8,11 @@
 struct GmeHandler
 {
 	/*!
+	* Handler name.
+	*/
+	const char* name;
+
+	/*!
 	* JSON AES cryptation key.
 	*/
 	const char* key;
@@ -49,7 +54,7 @@ static constexpr auto operator"" _hash(const char* str, size_t len)
 * @param[in] func Handler function
 * @param[in] key Handler AES key
 */
-#define REGISTER(id, func, key) case id##_hash: return { key, GmeHandlers::func }
+#define REGISTER(id, func, key) case id##_hash: return { #func, key, GmeHandlers::func }
 
 /*!
 * Gets the handler of a message.
@@ -61,10 +66,11 @@ static GmeHandler getHandler(std::string_view cmd)
 	switch (hash(cmd))
 	{
 	default:
-		return { nullptr, nullptr };
+		return { nullptr, nullptr, nullptr };
 
 
 	REGISTER("MfZyu1q9", Initialize, "EmcshnQoDr20TZz1");
+	REGISTER("Zw3WIoWu", ChallengeArenaResetInfo, "KlwYMGF1");
 	REGISTER("nJ3A7qFp", BadgeInfo, "bGxX67KB");
 	REGISTER("uYF93Mhc", ControlCenterEnter, "d0k6LGUu");
 	REGISTER("m2Ve9PkJ", DeckEdit, "d7UuQsq8");
@@ -73,14 +79,18 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("F7JvPk5H", GachaAction, "bL9fipzaSy7xN2w1");
 	REGISTER("k57TdKDj", UnitSelectorGachaTicket, "1IJ8SaNk");
 	REGISTER("NiYWKdzs", HomeInfo, "f6uOewOD");
+	REGISTER("9TvyNR5H", MissionEnd, "oINq0rfUFPx5MgmT");
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
+	REGISTER("TA4MnZX8", NgwordCheck, "r4Smw5TX");
+	REGISTER("uV6yH5MX", CreateUser, "4agnATy2DrJsWzQk");
+	REGISTER("d36DaiJl", TutorialSkip, "p3qD61db");
+	REGISTER("T1nCVvx4", TutorialUpdate, "7hqzmR3T");
 	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
 	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");
 	REGISTER("2p9LHCNh", UnitFavorite,            "cb4ESLa1");
 	REGISTER("0gUSE84e", UnitEvo,                 "biHf01DxcrPou5Qt");
 	REGISTER("Mw08CIg2", UnitMix,                 "JnegC7RrN3FoW8dQ");
 	REGISTER("Ri3uTq9b", UnitSell,                "92VqcGFWuPkmT60U");
-	REGISTER("Zw3WIoWu", ChallengeArenaResetInfo, "KlwYMGF1");
 	REGISTER("CuQ5oB8U", TownUpdate,              "w1eo2ZDJ");
 	REGISTER("8v43tz7g", TownFacilityUpdate,       "rq7Yd1nG");
 	REGISTER("f49als4D", EventTokenInfo,           "94lDsgh4");
@@ -97,8 +107,6 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("5Imq3wC0", CampaignReceipt,      "4DAgP80B");
 	REGISTER("jF9Kkro4", CampaignEnd,          "4X9tBSg8");
 
-	// Post-battle result acknowledgement.
-	REGISTER("9TvyNR5H", MissionEnd,           "oINq0rfUFPx5MgmT");
 	REGISTER("gLRIn74v", FixGiftInfo,          "15gTE9ft");
 
 	// World-map / Grand Gaia entry sequence stubs.
@@ -170,7 +178,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			}
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
-				LOG_ERROR << "Handler error " << header.id << " database exception: " << ex.base().what();
+				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") database exception: " << ex.base().what();
 				logReq << "EXCEPTION (db): " << ex.base().what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
@@ -180,12 +188,12 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			}
 			catch (const std::exception& ex)
 			{
-				LOG_ERROR << "Handler error " << header.id << " unhandled exception: " << ex.what();
+				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") exception: " << ex.what();
 				logReq << "EXCEPTION (std): " << ex.what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
-				err.message = std::format("Unhandled exception in handler: \"{}\"", header.id);
+				err.message = std::format("Unable to handle request: \"{}\", Error: \"{}\"", header.id, ex.what());
 				resp.error = err;
 			}
 		}

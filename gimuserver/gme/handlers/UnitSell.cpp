@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // UnitSell — sell one or more owned units for zel.
 //
 // Request  (group Ri3uTq9b, key 92VqcGFWuPkmT60U):
@@ -80,7 +82,7 @@ static UserTeamInfo unitSell_buildTeamInfo(const drogon::orm::Row& row,
     ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
     ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
     ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_point"].as<int32_t>();
+    ti.friend_point         = row["friend_points"].as<int32_t>();
     ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
     ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
     ti.want_gift            = row["want_gift"].as<std::string>();
@@ -100,7 +102,9 @@ HANDLEF(UnitSell)
     (void)session;
     LOG_INFO << "UnitSell: " << json;
 
-    static constexpr std::string_view kUserId   = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     // Parse request.  Allow unknown keys so any extra client fields don't abort parsing.
     UnitSellReqBody req = {};
@@ -129,7 +133,7 @@ HANDLEF(UnitSell)
     // Step 1: look up sell price for each unit via the MST cache.
     const auto& unitMst = theServer()->cache().unitMst();
     const auto unitRows = co_await theDb()->execSqlCoro(
-        "SELECT unit_id FROM user_units WHERE user_id=$1 AND id IN (" + idList + ");",
+        "SELECT unit_id FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + idList + ");",
         std::string(kUserId)
     );
 
@@ -148,7 +152,7 @@ HANDLEF(UnitSell)
 
     // Step 2: delete sold units.
     co_await theDb()->execSqlCoro(
-        "DELETE FROM user_units WHERE user_id=$1 AND id IN (" + idList + ");",
+        "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + idList + ");",
         std::string(kUserId)
     );
 
@@ -160,9 +164,9 @@ HANDLEF(UnitSell)
 
     // Step 4: fetch fresh userinfo to build accurate team_info.
     const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, free_gems, paid_gems, energy,"
+        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_point, total_brave_points, avail_brave_points,"
+        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
         std::string(kUserId)
     );

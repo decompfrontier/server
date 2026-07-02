@@ -39,6 +39,12 @@ public:
 	inline const auto& userInfoResp() const { return m_userrsp; }
 
 	/*!
+	* Gets the cached summon list response.
+	* @return GatchaList response
+	*/
+	inline const auto& gatchaListRsp() const { return m_gatchaListRsp; }
+
+	/*!
 	* Gets the cached slot response.
 	* @return ControlCenter response
 	*/
@@ -89,17 +95,17 @@ private:
 	/*!
 	* Cached data of response.
 	*/
-	FeatureCheck m_feature;
+	FeatureCheck m_feature{};
 
 	/*!
 	* Cached common data of the Initialize response
 	*/
-	InitializeResp m_initrsp;
+	InitializeResp m_initrsp{};
 
 	/*!
 	* Cached slot response
 	*/
-	SlotGameInfoR m_controlCenterRsp;
+	SlotGameInfoR m_controlCenterRsp{};
 
 	/*!
 	* Server configuration.
@@ -109,7 +115,12 @@ private:
 	/*!
 	* User info response.
 	*/
-	UserInfoResp m_userrsp;
+	UserInfoResp m_userrsp{};
+
+	/*!
+	* Summon list response.
+	*/
+	GatchaListResp m_gatchaListRsp{};
 
 	/*!
 	* Unit master data, keyed/iterated by Unit handler ports.

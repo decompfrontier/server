@@ -81,6 +81,7 @@ namespace GmeHandlers
 {
 	HANDLE(Initialize);
 	HANDLE(BadgeInfo);
+	HANDLE(ChallengeArenaResetInfo);
 	HANDLE(ControlCenterEnter);
 	HANDLE(DeckEdit);
 	HANDLE(FriendGet);
@@ -88,14 +89,18 @@ namespace GmeHandlers
 	HANDLE(GachaAction);
 	HANDLE(UnitSelectorGachaTicket);
 	HANDLE(HomeInfo);
+	HANDLE(MissionEnd);
 	HANDLE(MissionStart);
+	HANDLE(NgwordCheck);
+	HANDLE(CreateUser);
+	HANDLE(TutorialSkip);
+	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
 	HANDLE(UnitFavorite);
 	HANDLE(UnitEvo);
 	HANDLE(UnitMix);
 	HANDLE(UnitSell);
-	HANDLE(ChallengeArenaResetInfo);
 	HANDLE(TownUpdate);
 	HANDLE(TownFacilityUpdate);
 	HANDLE(EventTokenInfo);
@@ -107,7 +112,6 @@ namespace GmeHandlers
 	HANDLE(CampaignBattleEnd);
 	HANDLE(CampaignReceipt);
 	HANDLE(CampaignEnd);
-	HANDLE(MissionEnd);
 	HANDLE(FixGiftInfo);
 	HANDLE(DungeonEventUpdate);
 	HANDLE(GetScenarioPlayingInfo);

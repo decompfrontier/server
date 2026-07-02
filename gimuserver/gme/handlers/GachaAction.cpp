@@ -1,5 +1,7 @@
 #include "App.hpp"
 #include "Handlers.hpp"
+
+#include <gimuserver/gme/common/Common.hpp>
 #include <random>
 
 // GachaAction — perform a summon: pick a unit, insert into user_units, return
@@ -145,7 +147,9 @@ HANDLEF(GachaAction)
     (void)session;
     LOG_INFO << "GachaAction: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     // Hardcoded summon unit until the drop-table loader lands.  10017 is the
     // same id the previous build returned and is known to render correctly.
@@ -232,7 +236,7 @@ HANDLEF(GachaAction)
     // ----------------------------------------------------------------------
     const std::string userIdStr = std::string(kUserId);
     const auto balRows = co_await theDb()->execSqlCoro(
-        "SELECT friend_point, paid_gems, free_gems, summon_tickets"
+        "SELECT friend_points, gems AS paid_gems, 0 AS free_gems, summon_tickets"
         " FROM userinfo WHERE id=$1;",
         userIdStr);
     if (balRows.empty())
@@ -241,7 +245,7 @@ HANDLEF(GachaAction)
         co_return HandleResult::error("GachaAction: userinfo missing");
     }
     const auto& bal = balRows[0];
-    const int32_t haveFp     = bal["friend_point"].as<int32_t>();
+    const int32_t haveFp     = bal["friend_points"].as<int32_t>();
     const int32_t havePaid   = bal["paid_gems"].as<int32_t>();
     const int32_t haveFree   = bal["free_gems"].as<int32_t>();
     const int32_t haveTicket = bal["summon_tickets"].as<int32_t>();
@@ -362,7 +366,12 @@ HANDLEF(GachaAction)
         " base_heal,add_heal,ext_heal,limit_over_heal,"
         " exp, total_exp,"
         " skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
-        " element, fe_bp, fe_max_usable_bp, unit_type_id) VALUES ";
+        " element, fe_bp, fe_max_usable_bp, unit_type_id,"
+        // Mirror into the upstream-schema columns so PacketInterface-based
+        // readers (UserInfo/DeckEdit) see the same unit the quests columns
+        // describe.  Goes away when GachaAction ports to UnitArchiver +
+        // PacketInterfaceFor<UserUnitInfo>::insert.
+        " unit_lvl, base_rec, bb_id, bb_lvl) VALUES ";
 
     for (int32_t pull = 0; pull < pulls; ++pull)
     {
@@ -378,6 +387,10 @@ HANDLEF(GachaAction)
         sqlInlined += std::to_string(extraSkillLv);        sqlInlined += ',';
         sqlInlined += std::to_string(mst->leader_skill_id);sqlInlined += ",$3,100,200,";
         sqlInlined += std::to_string(unitTypeIds[pull]);
+        sqlInlined += ",1,";
+        sqlInlined += std::to_string(mst->min_rec);        sqlInlined += ",'";
+        sqlInlined += std::to_string(mst->skill_id);       sqlInlined += "',";
+        sqlInlined += std::to_string(skillLv);
         sqlInlined += ')';
     }
     sqlInlined += ';';
@@ -444,27 +457,23 @@ HANDLEF(GachaAction)
     // ----------------------------------------------------------------------
     // Deduct the cost.  One UPDATE per currency branch — kept as a single
     // statement so the SQLite worker thread stays unwedged (see §6.14).
-    // For gems we drain paid_gems first then free_gems, matching BF's
-    // documented spending order.
+    // The upstream schema stores a single `gems` column (the paid/free split
+    // exists only on the wire), so the documented paid-first spend order
+    // collapses to one subtraction.
     // ----------------------------------------------------------------------
     switch (costKind) {
         case CostKind::FriendPoint:
             co_await theDb()->execSqlCoro(
-                "UPDATE userinfo SET friend_point = MAX(0, friend_point - $1)"
+                "UPDATE userinfo SET friend_points = MAX(0, friend_points - $1)"
                 " WHERE id=$2;",
                 static_cast<int32_t>(totalCost), userId);
             break;
-        case CostKind::Gem: {
-            const int32_t fromPaid = std::min(havePaid, static_cast<int32_t>(totalCost));
-            const int32_t fromFree = static_cast<int32_t>(totalCost) - fromPaid;
+        case CostKind::Gem:
             co_await theDb()->execSqlCoro(
-                "UPDATE userinfo"
-                " SET paid_gems = paid_gems - $1,"
-                "     free_gems = free_gems - $2"
-                " WHERE id=$3;",
-                fromPaid, fromFree, userId);
+                "UPDATE userinfo SET gems = MAX(0, gems - $1)"
+                " WHERE id=$2;",
+                static_cast<int32_t>(totalCost), userId);
             break;
-        }
         case CostKind::SummonTicket:
             // Drain the generic counter (`9r3aLmaB` in team_info).
             co_await theDb()->execSqlCoro(
@@ -493,9 +502,9 @@ HANDLEF(GachaAction)
     // pre-summon value until the next UserInfo / GachaList refresh).
     // ----------------------------------------------------------------------
     const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, free_gems, paid_gems, energy,"
+        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_point, total_brave_points, avail_brave_points,"
+        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
         userId);
     if (!infoRows.empty())
@@ -524,7 +533,7 @@ HANDLEF(GachaAction)
         ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
         ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
         ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-        ti.friend_point         = row["friend_point"].as<int32_t>();
+        ti.friend_point         = row["friend_points"].as<int32_t>();
         ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
         ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
         ti.want_gift            = row["want_gift"].as<std::string>();

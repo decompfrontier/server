@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // CampaignReceipt (5Imq3wC0) — claims the reward for a cleared campaign mission.
 // Marks the mission as reward_claimed in the DB, credits a fixed zel reward,
 // and returns:
@@ -57,7 +59,7 @@ static UserTeamInfo campaignReceipt_buildTeamInfo(
     ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
     ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
     ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_point"].as<int32_t>();
+    ti.friend_point         = row["friend_points"].as<int32_t>();
     ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
     ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
     ti.want_gift            = row["want_gift"].as<std::string>();
@@ -73,7 +75,9 @@ HANDLEF(CampaignReceipt)
 {
     LOG_INFO << "CampaignReceipt: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     CampaignReceiptReq req{};
     {
@@ -115,9 +119,9 @@ HANDLEF(CampaignReceipt)
 
     // Fetch fresh userinfo and build fEi17cnx so the HUD updates.
     const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, free_gems, paid_gems, energy,"
+        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_point, total_brave_points, avail_brave_points,"
+        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
         std::string(kUserId));
 

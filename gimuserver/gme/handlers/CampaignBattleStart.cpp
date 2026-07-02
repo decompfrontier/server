@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 #include <ctime>
 
 // CampaignBattleStart (h1RjcD3S) — pre-battle request fired when the player
@@ -32,7 +34,9 @@ HANDLEF(CampaignBattleStart)
 {
     LOG_INFO << "CampaignBattleStart: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     CampaignBattleStartReq req{};
     {
@@ -74,7 +78,7 @@ HANDLEF(CampaignBattleStart)
     try
     {
         const auto reinforceRows = co_await theDb()->execSqlCoro(
-            "SELECT id, unit_id, unit_lv,"
+            "SELECT user_unit_id, unit_id, unit_lv,"
             " base_hp,  add_hp,  ext_hp,"
             " base_atk, add_atk, ext_atk,"
             " base_def, add_def, ext_def,"
@@ -83,7 +87,7 @@ HANDLEF(CampaignBattleStart)
             " unit_type_id, element"
             " FROM user_units"
             " WHERE user_id=$1"
-            " ORDER BY unit_lv DESC, id DESC LIMIT 1;",
+            " ORDER BY unit_lv DESC, user_unit_id DESC LIMIT 1;",
             std::string(kUserId));
 
         if (!reinforceRows.empty())

@@ -1,5 +1,7 @@
 #include "App.hpp"
 #include "Handlers.hpp"
+
+#include <gimuserver/gme/common/Common.hpp>
 #include <cmath>
 
 // UnitMix (Power Fusion) — fuse material units into a base unit, gaining exp.
@@ -186,7 +188,7 @@ static UserTeamInfo unitMix_buildTeamInfo(const drogon::orm::Row& row,
     ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
     ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
     ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_point"].as<int32_t>();
+    ti.friend_point         = row["friend_points"].as<int32_t>();
     ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
     ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
     ti.want_gift            = row["want_gift"].as<std::string>();
@@ -206,7 +208,9 @@ HANDLEF(UnitMix)
     (void)session;
     LOG_INFO << "UnitMix: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     // Parse request.  Use error_on_unknown_keys=false so the extra "60subGk3"
     // operation-type group sent by the client doesn't abort parsing.
@@ -255,7 +259,7 @@ HANDLEF(UnitMix)
         " skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
         " element, fe_bp, fe_max_usable_bp, unit_type_id,"
         " eqip_item_id, eqip_item_frame_id, eqip_item_id2, eqip_item_frame_id2"
-        " FROM user_units WHERE user_id=$1 AND id=$2 LIMIT 1;",
+        " FROM user_units WHERE user_id=$1 AND user_unit_id=$2 LIMIT 1;",
         std::string(kUserId), baseId
     );
 
@@ -288,7 +292,7 @@ HANDLEF(UnitMix)
 
         const auto matRows = co_await theDb()->execSqlCoro(
             "SELECT unit_id, total_exp FROM user_units"
-            " WHERE user_id=$1 AND id IN (" + matList + ");",
+            " WHERE user_id=$1 AND user_unit_id IN (" + matList + ");",
             std::string(kUserId)
         );
 
@@ -337,7 +341,7 @@ HANDLEF(UnitMix)
     // Step 3: UPDATE base unit level/exp (preserve IMP add_* cols).
     co_await theDb()->execSqlCoro(
         "UPDATE user_units SET unit_lv=$1, exp=$2, total_exp=$3"
-        " WHERE id=$4 AND user_id=$5;",
+        " WHERE user_unit_id=$4 AND user_id=$5;",
         newLevel, newExp, newTotalExp, baseId, std::string(kUserId)
     );
 
@@ -345,7 +349,7 @@ HANDLEF(UnitMix)
     if (!matIds.empty())
     {
         co_await theDb()->execSqlCoro(
-            "DELETE FROM user_units WHERE user_id=$1 AND id IN (" + matList + ");",
+            "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + matList + ");",
             std::string(kUserId)
         );
     }
@@ -361,9 +365,9 @@ HANDLEF(UnitMix)
 
     // Step 6: fetch fresh userinfo for team_info.
     const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, free_gems, paid_gems, energy,"
+        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_point, total_brave_points, avail_brave_points,"
+        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
         " active_deck, want_gift FROM userinfo WHERE id=$1;",
         std::string(kUserId)
     );

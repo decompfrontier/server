@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // CampaignDeckGet (C3a0VnQK) — returns the campaign-specific party deck
 // composition for the deck-select/edit screen.
 //
@@ -48,7 +50,9 @@ HANDLEF(CampaignDeckGet)
 {
     LOG_INFO << "CampaignDeckGet: " << json;
 
-    static constexpr std::string_view kUserId = "0839899613932562";
+    // Transitional bridge: resolve the sole offline user at runtime
+    // (tutorial-created).  TODO port to gme::getUserIdentity.
+    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     CampaignDeckGetResp resp{};
 
@@ -64,7 +68,7 @@ HANDLEF(CampaignDeckGet)
         {
             rows = co_await theDb()->execSqlCoro(
                 "SELECT deck_num, user_unit_id, member_type, disp_order AS disporder"
-                " FROM user_party_decks WHERE user_id=$1 ORDER BY deck_num, disp_order;",
+                " FROM user_decks WHERE user_id=$1 ORDER BY deck_num, disp_order;",
                 std::string(kUserId));
         }
 
