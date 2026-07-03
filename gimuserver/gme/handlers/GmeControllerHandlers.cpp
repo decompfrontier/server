@@ -76,7 +76,7 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("m2Ve9PkJ", DeckEdit, "d7UuQsq8");
 	REGISTER("2o4axPIC", FriendGet, "EoYuZ2nbImhCU1c0");
 	REGISTER("F7JvPk5H", GachaAction, "bL9fipzaSy7xN2w1");
-	REGISTER("Uo86DcRh", GatchaList, "8JbxFvuSaB2CK7Ln");
+	REGISTER("Uo86DcRh", GachaList, "8JbxFvuSaB2CK7Ln");
 	REGISTER("NiYWKdzs", HomeInfo, "f6uOewOD");
 	REGISTER("9TvyNR5H", MissionEnd, "oINq0rfUFPx5MgmT");
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");

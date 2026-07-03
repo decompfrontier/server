@@ -1,5 +1,7 @@
 #include "GachaArchiver.hpp"
 
+#include "UnitArchiver.hpp"
+
 #include <gimuserver/drogon/ServerCacheMst.hpp>
 #include <gimuserver/utils/JsonFile.hpp>
 #include <gimuserver/utils/Random.hpp>
@@ -98,7 +100,7 @@ bool GachaArchiver::populatePacket(const GachaRecord& record, GachaInfoMst& mst)
 	mst.type = gachaMst.type;
 	mst.priority = record.priority;
 	mst.friend_points = gachaMst.need_friend_point;
-	mst.group_id = gachaMst.gatcha_group_id;
+	mst.group_id = gachaMst.gacha_group_id;
 
 	return true;
 }
@@ -139,6 +141,19 @@ std::vector<uint32_t> GachaArchiver::summonFrom(const GachaRecord& record, uint3
 			roll -= pull->weight;
 		}
 	}
+
+	// Client only shows animation effects for the last unit, so make sure
+	// it's the one with the highest rarity.
+	std::sort(units.begin(), units.end(), [](uint32_t lhs, uint32_t rhs) {
+		const auto left = UnitArchiver::instance().lookup(lhs);
+		const auto right = UnitArchiver::instance().lookup(rhs);
+		if (!left || !right)
+		{
+			throw std::runtime_error("Unable to sort summoned units by rarity");
+		}
+
+		return left->rarity < right->rarity;
+	});
 
 	return units;
 }
