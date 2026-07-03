@@ -3,15 +3,11 @@
 
 #include <gimuserver/db/PacketInterface.hpp>
 #include <gimuserver/gme/common/Common.hpp>
-#include <gimuserver/utils/Random.hpp>
-
 #include <cstdint>
 #include <optional>
 
 namespace
 {
-// Assume lord type for starter unit.
-constexpr uint32_t kTutorialStarterUnitType = 1;
 
 std::optional<uint32_t> getStarterUnit(uint32_t element)
 {
@@ -55,7 +51,7 @@ HANDLEF(CreateUser)
 			"CreateUser request did not include a handle name");
 	}
 
-	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).data;
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).data;
 	if (!identity.userId.empty())
 	{
 		co_return HandleResult::error(
@@ -70,9 +66,9 @@ HANDLEF(CreateUser)
 	{
 		co_return HandleResult::error("Invalid tutorial starter element");
 	}
-	auto starter = gme::fromArchivedUnit(*starterUnitId, kTutorialStarterUnitType);
-	auto burny = gme::fromArchivedUnit(10030, kTutorialStarterUnitType);
-	auto sparky = gme::fromArchivedUnit(40030, kTutorialStarterUnitType);
+	auto starter = gme::fromArchivedUnit(*starterUnitId, UnitArchiver::getRandomType());
+	auto burny = gme::fromArchivedUnit(10030, UnitArchiver::getRandomType());
+	auto sparky = gme::fromArchivedUnit(40030, UnitArchiver::getRandomType());
 	if (!starter || !burny || !sparky)
 	{
 		co_return HandleResult::error("Archive error", "Unable to create tutorial units from archive");
@@ -195,7 +191,7 @@ HANDLEF(TutorialUpdate)
 		co_return HandleResult::error("Deserialization error", error);
 	}
 
-	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
 
 	(co_await db::DatabaseInterface::update(
 		theDb(),

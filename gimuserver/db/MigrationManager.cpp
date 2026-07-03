@@ -73,6 +73,15 @@ static void RegisterMigrations(MigrationMap& map)
 			"sbb_lvl INTEGER NOT NULL DEFAULT 0"
 			");"
 		);
+		// Keep local user unit ids away from low values that the client treats
+		// as special ids, such as the summoner unit id 20.
+		p->execSqlSync(
+			"INSERT INTO sqlite_sequence(name, seq) "
+			"SELECT 'user_units', 999 "
+			"WHERE NOT EXISTS ("
+			"SELECT 1 FROM sqlite_sequence WHERE name = 'user_units'"
+			");"
+		);
 	});
 
 	migrate("07062026_CreateUserDecksTable", {

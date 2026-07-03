@@ -19,7 +19,7 @@ HANDLEF(UserInfo)
 	UserInfoResp resp = theServer()->cache().userInfoResp();
 
     const auto db = theDb();
-	auto identity = (co_await gme::getUserIdentity(db, req.login_info, true)).nonEmpty();
+	const auto identity = (co_await gme::getUserIdentity(db, req.login_info, true)).nonEmpty();
 
 	// We must have a valid user entry in the database at this point.
 	resp.login_info = std::move((co_await gme::getLoginInfo(db, identity)).nonEmpty());

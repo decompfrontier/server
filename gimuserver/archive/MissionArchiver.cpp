@@ -133,13 +133,12 @@ std::string MissionArchiver::encodeTreasureDrop(size_t monsterIdx, const BattleM
 	}
 
 	// Go through each possible drop and return the selected one.
-	const auto roll = RandomUInt(1, total);
-	uint32_t current = 0;
+	auto roll = RandomUInt(1, total);
 	for (const auto drop : drops)
 	{
-		current += drop->weight;
-		if (roll > current)
+		if (roll > drop->weight)
 		{
+			roll -= drop->weight;
 			continue;
 		}
 

@@ -51,12 +51,6 @@ void UnitArchiver::setup(const Json::Value& serverObj)
 
 std::optional<UnitRecord> UnitArchiver::lookup(UnitId unit_id) const
 {
-	if (unit_id == 0)
-	{
-		LOG_ERROR << "Invalid unit archive lookup: unit_id is 0";
-		return std::nullopt;
-	}
-
 	const auto it = cache_.find(unit_id);
 	if (it == cache_.end())
 	{

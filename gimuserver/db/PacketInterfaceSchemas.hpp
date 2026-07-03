@@ -113,6 +113,9 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 		field<&::UserUnitInfo::user_unit_id>("user_unit_id", {
 			.read = true,
 		}),
+		field<&::UserUnitInfo::received_order>("user_unit_id", {
+			.read = true,
+		}),
 		field<&::UserUnitInfo::user_id>("user_id", {
 			.read = true,
 		}),

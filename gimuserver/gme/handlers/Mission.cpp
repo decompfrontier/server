@@ -120,7 +120,7 @@ HANDLEF(MissionEnd)
 		co_return HandleResult::error("Deserialization error", error);
 	}
 
-	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).data;
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).data;
 	const auto missionRecord = MissionArchiver::instance().lookup(req.mission_num.serial_id);
 	if (!missionRecord)
 	{
@@ -221,13 +221,9 @@ HANDLEF(MissionEnd)
 					dropped,
 					{ db::Data("user_id", identity.userId) })).front<uint32_t>("user_unit_id");
 
+				dropped.user_id = identity.userId;
 				dropped.user_unit_id = userUnitId;
 			}
-
-			auto unitInfo = std::move((co_await db::PacketInterfaceFor<UserUnitInfo>::read(
-				transaction,
-				"user_units",
-				{ db::Lookup("user_id", identity.userId) })).nonEmpty());
 
 			resp.reward_info.clear_mission_id = req.mission_num.serial_id;
 			resp.reward_info.zel = rewardZel;
@@ -238,7 +234,7 @@ HANDLEF(MissionEnd)
 			resp.reward_info.reward_units = encodeUnitDrops(droppedUnits);
 			resp.login_info = std::move(loginInfo);
 			resp.team_info = std::move(teamInfo);
-			resp.unit_info = std::move(unitInfo);
+			resp.unit_info = std::move(droppedUnits);
 		}
 		catch (...)
 		{

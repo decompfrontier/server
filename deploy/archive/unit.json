@@ -2,6 +2,7 @@
     {
         "id":  10011,
         "name":  "Fencer Vargas",
+        "rarity":  2,
         "element":  1,
         "effect_frame":  "20:121:1,38:121:1,56:121:1",
         "damage_frame":  "26:50:2:2,44:30:2:2,62:20:2:2",
@@ -32,6 +33,7 @@
     {
         "id":  20011,
         "name":  "Selena",
+        "rarity":  2,
         "element":  2,
         "effect_frame":  "20:122:1,24:122:1",
         "damage_frame":  "26:50:2:1,30:50:2:1",
@@ -62,6 +64,7 @@
     {
         "id":  20030,
         "name":  "Squirty",
+        "rarity":  1,
         "element":  2,
         "effect_frame":  "24:122:1",
         "damage_frame":  "30:100:2:1",
@@ -92,6 +95,7 @@
     {
         "id":  20031,
         "name":  "King Squirty",
+        "rarity":  2,
         "element":  2,
         "effect_frame":  "36:122:1",
         "damage_frame":  "42:100:2:1",
@@ -122,6 +126,7 @@
     {
         "id":  30011,
         "name":  "Pikeman Lance",
+        "rarity":  2,
         "element":  3,
         "effect_frame":  "20:123:1,26:123:1,32:123:1",
         "damage_frame":  "26:50:2:1,32:20:2:4,38:30:2:4",
@@ -152,6 +157,7 @@
     {
         "id":  40011,
         "name":  "Warrior Eze",
+        "rarity":  2,
         "element":  4,
         "effect_frame":  "24:124:1",
         "damage_frame":  "30:100:2:1",
@@ -182,6 +188,7 @@
     {
         "id":  10030,
         "name":  "Burny",
+        "rarity":  1,
         "element":  1,
         "effect_frame":  "24:121:1",
         "damage_frame":  "30:100:2:1",
@@ -212,6 +219,7 @@
     {
         "id":  30030,
         "name":  "Mossy",
+        "rarity":  1,
         "element":  3,
         "effect_frame":  "24:123:1",
         "damage_frame":  "30:100:2:1",
@@ -242,6 +250,7 @@
     {
         "id":  30031,
         "name":  "King Mossy",
+        "rarity":  2,
         "element":  3,
         "effect_frame":  "36:123:1",
         "damage_frame":  "42:100:2:1",
@@ -272,6 +281,7 @@
     {
         "id":  40030,
         "name":  "Sparky",
+        "rarity":  1,
         "element":  4,
         "effect_frame":  "24:124:1",
         "damage_frame":  "30:100:2:1",
@@ -302,6 +312,7 @@
     {
         "id":  60050,
         "name":  "Skeleton",
+        "rarity":  1,
         "element":  6,
         "effect_frame":  "24:126:1",
         "damage_frame":  "30:100:2:1",

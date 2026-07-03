@@ -1,0 +1,49 @@
+[
+  {
+    "id": 1000,
+    "priority": 1,
+    "background": "gacha_normal_bg_img_20141121.png",
+    "pool": [
+      {
+        "unit_id": 10011,
+        "weight": 100
+      },
+      {
+        "unit_id": 20011,
+        "weight": 100
+      },
+      {
+        "unit_id": 30011,
+        "weight": 100
+      },
+      {
+        "unit_id": 40011,
+        "weight": 100
+      }
+    ]
+  },
+  {
+    "id": 11960,
+    "priority": 1,
+    "caption_msg": "<center>[<color=255:255:0>Rare Summon: All Star Units!</color>]<br>Summon <color=255:0:0>3~4*</color> units! <color=0:255:0>Increased Rates</color> for featured units <color=192:192:192>Zellha</color>, <color=128:0:128>Elza</color> and <color=0:0:255>Elimo</color>! <color=255:255:0><br>Summon now!</color><center>",
+    "detail_msg": "<center>Summon units with <color=255:0:0>3* and 4*</color> rarity! <color=0:255:0>Increased Rates</color> for daily featured units!<br>Enjoy <color=255:255:0>SUMMON</color> for <color=255:255:0>3 gems</color>!<center>",
+    "pool": [
+      {
+        "unit_id": 10011,
+        "weight": 100
+      },
+      {
+        "unit_id": 20011,
+        "weight": 100
+      },
+      {
+        "unit_id": 30011,
+        "weight": 100
+      },
+      {
+        "unit_id": 40011,
+        "weight": 100
+      }
+    ]
+  }
+]
