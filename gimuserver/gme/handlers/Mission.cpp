@@ -223,6 +223,9 @@ HANDLEF(MissionEnd)
 
 				dropped.user_id = identity.userId;
 				dropped.user_unit_id = userUnitId;
+				// Used for sorting the units, user_unit_id is guaranteed to be unique and
+				// monotonically increasing so we can just reuse it.
+				dropped.received_order = dropped.user_unit_id;
 			}
 
 			resp.reward_info.clear_mission_id = req.mission_num.serial_id;

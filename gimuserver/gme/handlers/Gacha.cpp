@@ -164,6 +164,9 @@ HANDLEF(GachaAction)
 					"user_units",
 					*unit,
 					{ db::Data("user_id", identity.userId) })).front<uint32_t>("user_unit_id");
+				// Used for sorting the units, user_unit_id is guaranteed to be unique and
+				// monotonically increasing so we can just reuse it.
+				unit->received_order = unit->user_unit_id;
 
 				const auto gachaEffect = getGachaEffect(unitRecord->rarity);
 				if (!gachaEffect)
