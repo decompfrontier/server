@@ -70,7 +70,8 @@ static void RegisterMigrations(MigrationMap& map)
 			"bb_id TEXT NOT NULL DEFAULT '',"
 			"bb_lvl INTEGER NOT NULL DEFAULT 0,"
 			"sbb_id TEXT NOT NULL DEFAULT '',"
-			"sbb_lvl INTEGER NOT NULL DEFAULT 0"
+			"sbb_lvl INTEGER NOT NULL DEFAULT 0,"
+			"new INTEGER NOT NULL DEFAULT 0"
 			");"
 		);
 		// Keep local user unit ids away from low values that the client treats
@@ -94,6 +95,17 @@ static void RegisterMigrations(MigrationMap& map)
 			"member_type INTEGER NOT NULL,"
 			"disp_order INTEGER NOT NULL,"
 			"PRIMARY KEY (user_id, deck_type, deck_num, disp_order)"
+			");"
+		);
+	});
+
+	migrate("03072026_CreateUserUnitDictionaryTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_unit_dictionary ("
+			"user_id TEXT NOT NULL,"
+			"unit_id INTEGER NOT NULL,"
+			"img_type_flag INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, unit_id)"
 			");"
 		);
 	});

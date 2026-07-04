@@ -118,6 +118,7 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 		}),
 		field<&::UserUnitInfo::user_id>("user_id", {
 			.read = true,
+			.insert = true,
 		}),
 		field<&::UserUnitInfo::unit_id>("unit_id", {
 			.read = true,
@@ -189,6 +190,35 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 			.insert = true,
 		}),
 		field<&::UserUnitInfo::sbb_lvl>("sbb_lvl", {
+			.read = true,
+			.update = true,
+			.insert = true,
+		}),
+		field<&::UserUnitInfo::is_new>("new", {
+			.read = true,
+			.update = true,
+			.insert = true,
+		}),
+	};
+}
+
+/*!
+* Database mapping for discovered unit species stored in user_unit_dictionary.
+*/
+template <>
+inline PacketInterfaceFor<::UserUnitDictionary>::Fields
+PacketInterfaceFor<::UserUnitDictionary>::fields()
+{
+	return {
+		field<&::UserUnitDictionary::user_id>("user_id", {
+			.read = true,
+			.insert = true,
+		}),
+		field<&::UserUnitDictionary::unit_id>("unit_id", {
+			.read = true,
+			.insert = true,
+		}),
+		field<&::UserUnitDictionary::img_type_flag>("img_type_flag", {
 			.read = true,
 			.update = true,
 			.insert = true,

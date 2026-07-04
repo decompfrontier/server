@@ -52,6 +52,46 @@ inline std::optional<UserUnitInfo> fromArchivedUnit(uint32_t unit_id, uint32_t u
 }
 
 /*!
+* Adds a user-owned unit row and updates the packet with database-owned fields.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that owns the unit.
+* @param unit Unit packet to persist.
+* @param isNew Whether the inserted unit should be marked new for the client.
+* @return Persisted unit packet populated with database-owned fields.
+*/
+inline drogon::Task<db::InterfaceResult<UserUnitInfo>> addUserUnit(
+	const db::Database database,
+	const UserIdentity identity,
+	const UserUnitInfo unit,
+	const bool isNew = true)
+{
+	auto packet = unit;
+	packet.user_id = identity.userId;
+	packet.is_new = isNew;
+	const auto result = co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
+		database,
+		"user_units",
+		packet);
+
+	packet.user_unit_id = result.front<uint32_t>("user_unit_id");
+	packet.received_order = packet.user_unit_id;
+
+	co_await db::PacketInterfaceFor<UserUnitDictionary>::insert(
+		database,
+		"user_unit_dictionary",
+		UserUnitDictionary{
+			.user_id = identity.userId,
+			.unit_id = packet.unit_id,
+		});
+
+	co_return db::InterfaceResult<UserUnitInfo>{
+		.data = std::move(packet),
+		.affected = result.affected,
+	};
+}
+
+/*!
 * Looks up player progression MST data for a specific user level.
 *
 * The progression cache is expected to be ordered by level, with level 1 at

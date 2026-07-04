@@ -158,15 +158,17 @@ HANDLEF(GachaAction)
 				{
 					throw std::runtime_error("Unable to create summoned unit from archive");
 				}
-				unit->user_id = identity.userId;
-				unit->user_unit_id = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
-					transaction,
-					"user_units",
-					*unit,
-					{ db::Data("user_id", identity.userId) })).front<uint32_t>("user_unit_id");
-				// Used for sorting the units, user_unit_id is guaranteed to be unique and
-				// monotonically increasing so we can just reuse it.
-				unit->received_order = unit->user_unit_id;
+
+				auto added = std::move(
+					(co_await gme::addUserUnit(transaction, identity, *unit)).nonEmpty());
+				resp.unit_dictionary.push_back(std::move(
+					(co_await db::PacketInterfaceFor<UserUnitDictionary>::read(
+						transaction,
+						"user_unit_dictionary",
+						{
+							db::Lookup("user_id", identity.userId),
+							db::Lookup("unit_id", unitId),
+						})).nonEmpty().front()));
 
 				const auto gachaEffect = getGachaEffect(unitRecord->rarity);
 				if (!gachaEffect)
@@ -176,10 +178,10 @@ HANDLEF(GachaAction)
 				}
 
 				resp.ope_user_unit.push_back({
-					.user_unit_id = unit->user_unit_id,
+					.user_unit_id = added.user_unit_id,
 					.gacha_effect_id = *gachaEffect,
 				});
-				resp.unit_info.push_back(std::move(*unit));
+				resp.unit_info.push_back(std::move(added));
 			}
 
 			resp.team_info = std::move((co_await gme::getTeamInfo(transaction, identity)).nonEmpty());
