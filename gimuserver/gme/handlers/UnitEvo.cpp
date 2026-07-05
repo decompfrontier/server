@@ -414,7 +414,7 @@ HANDLEF(UnitEvo)
         ud.equipitem_frame_id2 = br["eqip_item_frame_id2"].as<int32_t>();
         ud.fe_bp               = br["fe_bp"].as<int32_t>();
         ud.fe_max_usable_bp    = br["fe_max_usable_bp"].as<int32_t>();
-        ud.new_flag            = true;
+        ud.is_new            = true;
         resp.unit_update.emplace_back(std::move(ud));
     }
 

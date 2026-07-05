@@ -10,6 +10,11 @@
 
 int main(int argc, char** argv)
 {
+    // Unbuffered stdout so log lines reach redirected files immediately -
+    // otherwise a wedged/killed headless run loses everything still sitting
+    // in the CRT block buffer and boot failures become undiagnosable.
+    setvbuf(stdout, nullptr, _IONBF, 0);
+
     // CLI-client mode: launched by the server to host the debug console window.
     // Must be checked before any Drogon / config setup so this process never
     // starts the web server or runs migrations.

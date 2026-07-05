@@ -40,7 +40,7 @@ void GachaArchiver::setup(const Json::Value& serverObj)
 	try
 	{
 		records = LoadJson<std::vector<GachaRecord>>(archiveRoot, "gacha.json");
-		gachas = LoadJson<GachaMstCache>(mstRoot, "gacha.json").data;
+		gachas = LoadJson<GachaMstCache>(mstRoot, "gacha_mst.json").data;
 	}
 	catch (const std::exception& ex)
 	{

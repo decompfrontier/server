@@ -157,6 +157,10 @@ static void RegisterMigrations(MigrationMap& map)
 			"lv          INTEGER NOT NULL DEFAULT 1,"
 			"karma       INTEGER NOT NULL DEFAULT 0,"
 			"PRIMARY KEY (user_id, location_id)"
+			");"
+		);
+	});
+
 	migrate("03072026_CreateUserUnitDictionaryTable", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_unit_dictionary ("
