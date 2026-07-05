@@ -106,7 +106,7 @@ HANDLEF(CampaignReceipt)
     try
     {
         co_await theDb()->execSqlCoro(
-            "UPDATE userinfo SET"
+            "UPDATE user_info SET"
             " zel   = MIN(zel   + $2, 99999999),"
             " karma = MIN(karma + $3, 99999999)"
             " WHERE id=$1;",
@@ -117,17 +117,17 @@ HANDLEF(CampaignReceipt)
         LOG_WARN << "CampaignReceipt: reward UPDATE failed: " << ex.base().what();
     }
 
-    // Fetch fresh userinfo and build fEi17cnx so the HUD updates.
+    // Fetch fresh user_info and build fEi17cnx so the HUD updates.
     const auto infoRows = co_await theDb()->execSqlCoro(
         "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
         " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM userinfo WHERE id=$1;",
+        " active_deck, want_gift FROM user_info WHERE id=$1;",
         std::string(kUserId));
 
     if (infoRows.empty())
     {
-        LOG_WARN << "CampaignReceipt: userinfo not found — returning stub";
+        LOG_WARN << "CampaignReceipt: user_info not found — returning stub";
         co_return HandleResult::success(R"({"4MCxgS5p":{"pCIRMw04":""}})");
     }
 

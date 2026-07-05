@@ -43,7 +43,7 @@ struct CapacityInfo { int64_t cap, cur, free; };
 CapacityInfo QueryCapacity(const drogon::orm::DbClientPtr& db)
 {
     CapacityInfo c{};
-    auto cr = db->execSqlSync("SELECT max_unit_count FROM userinfo WHERE id=$1;",
+    auto cr = db->execSqlSync("SELECT max_unit_count FROM user_info WHERE id=$1;",
                               std::string(kInfoId));
     if (cr.size() > 0) c.cap = cr[0][0].as<int64_t>();
 
@@ -112,7 +112,7 @@ void DoSetIntColumn(const drogon::orm::DbClientPtr& db,
                   << "). Clamping.\n";
         value = maxVal;
     }
-    db->execSqlSync("UPDATE userinfo SET " + column + "=$1 WHERE id=$2;",
+    db->execSqlSync("UPDATE user_info SET " + column + "=$1 WHERE id=$2;",
                     value, std::string(kInfoId));
     std::cout << "  " << label << " = " << value << "\n";
 }

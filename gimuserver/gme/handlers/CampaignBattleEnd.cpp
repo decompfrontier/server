@@ -17,7 +17,7 @@
 //   1. UPDATE user_campaign_missions SET state=2, clear_count+=1,
 //             attain_percent=100, last_cleared_at=<epoch>
 //      WHERE user_id=$1 AND mission_id=<active_mission_id>
-//   2. UPDATE userinfo SET zel = zel + <reward>
+//   2. UPDATE user_info SET zel = zel + <reward>
 //   3. UPDATE user_campaign_state SET active_mission_id=''
 
 // TODO: replace fixed reward with F_MISSION_MST per-mission reward lookup
@@ -191,7 +191,7 @@ HANDLEF(CampaignBattleEnd)
     try
     {
         co_await theDb()->execSqlCoro(
-            "UPDATE userinfo SET zel = MIN(zel + $1, 99999999) WHERE id=$2;",
+            "UPDATE user_info SET zel = MIN(zel + $1, 99999999) WHERE id=$2;",
             kBattleZelReward, std::string(kUserId));
     }
     catch (const drogon::orm::DrogonDbException& ex)
@@ -212,17 +212,17 @@ HANDLEF(CampaignBattleEnd)
         LOG_WARN << "CampaignBattleEnd: state clear failed: " << ex.base().what();
     }
 
-    // Step 4: fetch fresh userinfo for the team_info response.
+    // Step 4: fetch fresh user_info for the team_info response.
     const auto infoRows = co_await theDb()->execSqlCoro(
         "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
         " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM userinfo WHERE id=$1;",
+        " active_deck, want_gift FROM user_info WHERE id=$1;",
         std::string(kUserId));
 
     if (infoRows.empty())
     {
-        LOG_ERROR << "CampaignBattleEnd: userinfo not found for id=" << kUserId;
+        LOG_ERROR << "CampaignBattleEnd: user_info not found for id=" << kUserId;
         co_return HandleResult::success("{}");
     }
 

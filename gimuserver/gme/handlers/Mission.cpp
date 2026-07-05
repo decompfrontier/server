@@ -54,20 +54,31 @@ std::vector<UserUnitInfo> parseUnitDrops(const std::string& unitDrops)
 	return units;
 }
 
-std::string encodeUnitDrops(const std::vector<UserUnitInfo>& unitDrops)
+std::string encodeUnitDrops(
+	const std::vector<UserUnitInfo>& unitDrops,
+	const std::vector<bool>& newFlags)
 {
 	std::string encoded;
-	for (const auto& drop : unitDrops)
+	for (size_t idx = 0; idx < unitDrops.size(); ++idx)
 	{
 		if (!encoded.empty())
 		{
 			encoded += ',';
 		}
 
-		encoded += std::to_string(drop.unit_id)
-			+ ':' + std::to_string(drop.user_unit_id)
-			+ ':' + std::to_string(drop.unit_type_id)
-			+ ":1";
+		const auto& drop = unitDrops[idx];
+
+		// reward_units is formatted as:
+		// unit_id:user_unit_id:play_acquired_animation:show_reward_row
+		encoded += std::to_string(drop.unit_id);
+		encoded += ':';
+		encoded += std::to_string(drop.user_unit_id);
+		encoded += ':';
+		encoded += (
+			idx < newFlags.size() && newFlags[idx]
+				? '1'
+				: '0');
+		encoded += ":1";
 	}
 
 	return encoded;
@@ -120,7 +131,7 @@ HANDLEF(MissionEnd)
 		co_return HandleResult::error("Deserialization error", error);
 	}
 
-	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).data;
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).data;
 	const auto missionRecord = MissionArchiver::instance().lookup(req.mission_num.serial_id);
 	if (!missionRecord)
 	{
@@ -129,7 +140,7 @@ HANDLEF(MissionEnd)
 
 	MissionEndResp resp{};
 
-	// This needs to be wrapped as a transcation to prevent cases where we issue
+	// This needs to be wrapped as a transaction to prevent cases where we issue
 	// partial rewards upon mission completion.
 	{
 		auto transaction = co_await theDb()->newTransactionCoro();
@@ -137,7 +148,7 @@ HANDLEF(MissionEnd)
 		{
 			auto userInfo = co_await db::DatabaseInterface::read(
 				transaction,
-				"userinfo",
+				"user_info",
 				{
 					db::Data("level"),
 					db::Data("exp"),
@@ -169,7 +180,7 @@ HANDLEF(MissionEnd)
 			// during this mission.
 			(co_await db::DatabaseInterface::update(
 				transaction,
-				"userinfo",
+				"user_info",
 				{
 					db::Data("level", newLevel),
 					db::Data("exp", newExp),
@@ -190,7 +201,7 @@ HANDLEF(MissionEnd)
 			{
 				(co_await db::DatabaseInterface::update(
 					transaction,
-					"userinfo",
+					"user_info",
 					{
 						db::Data("tutorial_status", kFirstTutorialCheckpoint),
 						db::Lookup("gumi_user_id", identity.gumiUserId),
@@ -201,7 +212,7 @@ HANDLEF(MissionEnd)
 			{
 				(co_await db::DatabaseInterface::update(
 					transaction,
-					"userinfo",
+					"user_info",
 					{
 						db::Data("tutorial_status", kSecondTutorialCheckpoint),
 						db::Lookup("gumi_user_id", identity.gumiUserId),
@@ -213,21 +224,36 @@ HANDLEF(MissionEnd)
 			auto teamInfo = std::move((co_await gme::getTeamInfo(transaction, identity)).nonEmpty());
 
 			auto droppedUnits = parseUnitDrops(req.battle_result.unit_rewards);
+
+			// We need to track which units are already seen by the player.
+			std::vector<bool> newFlags;
+			newFlags.reserve(droppedUnits.size());
 			for (auto& dropped : droppedUnits)
 			{
-				const auto userUnitId = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
+				// Read from unit dictionary to see if the player has already seen this unit.
+				newFlags.push_back((co_await db::PacketInterfaceFor<UserUnitDictionary>::read(
 					transaction,
-					"user_units",
-					dropped,
-					{ db::Data("user_id", identity.userId) })).front<uint32_t>("user_unit_id");
+					"user_unit_dictionary",
+					{
+						db::Lookup("user_id", identity.userId),
+						db::Lookup("unit_id", dropped.unit_id),
+					})).affected == 0);
 
-				dropped.user_unit_id = userUnitId;
+				// Add the unit and persist it to the dictionary.
+				dropped = std::move(
+					(co_await gme::addUserUnit(
+						transaction,
+						identity,
+						dropped)).nonEmpty());
+				resp.unit_dictionary.push_back(std::move(
+					(co_await db::PacketInterfaceFor<UserUnitDictionary>::read(
+						transaction,
+						"user_unit_dictionary",
+						{
+							db::Lookup("user_id", identity.userId),
+							db::Lookup("unit_id", dropped.unit_id),
+						})).nonEmpty().front()));
 			}
-
-			auto unitInfo = std::move((co_await db::PacketInterfaceFor<UserUnitInfo>::read(
-				transaction,
-				"user_units",
-				{ db::Lookup("user_id", identity.userId) })).nonEmpty());
 
 			resp.reward_info.clear_mission_id = req.mission_num.serial_id;
 			resp.reward_info.zel = rewardZel;
@@ -235,10 +261,10 @@ HANDLEF(MissionEnd)
 			resp.reward_info.before_level = currentLevel;
 			resp.reward_info.lvlup_flag = leveledUp ? 1 : 0;
 			resp.reward_info.inc_exp = rewardExp;
-			resp.reward_info.reward_units = encodeUnitDrops(droppedUnits);
+			resp.reward_info.reward_units = encodeUnitDrops(droppedUnits, newFlags);
 			resp.login_info = std::move(loginInfo);
 			resp.team_info = std::move(teamInfo);
-			resp.unit_info = std::move(unitInfo);
+			resp.unit_info = std::move(droppedUnits);
 		}
 		catch (...)
 		{

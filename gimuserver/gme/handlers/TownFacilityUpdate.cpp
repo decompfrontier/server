@@ -66,7 +66,7 @@ HANDLEF(TownFacilityUpdate)
         try
         {
             co_await theDb()->execSqlCoro(
-                "UPDATE userinfo SET karma=MAX(0, karma-$1) WHERE id=$2;",
+                "UPDATE user_info SET karma=MAX(0, karma-$1) WHERE id=$2;",
                 karmaCost, userId);
         }
         catch (const drogon::orm::DrogonDbException& ex)

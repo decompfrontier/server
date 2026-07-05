@@ -3,15 +3,11 @@
 
 #include <gimuserver/db/PacketInterface.hpp>
 #include <gimuserver/gme/common/Common.hpp>
-#include <gimuserver/utils/Random.hpp>
-
 #include <cstdint>
 #include <optional>
 
 namespace
 {
-// Assume lord type for starter unit.
-constexpr uint32_t kTutorialStarterUnitType = 1;
 
 std::optional<uint32_t> getStarterUnit(uint32_t element)
 {
@@ -62,7 +58,7 @@ HANDLEF(CreateUser)
 			"User already exists",
 			"CreateUser cannot create a second user for this Gumi Live user");
 	}
-	const auto userId = RandomId();
+	identity.userId = RandomId();
 
 	// Grab the starter units.
 	const auto starterUnitId = getStarterUnit(req.selected_element.element);
@@ -70,9 +66,9 @@ HANDLEF(CreateUser)
 	{
 		co_return HandleResult::error("Invalid tutorial starter element");
 	}
-	auto starter = gme::fromArchivedUnit(*starterUnitId, kTutorialStarterUnitType);
-	auto burny = gme::fromArchivedUnit(10030, kTutorialStarterUnitType);
-	auto sparky = gme::fromArchivedUnit(40030, kTutorialStarterUnitType);
+	auto starter = gme::fromArchivedUnit(*starterUnitId, UnitArchiver::getRandomType());
+	auto burny = gme::fromArchivedUnit(10030, UnitArchiver::getRandomType());
+	auto sparky = gme::fromArchivedUnit(40030, UnitArchiver::getRandomType());
 	if (!starter || !burny || !sparky)
 	{
 		co_return HandleResult::error("Archive error", "Unable to create tutorial units from archive");
@@ -94,9 +90,9 @@ HANDLEF(CreateUser)
 
 			(co_await db::DatabaseInterface::insert(
 				transaction,
-				"userinfo",
-				{
-					db::Data("id", userId),
+					"user_info",
+					{
+					db::Data("id", identity.userId),
 					db::Data("gumi_user_id", identity.gumiUserId),
 					db::Data("device_id", std::string()),
 					db::Data("username", handleName),
@@ -108,25 +104,20 @@ HANDLEF(CreateUser)
 					db::Data("max_warehouse_count", 100),
 				})).nonEmpty();
 
-			starter->user_unit_id = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
+			*starter = (co_await gme::addUserUnit(
 				transaction,
-				"user_units",
-				*starter,
-				{ db::Data("user_id", userId) })).front<uint32_t>("user_unit_id");
+				identity,
+				*starter)).nonEmpty();
 
 			(co_await gme::addDefaultDecks(
 				transaction,
-				{
-					.gumiUserId = identity.gumiUserId,
-					.userId = userId,
-				},
+				identity,
 				*starter)).nonEmpty();
 
-			burny->user_unit_id = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
+			*burny = (co_await gme::addUserUnit(
 				transaction,
-				"user_units",
-				*burny,
-				{ db::Data("user_id", userId) })).front<uint32_t>("user_unit_id");
+				identity,
+				*burny)).nonEmpty();
 
 			(co_await db::PacketInterfaceFor<UserPartyDeckInfo>::insert(
 				transaction,
@@ -138,13 +129,12 @@ HANDLEF(CreateUser)
 					.member_type = 1,
 					.disp_order = 0,
 				},
-				{ db::Data("user_id", userId) })).nonEmpty();
+				{ db::Data("user_id", identity.userId) })).nonEmpty();
 
-			sparky->user_unit_id = (co_await db::PacketInterfaceFor<UserUnitInfo>::insert(
+			*sparky = (co_await gme::addUserUnit(
 				transaction,
-				"user_units",
-				*sparky,
-				{ db::Data("user_id", userId) })).front<uint32_t>("user_unit_id");
+				identity,
+				*sparky)).nonEmpty();
 
 			(co_await db::PacketInterfaceFor<UserPartyDeckInfo>::insert(
 				transaction,
@@ -156,7 +146,7 @@ HANDLEF(CreateUser)
 					.member_type = 1,
 					.disp_order = 1,
 				},
-				{ db::Data("user_id", userId) })).nonEmpty();
+				{ db::Data("user_id", identity.userId) })).nonEmpty();
 		}
 		catch (...)
 		{
@@ -195,11 +185,11 @@ HANDLEF(TutorialUpdate)
 		co_return HandleResult::error("Deserialization error", error);
 	}
 
-	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
 
 	(co_await db::DatabaseInterface::update(
 		theDb(),
-		"userinfo",
+		"user_info",
 		{
 			db::Data("tutorial_status", req.login_info.tutorial_status),
 			db::Lookup("gumi_user_id", identity.gumiUserId),

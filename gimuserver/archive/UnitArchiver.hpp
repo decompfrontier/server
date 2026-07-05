@@ -2,6 +2,7 @@
 
 #include <gimuserver/archive/archive.hpp>
 #include <gimuserver/packets/all.hpp>
+#include <gimuserver/utils/Random.hpp>
 
 #include <drogon/drogon.h>
 
@@ -60,11 +61,22 @@ public:
 		UnitType unit_type_id,
 		UserUnitInfo& unit);
 
+	/*! 
+	* Gets a random normal unit type id.
+	*/
+	static UnitType getRandomType()
+	{
+		return RandomUInt(kMinUnitType, kMaxUnitType);
+	}
+
 	UnitArchiver(const UnitArchiver&) = delete;
 	UnitArchiver& operator=(const UnitArchiver&) = delete;
 
 private:
 	using UnitRecordCache = std::unordered_map<UnitId, UnitRecord>;
+
+	static constexpr UnitType kMinUnitType = 1;
+	static constexpr UnitType kMaxUnitType = 5;
 
 	UnitArchiver() = default;
 

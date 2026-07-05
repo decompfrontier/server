@@ -1,0 +1,202 @@
+[
+    {
+        "id":  1000,
+        "priority":  1,
+        "background":  "gacha_normal_bg_img_20141121.png",
+        "pool":  [
+                     {
+                         "unit_id":  10202,
+                         "weight":  100,
+                         "name":  "Fire Ghost"
+                     },
+                     {
+                         "unit_id":  20202,
+                         "weight":  100,
+                         "name":  "Water Ghost"
+                     },
+                     {
+                         "unit_id":  30202,
+                         "weight":  100,
+                         "name":  "Earth Ghost"
+                     },
+                     {
+                         "unit_id":  40202,
+                         "weight":  100,
+                         "name":  "Thunder Ghost"
+                     },
+                     {
+                         "unit_id":  50202,
+                         "weight":  100,
+                         "name":  "Light Ghost"
+                     },
+                     {
+                         "unit_id":  60132,
+                         "weight":  100,
+                         "name":  "Metal Ghost"
+                     },
+                     {
+                         "unit_id":  10203,
+                         "weight":  30,
+                         "name":  "Fire King"
+                     },
+                     {
+                         "unit_id":  20203,
+                         "weight":  30,
+                         "name":  "Water King"
+                     },
+                     {
+                         "unit_id":  30203,
+                         "weight":  30,
+                         "name":  "Earth King"
+                     },
+                     {
+                         "unit_id":  40203,
+                         "weight":  30,
+                         "name":  "Thunder King"
+                     },
+                     {
+                         "unit_id":  50203,
+                         "weight":  30,
+                         "name":  "Light King"
+                     },
+                     {
+                         "unit_id":  60133,
+                         "weight":  30,
+                         "name":  "Metal King"
+                     },
+                     {
+                         "unit_id":  10204,
+                         "weight":  10,
+                         "name":  "Fire God"
+                     },
+                     {
+                         "unit_id":  20204,
+                         "weight":  10,
+                         "name":  "Water God"
+                     },
+                     {
+                         "unit_id":  30204,
+                         "weight":  10,
+                         "name":  "Earth God"
+                     },
+                     {
+                         "unit_id":  40204,
+                         "weight":  10,
+                         "name":  "Thunder God"
+                     },
+                     {
+                         "unit_id":  50204,
+                         "weight":  10,
+                         "name":  "Light God"
+                     },
+                     {
+                         "unit_id":  60134,
+                         "weight":  10,
+                         "name":  "Metal God"
+                     },
+                     {
+                         "unit_id":  10344,
+                         "weight":  5,
+                         "name":  "Fire Crystal"
+                     },
+                     {
+                         "unit_id":  20334,
+                         "weight":  5,
+                         "name":  "Water Crystal"
+                     },
+                     {
+                         "unit_id":  30324,
+                         "weight":  5,
+                         "name":  "Earth Crystal"
+                     },
+                     {
+                         "unit_id":  40324,
+                         "weight":  5,
+                         "name":  "Thunder Crystal"
+                     },
+                     {
+                         "unit_id":  50364,
+                         "weight":  5,
+                         "name":  "Light Crystal"
+                     },
+                     {
+                         "unit_id":  60334,
+                         "weight":  5,
+                         "name":  "Dark Crystal"
+                     },
+                     {
+                         "unit_id":  50131,
+                         "weight":  600,
+                         "name":  "Jewel Ghost"
+                     },
+                     {
+                         "unit_id":  50132,
+                         "weight":  180,
+                         "name":  "Jewel King"
+                     },
+                     {
+                         "unit_id":  50133,
+                         "weight":  60,
+                         "name":  "Jewel God"
+                     },
+                     {
+                         "unit_id":  10452,
+                         "weight":  20,
+                         "name":  "Power Imp Pakpak"
+                     },
+                     {
+                         "unit_id":  20442,
+                         "weight":  20,
+                         "name":  "Guard Imp Ganju"
+                     },
+                     {
+                         "unit_id":  30432,
+                         "weight":  20,
+                         "name":  "Healing Imp Fwahl"
+                     },
+                     {
+                         "unit_id":  40432,
+                         "weight":  20,
+                         "name":  "Vigor Imp Molin"
+                     },
+                     {
+                         "unit_id":  20302,
+                         "weight":  30,
+                         "name":  "Sphere Frog"
+                     },
+                     {
+                         "unit_id":  10312,
+                         "weight":  80,
+                         "name":  "Burst Frog"
+                     }
+                 ]
+    },
+    {
+        "id":  11960,
+        "priority":  1,
+        "caption_msg":  "\u003ccenter\u003e[\u003ccolor=255:255:0\u003eRare Summon: All Star Units!\u003c/color\u003e]\u003cbr\u003eSummon \u003ccolor=255:0:0\u003e3~4*\u003c/color\u003e units! \u003ccolor=0:255:0\u003eIncreased Rates\u003c/color\u003e for featured units \u003ccolor=192:192:192\u003eZellha\u003c/color\u003e, \u003ccolor=128:0:128\u003eElza\u003c/color\u003e and \u003ccolor=0:0:255\u003eElimo\u003c/color\u003e! \u003ccolor=255:255:0\u003e\u003cbr\u003eSummon now!\u003c/color\u003e\u003ccenter\u003e",
+        "detail_msg":  "\u003ccenter\u003eSummon units with \u003ccolor=255:0:0\u003e3* and 4*\u003c/color\u003e rarity! \u003ccolor=0:255:0\u003eIncreased Rates\u003c/color\u003e for daily featured units!\u003cbr\u003eEnjoy \u003ccolor=255:255:0\u003eSUMMON\u003c/color\u003e for \u003ccolor=255:255:0\u003e3 gems\u003c/color\u003e!\u003ccenter\u003e",
+        "pool":  [
+                     {
+                         "unit_id":  10011,
+                         "weight":  100,
+                         "name":  "Fencer Vargas"
+                     },
+                     {
+                         "unit_id":  20011,
+                         "weight":  100,
+                         "name":  "Selena"
+                     },
+                     {
+                         "unit_id":  30011,
+                         "weight":  100,
+                         "name":  "Pikeman Lance"
+                     },
+                     {
+                         "unit_id":  40011,
+                         "weight":  100,
+                         "name":  "Warrior Eze"
+                     }
+                 ]
+    }
+]

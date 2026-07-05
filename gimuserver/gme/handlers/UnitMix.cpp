@@ -358,17 +358,17 @@ HANDLEF(UnitMix)
     if (zelCost > 0)
     {
         co_await theDb()->execSqlCoro(
-            "UPDATE userinfo SET zel = MAX(0, zel - $1) WHERE id=$2;",
+            "UPDATE user_info SET zel = MAX(0, zel - $1) WHERE id=$2;",
             zelCost, std::string(kUserId)
         );
     }
 
-    // Step 6: fetch fresh userinfo for team_info.
+    // Step 6: fetch fresh user_info for team_info.
     const auto infoRows = co_await theDb()->execSqlCoro(
         "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
         " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM userinfo WHERE id=$1;",
+        " active_deck, want_gift FROM user_info WHERE id=$1;",
         std::string(kUserId)
     );
 

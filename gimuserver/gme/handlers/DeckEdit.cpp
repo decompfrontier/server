@@ -13,7 +13,7 @@ HANDLEF(DeckEdit)
 		co_return HandleResult::error("Deserialization error", error);
 	}
 
-	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).nonEmpty();
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).nonEmpty();
 
 	{
 		auto transaction = co_await theDb()->newTransactionCoro();
@@ -21,7 +21,7 @@ HANDLEF(DeckEdit)
 		{
 			(co_await db::DatabaseInterface::update(
 				transaction,
-				"userinfo",
+				"user_info",
 				{
 					db::Data("active_deck", req.team_info.active_deck),
 					db::Lookup("id", identity.userId),

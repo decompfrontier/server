@@ -158,16 +158,16 @@ HANDLEF(UnitSell)
 
     // Step 3: credit zel.
     co_await theDb()->execSqlCoro(
-        "UPDATE userinfo SET zel = zel + $1 WHERE id=$2;",
+        "UPDATE user_info SET zel = zel + $1 WHERE id=$2;",
         totalZel, std::string(kUserId)
     );
 
-    // Step 4: fetch fresh userinfo to build accurate team_info.
+    // Step 4: fetch fresh user_info to build accurate team_info.
     const auto infoRows = co_await theDb()->execSqlCoro(
         "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
         " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
         " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM userinfo WHERE id=$1;",
+        " active_deck, want_gift FROM user_info WHERE id=$1;",
         std::string(kUserId)
     );
 

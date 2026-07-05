@@ -72,7 +72,7 @@ HANDLEF(FriendGet)
             " uu.unit_type_id, uu.element"
             " FROM user_decks pd"
             " JOIN user_units uu ON uu.user_unit_id = pd.user_unit_id"
-            " JOIN userinfo ui ON ui.id = pd.user_id"
+            " JOIN user_info ui ON ui.id = pd.user_id"
             " WHERE pd.user_id=$1 AND pd.deck_num=ui.active_deck AND pd.member_type=0"
             " LIMIT 1;",
             std::string(kUserId));

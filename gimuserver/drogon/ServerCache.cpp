@@ -113,9 +113,9 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_unitMst = LoadJson<UnitMstCache>(mstRoot, "unit_mst.json").data;
 		m_missionMst = LoadJson<MissionMstCache>(mstRoot, "mission_mst.json").data;
 
-		// cache: GatchaList response (same data files the UserInfo cache uses)
-		m_gatchaListRsp.gacha_info = LoadJson<GachaInfoMstCache>(mstRoot, "gacha_info_mst.json").data;
-		m_gatchaListRsp.gacha_categories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_category_mst.json").data;
+		// cache: GachaList response (gacha_info comes from GachaArchiver at
+		// request time; only the category banners are cached here)
+		m_gachaListRsp.gacha_categories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_category_mst.json").data;
 
 		// TODO(arves): move this to generated per-used as there's no support for the claim
 		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "daily_task_bonus_mst.json");

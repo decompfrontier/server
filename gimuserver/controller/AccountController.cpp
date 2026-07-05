@@ -30,7 +30,7 @@ Task<> AccountController::HandleGuest(HttpRequestPtr rq, std::function<void(cons
         // database, or creates one if none exists, and returns that ID as game_user_id.
         //
         // Note: this only creates an entry in the gumi_live_users table. The actual
-        // game user row in userinfo is created later, after the client sends the
+        // game user row in user_info is created later, after the client sends the
         // CreateUser request.
         auto currentGumiUser = (co_await db::DatabaseInterface::read(
             theDb(),

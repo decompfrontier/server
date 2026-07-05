@@ -3,6 +3,7 @@
 
 #include <random>
 
+#include <gimuserver/archive/GachaArchiver.hpp>
 #include <gimuserver/archive/MissionArchiver.hpp>
 #include <gimuserver/archive/UnitArchiver.hpp>
 
@@ -52,6 +53,7 @@ void GimuServer::initAndStart(const Json::Value& config)
 	m_cache.Setup(server);
 	UnitArchiver::instance().setup(server);
 	MissionArchiver::instance().setup(server);
+	GachaArchiver::instance().setup(server);
 }
 
 /*!

@@ -32,7 +32,7 @@ HANDLEF(Initialize)
 	// sends during normal startup. It receives the Gumi Live ID returned by the
 	// account login flow and decides whether the client should resume an existing
 	// game user or enter the new-user/tutorial flow.
-	auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).data;
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info, true)).data;
 
 	// If we didn't find a user for this Gumi Live ID, we just return an empty user_id
 	// and let the client enter the tutorial flow. Otherwise, we return the user info

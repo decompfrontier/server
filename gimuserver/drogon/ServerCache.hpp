@@ -40,9 +40,9 @@ public:
 
 	/*!
 	* Gets the cached summon list response.
-	* @return GatchaList response
+	* @return GachaList response
 	*/
-	inline const auto& gatchaListRsp() const { return m_gatchaListRsp; }
+	inline const auto& gachaListRsp() const { return m_gachaListRsp; }
 
 	/*!
 	* Gets the cached slot response.
@@ -110,7 +110,7 @@ private:
 	/*!
 	* Summon list response.
 	*/
-	GatchaListResp m_gatchaListRsp{};
+	GachaListResp m_gachaListRsp{};
 
 	/*!
 	* Unit master data, keyed/iterated by Unit handler ports.

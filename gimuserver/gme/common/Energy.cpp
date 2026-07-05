@@ -59,7 +59,7 @@ drogon::Task<db::InterfaceResult<>> UserEnergy::consume(
 
 	auto user = co_await db::DatabaseInterface::read(
 		database,
-		"userinfo",
+		"user_info",
 		{
 			db::Data("level"),
 			db::Data("energy"),
@@ -122,7 +122,7 @@ drogon::Task<db::InterfaceResult<>> UserEnergy::consume(
 
 	auto result = co_await db::DatabaseInterface::update(
 		database,
-		"userinfo",
+		"user_info",
 		{
 			db::Data("energy", newEnergy),
 			db::Data("energy_full_ts", energyFullTs),
@@ -162,7 +162,7 @@ drogon::Task<db::InterfaceResult<>> UserEnergy::refresh(
 	{
 		const auto user = co_await db::DatabaseInterface::read(
 			database,
-			"userinfo",
+			"user_info",
 			{
 				db::Data("energy"),
 				db::Data("energy_full_ts"),
@@ -179,7 +179,7 @@ drogon::Task<db::InterfaceResult<>> UserEnergy::refresh(
 
 	auto result = co_await db::DatabaseInterface::update(
 		database,
-		"userinfo",
+		"user_info",
 		{
 			db::Data("energy", energy),
 			db::Data("energy_full_ts", uint64_t(0)),

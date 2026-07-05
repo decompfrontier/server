@@ -21,7 +21,7 @@ static void RegisterMigrations(MigrationMap& map)
 			");"
 		);
 		p->execSqlSync(
-			"CREATE TABLE userinfo("
+			"CREATE TABLE user_info("
 			"id TEXT PRIMARY KEY NOT NULL,"
 			"gumi_user_id TEXT NOT NULL,"
 			"device_id TEXT NOT NULL,"
@@ -71,7 +71,17 @@ static void RegisterMigrations(MigrationMap& map)
 			"bb_id TEXT NOT NULL DEFAULT '',"
 			"bb_lvl INTEGER NOT NULL DEFAULT 0,"
 			"sbb_id TEXT NOT NULL DEFAULT '',"
-			"sbb_lvl INTEGER NOT NULL DEFAULT 0"
+			"sbb_lvl INTEGER NOT NULL DEFAULT 0,"
+			"new INTEGER NOT NULL DEFAULT 0"
+			");"
+		);
+		// Keep local user unit ids away from low values that the client treats
+		// as special ids, such as the summoner unit id 20.
+		p->execSqlSync(
+			"INSERT INTO sqlite_sequence(name, seq) "
+			"SELECT 'user_units', 999 "
+			"WHERE NOT EXISTS ("
+			"SELECT 1 FROM sqlite_sequence WHERE name = 'user_units'"
 			");"
 		);
 	});
@@ -147,6 +157,13 @@ static void RegisterMigrations(MigrationMap& map)
 			"lv          INTEGER NOT NULL DEFAULT 1,"
 			"karma       INTEGER NOT NULL DEFAULT 0,"
 			"PRIMARY KEY (user_id, location_id)"
+	migrate("03072026_CreateUserUnitDictionaryTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_unit_dictionary ("
+			"user_id TEXT NOT NULL,"
+			"unit_id INTEGER NOT NULL,"
+			"img_type_flag INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, unit_id)"
 			");"
 		);
 	});
