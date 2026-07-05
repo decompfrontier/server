@@ -1,0 +1,6 @@
+# Frida captures and filled-in offset scripts are machine-specific and may
+# embed reversed binary addresses — keep them local (mirrors tools/ida/).
+*.log
+*.json
+agent.js
+captures/
