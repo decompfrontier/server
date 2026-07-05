@@ -111,6 +111,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 
 		m_unitMst = LoadJson<UnitMstCache>(mstRoot, "unit_mst.json").data;
 		m_missionMst = LoadJson<MissionMstCache>(mstRoot, "mission_mst.json").data;
+		m_itemMst = LoadJson<ItemMstCache>(mstRoot, "item_mst.json").data;
 
 		// cache: GachaList response (gacha_info comes from GachaArchiver at
 		// request time; only the category banners are cached here)

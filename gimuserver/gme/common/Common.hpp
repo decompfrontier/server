@@ -92,6 +92,49 @@ inline drogon::Task<db::InterfaceResult<UserUnitInfo>> addUserUnit(
 }
 
 /*!
+* Credits an item stack to the owning user's warehouse.
+*
+* Stacks are keyed by (user_id, item_id): a repeat drop increments item_num
+* rather than creating a second row.  Returns the resulting quantity.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that owns the item.
+* @param itemId Item master id to credit.
+* @param quantity Amount to add (default 1).
+* @return Number of affected rows.
+*/
+inline drogon::Task<db::InterfaceResult<>> addUserItem(
+	const db::Database database,
+	const UserIdentity identity,
+	const uint32_t itemId,
+	const uint32_t quantity = 1)
+{
+	if (!database || identity.userId.empty() || itemId == 0)
+	{
+		LOG_ERROR << "Invalid addUserItem call: "
+			<< "db=" << static_cast<bool>(database)
+			<< ", user_id_empty=" << identity.userId.empty()
+			<< ", item_id=" << itemId;
+		throw std::invalid_argument("Invalid addUserItem call");
+	}
+
+	// UPSERT: bump the stack if it exists, else insert a new one.  item_id and
+	// quantity are server-trusted integers, safe to bind.
+	auto result = co_await database->execSqlCoro(
+		"INSERT INTO user_items (user_id, item_id, item_num) VALUES ($1, $2, $3) "
+		"ON CONFLICT(user_id, item_id) "
+		"DO UPDATE SET item_num = item_num + $3;",
+		identity.userId,
+		itemId,
+		quantity);
+
+	co_return db::InterfaceResult<>{
+		.data = {},
+		.affected = result.affectedRows(),
+	};
+}
+
+/*!
 * Looks up player progression MST data for a specific user level.
 *
 * The progression cache is expected to be ordered by level, with level 1 at

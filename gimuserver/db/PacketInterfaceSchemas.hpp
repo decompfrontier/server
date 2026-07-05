@@ -227,6 +227,37 @@ PacketInterfaceFor<::UserUnitDictionary>::fields()
 }
 
 /*!
+* Database mapping for owned item stacks stored in user_items.
+*/
+template <>
+inline PacketInterfaceFor<::UserWarehouseInfo>::Fields
+PacketInterfaceFor<::UserWarehouseInfo>::fields()
+{
+	return {
+		field<&::UserWarehouseInfo::instance_id>("instance_id", {
+			.read = true,
+		}),
+		field<&::UserWarehouseInfo::item_id>("item_id", {
+			.read = true,
+			.insert = true,
+		}),
+		field<&::UserWarehouseInfo::item_num>("item_num", {
+			.read = true,
+			.update = true,
+			.insert = true,
+		}),
+		field<&::UserWarehouseInfo::favorite_flg>("favorite_flg", {
+			.read = true,
+			.update = true,
+		}),
+		field<&::UserWarehouseInfo::disp_order>("disp_order", {
+			.read = true,
+			.update = true,
+		}),
+	};
+}
+
+/*!
 * Database mapping for party deck slots stored in user_decks.
 */
 template <>

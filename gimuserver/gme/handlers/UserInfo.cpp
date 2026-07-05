@@ -57,15 +57,41 @@ HANDLEF(UserInfo)
 		"user_unit_dictionary",
 		{ db::Lookup("user_id", identity.userId) })).data);
 
-	// TODO: Properly do this with an items SQL table. For now, to get past the
-	// tutorial, hard code it.
-	resp.equip_info = {
-		UserEquipItemInfo{
-			.item_id = 20000,
-			.disp_order = 0,
-			.item_num = 1,
-		},
+	// Owned items now come from the user_items table (seeded by the tutorial,
+	// grown by mission drops) instead of the old hardcoded potion.  The full
+	// inventory populates warehouse_info; battle-consumable items (ItemMst
+	// item_type == 1, e.g. the tutorial healing potion) also populate
+	// equip_info so they appear in the mission item bar.
+	auto warehouse = (co_await db::PacketInterfaceFor<UserWarehouseInfo>::read(
+		db,
+		"user_items",
+		{ db::Lookup("user_id", identity.userId) })).data;
+
+	const auto& itemMst = theServer()->cache().itemMst();
+	const auto isBattleConsumable = [&itemMst](uint32_t itemId) {
+		for (const auto& m : itemMst)
+		{
+			if (m.id == itemId)
+			{
+				return m.item_type == 1;
+			}
+		}
+		return false;
 	};
+
+	uint32_t equipSlot = 0;
+	for (const auto& stack : warehouse)
+	{
+		if (isBattleConsumable(stack.item_id))
+		{
+			resp.equip_info.push_back(UserEquipItemInfo{
+				.item_id = stack.item_id,
+				.disp_order = equipSlot++,
+				.item_num = stack.item_num,
+			});
+		}
+	}
+	resp.warehouse_info = std::move(warehouse);
 
     resp.campaign_info.current_day = 1;
     resp.campaign_info.total_days = 96;

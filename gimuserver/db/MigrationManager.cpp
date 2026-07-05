@@ -172,6 +172,24 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// Owned-item inventory: potions, materials, spheres.  One row per stack.
+	// instance_id is the warehouse row id the client references (UserWarehouse
+	// n6E8iMf3 / legacy ItemSphereEqp wh ids).  Populated naturally — the
+	// tutorial seeds a test potion in CreateUser, mission drops append here.
+	migrate("05072026_CreateUserItemsTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_items ("
+			"instance_id  INTEGER PRIMARY KEY AUTOINCREMENT,"
+			"user_id      TEXT    NOT NULL,"
+			"item_id      INTEGER NOT NULL,"
+			"item_num     INTEGER NOT NULL DEFAULT 1,"
+			"favorite_flg INTEGER NOT NULL DEFAULT 0,"
+			"disp_order   INTEGER NOT NULL DEFAULT 0,"
+			"UNIQUE(user_id, item_id)"
+			");"
+		);
+	});
+
 	migrate("25042026_CreateUserCampaignTables", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_campaign_missions ("

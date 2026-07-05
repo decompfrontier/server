@@ -76,6 +76,14 @@ public:
 	*/
 	inline const auto& missionMst() const { return m_missionMst; }
 
+	/*!
+	* Item master data (F_ITEM_MST, wrapper key "2C7LDzYk").  Loaded for
+	* server-side item lookup (drop validation, sphere stats).  See
+	* mst/item.kdl.
+	* @return Vector of ItemMst entries (1668 rows)
+	*/
+	inline const auto& itemMst() const { return m_itemMst; }
+
 private:
 	/*!
 	* DLS cached JSON.
@@ -122,4 +130,10 @@ private:
 	* in MissionStart / MissionEnd.  Loaded from deploy/system/mission_mst.json.
 	*/
 	std::vector<MissionMst> m_missionMst;
+
+	/*!
+	* Item master data (wrapper key "2C7LDzYk"), looked up by item_id.
+	* Loaded from deploy/system/item_mst.json.
+	*/
+	std::vector<ItemMst> m_itemMst;
 };
