@@ -1,0 +1,2298 @@
+{
+ "kdl_key_count": 873,
+ "reference": [
+  {
+   "file": "F_GUILD_ART_MST_Ver6.json",
+   "fields": 3,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "JK38Bq83",
+    "dDKCN293",
+    "osidufj5"
+   ]
+  },
+  {
+   "file": "F_MINIGAME_RESOURCE_MST_Ver2.json",
+   "fields": 2,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "02eYbcSD",
+    "ZwstRU92"
+   ]
+  },
+  {
+   "file": "F_PURCHASE_AGE_LIMIT_MST_Ver2.json",
+   "fields": 2,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "N8Yet5kA",
+    "zXckdA51"
+   ]
+  },
+  {
+   "file": "F_RAID_BOSS_ROUTE_MST_Ver45.json",
+   "fields": 5,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "4vSjr6zw",
+    "Qf67k1ut",
+    "SP29fLtH",
+    "WB6bsRX9",
+    "gW70zeZ5"
+   ]
+  },
+  {
+   "file": "F_RAID_PLAYSTYLE_MST_Ver6.json",
+   "fields": 2,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "NQR1Vd3t",
+    "QB0KYH2R"
+   ]
+  },
+  {
+   "file": "F_RELOAD_FILE_MST_Ver779.json",
+   "fields": 2,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "6qjD4Jdh",
+    "92VHUDEC"
+   ]
+  },
+  {
+   "file": "F_RESOURCE_BASE_MST_Ver24.json",
+   "fields": 1,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "ZwstRU92"
+   ]
+  },
+  {
+   "file": "F_RESOURCE_MST_1_Ver3275.json",
+   "fields": 1,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "ZwstRU92"
+   ]
+  },
+  {
+   "file": "F_RESOURCE_MST_2_Ver3275.json",
+   "fields": 1,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "ZwstRU92"
+   ]
+  },
+  {
+   "file": "F_STAMP_MST_Ver8.json",
+   "fields": 4,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "FfZ30yBt",
+    "nGVc2zS1",
+    "pqiA2dx5",
+    "rA9jDCP5"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_Ygh8Id2X_MST_Ver4.json",
+   "fields": 4,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "5y2Zqocp",
+    "dvQ6Zj9q",
+    "s2wPR2Hb",
+    "zXEXXgKx"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_fnBdH1U4_MST_Ver2.json",
+   "fields": 3,
+   "covered": 0,
+   "pct": 0.0,
+   "missing_keys": [
+    "DWaKu74r",
+    "pBZJHn78",
+    "xuLx6eZa"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_gyY4TCm8_MST_Ver72.json",
+   "fields": 23,
+   "covered": 1,
+   "pct": 4.3,
+   "missing_keys": [
+    "0HL6ujld",
+    "2QxsR0hy",
+    "4s95TBoj",
+    "6luDhf9o",
+    "6pXtgtPA",
+    "CuVhQmOv",
+    "EeZ8VYuI",
+    "OiVfjAUf",
+    "Pf0mF6gK",
+    "PlaeXUOH",
+    "XNwxUiRr",
+    "ZmG6sGxv",
+    "aYJ8ALCR",
+    "absaNyoQ",
+    "b7KUiAfA",
+    "c6oqlnlT",
+    "clwU9Ona",
+    "dnqyyMg6",
+    "oaKBPw9e",
+    "sKf4Koy4",
+    "uFheXxzX",
+    "y2SlttSX"
+   ]
+  },
+  {
+   "file": "F_RAID_BOSS_MST_Ver76.json",
+   "fields": 11,
+   "covered": 1,
+   "pct": 9.1,
+   "missing_keys": [
+    "8Pbr70Wv",
+    "K1sM9FtZ",
+    "Qzhp8B40",
+    "S8NI2xZk",
+    "SsNg4d6o",
+    "Uh3Te4AI",
+    "iSgK67Du",
+    "ogFx8s2Y",
+    "tA4T0GXB",
+    "w46VY1zm"
+   ]
+  },
+  {
+   "file": "F_UNIT_EVO_MST_Ver597.json",
+   "fields": 24,
+   "covered": 3,
+   "pct": 12.5,
+   "missing_keys": [
+    "0tna4Idu",
+    "18Oz7z8k",
+    "2BFgYLjg",
+    "3g8brFoq",
+    "6GwnugW3",
+    "74VFwuTd",
+    "7MxucW2J",
+    "85X6JHQA",
+    "EK7jR4rB",
+    "Hb8yfmv7",
+    "IZUvR489",
+    "MVidsUNV",
+    "Voht18AP",
+    "Xyt6rhx2",
+    "agp4CKEV",
+    "bNRUuatB",
+    "eKPWNoLn",
+    "hdF8ND2H",
+    "j7fTS3ca",
+    "nB7pFdR0",
+    "wh3YRU08"
+   ]
+  },
+  {
+   "file": "F_UNIT_TYPE_MST_Ver52.json",
+   "fields": 8,
+   "covered": 1,
+   "pct": 12.5,
+   "missing_keys": [
+    "2M4mQZgk",
+    "6D3YN9rc",
+    "76IHLVsz",
+    "7N1smiod",
+    "ChD5b0jR",
+    "Sj9zR38K",
+    "Z3ocmb5J"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_MAP_MST_Ver67.json",
+   "fields": 7,
+   "covered": 1,
+   "pct": 14.3,
+   "missing_keys": [
+    "0QyCU1dR",
+    "H9sx5D08",
+    "U0s6Wkoq",
+    "W4QdZ6pE",
+    "d54Z3hUc",
+    "sdE1oku7"
+   ]
+  },
+  {
+   "file": "F_RAID_MAP_MST_Ver54.json",
+   "fields": 7,
+   "covered": 1,
+   "pct": 14.3,
+   "missing_keys": [
+    "0QyCU1dR",
+    "H9sx5D08",
+    "U0s6Wkoq",
+    "W4QdZ6pE",
+    "d54Z3hUc",
+    "sdE1oku7"
+   ]
+  },
+  {
+   "file": "F_RAID_MISSION_BOSS_MST_Ver68.json",
+   "fields": 7,
+   "covered": 1,
+   "pct": 14.3,
+   "missing_keys": [
+    "E0yfb8eK",
+    "P6uVAa3m",
+    "SP29fLtH",
+    "g9EcMPR6",
+    "i5r7Vjkq",
+    "tA4T0GXB"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_ROUTE_MST_Ver92.json",
+   "fields": 6,
+   "covered": 1,
+   "pct": 16.7,
+   "missing_keys": [
+    "1rcF7R6W",
+    "AKZ7u5iN",
+    "VhX9c8YL",
+    "YnVo64z1",
+    "ZSf8e1MG"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_BZhUb52W_MST_Ver1.json",
+   "fields": 6,
+   "covered": 1,
+   "pct": 16.7,
+   "missing_keys": [
+    "CG3Vr8UK",
+    "DWaKu74r",
+    "crWkLjTW",
+    "hZtF1s8B",
+    "xuLx6eZa"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_Fz0wQE7k_MST_Ver1.json",
+   "fields": 11,
+   "covered": 2,
+   "pct": 18.2,
+   "missing_keys": [
+    "1MlapDXU",
+    "WTnpl2zR",
+    "bagWQVt9",
+    "ihNuaMFD",
+    "s1Xdfkke",
+    "v1eFbcLt",
+    "vkYdKd6M",
+    "y6meGl1D",
+    "y8e4eRt7"
+   ]
+  },
+  {
+   "file": "F_EFFECT_MST_Ver583.json",
+   "fields": 5,
+   "covered": 1,
+   "pct": 20.0,
+   "missing_keys": [
+    "1NijIP2a",
+    "1TED5ZSi",
+    "CJpkT40r",
+    "Heg8ZDQ7"
+   ]
+  },
+  {
+   "file": "F_RAID_WORLD_MST_Ver12.json",
+   "fields": 5,
+   "covered": 1,
+   "pct": 20.0,
+   "missing_keys": [
+    "1n9caurK",
+    "3D42LTtj",
+    "PIa6T3RK",
+    "Rqc8pi0x"
+   ]
+  },
+  {
+   "file": "F_EFFECT_GROUP_MST_1_Ver608.json",
+   "fields": 4,
+   "covered": 1,
+   "pct": 25.0,
+   "missing_keys": [
+    "0UwMg18F",
+    "5qBCQ1PJ",
+    "xW6TKu9G"
+   ]
+  },
+  {
+   "file": "F_EFFECT_GROUP_MST_2_Ver608.json",
+   "fields": 4,
+   "covered": 1,
+   "pct": 25.0,
+   "missing_keys": [
+    "0UwMg18F",
+    "5qBCQ1PJ",
+    "xW6TKu9G"
+   ]
+  },
+  {
+   "file": "F_GUILD_INFO_MST_Ver6.json",
+   "fields": 4,
+   "covered": 1,
+   "pct": 25.0,
+   "missing_keys": [
+    "Nt38aDqi",
+    "osidufj5",
+    "u3D9abe1"
+   ]
+  },
+  {
+   "file": "F_RAID_BATTLE_GROUP_MST_Ver52.json",
+   "fields": 4,
+   "covered": 1,
+   "pct": 25.0,
+   "missing_keys": [
+    "E0VbaLr7",
+    "Qzhp8B40",
+    "ZSf8e1MG"
+   ]
+  },
+  {
+   "file": "F_RAID_BOSS_PARTS_MST_Ver78.json",
+   "fields": 8,
+   "covered": 2,
+   "pct": 25.0,
+   "missing_keys": [
+    "0QxL2is7",
+    "2EF0d6ue",
+    "2gZIRQ7D",
+    "7Hf3DnVj",
+    "8GNxt1XE",
+    "tA4T0GXB"
+   ]
+  },
+  {
+   "file": "F_UNIT_EXT_MST_Ver11.json",
+   "fields": 4,
+   "covered": 1,
+   "pct": 25.0,
+   "missing_keys": [
+    "FKVRt01T",
+    "VS7df4oH",
+    "dyFUE5fN"
+   ]
+  },
+  {
+   "file": "F_UNIT_FE_CATEGORY_MST_Ver543.json",
+   "fields": 16,
+   "covered": 4,
+   "pct": 25.0,
+   "missing_keys": [
+    "0tna4Idu",
+    "6GwnugW3",
+    "7MxucW2J",
+    "85X6JHQA",
+    "Hb8yfmv7",
+    "VgU78CYj",
+    "XLSB42ED",
+    "Xyt6rhx2",
+    "hdF8ND2H",
+    "j7fTS3ca",
+    "nB7pFdR0",
+    "wh3YRU08"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_oQ46p2nF_MST_Ver1.json",
+   "fields": 15,
+   "covered": 4,
+   "pct": 26.7,
+   "missing_keys": [
+    "04HTtsWX",
+    "0QxL2is7",
+    "1ZF3zLrC",
+    "2EF0d6ue",
+    "5e2BjwEd",
+    "7TMRZ9dG",
+    "96bHfi3r",
+    "Btf93Xs1",
+    "LdSuQ9fy",
+    "TAGN1cM9",
+    "xdw7mZ34"
+   ]
+  },
+  {
+   "file": "F_DBB_MST_Ver136.json",
+   "fields": 11,
+   "covered": 3,
+   "pct": 27.3,
+   "missing_keys": [
+    "0QxL2is7",
+    "2EF0d6ue",
+    "3gZAK2vU",
+    "72R7Jsij",
+    "k0ajkcu0",
+    "preOM2FT",
+    "uDHaNnu6",
+    "zY9XKiSV"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_ICON_MST_Ver53.json",
+   "fields": 7,
+   "covered": 2,
+   "pct": 28.6,
+   "missing_keys": [
+    "1FGjr6Jb",
+    "1s75aGuA",
+    "7w0inC1R",
+    "TMc8k5uF",
+    "VhX9c8YL"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_MST_Ver127.json",
+   "fields": 16,
+   "covered": 5,
+   "pct": 31.2,
+   "missing_keys": [
+    "0u1nvMeS",
+    "0xFHwMf7",
+    "17JnyicA",
+    "2ty57Bcv",
+    "H9sx5D08",
+    "Mw3F0V8C",
+    "W1EkCyc3",
+    "e0XmDu4q",
+    "gFq59B6X",
+    "yTPw0BD7",
+    "yWiB93z0"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_TREASURE_MST_Ver43.json",
+   "fields": 9,
+   "covered": 3,
+   "pct": 33.3,
+   "missing_keys": [
+    "1FGjr6Jb",
+    "1s75aGuA",
+    "7w0inC1R",
+    "VhX9c8YL",
+    "q7Nit8JW",
+    "zIW1vVk2"
+   ]
+  },
+  {
+   "file": "F_GUILD_POINT_EXCHANGE_MST_Ver233.json",
+   "fields": 9,
+   "covered": 3,
+   "pct": 33.3,
+   "missing_keys": [
+    "3EWLm0sA",
+    "S8rdp9zk",
+    "Yxo3bEic",
+    "hQ1SJZU9",
+    "qBAb07rh",
+    "ra4iFR6T"
+   ]
+  },
+  {
+   "file": "F_STAMP_SET_MST_Ver10.json",
+   "fields": 6,
+   "covered": 2,
+   "pct": 33.3,
+   "missing_keys": [
+    "CRfnmT13",
+    "mdAfte54",
+    "rA9jDCP5",
+    "vnYi8c3R"
+   ]
+  },
+  {
+   "file": "F_SU_ABILITY_LEVEL_MST_Ver29.json",
+   "fields": 6,
+   "covered": 2,
+   "pct": 33.3,
+   "missing_keys": [
+    "5pkWU4yH",
+    "NgrYgZht",
+    "nm1USVcx",
+    "qfg7P2sK"
+   ]
+  },
+  {
+   "file": "F_UNIT_COMMENT_MST_Ver705.json",
+   "fields": 6,
+   "covered": 2,
+   "pct": 33.3,
+   "missing_keys": [
+    "0pMem1xg",
+    "ZEzhmS53",
+    "fBg92Ki7",
+    "gb0qGa1W"
+   ]
+  },
+  {
+   "file": "F_UNIT_EVO_CATALYST_COMMENT_MST_Ver139.json",
+   "fields": 3,
+   "covered": 1,
+   "pct": 33.3,
+   "missing_keys": [
+    "R2XB69Zj",
+    "b2LNsR7C"
+   ]
+  },
+  {
+   "file": "F_UNIT_FE_SKILL_MST_Ver598.json",
+   "fields": 6,
+   "covered": 2,
+   "pct": 33.3,
+   "missing_keys": [
+    "7XYkj2EU",
+    "FHThxDv4",
+    "VgU78CYj",
+    "ri6D9yBi"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_IwODP3o4_MST_Ver176.json",
+   "fields": 3,
+   "covered": 1,
+   "pct": 33.3,
+   "missing_keys": [
+    "Slkc395l",
+    "lDk4hv20"
+   ]
+  },
+  {
+   "file": "F_GATE_MST_Ver95.json",
+   "fields": 14,
+   "covered": 5,
+   "pct": 35.7,
+   "missing_keys": [
+    "0Cq2AlXW",
+    "5vZPshoA",
+    "CvVtDnVM",
+    "bagWQVt9",
+    "gW70zeZ5",
+    "iP4oueV8",
+    "ip4q1qC7",
+    "jfN15EdJ",
+    "v0OseM39"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_TRADE_MST_1_Ver432.json",
+   "fields": 13,
+   "covered": 5,
+   "pct": 38.5,
+   "missing_keys": [
+    "3EWLm0sA",
+    "9Hau45Jj",
+    "Mdgsh04u",
+    "S8rdp9zk",
+    "a0d2suLZ",
+    "hQ1SJZU9",
+    "qBAb07rh",
+    "sqL73JYw"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_TRADE_MST_2_Ver432.json",
+   "fields": 13,
+   "covered": 5,
+   "pct": 38.5,
+   "missing_keys": [
+    "3EWLm0sA",
+    "9Hau45Jj",
+    "Mdgsh04u",
+    "S8rdp9zk",
+    "a0d2suLZ",
+    "hQ1SJZU9",
+    "qBAb07rh",
+    "sqL73JYw"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_TRADE_MST_3_Ver432.json",
+   "fields": 13,
+   "covered": 5,
+   "pct": 38.5,
+   "missing_keys": [
+    "3EWLm0sA",
+    "9Hau45Jj",
+    "Mdgsh04u",
+    "S8rdp9zk",
+    "a0d2suLZ",
+    "hQ1SJZU9",
+    "qBAb07rh",
+    "sqL73JYw"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_TRADE_MST_4_Ver432.json",
+   "fields": 13,
+   "covered": 5,
+   "pct": 38.5,
+   "missing_keys": [
+    "3EWLm0sA",
+    "9Hau45Jj",
+    "Mdgsh04u",
+    "S8rdp9zk",
+    "a0d2suLZ",
+    "hQ1SJZU9",
+    "qBAb07rh",
+    "sqL73JYw"
+   ]
+  },
+  {
+   "file": "F_RAID_USER_ROUTE_MST_Ver56.json",
+   "fields": 5,
+   "covered": 2,
+   "pct": 40.0,
+   "missing_keys": [
+    "4vSjr6zw",
+    "E0VbaLr7",
+    "Qf67k1ut"
+   ]
+  },
+  {
+   "file": "F_SCENARIO_CATEGORY_MST_Ver189.json",
+   "fields": 5,
+   "covered": 2,
+   "pct": 40.0,
+   "missing_keys": [
+    "29timHEg",
+    "VgU78CYj",
+    "XLSB42ED"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_SUBJECT_MST_1_Ver503.json",
+   "fields": 19,
+   "covered": 8,
+   "pct": 42.1,
+   "missing_keys": [
+    "3rhygS9K",
+    "5xaMdk8E",
+    "8RVXhQjn",
+    "8zaB7d6W",
+    "JQ23rIvk",
+    "KT71m8Ae",
+    "M7SXoc31",
+    "a0d2suLZ",
+    "sqL73JYw",
+    "xXdp1q0Y",
+    "yTPw0BD7"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_SUBJECT_MST_2_Ver503.json",
+   "fields": 19,
+   "covered": 8,
+   "pct": 42.1,
+   "missing_keys": [
+    "3rhygS9K",
+    "5xaMdk8E",
+    "8RVXhQjn",
+    "8zaB7d6W",
+    "JQ23rIvk",
+    "KT71m8Ae",
+    "M7SXoc31",
+    "a0d2suLZ",
+    "sqL73JYw",
+    "xXdp1q0Y",
+    "yTPw0BD7"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_SUBJECT_MST_3_Ver503.json",
+   "fields": 19,
+   "covered": 8,
+   "pct": 42.1,
+   "missing_keys": [
+    "3rhygS9K",
+    "5xaMdk8E",
+    "8RVXhQjn",
+    "8zaB7d6W",
+    "JQ23rIvk",
+    "KT71m8Ae",
+    "M7SXoc31",
+    "a0d2suLZ",
+    "sqL73JYw",
+    "xXdp1q0Y",
+    "yTPw0BD7"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_EVENT_MST_Ver155.json",
+   "fields": 7,
+   "covered": 3,
+   "pct": 42.9,
+   "missing_keys": [
+    "29MgiJIQ",
+    "85HpkjZW",
+    "Wmr4xDa8",
+    "duN7tx0R"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_FLG_MST_Ver102.json",
+   "fields": 7,
+   "covered": 3,
+   "pct": 42.9,
+   "missing_keys": [
+    "97yTNbfr",
+    "NML08EGS",
+    "Ufm6c7RA",
+    "ky1xsH0h"
+   ]
+  },
+  {
+   "file": "F_SCENARIO_MST_Ver308.json",
+   "fields": 7,
+   "covered": 3,
+   "pct": 42.9,
+   "missing_keys": [
+    "A3TSv2fn",
+    "VgU78CYj",
+    "ctAd91iQ",
+    "mC1JcVM9"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_MZGk4Tx5_MST_Ver135.json",
+   "fields": 7,
+   "covered": 3,
+   "pct": 42.9,
+   "missing_keys": [
+    "1ZF3zLrC",
+    "QR5eiA8o",
+    "X4uiPoE0",
+    "k9Dq2fvz"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_Pe43fToq_MST_Ver1.json",
+   "fields": 7,
+   "covered": 3,
+   "pct": 42.9,
+   "missing_keys": [
+    "0QxL2is7",
+    "2EF0d6ue",
+    "7TMRZ9dG",
+    "Btf93Xs1"
+   ]
+  },
+  {
+   "file": "F_ITEM_MST_Ver1027.json",
+   "fields": 27,
+   "covered": 12,
+   "pct": 44.4,
+   "missing_keys": [
+    "0UwMg18F",
+    "6E2fGPWT",
+    "92udyUrJ",
+    "97yTNbfr",
+    "EIN6D3xJ",
+    "LH7JB1xI",
+    "Mt3Y0bo5",
+    "PEhNd0B4",
+    "ZKQ1X69a",
+    "c7Z6xDB2",
+    "h0K7wjeH",
+    "kP3zJ9Ra",
+    "m9gd5h1u",
+    "rNmJkH6K",
+    "t1i2vIbT"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_SMPHEx74_MST_Ver1.json",
+   "fields": 13,
+   "covered": 6,
+   "pct": 46.2,
+   "missing_keys": [
+    "DjNuD9kX",
+    "J5H5C7ws",
+    "Ky7sAQMq",
+    "XbfZMS37",
+    "dvQ6Zj9q",
+    "gHYrX2Ba",
+    "pB8vk9Zv"
+   ]
+  },
+  {
+   "file": "F_ACHIEVEMENT_DELIVER_RATE_MST_Ver18.json",
+   "fields": 4,
+   "covered": 2,
+   "pct": 50.0,
+   "missing_keys": [
+    "232id0qQ",
+    "oC6Dc1xp"
+   ]
+  },
+  {
+   "file": "F_COLOSSEUM_CLASS_MST_Ver8.json",
+   "fields": 6,
+   "covered": 3,
+   "pct": 50.0,
+   "missing_keys": [
+    "3mMAn6L5",
+    "NGL2K1id",
+    "YDxl64JI"
+   ]
+  },
+  {
+   "file": "F_COLOSSEUM_SUPPORT_MST_Ver2.json",
+   "fields": 6,
+   "covered": 3,
+   "pct": 50.0,
+   "missing_keys": [
+    "NungTq5g",
+    "U7LJCqT1",
+    "esz3O04i"
+   ]
+  },
+  {
+   "file": "F_FROGATE_SUPPORT_MST_Ver153.json",
+   "fields": 6,
+   "covered": 3,
+   "pct": 50.0,
+   "missing_keys": [
+    "NungTq5g",
+    "U7LJCqT1",
+    "esz3O04i"
+   ]
+  },
+  {
+   "file": "F_MINIGAME_DEFINE_MST_Ver1.json",
+   "fields": 2,
+   "covered": 1,
+   "pct": 50.0,
+   "missing_keys": [
+    "gg69JHMH"
+   ]
+  },
+  {
+   "file": "F_RAID_POINT_MST_Ver57.json",
+   "fields": 10,
+   "covered": 5,
+   "pct": 50.0,
+   "missing_keys": [
+    "AZFM14In",
+    "H9sx5D08",
+    "PV3gH1Yf",
+    "X7g8cNAI",
+    "f3L8HeKn"
+   ]
+  },
+  {
+   "file": "F_UNIT_EVO_OMNI_MST_Ver94.json",
+   "fields": 4,
+   "covered": 2,
+   "pct": 50.0,
+   "missing_keys": [
+    "ddD4lsc1",
+    "js95kdsL"
+   ]
+  },
+  {
+   "file": "F_UNIT_EVO_OMNI_RECIPE_MST_Ver95.json",
+   "fields": 6,
+   "covered": 3,
+   "pct": 50.0,
+   "missing_keys": [
+    "0dk4sldr",
+    "48sldkcm",
+    "s049sdck"
+   ]
+  },
+  {
+   "file": "F_SU_IMG_MST_Ver15.json",
+   "fields": 23,
+   "covered": 12,
+   "pct": 52.2,
+   "missing_keys": [
+    "0QxL2is7",
+    "7CcgbUt0",
+    "7oHiOxXu",
+    "LI5euJ7T",
+    "NgRIeeJc",
+    "WpFjS0PA",
+    "YGVldhVW",
+    "pRKFVb2k",
+    "wHWHChDV",
+    "xfwp0xVC",
+    "zKXSM4vh"
+   ]
+  },
+  {
+   "file": "F_COLOSSEUM_FORMATION_MST_Ver2.json",
+   "fields": 7,
+   "covered": 4,
+   "pct": 57.1,
+   "missing_keys": [
+    "VuIPnfDO",
+    "gBLoOL3p",
+    "peCeLuNq"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_END_CND_MST_Ver55.json",
+   "fields": 5,
+   "covered": 3,
+   "pct": 60.0,
+   "missing_keys": [
+    "29MgiJIQ",
+    "3rqe6W5V"
+   ]
+  },
+  {
+   "file": "F_RAID_MISSION_CLEAR_CND_MST_Ver71.json",
+   "fields": 5,
+   "covered": 3,
+   "pct": 60.0,
+   "missing_keys": [
+    "3l52Vq2h",
+    "FcKX8O65"
+   ]
+  },
+  {
+   "file": "F_RAID_MISSION_POINT_MST_Ver77.json",
+   "fields": 5,
+   "covered": 3,
+   "pct": 60.0,
+   "missing_keys": [
+    "PV3gH1Yf",
+    "yx4YL1Ua"
+   ]
+  },
+  {
+   "file": "F_UNIT_SELECTOR_GACHA_TICKET_MST_Ver106.json",
+   "fields": 5,
+   "covered": 3,
+   "pct": 60.0,
+   "missing_keys": [
+    "TAFzS4j3",
+    "r7MSYD2c"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_V7w2fFys_MST_Ver1.json",
+   "fields": 5,
+   "covered": 3,
+   "pct": 60.0,
+   "missing_keys": [
+    "hZtF1s8B",
+    "xuLx6eZa"
+   ]
+  },
+  {
+   "file": "F_AREA_MST_Ver669.json",
+   "fields": 13,
+   "covered": 8,
+   "pct": 61.5,
+   "missing_keys": [
+    "3v1qg7Uj",
+    "H0UB8pqm",
+    "V84mzqoX",
+    "gq73WFmj",
+    "sHMai2ZG"
+   ]
+  },
+  {
+   "file": "F_ARENA_EXTRA_RULE_MST_Ver4.json",
+   "fields": 8,
+   "covered": 5,
+   "pct": 62.5,
+   "missing_keys": [
+    "IvuccUuD",
+    "LikAxb70",
+    "rAGpit3F"
+   ]
+  },
+  {
+   "file": "F_FROGATE_REWARD_MST_Ver315.json",
+   "fields": 8,
+   "covered": 5,
+   "pct": 62.5,
+   "missing_keys": [
+    "Ga6qSJr0",
+    "hBNPQAU0",
+    "q7Nit8JW"
+   ]
+  },
+  {
+   "file": "F_GUILD_SKILL_DETAILS_MST_Ver13.json",
+   "fields": 8,
+   "covered": 5,
+   "pct": 62.5,
+   "missing_keys": [
+    "38Baj1Mq",
+    "ibY38bDn",
+    "osidufj5"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_REWARD_MST_Ver108.json",
+   "fields": 11,
+   "covered": 7,
+   "pct": 63.6,
+   "missing_keys": [
+    "64hAvkZX",
+    "I0ZNnm4b",
+    "q7Nit8JW",
+    "zwwtHlMM"
+   ]
+  },
+  {
+   "file": "F_GRAND_MISSION_SPOT_MST_Ver92.json",
+   "fields": 11,
+   "covered": 7,
+   "pct": 63.6,
+   "missing_keys": [
+    "0se8qAz1",
+    "7w0inC1R",
+    "VhX9c8YL",
+    "u3HFse2a"
+   ]
+  },
+  {
+   "file": "F_SU_ARM_LEVEL_MST_Ver19.json",
+   "fields": 14,
+   "covered": 9,
+   "pct": 64.3,
+   "missing_keys": [
+    "0Ar0scn1",
+    "Lxr1STbO",
+    "VlSyNGyG",
+    "vJRUWyeO",
+    "wvANuT8R"
+   ]
+  },
+  {
+   "file": "F_RAID_MISSION_MST_Ver396.json",
+   "fields": 17,
+   "covered": 11,
+   "pct": 64.7,
+   "missing_keys": [
+    "21VKZo0E",
+    "2ty57Bcv",
+    "H9sx5D08",
+    "KR6JacN8",
+    "UJTR1h5r",
+    "yTPw0BD7"
+   ]
+  },
+  {
+   "file": "F_COLOSSEUM_EXTRA_RULE_MST_Ver3.json",
+   "fields": 6,
+   "covered": 4,
+   "pct": 66.7,
+   "missing_keys": [
+    "IvuccUuD",
+    "LikAxb70"
+   ]
+  },
+  {
+   "file": "F_FE_SKILL_MST_Ver618.json",
+   "fields": 9,
+   "covered": 6,
+   "pct": 66.7,
+   "missing_keys": [
+    "G5wFDad6",
+    "ri6D9yBi",
+    "yRlCNyvk"
+   ]
+  },
+  {
+   "file": "F_FUNCTION_RELEASE_MST_Ver10.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "eyOHR7lB"
+   ]
+  },
+  {
+   "file": "F_LAND_MST_Ver147.json",
+   "fields": 12,
+   "covered": 8,
+   "pct": 66.7,
+   "missing_keys": [
+    "0Cq2AlXW",
+    "7Lx3qcDU",
+    "jfN15EdJ",
+    "y1pHwW54"
+   ]
+  },
+  {
+   "file": "F_MINIGAME_MST_Ver1.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "hZtF1s8B"
+   ]
+  },
+  {
+   "file": "F_RAID_RC_MST_Ver11.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "JQ23rIvk"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_Gie01w2u_MST_Ver1.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "hZtF1s8B"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_y38bDaMv_MST_Ver2.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "ibY38bDn"
+   ]
+  },
+  {
+   "file": "F_FROGATE_MST_Ver562.json",
+   "fields": 14,
+   "covered": 10,
+   "pct": 71.4,
+   "missing_keys": [
+    "4N25Z87R",
+    "BilJmqI0",
+    "J3bZkWUt",
+    "hBNPQAU0"
+   ]
+  },
+  {
+   "file": "F_SU_ABILITY_UP_MST_Ver19.json",
+   "fields": 7,
+   "covered": 5,
+   "pct": 71.4,
+   "missing_keys": [
+    "B76UmxCQ",
+    "qfg7P2sK"
+   ]
+  },
+  {
+   "file": "F_SU_ARM_PASSIVE_MST_Ver15.json",
+   "fields": 7,
+   "covered": 5,
+   "pct": 71.4,
+   "missing_keys": [
+    "VlSyNGyG",
+    "tz84LhXc"
+   ]
+  },
+  {
+   "file": "F_DBB_BOND_RECIPE_MST_Ver10.json",
+   "fields": 8,
+   "covered": 6,
+   "pct": 75.0,
+   "missing_keys": [
+    "0dk4sldr",
+    "48sldkcm"
+   ]
+  },
+  {
+   "file": "F_SU_EX_SKILL_MST_Ver15.json",
+   "fields": 8,
+   "covered": 6,
+   "pct": 75.0,
+   "missing_keys": [
+    "7GMDoJ8n",
+    "dyF0xAz1"
+   ]
+  },
+  {
+   "file": "F_TRIAL_MISSION_MST_Ver72.json",
+   "fields": 4,
+   "covered": 3,
+   "pct": 75.0,
+   "missing_keys": [
+    "ZwstRU92"
+   ]
+  },
+  {
+   "file": "F_UNIT_EP3_MST_Ver9.json",
+   "fields": 4,
+   "covered": 3,
+   "pct": 75.0,
+   "missing_keys": [
+    "gg69JHMH"
+   ]
+  },
+  {
+   "file": "F_DUNGEON_MST_Ver1002.json",
+   "fields": 17,
+   "covered": 13,
+   "pct": 76.5,
+   "missing_keys": [
+    "0u1nvMeS",
+    "21VKZo0E",
+    "3hPeI1RV",
+    "bWsLFP96"
+   ]
+  },
+  {
+   "file": "F_HELP_DETAIL_MST_Ver42.json",
+   "fields": 5,
+   "covered": 4,
+   "pct": 80.0,
+   "missing_keys": [
+    "f1LKBoM9"
+   ]
+  },
+  {
+   "file": "F_LEADER_SKILL_MST_Ver749.json",
+   "fields": 5,
+   "covered": 4,
+   "pct": 80.0,
+   "missing_keys": [
+    "dJPf9a5v"
+   ]
+  },
+  {
+   "file": "F_SHOP_ITEM_MST_Ver9.json",
+   "fields": 10,
+   "covered": 8,
+   "pct": 80.0,
+   "missing_keys": [
+    "29MgiJIQ",
+    "T1IxCpTF"
+   ]
+  },
+  {
+   "file": "F_SU_ABILITY_MST_Ver25.json",
+   "fields": 5,
+   "covered": 4,
+   "pct": 80.0,
+   "missing_keys": [
+    "5pkWU4yH"
+   ]
+  },
+  {
+   "file": "F_SU_ELEMENT_LEVEL_MST_Ver15.json",
+   "fields": 5,
+   "covered": 4,
+   "pct": 80.0,
+   "missing_keys": [
+    "SWfnWyuQ"
+   ]
+  },
+  {
+   "file": "F_UNIT_EVO_OMNI_TYPE_MST_Ver95.json",
+   "fields": 5,
+   "covered": 4,
+   "pct": 80.0,
+   "missing_keys": [
+    "s049sdck"
+   ]
+  },
+  {
+   "file": "F_SU_ARM_MST_Ver16.json",
+   "fields": 6,
+   "covered": 5,
+   "pct": 83.3,
+   "missing_keys": [
+    "oO1opB6Z"
+   ]
+  },
+  {
+   "file": "F_MEDAL_MST_Ver4.json",
+   "fields": 7,
+   "covered": 6,
+   "pct": 85.7,
+   "missing_keys": [
+    "VPf7t9rK"
+   ]
+  },
+  {
+   "file": "F_UNKNOWN_ni16xAsw_MST_Ver14.json",
+   "fields": 7,
+   "covered": 6,
+   "pct": 85.7,
+   "missing_keys": [
+    "faf4s25C"
+   ]
+  },
+  {
+   "file": "F_SU_LEVEL_MST_Ver12.json",
+   "fields": 10,
+   "covered": 9,
+   "pct": 90.0,
+   "missing_keys": [
+    "iIDqD50O"
+   ]
+  },
+  {
+   "file": "F_BANNER_INFO_MST_Ver87.json",
+   "fields": 9,
+   "covered": 9,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_CHLNG_MISSION_GRADE_MST_Ver1.json",
+   "fields": 3,
+   "covered": 3,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_CHLNG_MISSION_ITEM_SET_MST_Ver2.json",
+   "fields": 4,
+   "covered": 4,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_CHLNG_MISSION_MST_Ver1.json",
+   "fields": 7,
+   "covered": 7,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_CHLNG_MISSION_REWARD_MST_Ver1.json",
+   "fields": 7,
+   "covered": 7,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_EXTRA_PASSIVE_SKILL_MST_Ver770.json",
+   "fields": 12,
+   "covered": 12,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_MISSION_EP3_MST_Ver57.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_MISSION_MST_1_Ver1118.json",
+   "fields": 36,
+   "covered": 36,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_MISSION_MST_2_Ver1118.json",
+   "fields": 36,
+   "covered": 36,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_MISSION_NPC_UNIT_MST_Ver212.json",
+   "fields": 19,
+   "covered": 19,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_MISSION_SCRIPT_MST_Ver288.json",
+   "fields": 3,
+   "covered": 3,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_RECIPE_MST_Ver345.json",
+   "fields": 10,
+   "covered": 10,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_LEVEL_MST_1_Ver1487.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_LEVEL_MST_2_Ver1487.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_LEVEL_MST_3_Ver1487.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_LEVEL_MST_4_Ver1487.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_1_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_2_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_3_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_4_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_5_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_6_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_7_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_8_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SKILL_MST_9_Ver1535.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_SU_ARM_ELEMENT_MST_Ver16.json",
+   "fields": 16,
+   "covered": 16,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNIT_CGS_MST_Ver811.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNIT_MST_1_Ver1084.json",
+   "fields": 60,
+   "covered": 60,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNIT_MST_2_Ver1084.json",
+   "fields": 60,
+   "covered": 60,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNKNOWN_Jba1QEOD_MST_Ver503.json",
+   "fields": 6,
+   "covered": 6,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNKNOWN_SBcq4h6J_MST_Ver1.json",
+   "fields": 3,
+   "covered": 3,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNKNOWN_Sf8jpQ0V_MST_Ver15.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNKNOWN_aIG5sQwe_MST_Ver22.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "F_UNKNOWN_pRo1Azab_MST_Ver19.json",
+   "fields": 3,
+   "covered": 3,
+   "pct": 100.0,
+   "missing_keys": []
+  }
+ ],
+ "deploy": [
+  {
+   "file": "pvp_fixed_setting_mst.json",
+   "fields": 24,
+   "covered": 1,
+   "pct": 4.2,
+   "missing_keys": [
+    "0HL6ujld",
+    "2QxsR0hy",
+    "4s95TBoj",
+    "6luDhf9o",
+    "6pXtgtPA",
+    "CuVhQmOv",
+    "EeZ8VYuI",
+    "KFJBwYbR",
+    "OiVfjAUf",
+    "Pf0mF6gK",
+    "PlaeXUOH",
+    "XNwxUiRr",
+    "ZmG6sGxv",
+    "aYJ8ALCR",
+    "absaNyoQ",
+    "b7KUiAfA",
+    "c6oqlnlT",
+    "clwU9Ona",
+    "dnqyyMg6",
+    "oaKBPw9e",
+    "sKf4Koy4",
+    "uFheXxzX",
+    "y2SlttSX"
+   ]
+  },
+  {
+   "file": "unit_type_mst.json",
+   "fields": 9,
+   "covered": 1,
+   "pct": 11.1,
+   "missing_keys": [
+    "2M4mQZgk",
+    "6D3YN9rc",
+    "76IHLVsz",
+    "7N1smiod",
+    "ChD5b0jR",
+    "LBY10TPU",
+    "Sj9zR38K",
+    "Z3ocmb5J"
+   ]
+  },
+  {
+   "file": "unit_evo_mst.json",
+   "fields": 25,
+   "covered": 3,
+   "pct": 12.0,
+   "missing_keys": [
+    "0tna4Idu",
+    "18Oz7z8k",
+    "2BFgYLjg",
+    "3g8brFoq",
+    "6GwnugW3",
+    "74VFwuTd",
+    "7MxucW2J",
+    "85X6JHQA",
+    "EK7jR4rB",
+    "Hb8yfmv7",
+    "IZUvR489",
+    "MVidsUNV",
+    "Voht18AP",
+    "Xyt6rhx2",
+    "agp4CKEV",
+    "bNRUuatB",
+    "eKPWNoLn",
+    "hdF8ND2H",
+    "j7fTS3ca",
+    "nB7pFdR0",
+    "wh3YRU08",
+    "yY3Mvp51"
+   ]
+  },
+  {
+   "file": "unit_ext_mst.json",
+   "fields": 5,
+   "covered": 1,
+   "pct": 20.0,
+   "missing_keys": [
+    "0H1hV6iD",
+    "FKVRt01T",
+    "VS7df4oH",
+    "dyFUE5fN"
+   ]
+  },
+  {
+   "file": "unit_fe_category_mst.json",
+   "fields": 17,
+   "covered": 4,
+   "pct": 23.5,
+   "missing_keys": [
+    "0tna4Idu",
+    "6GwnugW3",
+    "7MxucW2J",
+    "85X6JHQA",
+    "Hb8yfmv7",
+    "VgU78CYj",
+    "XLSB42ED",
+    "Xyt6rhx2",
+    "hdF8ND2H",
+    "j7fTS3ca",
+    "kvSPgNAk",
+    "nB7pFdR0",
+    "wh3YRU08"
+   ]
+  },
+  {
+   "file": "unit_comment_mst.json",
+   "fields": 7,
+   "covered": 2,
+   "pct": 28.6,
+   "missing_keys": [
+    "0pMem1xg",
+    "ZEzhmS53",
+    "fBg92Ki7",
+    "gb0qGa1W",
+    "gkVH5p8r"
+   ]
+  },
+  {
+   "file": "unit_fe_skill_mst.json",
+   "fields": 7,
+   "covered": 2,
+   "pct": 28.6,
+   "missing_keys": [
+    "7XYkj2EU",
+    "FHThxDv4",
+    "VgU78CYj",
+    "kXes8fSi",
+    "ri6D9yBi"
+   ]
+  },
+  {
+   "file": "gate_mst.json",
+   "fields": 15,
+   "covered": 5,
+   "pct": 33.3,
+   "missing_keys": [
+    "0Cq2AlXW",
+    "5vZPshoA",
+    "CvVtDnVM",
+    "bagWQVt9",
+    "gW70zeZ5",
+    "iP4oueV8",
+    "ip4q1qC7",
+    "jfN15EdJ",
+    "uYHZWC73",
+    "v0OseM39"
+   ]
+  },
+  {
+   "file": "unit_evo_omni_mst.json",
+   "fields": 5,
+   "covered": 2,
+   "pct": 40.0,
+   "missing_keys": [
+    "K4d9sl4s",
+    "ddD4lsc1",
+    "js95kdsL"
+   ]
+  },
+  {
+   "file": "item_mst.json",
+   "fields": 28,
+   "covered": 12,
+   "pct": 42.9,
+   "missing_keys": [
+    "0UwMg18F",
+    "2C7LDzYk",
+    "6E2fGPWT",
+    "92udyUrJ",
+    "97yTNbfr",
+    "EIN6D3xJ",
+    "LH7JB1xI",
+    "Mt3Y0bo5",
+    "PEhNd0B4",
+    "ZKQ1X69a",
+    "c7Z6xDB2",
+    "h0K7wjeH",
+    "kP3zJ9Ra",
+    "m9gd5h1u",
+    "rNmJkH6K",
+    "t1i2vIbT"
+   ]
+  },
+  {
+   "file": "unit_evo_omni_recipe_mst.json",
+   "fields": 7,
+   "covered": 3,
+   "pct": 42.9,
+   "missing_keys": [
+    "0dk4sldr",
+    "48sldkcm",
+    "Odks40sl",
+    "s049sdck"
+   ]
+  },
+  {
+   "file": "area_mst.json",
+   "fields": 14,
+   "covered": 8,
+   "pct": 57.1,
+   "missing_keys": [
+    "3SG2wX0R",
+    "3v1qg7Uj",
+    "H0UB8pqm",
+    "V84mzqoX",
+    "gq73WFmj",
+    "sHMai2ZG"
+   ]
+  },
+  {
+   "file": "unit_ep3_mst.json",
+   "fields": 5,
+   "covered": 3,
+   "pct": 60.0,
+   "missing_keys": [
+    "XFD1gtfo",
+    "gg69JHMH"
+   ]
+  },
+  {
+   "file": "help_detail_mst.json",
+   "fields": 6,
+   "covered": 4,
+   "pct": 66.7,
+   "missing_keys": [
+    "a3IgzZ0q",
+    "f1LKBoM9"
+   ]
+  },
+  {
+   "file": "leader_skill_mst.json",
+   "fields": 6,
+   "covered": 4,
+   "pct": 66.7,
+   "missing_keys": [
+    "2bGtP7vV",
+    "dJPf9a5v"
+   ]
+  },
+  {
+   "file": "mission_ep3_mst.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "vE0Qdg33"
+   ]
+  },
+  {
+   "file": "skill_level_mst.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "3ktU0D2e"
+   ]
+  },
+  {
+   "file": "unit_cgs_mst.json",
+   "fields": 3,
+   "covered": 2,
+   "pct": 66.7,
+   "missing_keys": [
+    "07bx6EXN"
+   ]
+  },
+  {
+   "file": "unit_evo_omni_type_mst.json",
+   "fields": 6,
+   "covered": 4,
+   "pct": 66.7,
+   "missing_keys": [
+    "34d0Slkf",
+    "s049sdck"
+   ]
+  },
+  {
+   "file": "dungeon_mst.json",
+   "fields": 18,
+   "covered": 13,
+   "pct": 72.2,
+   "missing_keys": [
+    "01pzrTCm",
+    "0u1nvMeS",
+    "21VKZo0E",
+    "3hPeI1RV",
+    "bWsLFP96"
+   ]
+  },
+  {
+   "file": "shop_item_mst.json",
+   "fields": 11,
+   "covered": 8,
+   "pct": 72.7,
+   "missing_keys": [
+    "29MgiJIQ",
+    "5DXlaudE",
+    "T1IxCpTF"
+   ]
+  },
+  {
+   "file": "medal_mst.json",
+   "fields": 8,
+   "covered": 6,
+   "pct": 75.0,
+   "missing_keys": [
+    "GHUsyi76",
+    "VPf7t9rK"
+   ]
+  },
+  {
+   "file": "gacha_category_mst.json",
+   "fields": 7,
+   "covered": 6,
+   "pct": 85.7,
+   "missing_keys": [
+    "IBs49NiH"
+   ]
+  },
+  {
+   "file": "skill_mst.json",
+   "fields": 21,
+   "covered": 20,
+   "pct": 95.2,
+   "missing_keys": [
+    "8aiBoHg5"
+   ]
+  },
+  {
+   "file": "mission_mst.json",
+   "fields": 37,
+   "covered": 36,
+   "pct": 97.3,
+   "missing_keys": [
+    "oXeC1Ak9"
+   ]
+  },
+  {
+   "file": "unit_mst.json",
+   "fields": 61,
+   "covered": 60,
+   "pct": 98.4,
+   "missing_keys": [
+    "2r9cNSdt"
+   ]
+  },
+  {
+   "file": "arena_rank_mst.json",
+   "fields": 8,
+   "covered": 8,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "banner_info_mst.json",
+   "fields": 10,
+   "covered": 10,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "brave_slots.json",
+   "fields": 10,
+   "covered": 10,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "challenge_hr_mst.json",
+   "fields": 7,
+   "covered": 7,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "challenge_mst.json",
+   "fields": 14,
+   "covered": 14,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "challenge_mvp_mst.json",
+   "fields": 7,
+   "covered": 7,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "challenge_rank_reward_mst.json",
+   "fields": 11,
+   "covered": 11,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "chlng_mission_grade_mst.json",
+   "fields": 4,
+   "covered": 4,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "chlng_mission_item_set_mst.json",
+   "fields": 5,
+   "covered": 5,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "chlng_mission_mst.json",
+   "fields": 11,
+   "covered": 11,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "chlng_mission_reward_mst.json",
+   "fields": 8,
+   "covered": 8,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "daily_task_bonus_mst.json",
+   "fields": 1,
+   "covered": 1,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "daily_task_mst.json",
+   "fields": 10,
+   "covered": 10,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "daily_task_prize_mst.json",
+   "fields": 13,
+   "covered": 13,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "defines_mst.json",
+   "fields": 82,
+   "covered": 82,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "dungeon_key_mst.json",
+   "fields": 14,
+   "covered": 14,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "excluded_dungeon_mission_mst.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "extra_passive_skill_mst.json",
+   "fields": 13,
+   "covered": 13,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "first_desc_mst.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "gacha_effect_mst.json",
+   "fields": 9,
+   "covered": 9,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "gacha_info_mst.json",
+   "fields": 24,
+   "covered": 24,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "gacha_mst.json",
+   "fields": 20,
+   "covered": 20,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "general_event_mst.json",
+   "fields": 5,
+   "covered": 5,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "gift_item_mst.json",
+   "fields": 8,
+   "covered": 8,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "help_mst.json",
+   "fields": 3,
+   "covered": 3,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "help_sub_mst.json",
+   "fields": 4,
+   "covered": 4,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "information_mst.json",
+   "fields": 3,
+   "covered": 3,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "interactive_banner_info_mst.json",
+   "fields": 7,
+   "covered": 7,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "login_campaign_mst.json",
+   "fields": 4,
+   "covered": 4,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "login_campaign_reward_mst.json",
+   "fields": 4,
+   "covered": 4,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "notice_info.json",
+   "fields": 2,
+   "covered": 2,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "npc_mst.json",
+   "fields": 7,
+   "covered": 7,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "recipe_mst.json",
+   "fields": 11,
+   "covered": 11,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "resummon_gacha_mst.json",
+   "fields": 9,
+   "covered": 9,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "sound_mst.json",
+   "fields": 7,
+   "covered": 7,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "summon_ticket_v2_mst.json",
+   "fields": 6,
+   "covered": 6,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "town_facility_lv_mst.json",
+   "fields": 5,
+   "covered": 5,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "town_facility_mst.json",
+   "fields": 8,
+   "covered": 8,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "town_location_lv_mst.json",
+   "fields": 14,
+   "covered": 14,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "town_location_mst.json",
+   "fields": 9,
+   "covered": 9,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "trophy_grade_mst.json",
+   "fields": 5,
+   "covered": 5,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "trophy_group_mst.json",
+   "fields": 5,
+   "covered": 5,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "trophy_mst.json",
+   "fields": 6,
+   "covered": 6,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "unit_exp_pattern_mst.json",
+   "fields": 4,
+   "covered": 4,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "url_mst.json",
+   "fields": 28,
+   "covered": 28,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "user_level_mst.json",
+   "fields": 8,
+   "covered": 8,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "version_info_mst.json",
+   "fields": 6,
+   "covered": 6,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "video_ad_info_mst.json",
+   "fields": 6,
+   "covered": 6,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "video_ad_region_mst.json",
+   "fields": 3,
+   "covered": 3,
+   "pct": 100.0,
+   "missing_keys": []
+  },
+  {
+   "file": "video_ad_slot_game_info_mst.json",
+   "fields": 4,
+   "covered": 4,
+   "pct": 100.0,
+   "missing_keys": []
+  }
+ ]
+}
