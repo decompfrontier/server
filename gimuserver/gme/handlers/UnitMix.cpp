@@ -163,43 +163,6 @@ static int unitMix_levelFromExp(const std::vector<UnitExpPatternMst>& pat,
     return level;
 }
 
-static UserTeamInfo unitMix_buildTeamInfo(const drogon::orm::Row& row,
-                                           const std::vector<UserLevelMst>& prog)
-{
-    const int32_t level = row["level"].as<int32_t>();
-    const UserLevelMst* lv = nullptr;
-    for (const auto& e : prog) { if (e.level == level) { lv = &e; break; } }
-
-    UserTeamInfo ti = {};
-    ti.user_id              = "0839899613932562";
-    ti.level                = level;
-    ti.exp                  = row["exp"].as<int64_t>();
-    ti.zel                  = row["zel"].as<int64_t>();
-    ti.karma                = row["karma"].as<int64_t>();
-    ti.brave_coin           = row["brave_coin"].as<int32_t>();
-    ti.energy         = row["energy"].as<int32_t>();
-    ti.max_action_point     = lv ? lv->energy    : 100;
-    ti.deck_cost            = lv ? lv->deck_cost        : 20;
-    ti.max_friend_count     = lv ? lv->friend_count     : 50;
-    ti.add_friend_count     = lv ? lv->add_friend_count : 0;
-    ti.max_unit_count       = row["max_unit_count"].as<int32_t>();
-    ti.warehouse_count      = row["max_warehouse_count"].as<int32_t>();
-    ti.active_deck          = row["active_deck"].as<int32_t>();
-    ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
-    ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
-    ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_points"].as<int32_t>();
-    ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
-    ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
-    ti.want_gift            = row["want_gift"].as<std::string>();
-    ti.paid_gems            = row["paid_gems"].as<int32_t>();
-    ti.free_gems            = row["free_gems"].as<int32_t>();
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    return ti;
-}
-
 // ---------------------------------------------------------------------------
 // Handler
 // ---------------------------------------------------------------------------
@@ -251,7 +214,7 @@ HANDLEF(UnitMix)
 
     // Step 1: SELECT base unit full stats.
     const auto baseRows = co_await theDb()->execSqlCoro(
-        "SELECT id, unit_id, total_exp,"
+        "SELECT user_unit_id, unit_id, total_exp,"
         " base_hp, base_atk, base_def, base_heal,"
         " add_hp, add_atk, add_def, add_heal,"
         " ext_hp, ext_atk, ext_def, ext_heal,"
@@ -345,9 +308,12 @@ HANDLEF(UnitMix)
         newLevel, newExp, newTotalExp, baseId, std::string(kUserId)
     );
 
-    // Step 4: DELETE material units.
+    // Step 4: return spheres equipped on the fodder, then DELETE the material
+    // units — deleting without the return would destroy the equipped items.
     if (!matIds.empty())
     {
+        co_await gme::returnEquippedSpheres(
+            theDb(), gme::UserIdentity{ .userId = std::string(kUserId) }, matList);
         co_await theDb()->execSqlCoro(
             "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + matList + ");",
             std::string(kUserId)
@@ -363,14 +329,6 @@ HANDLEF(UnitMix)
         );
     }
 
-    // Step 6: fetch fresh user_info for team_info.
-    const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
-        " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM user_info WHERE id=$1;",
-        std::string(kUserId)
-    );
 
     // Build response.
     UnitMixRespBody resp = {};
@@ -405,7 +363,7 @@ HANDLEF(UnitMix)
     {
         UserUnitInfo ud = {};
         ud.user_id            = std::string(kUserId);
-        ud.user_unit_id       = br["id"].as<int32_t>();
+        ud.user_unit_id       = br["user_unit_id"].as<int32_t>();
         ud.unit_id            = baseMstIdInt;
         ud.unit_type_id       = br["unit_type_id"].as<int32_t>();
         ud.unit_lvl            = newLevel;
@@ -443,10 +401,9 @@ HANDLEF(UnitMix)
         resp.unit_update.emplace_back(std::move(ud));
     }
 
-    resp.team_info = unitMix_buildTeamInfo(
-        infoRows.at(0),
-        theServer()->cache().initializeResp().progression
-    );
+    resp.team_info = std::move(
+        (co_await gme::getTeamInfo(theDb(),
+            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
 
     std::string buffer{};
     if (const auto& ec2 = glz::write_json(resp, buffer); ec2)

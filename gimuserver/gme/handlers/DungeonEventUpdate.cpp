@@ -12,14 +12,8 @@ HANDLEF(DungeonEventUpdate)
     co_return HandleResult::success("{}");
 }
 
-// GetScenarioPlayingInfo (VRfsv4e3 / Bh4WqR01) — queried alongside the
-// opening cutscene flow to check scenario progress state.  Original handler
-// returns {}.
-HANDLEF(GetScenarioPlayingInfo)
-{
-    LOG_INFO << "GetScenarioPlayingInfo: " << json;
-    co_return HandleResult::success("{}");
-}
+// GetScenarioPlayingInfo now lives in Scenario.cpp — it returns the real
+// viewed-cutscene set from user_scenarios instead of the old {} stub.
 
 // UpdatePermitPlaceInfo (1MJT6L3W / 3zip5Htw) — sent after entering an
 // area to refresh the server-side permit-place allow-list.  Original handler

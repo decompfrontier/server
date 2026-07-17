@@ -57,43 +57,6 @@ static std::string unitSell_stripSuffix(const std::string& raw)
     return (pos != std::string::npos) ? raw.substr(0, pos) : raw;
 }
 
-static UserTeamInfo unitSell_buildTeamInfo(const drogon::orm::Row& row,
-                                            const std::vector<UserLevelMst>& prog)
-{
-    const int32_t level = row["level"].as<int32_t>();
-    const UserLevelMst* lv = nullptr;
-    for (const auto& e : prog) { if (e.level == level) { lv = &e; break; } }
-
-    UserTeamInfo ti = {};
-    ti.user_id              = "0839899613932562";
-    ti.level                = level;
-    ti.exp                  = row["exp"].as<int64_t>();
-    ti.zel                  = row["zel"].as<int64_t>();
-    ti.karma                = row["karma"].as<int64_t>();
-    ti.brave_coin           = row["brave_coin"].as<int32_t>();
-    ti.energy         = row["energy"].as<int32_t>();
-    ti.max_action_point     = lv ? lv->energy    : 100;
-    ti.deck_cost            = lv ? lv->deck_cost        : 20;
-    ti.max_friend_count     = lv ? lv->friend_count     : 50;
-    ti.add_friend_count     = lv ? lv->add_friend_count : 0;
-    ti.max_unit_count       = row["max_unit_count"].as<int32_t>();
-    ti.warehouse_count      = row["max_warehouse_count"].as<int32_t>();
-    ti.active_deck          = row["active_deck"].as<int32_t>();
-    ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
-    ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
-    ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_points"].as<int32_t>();
-    ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
-    ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
-    ti.want_gift            = row["want_gift"].as<std::string>();
-    ti.paid_gems            = row["paid_gems"].as<int32_t>();
-    ti.free_gems            = row["free_gems"].as<int32_t>();
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    return ti;
-}
-
 // ---------------------------------------------------------------------------
 // Handler
 // ---------------------------------------------------------------------------
@@ -150,7 +113,11 @@ HANDLEF(UnitSell)
 
     LOG_INFO << "UnitSell: selling " << unitRows.size() << " units, total zel gain=" << totalZel;
 
-    // Step 2: delete sold units.
+    // Step 2: return any spheres equipped on the sold units to the warehouse,
+    // then delete the units.  Without the return, the equipped items would be
+    // destroyed with the row.
+    co_await gme::returnEquippedSpheres(
+        theDb(), gme::UserIdentity{ .userId = kUserId }, idList);
     co_await theDb()->execSqlCoro(
         "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + idList + ");",
         std::string(kUserId)
@@ -162,20 +129,10 @@ HANDLEF(UnitSell)
         totalZel, std::string(kUserId)
     );
 
-    // Step 4: fetch fresh user_info to build accurate team_info.
-    const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
-        " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM user_info WHERE id=$1;",
-        std::string(kUserId)
-    );
-
     UnitSellRespBody resp = {};
-    resp.team_info = unitSell_buildTeamInfo(
-        infoRows.at(0),
-        theServer()->cache().initializeResp().progression
-    );
+    resp.team_info = std::move(
+        (co_await gme::getTeamInfo(theDb(),
+            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
 
     std::string buffer{};
     if (const auto& ec2 = glz::write_json(resp, buffer); ec2)

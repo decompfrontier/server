@@ -91,6 +91,11 @@ namespace GmeHandlers
 	HANDLE(HomeInfo);
 	HANDLE(MissionEnd);
 	HANDLE(MissionStart);
+	HANDLE(ItemEdit);
+	HANDLE(ItemSphereEqp);
+	HANDLE(ItemFavorite);
+	HANDLE(ItemSell);
+	HANDLE(ItemMix);
 	HANDLE(NgwordCheck);
 	HANDLE(CreateUser);
 	HANDLE(TutorialSkip);
@@ -115,6 +120,7 @@ namespace GmeHandlers
 	HANDLE(FixGiftInfo);
 	HANDLE(DungeonEventUpdate);
 	HANDLE(GetScenarioPlayingInfo);
+	HANDLE(RaidUpScenarioInfo);
 	HANDLE(UpdatePermitPlaceInfo);
 	HANDLE(UpdateEventInfo);
 	HANDLE(Chronology);

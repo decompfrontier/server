@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // TownFacilityUpdate (8v43tz7g) — fired when the player confirms a batch of
 // facility/location upgrades.  The client sends the COMPLETE desired new state
 // for ALL facilities + locations plus the total karma cost of the batch.
@@ -25,21 +27,31 @@ HANDLEF(TownFacilityUpdate)
         co_return HandleResult::success("{}");
     }
 
-    const std::string userId    = "0839899613932562";
+    // Resolve the tutorial-created user; the old hardcoded id matched no rows
+    // under the fresh-DB model, so upgrades and karma deduction silently no-op'd.
+    const std::string userId    = co_await gme::getSoleUserId(theDb());
+    if (userId.empty())
+    {
+        co_return HandleResult::success("{}");
+    }
     const int64_t karmaCost     = req.karma_payment.karma;
 
-    // Persist each facility's new level.
+    // Persist each facility's new level.  UPSERT: the natural-progression
+    // model no longer seeds town rows, so the first update for a facility may
+    // arrive before any row exists (row creation normally happens via the
+    // town unlock provisioning).
     for (const auto& f : req.facilities)
     {
         try
         {
             co_await theDb()->execSqlCoro(
-                "UPDATE user_town_facilities SET lv=$1 WHERE user_id=$2 AND facility_id=$3;",
-                f.lv, userId, f.facility_id);
+                "INSERT INTO user_town_facilities (user_id, facility_id, lv) VALUES ($1, $2, $3) "
+                "ON CONFLICT(user_id, facility_id) DO UPDATE SET lv=$3;",
+                userId, f.facility_id, f.lv);
         }
         catch (const drogon::orm::DrogonDbException& ex)
         {
-            LOG_WARN << "TownFacilityUpdate: facility UPDATE failed (id=" << f.facility_id
+            LOG_WARN << "TownFacilityUpdate: facility UPSERT failed (id=" << f.facility_id
                      << "): " << ex.base().what();
         }
     }
@@ -50,12 +62,13 @@ HANDLEF(TownFacilityUpdate)
         try
         {
             co_await theDb()->execSqlCoro(
-                "UPDATE user_town_locations SET lv=$1 WHERE user_id=$2 AND location_id=$3;",
-                l.lv, userId, l.location_id);
+                "INSERT INTO user_town_locations (user_id, location_id, lv) VALUES ($1, $2, $3) "
+                "ON CONFLICT(user_id, location_id) DO UPDATE SET lv=$3;",
+                userId, l.location_id, l.lv);
         }
         catch (const drogon::orm::DrogonDbException& ex)
         {
-            LOG_WARN << "TownFacilityUpdate: location UPDATE failed (id=" << l.location_id
+            LOG_WARN << "TownFacilityUpdate: location UPSERT failed (id=" << l.location_id
                      << "): " << ex.base().what();
         }
     }

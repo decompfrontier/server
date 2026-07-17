@@ -81,6 +81,11 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("NiYWKdzs", HomeInfo, "f6uOewOD");
 	REGISTER("9TvyNR5H", MissionEnd, "oINq0rfUFPx5MgmT");
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
+	REGISTER("ruoB7bD8", ItemEdit, "DHEfRexCu0q5TAQm");
+	REGISTER("0IXGiC9t", ItemSphereEqp, "CZE56XAY");
+	REGISTER("I8il6EiI", ItemFavorite, "aRoIftRy");
+	REGISTER("qDQerU74", ItemSell, "73aFNjPu");
+	REGISTER("4P5GELTF", ItemMix, "AFqKIJ8Z4mHPB9xg");
 	REGISTER("TA4MnZX8", NgwordCheck, "r4Smw5TX");
 	REGISTER("uV6yH5MX", CreateUser, "4agnATy2DrJsWzQk");
 	REGISTER("d36DaiJl", TutorialSkip, "p3qD61db");
@@ -112,6 +117,7 @@ static GmeHandler getHandler(std::string_view cmd)
 	// World-map / Grand Gaia entry sequence stubs.
 	REGISTER("BjAt1D6b", DungeonEventUpdate,     "k5EiNe9x");
 	REGISTER("VRfsv4e3", GetScenarioPlayingInfo, "Bh4WqR01");
+	REGISTER("R38qvphm", RaidUpScenarioInfo,     "72EyFbW8");
 	REGISTER("1MJT6L3W", UpdatePermitPlaceInfo,  "3zip5Htw");
 	REGISTER("rCB7ZI8x", UpdateEventInfo,        "L1o4eGbi");
 	REGISTER("5o8ZlDGX", Chronology,             "SNrhAG29");

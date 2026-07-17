@@ -9,6 +9,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <mutex>
 #include <optional>
 #include <string>
 #include <unordered_map>
@@ -39,6 +40,23 @@ public:
 	* @param serverObj Server configuration object from the Drogon plugin config.
 	*/
 	void setup(const Json::Value& serverObj);
+
+	/// Outcome of a hot-reload, for the authoring-tool endpoint.
+	struct ReloadResult {
+		bool ok = false;
+		size_t missions = 0;
+		size_t ais = 0;
+		std::string error;
+	};
+
+	/*!
+	* Re-reads mission.json + ai.json from the archive root captured at setup()
+	* and atomically swaps the caches. Lets the mission-authoring tool load newly
+	* saved missions without a full server restart. Thread-safe against lookup().
+	*
+	* @return Counts on success, or ok=false with an error message.
+	*/
+	ReloadResult reload();
 
 	/*!
 	* Looks up a mission archive record.
@@ -162,7 +180,16 @@ private:
 	* @return Client-formatted mission drop info string.
 	*/
 	static std::string encodeMissionDropInfo(const MissionRecord& record);
-	
+
+	/*!
+	* Loads mission.json + ai.json from a root and swaps the caches under lock.
+	* Shared by setup() and reload().
+	*
+	* @param archiveRoot Directory holding the archive JSON files.
+	* @return Counts on success, or ok=false with an error message.
+	*/
+	ReloadResult loadFromRoot(const std::string& archiveRoot);
+
 	/*!
 	* Checks whether a treasure drop target type is supported.
 	*
@@ -184,6 +211,10 @@ private:
 		}
 	}
 
+	// Guards the caches so a hot-reload can't race a concurrent lookup/populate.
+	mutable std::mutex cacheMutex_;
+	// Archive directory captured at setup() so reload() can re-read the files.
+	std::string archiveRoot_;
 	MissionRecordCache missionCache_;
 	AiRecordCache aiCache_;
 };

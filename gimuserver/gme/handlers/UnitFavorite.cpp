@@ -1,6 +1,8 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/gme/common/Common.hpp>
+
 // Toggle the favorite/lock flag on user_units. Old fork only echoed the flag
 // back without persisting; this port also writes favorite_flg to user_units
 // so the state survives across sessions. Persistence is best-effort: if the
@@ -9,7 +11,9 @@
 HANDLEF(UnitFavorite)
 {
 	UnitFavoriteReq req = {};
-	if (const auto& ec = glz::read_json(req, json); ec)
+	// Lenient read: the request also carries login_info / MST-version blocks the
+	// struct doesn't declare (§4.4) — strict parsing rejects them as unknown_key.
+	if (const auto& ec = glz::read<glz::opts{ .error_on_unknown_keys = false }>(req, json); ec)
 	{
 		const auto& fmte = glz::format_error(ec, json);
 		LOG_DEBUG << "Gme UnitFavorite Error during JSON read: " << fmte;
@@ -21,9 +25,14 @@ HANDLEF(UnitFavorite)
 		co_return HandleResult::error("UnitFavorite: empty entries");
 	}
 
-	// TODO: replace with session-derived user id once auth is wired up.
-	// Matches the placeholder used elsewhere in this tree (UserInfo.cpp).
-	const std::string userId = "0839899613932562";
+	// Resolve the single offline user created by the tutorial. The old
+	// hardcoded placeholder matched zero rows under the fresh-DB dynamic id, so
+	// favorites never persisted.
+	const std::string userId = co_await gme::getSoleUserId(theDb());
+	if (userId.empty())
+	{
+		co_return HandleResult::error("UnitFavorite: no user");
+	}
 
 	for (const auto& e : req.entries)
 	{

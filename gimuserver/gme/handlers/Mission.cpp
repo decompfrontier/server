@@ -4,6 +4,7 @@
 #include <gimuserver/archive/MissionArchiver.hpp>
 #include <gimuserver/gme/common/Common.hpp>
 
+#include <chrono>
 #include <sstream>
 #include <utility>
 #include <vector>
@@ -264,6 +265,28 @@ HANDLEF(MissionEnd)
 						db::Lookup("gumi_user_id", identity.gumiUserId),
 						db::Lookup("id", identity.userId),
 					})).nonEmpty();
+			}
+
+			// Record the clear in the mission clear-history
+			// (user_campaign_missions, state=2).  UserInfo reports this set as
+			// UT1SVg59 (UserClearMissionInfo) — the list the client evaluates
+			// feature unlocks against (F_FUNCTION_RELEASE_MST conditions and
+			// the hardcoded town/early-feature gates), so every victorious
+			// MissionEnd must land here.
+			{
+				const auto clearedAt = static_cast<int64_t>(
+					std::chrono::duration_cast<std::chrono::seconds>(
+						std::chrono::system_clock::now().time_since_epoch()).count());
+				co_await transaction->execSqlCoro(
+					"INSERT INTO user_campaign_missions"
+					" (user_id, mission_id, state, attain_percent, clear_count, last_cleared_at)"
+					" VALUES ($1, $2, 2, 100, 1, $3)"
+					" ON CONFLICT(user_id, mission_id) DO UPDATE SET"
+					" state=2, attain_percent=100,"
+					" clear_count=clear_count+1, last_cleared_at=$3;",
+					identity.userId,
+					std::to_string(req.mission_num.serial_id),
+					clearedAt);
 			}
 
 			auto loginInfo = std::move((co_await gme::getLoginInfo(transaction, identity)).nonEmpty());

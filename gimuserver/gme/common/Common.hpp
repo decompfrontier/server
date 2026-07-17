@@ -135,6 +135,44 @@ inline drogon::Task<db::InterfaceResult<>> addUserItem(
 }
 
 /*!
+* Returns any spheres equipped on soon-to-be-consumed units to the owner's
+* warehouse.
+*
+* UnitSell / UnitMix / UnitEvo delete user_units rows (sold units, fusion
+* fodder, evo materials).  Spheres equipped on those units are owned items —
+* deleting the row without this call would destroy them silently.  Call BEFORE
+* the DELETE, with the same pre-validated integer id list its IN clause uses.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that owns the units.
+* @param userUnitIdList Comma-joined user_unit_id list (validated integers).
+*/
+inline drogon::Task<void> returnEquippedSpheres(
+	const db::Database database,
+	const UserIdentity identity,
+	const std::string& userUnitIdList)
+{
+	if (!database || identity.userId.empty() || userUnitIdList.empty())
+		co_return;
+
+	const auto rows = co_await database->execSqlCoro(
+		"SELECT eqip_item_id, eqip_item_id2 FROM user_units "
+		"WHERE user_id = $1 AND user_unit_id IN (" + userUnitIdList + ");",
+		identity.userId);
+	for (const auto& row : rows)
+	{
+		for (const auto col : { "eqip_item_id", "eqip_item_id2" })
+		{
+			const auto itemId = row[col].as<uint32_t>();
+			if (itemId != 0)
+			{
+				co_await addUserItem(database, identity, itemId, 1);
+			}
+		}
+	}
+}
+
+/*!
 * Looks up player progression MST data for a specific user level.
 *
 * The progression cache is expected to be ordered by level, with level 1 at
@@ -344,6 +382,8 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 	{
 		packet.deck_cost = mst->deck_cost;
 		packet.max_action_point = mst->energy;
+		packet.max_friend_count = mst->friend_count;
+		packet.add_friend_count = mst->add_friend_count;
 	}
 
 	// Calculate the current energy points of the user.

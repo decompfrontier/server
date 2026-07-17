@@ -33,44 +33,6 @@ template<> struct glz::meta<CrTeamWrapper> {
     );
 };
 
-static UserTeamInfo campaignReceipt_buildTeamInfo(
-    const drogon::orm::Row& row,
-    const std::vector<UserLevelMst>& prog)
-{
-    const int32_t level = row["level"].as<int32_t>();
-    const UserLevelMst* lv = nullptr;
-    for (const auto& e : prog) { if (e.level == level) { lv = &e; break; } }
-
-    UserTeamInfo ti = {};
-    ti.user_id              = "0839899613932562";
-    ti.level                = level;
-    ti.exp                  = row["exp"].as<int64_t>();
-    ti.zel                  = row["zel"].as<int64_t>();
-    ti.karma                = row["karma"].as<int64_t>();
-    ti.brave_coin           = row["brave_coin"].as<int32_t>();
-    ti.energy         = row["energy"].as<int32_t>();
-    ti.max_action_point     = lv ? lv->energy    : 100;
-    ti.deck_cost            = lv ? lv->deck_cost        : 20;
-    ti.max_friend_count     = lv ? lv->friend_count     : 50;
-    ti.add_friend_count     = lv ? lv->add_friend_count : 0;
-    ti.max_unit_count       = row["max_unit_count"].as<int32_t>();
-    ti.warehouse_count      = row["max_warehouse_count"].as<int32_t>();
-    ti.active_deck          = row["active_deck"].as<int32_t>();
-    ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
-    ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
-    ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_points"].as<int32_t>();
-    ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
-    ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
-    ti.want_gift            = row["want_gift"].as<std::string>();
-    ti.paid_gems            = row["paid_gems"].as<int32_t>();
-    ti.free_gems            = row["free_gems"].as<int32_t>();
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    return ti;
-}
-
 HANDLEF(CampaignReceipt)
 {
     LOG_INFO << "CampaignReceipt: " << json;
@@ -118,23 +80,10 @@ HANDLEF(CampaignReceipt)
     }
 
     // Fetch fresh user_info and build fEi17cnx so the HUD updates.
-    const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
-        " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM user_info WHERE id=$1;",
-        std::string(kUserId));
-
-    if (infoRows.empty())
-    {
-        LOG_WARN << "CampaignReceipt: user_info not found — returning stub";
-        co_return HandleResult::success(R"({"4MCxgS5p":{"pCIRMw04":""}})");
-    }
-
     CrTeamWrapper tw{};
-    tw.team_info = campaignReceipt_buildTeamInfo(
-        infoRows[0],
-        theServer()->cache().initializeResp().progression);
+    tw.team_info = std::move(
+        (co_await gme::getTeamInfo(theDb(),
+            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
 
     std::string teamJson{};
     if (const auto ec = glz::write_json(tw, teamJson); ec)

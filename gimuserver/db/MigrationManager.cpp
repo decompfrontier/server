@@ -190,6 +190,21 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// Viewed-cutscene state: one row per scenario the user has watched.
+	// GetScenarioPlayingInfo returns this set (sBbp47fi) so the client skips
+	// already-seen cutscenes; RaidUpScenarioInfo appends to it.  Structural
+	// only — never seeded; a fresh account sees every cutscene once.
+	migrate("17072026_CreateUserScenariosTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_scenarios ("
+			"user_id     TEXT    NOT NULL,"
+			"scenario_id INTEGER NOT NULL,"
+			"viewed_at   INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, scenario_id)"
+			");"
+		);
+	});
+
 	migrate("25042026_CreateUserCampaignTables", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_campaign_missions ("

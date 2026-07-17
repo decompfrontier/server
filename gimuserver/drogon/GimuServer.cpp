@@ -93,18 +93,21 @@ void GimuServer::InsertUnitFromMst(drogon::orm::DbClientPtr db,
 	// $1=user_id, $2=unit_id, $3=hp, $4=atk, $5=def, $6=rec,
 	// $7=skill_id, $8=skill_lv, $9=extra_skill_id, $10=extra_skill_lv,
 	// $11=leader_skill_id, $12=element, $13=unit_type_id.
+	// base_rec ($6) is the quests-branch mirror of base_heal and is NOT NULL with
+	// no default, so it must be written explicitly or the insert fails.
 	db->execSqlSync(
 		"INSERT INTO user_units "
 		"(user_id, unit_id, unit_lv,"
 		" base_hp,  add_hp,  ext_hp,  limit_over_hp,"
 		" base_atk, add_atk, ext_atk, limit_over_atk,"
 		" base_def, add_def, ext_def, limit_over_def,"
-		" base_heal,add_heal,ext_heal,limit_over_heal,"
+		" base_rec, base_heal,add_heal,ext_heal,limit_over_heal,"
 		" exp, total_exp,"
 		" skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
 		" element, fe_bp, fe_max_usable_bp, unit_type_id) "
 		"VALUES ($1,$2,1,"
-		" $3,0,0,0, $4,0,0,0, $5,0,0,0, $6,0,0,0,"
+		" $3,0,0,0, $4,0,0,0, $5,0,0,0,"
+		" $6,$6,0,0,0,"
 		" 1,1,"
 		" $7,$8,$9,$10,$11,"
 		" $12,100,200,$13);",

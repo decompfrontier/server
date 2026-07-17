@@ -166,43 +166,6 @@ static std::string unitEvo_addSuffix(int32_t mstId)
     return std::to_string(mstId) + "_100";
 }
 
-static UserTeamInfo unitEvo_buildTeamInfo(const drogon::orm::Row& row,
-                                           const std::vector<UserLevelMst>& prog)
-{
-    const int32_t level = row["level"].as<int32_t>();
-    const UserLevelMst* lv = nullptr;
-    for (const auto& e : prog) { if (e.level == level) { lv = &e; break; } }
-
-    UserTeamInfo ti = {};
-    ti.user_id              = "0839899613932562";
-    ti.level                = level;
-    ti.exp                  = row["exp"].as<int64_t>();
-    ti.zel                  = row["zel"].as<int64_t>();
-    ti.karma                = row["karma"].as<int64_t>();
-    ti.brave_coin           = row["brave_coin"].as<int32_t>();
-    ti.energy         = row["energy"].as<int32_t>();
-    ti.max_action_point     = lv ? lv->energy    : 100;
-    ti.deck_cost            = lv ? lv->deck_cost        : 20;
-    ti.max_friend_count     = lv ? lv->friend_count     : 50;
-    ti.add_friend_count     = lv ? lv->add_friend_count : 0;
-    ti.max_unit_count       = row["max_unit_count"].as<int32_t>();
-    ti.warehouse_count      = row["max_warehouse_count"].as<int32_t>();
-    ti.active_deck          = row["active_deck"].as<int32_t>();
-    ti.summon_ticket        = row["summon_tickets"].as<int32_t>();
-    ti.rainbow_coin         = row["rainbow_coins"].as<int32_t>();
-    ti.colosseum_ticket     = row["colosseum_tickets"].as<int32_t>();
-    ti.friend_point         = row["friend_points"].as<int32_t>();
-    ti.brave_points_total   = row["total_brave_points"].as<int32_t>();
-    ti.current_brave_points = row["avail_brave_points"].as<int32_t>();
-    ti.want_gift            = row["want_gift"].as<std::string>();
-    ti.paid_gems            = row["paid_gems"].as<int32_t>();
-    ti.free_gems            = row["free_gems"].as<int32_t>();
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    ti.reinforcement_deck.emplace_back(0);
-    return ti;
-}
-
 static std::string unitEvo_elementStr(int e)
 {
     switch (e) {
@@ -278,7 +241,7 @@ HANDLEF(UnitEvo)
     // Step 1: SELECT current base unit (need IMP/ext/limitOver cols to preserve).
     // Also fetch unit_id so we can extract the original MST id for the animation.
     const auto baseRows = co_await theDb()->execSqlCoro(
-        "SELECT id, unit_id, add_hp, add_atk, add_def, add_heal,"
+        "SELECT user_unit_id, unit_id, add_hp, add_atk, add_def, add_heal,"
         " ext_hp, ext_atk, ext_def, ext_heal,"
         " limit_over_hp, limit_over_atk, limit_over_def, limit_over_heal,"
         " fe_bp, fe_max_usable_bp, unit_type_id,"
@@ -319,7 +282,7 @@ HANDLEF(UnitEvo)
         "UPDATE user_units SET"
         " unit_id=$1,"
         " unit_lv=1, exp=0, total_exp=0,"
-        " base_hp=$2,  base_atk=$3,  base_def=$4,  base_heal=$5,"
+        " base_hp=$2,  base_atk=$3,  base_def=$4,  base_heal=$5, base_rec=$5,"
         " add_hp=$6,   add_atk=$7,   add_def=$8,   add_heal=$9,"
         " leader_skill_id=$10, skill_id=$11, extra_skill_id=$12,"
         " skill_lv=1, extra_skill_lv=0,"
@@ -333,7 +296,8 @@ HANDLEF(UnitEvo)
         baseId, std::string(kUserId)
     );
 
-    // Step 3: DELETE evo material units.
+    // Step 3: return spheres equipped on the evo materials, then DELETE them —
+    // deleting without the return would destroy the equipped items.
     if (!matIds.empty())
     {
         std::string matList;
@@ -342,6 +306,8 @@ HANDLEF(UnitEvo)
             if (i) matList += ',';
             matList += std::to_string(matIds[i]);
         }
+        co_await gme::returnEquippedSpheres(
+            theDb(), gme::UserIdentity{ .userId = std::string(kUserId) }, matList);
         co_await theDb()->execSqlCoro(
             "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + matList + ");",
             std::string(kUserId)
@@ -357,15 +323,6 @@ HANDLEF(UnitEvo)
         );
     }
 
-    // Step 5: fresh user_info for team_info.
-    const auto infoRows = co_await theDb()->execSqlCoro(
-        "SELECT level, exp, zel, karma, brave_coin, 0 AS free_gems, gems AS paid_gems, energy,"
-        " max_unit_count, max_warehouse_count, summon_tickets, rainbow_coins,"
-        " colosseum_tickets, friend_points, total_brave_points, avail_brave_points,"
-        " active_deck, want_gift FROM user_info WHERE id=$1;",
-        std::string(kUserId)
-    );
-
     // Build response.
     UnitEvoRespBody resp = {};
 
@@ -380,7 +337,7 @@ HANDLEF(UnitEvo)
     {
         UserUnitInfo ud = {};
         ud.user_id             = std::string(kUserId);
-        ud.user_unit_id        = br["id"].as<int32_t>();
+        ud.user_unit_id        = br["user_unit_id"].as<int32_t>();
         ud.unit_id             = targetMstId;
         ud.unit_type_id        = br["unit_type_id"].as<int32_t>();
         ud.unit_lvl             = 1;
@@ -418,10 +375,9 @@ HANDLEF(UnitEvo)
         resp.unit_update.emplace_back(std::move(ud));
     }
 
-    resp.team_info = unitEvo_buildTeamInfo(
-        infoRows.at(0),
-        theServer()->cache().initializeResp().progression
-    );
+    resp.team_info = std::move(
+        (co_await gme::getTeamInfo(theDb(),
+            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
 
     {
         EvoReinforceEntry rd = {};
