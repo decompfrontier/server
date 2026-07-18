@@ -1,12 +1,14 @@
 #include "App.hpp"
 #include "Handlers.hpp"
 
+#include <gimuserver/archive/MissionArchiver.hpp>
 #include <gimuserver/gme/common/Common.hpp>
 #include <chrono>
+#include <optional>
 
 // CampaignBattleEnd (pTNB6yw3) — post-battle result handler.
-// Marks the mission cleared, credits a fixed zel reward, and returns a fresh
-// UserTeamInfo so the client HUD updates immediately.
+// Marks the mission cleared, credits the cleared mission's zel + karma from the
+// mission archive, and returns a fresh UserTeamInfo so the client HUD updates.
 //
 // Response keys:
 //   "fEi17cnx" — [UserTeamInfo]    — refreshes zel / energy in HUD
@@ -20,22 +22,21 @@
 //   2. UPDATE user_info SET zel = zel + <reward>
 //   3. UPDATE user_campaign_state SET active_mission_id=''
 
-// TODO: replace fixed reward with F_MISSION_MST per-mission reward lookup
-// (zel + karma + exp fields per mission_id).  Pairs with the MissionStart
-// MST loading TODO — once F_MISSION_MST is parsed at boot, key the reward
-// off the cleared mission_id from CampaignBattleEndReq.mission_id.
-static constexpr int64_t kBattleZelReward = 5000;
+// Client overflows zel/karma above this and resets to 0, so cap every credit.
+static constexpr int64_t kMaxZelKarma = 99'999'999LL;
 
 // ---------------------------------------------------------------------------
 // Minimal request struct — just enough to parse without aborting on the
 // IKqx1Cn9 envelope.  Real fields identified from first capture log.
 // ---------------------------------------------------------------------------
 struct CampaignBattleEndReq {
+    LoginInfoReq login_info;      // IKqx1Cn9 envelope — identifies the user
     std::string mission_id = "";  // j28VNcUW when present at top level
 };
 template <> struct glz::meta<CampaignBattleEndReq> {
     using T = CampaignBattleEndReq;
     static constexpr auto value = glz::object(
+        "IKqx1Cn9", pkg::glaze::single_array<&T::login_info>(),
         "j28VNcUW", &T::mission_id
     );
 };
@@ -64,17 +65,16 @@ HANDLEF(CampaignBattleEnd)
 {
     LOG_INFO << "CampaignBattleEnd: " << json;
 
-    // Transitional bridge: resolve the sole offline user at runtime
-    // (tutorial-created).  TODO port to gme::getUserIdentity.
-    const std::string kUserId = co_await gme::getSoleUserId(theDb());
-
-    // Parse — lenient so IKqx1Cn9 envelope doesn't abort.
+    // Parse — lenient so extra envelope keys don't abort.
     CampaignBattleEndReq req{};
     glz::context ctx{};
     if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
     {
         LOG_WARN << "CampaignBattleEnd: parse error: " << glz::format_error(ec, json);
     }
+
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string kUserId = identity.userId;
 
     // Read active_mission_id from state table if not in the request body.
     std::string missionId = req.mission_id;
@@ -92,6 +92,25 @@ HANDLEF(CampaignBattleEnd)
         {
             LOG_WARN << "CampaignBattleEnd: state SELECT failed: " << ex.base().what();
         }
+    }
+
+    // Rewards are archive-driven: resolve the cleared mission's record up front
+    // and fail explicitly when it's missing, rather than crediting a silent
+    // default.  Mirrors MissionEnd (9TvyNR5H).
+    std::optional<MissionRecord> missionRecord;
+    try
+    {
+        missionRecord = MissionArchiver::instance().lookup(
+            static_cast<uint32_t>(std::stoul(missionId)));
+    }
+    catch (const std::exception&)
+    {
+        // std::stoul throws on an empty / non-numeric mission id.
+    }
+    if (!missionRecord)
+    {
+        co_return HandleResult::error("Archive error",
+            "CampaignBattleEnd: no mission archive record for mission '" + missionId + "'");
     }
 
     // Step 1: mark mission cleared.
@@ -147,16 +166,21 @@ HANDLEF(CampaignBattleEnd)
         }
     }
 
-    // Step 2: credit zel reward.
+    // Step 2: credit the cleared mission's zel + karma from the archive record.
     try
     {
         co_await theDb()->execSqlCoro(
-            "UPDATE user_info SET zel = MIN(zel + $1, 99999999) WHERE id=$2;",
-            kBattleZelReward, std::string(kUserId));
+            "UPDATE user_info"
+            " SET zel = MIN(zel + $1, $3),"
+            "     karma = MIN(karma + $2, $3)"
+            " WHERE id=$4;",
+            static_cast<int64_t>(missionRecord->zel),
+            static_cast<int64_t>(missionRecord->karma),
+            kMaxZelKarma, std::string(kUserId));
     }
     catch (const drogon::orm::DrogonDbException& ex)
     {
-        LOG_WARN << "CampaignBattleEnd: zel UPDATE failed: " << ex.base().what();
+        LOG_WARN << "CampaignBattleEnd: reward UPDATE failed: " << ex.base().what();
     }
 
     // Step 3: clear active mission state.
@@ -175,8 +199,7 @@ HANDLEF(CampaignBattleEnd)
     // Build team_info wrapper + receipt stub, then merge into one JSON object.
     CbeBattleEndTeamWrapper teamWrapper{};
     teamWrapper.team_info = std::move(
-        (co_await gme::getTeamInfo(theDb(),
-            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
+        (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
     std::string teamJson{};
     if (const auto ec = glz::write_json(teamWrapper, teamJson); ec)
