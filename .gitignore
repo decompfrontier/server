@@ -500,3 +500,7 @@ generated/
 # Project-specific
 CONTEXT.md
 out/
+
+# Local dev tooling + docs — not for upstream
+tools/
+*.md
