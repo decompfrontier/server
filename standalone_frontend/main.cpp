@@ -4,7 +4,12 @@
 #include <gimuserver/db/MigrationManager.hpp>
 #include <gimuserver/drogon/GimuServer.hpp>
 
+// The debug CLI is a local-only dev tool (git-ignored). When DebugCli.cpp is
+// present, standalone_frontend/CMakeLists.txt defines BF_DEBUG_CLI; upstream
+// builds without the file simply omit it.
+#ifdef BF_DEBUG_CLI
 #include "DebugCli.hpp"
+#endif
 
 #include <filesystem>
 
@@ -15,6 +20,7 @@ int main(int argc, char** argv)
     // in the CRT block buffer and boot failures become undiagnosable.
     setvbuf(stdout, nullptr, _IONBF, 0);
 
+#ifdef BF_DEBUG_CLI
     // CLI-client mode: launched by the server to host the debug console window.
     // Must be checked before any Drogon / config setup so this process never
     // starts the web server or runs migrations.
@@ -23,6 +29,7 @@ int main(int argc, char** argv)
         RunDebugCliClient(argv[2]);
         return 0;
     }
+#endif
 
 #ifdef _WIN32
     SetConsoleTitleW(L"GimuFrontier standalone server");
@@ -58,7 +65,9 @@ int main(int argc, char** argv)
                 // Legacy SeedDefaultUnits/SeedDefaultTown removed: the
                 // tutorial (CreateUser + UnitArchiver) provisions the user
                 // under the fresh-DB model adopted from upstream dev.
+#ifdef BF_DEBUG_CLI
                 StartDebugCli();
+#endif
             })
             .run();
     }

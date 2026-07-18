@@ -504,3 +504,7 @@ out/
 # Local dev tooling + docs — not for upstream
 tools/
 *.md
+
+# Local-only debug CLI (dev tool, kept out of upstream)
+standalone_frontend/DebugCli.cpp
+standalone_frontend/DebugCli.hpp
