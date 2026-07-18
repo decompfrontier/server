@@ -70,12 +70,10 @@ HANDLEF(CampaignBattleEnd)
 
     // Parse — lenient so IKqx1Cn9 envelope doesn't abort.
     CampaignBattleEndReq req{};
+    glz::context ctx{};
+    if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
     {
-        glz::context ctx{};
-        if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
-        {
-            LOG_WARN << "CampaignBattleEnd: parse error: " << glz::format_error(ec, json);
-        }
+        LOG_WARN << "CampaignBattleEnd: parse error: " << glz::format_error(ec, json);
     }
 
     // Read active_mission_id from state table if not in the request body.

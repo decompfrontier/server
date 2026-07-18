@@ -222,34 +222,6 @@ void MissionArchiver::setup(const Json::Value& serverObj)
 		return;
 	}
 
-	archiveRoot_ = archiveRoot;
-	const auto result = loadFromRoot(archiveRoot);
-	if (result.ok)
-	{
-		LOG_INFO << "Loaded " << result.missions
-			<< " mission archive records and " << result.ais
-			<< " AI archive records from " << archiveRoot;
-	}
-}
-
-MissionArchiver::ReloadResult MissionArchiver::reload()
-{
-	if (archiveRoot_.empty())
-	{
-		return { false, 0, 0, "archive root not set (server not initialized)" };
-	}
-
-	const auto result = loadFromRoot(archiveRoot_);
-	if (result.ok)
-	{
-		LOG_INFO << "Reloaded " << result.missions << " mission and "
-			<< result.ais << " AI archive records from " << archiveRoot_;
-	}
-	return result;
-}
-
-MissionArchiver::ReloadResult MissionArchiver::loadFromRoot(const std::string& archiveRoot)
-{
 	std::vector<MissionRecord> missions;
 	std::vector<AiRecord> ais;
 	try
@@ -259,8 +231,8 @@ MissionArchiver::ReloadResult MissionArchiver::loadFromRoot(const std::string& a
 	}
 	catch (const std::exception& ex)
 	{
-		LOG_ERROR << "Unable to load mission archive: " << ex.what();
-		return { false, 0, 0, ex.what() };
+		LOG_ERROR << "Unable to set up mission archiver cache: " << ex.what();
+		return;
 	}
 
 	AiRecordCache nextAiCache;
@@ -270,6 +242,8 @@ MissionArchiver::ReloadResult MissionArchiver::loadFromRoot(const std::string& a
 		nextAiCache.insert_or_assign(ai.id, std::move(ai));
 	}
 
+	aiCache_ = std::move(nextAiCache);
+
 	MissionRecordCache nextMissionCache;
 	nextMissionCache.reserve(missions.size());
 	for (auto& mission : missions)
@@ -277,23 +251,15 @@ MissionArchiver::ReloadResult MissionArchiver::loadFromRoot(const std::string& a
 		nextMissionCache.insert_or_assign(mission.id, std::move(mission));
 	}
 
-	const size_t missionCount = nextMissionCache.size();
-	const size_t aiCount = nextAiCache.size();
+	missionCache_ = std::move(nextMissionCache);
 
-	// Swap under lock so a concurrent lookup()/populatePacket() never observes a
-	// half-rehashed map (the caches are otherwise touched on the request path).
-	{
-		std::lock_guard<std::mutex> lock(cacheMutex_);
-		aiCache_ = std::move(nextAiCache);
-		missionCache_ = std::move(nextMissionCache);
-	}
-
-	return { true, missionCount, aiCount, "" };
+	LOG_INFO << "Loaded " << missionCache_.size()
+		<< " mission archive records and " << aiCache_.size()
+		<< " AI archive records from " << archiveRoot;
 }
 
 std::optional<MissionRecord> MissionArchiver::lookup(MissionId mission_id) const
 {
-	std::lock_guard<std::mutex> lock(cacheMutex_);
 	const auto it = missionCache_.find(mission_id);
 	if (it == missionCache_.end())
 	{
@@ -301,7 +267,7 @@ std::optional<MissionRecord> MissionArchiver::lookup(MissionId mission_id) const
 		return std::nullopt;
 	}
 
-	return it->second;  // copy returned while locked — safe against reload()
+	return it->second;
 }
 
 bool MissionArchiver::populatePacket(const MissionRecord& record, std::vector<AiMst>& msts)
@@ -326,9 +292,6 @@ bool MissionArchiver::populatePacket(const MissionRecord& record, std::vector<Ai
 	// Most tutorial AI records have one action, but records can expand to
 	// multiple MST rows when they contain multiple actions.
 	msts.reserve(ids.size());
-	// Hold the cache lock while reading aiCache_ so a hot-reload can't
-	// invalidate the referenced AI records mid-iteration.
-	std::lock_guard<std::mutex> lock(instance().cacheMutex_);
 	for (const auto id : ids)
 	{
 		const auto it = instance().aiCache_.find(id);

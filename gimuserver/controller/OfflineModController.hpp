@@ -20,17 +20,7 @@ public:
 	*/
 	void HandleFpsCap(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
 
-	/*!
-	* Hot-reloads the curated mission/AI archive (deploy/archive/{mission,ai}.json)
-	* into the running server so the community mission-authoring tool can test a
-	* newly saved mission without a full restart. Returns JSON {ok, missions, ais}.
-	* @param[in] rq HTTP request
-	* @param[in] callback Callback to send the response
-	*/
-	void HandleReloadMissions(const drogon::HttpRequestPtr& rq, std::function<void(const drogon::HttpResponsePtr&)>&& callback);
-
 	METHOD_LIST_BEGIN
 		ADD_METHOD_TO(OfflineModController::HandleFpsCap, "/offline_mod/fps_cap", drogon::Get);
-		ADD_METHOD_TO(OfflineModController::HandleReloadMissions, "/offline_mod/reload_missions", drogon::Get, drogon::Post);
 	METHOD_LIST_END
 };

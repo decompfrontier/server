@@ -281,6 +281,21 @@ void MigrationManager::RunMigrations(drogon::orm::DbClientPtr ptr)
 	MigrationMap migrations;
 	RegisterMigrations(migrations);
 
+	// Migrations are a vector so they run in declared order (a hash map ran them
+	// unordered).  The vector doesn't dedup, so guard the uniqueness the map used
+	// to give us: a duplicate name would run twice / mask an intended migration.
+	std::vector<std::string> seenNames;
+	for (const auto& [name, _] : migrations)
+	{
+		if (std::find(seenNames.begin(), seenNames.end(), name) != seenNames.end())
+		{
+			LOG_ERROR << "Duplicate migration name: " << name;
+			drogon::app().quit();
+			return;
+		}
+		seenNames.push_back(name);
+	}
+
 	std::vector<std::string> runnedMigratons;
 	GetMigrationStatus(ptr, runnedMigratons);
 
