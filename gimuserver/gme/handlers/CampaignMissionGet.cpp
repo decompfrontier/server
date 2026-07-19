@@ -9,31 +9,9 @@
 //      "HUo4T7i8": "<AttainPercent>",
 //      "JcKMjH64": "<MissionOnFlg>",
 //      "j0Uszek2": "<State>" }, …]
-struct CampaignMissionEntry {
-    std::string mission_id;
-    int32_t     attain_percent = 0;
-    std::string mission_on_flg = "1";
-    int32_t     state = 1;
-};
-template <> struct glz::meta<CampaignMissionEntry> {
-    using T = CampaignMissionEntry;
-    static constexpr auto value = glz::object(
-        "j28VNcUW", &T::mission_id,
-        "HUo4T7i8", glz::quoted_num<&T::attain_percent>,
-        "JcKMjH64", &T::mission_on_flg,
-        "j0Uszek2", glz::quoted_num<&T::state>
-    );
-};
-
-struct CampaignMissionGetResp {
-    std::vector<CampaignMissionEntry> missions;
-};
-template <> struct glz::meta<CampaignMissionGetResp> {
-    using T = CampaignMissionGetResp;
-    static constexpr auto value = glz::object(
-        "2I9V0o6J", &T::missions
-    );
-};
+// CampaignMissionEntry + CampaignMissionGetResp are generated from the KDL
+// (packet-generator/assets/net/handlers.kdl).  CampaignMissionEntry is shared
+// with CampaignStart.
 
 HANDLEF(CampaignMissionGet)
 {

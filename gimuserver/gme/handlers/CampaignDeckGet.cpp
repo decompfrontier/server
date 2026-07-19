@@ -12,39 +12,8 @@
 //      "a3qJ6QhX": "<NowHp>",    "3WMz78t6":  "<MaxHp>",
 //      "gU2xtQ0V": "<BbGauge>",  "nIGZ1X9C":  "<SbGauge>" }, … ]
 
-struct CampaignDeckMember {
-    int32_t deck_num    = 0;
-    int32_t user_unit_id = 0;
-    int32_t member_type = 0;
-    int32_t disporder   = 0;
-    int32_t now_hp      = 0;
-    int32_t max_hp      = 0;
-    int32_t bb_gauge    = 0;
-    int32_t sb_gauge    = 0;
-};
-template <> struct glz::meta<CampaignDeckMember> {
-    using T = CampaignDeckMember;
-    static constexpr auto value = glz::object(
-        "zsiAn9P1", glz::quoted_num<&T::deck_num>,
-        "edy7fq3L", glz::quoted_num<&T::user_unit_id>,
-        "gr48vsdJ", glz::quoted_num<&T::member_type>,
-        "XuJL4pc5", glz::quoted_num<&T::disporder>,
-        "a3qJ6QhX", glz::quoted_num<&T::now_hp>,
-        "3WMz78t6", glz::quoted_num<&T::max_hp>,
-        "gU2xtQ0V", glz::quoted_num<&T::bb_gauge>,
-        "nIGZ1X9C", glz::quoted_num<&T::sb_gauge>
-    );
-};
-
-struct CampaignDeckGetResp {
-    std::vector<CampaignDeckMember> members;
-};
-template <> struct glz::meta<CampaignDeckGetResp> {
-    using T = CampaignDeckGetResp;
-    static constexpr auto value = glz::object(
-        "w5vHLT0q", &T::members
-    );
-};
+// CampaignDeckMember + CampaignDeckGetResp are generated from the KDL
+// (packet-generator/assets/net/handlers.kdl).
 
 HANDLEF(CampaignDeckGet)
 {

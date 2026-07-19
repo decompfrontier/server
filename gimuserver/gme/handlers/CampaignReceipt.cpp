@@ -15,16 +15,9 @@ static constexpr int64_t kReceiptKarmaReward = 200;
 // CampaignReceiptReq (login_info + mission_id) is generated from the KDL
 // (packet-generator/assets/net/handlers.kdl).
 
-// Wraps UserTeamInfo under the "fEi17cnx" single-element array key.
-struct CrTeamWrapper {
-    UserTeamInfo team_info = {};
-};
-template<> struct glz::meta<CrTeamWrapper> {
-    using T = CrTeamWrapper;
-    static constexpr auto value = glz::object(
-        "fEi17cnx", pkg::glaze::single_array<&T::team_info>()
-    );
-};
+// CampaignReceiptResp (fEi17cnx team_info + 4MCxgS5p receipt stub) is generated
+// from the KDL (packet-generator/assets/net/handlers.kdl) and shared with
+// CampaignBattleEnd.
 
 HANDLEF(CampaignReceipt)
 {
@@ -71,24 +64,11 @@ HANDLEF(CampaignReceipt)
         LOG_WARN << "CampaignReceipt: reward UPDATE failed: " << ex.base().what();
     }
 
-    // Fetch fresh user_info and build fEi17cnx so the HUD updates.
-    CrTeamWrapper tw{};
-    tw.team_info = std::move(
+    // Fetch fresh user_info so the HUD updates (team_info under fEi17cnx) and
+    // return it alongside the receipt stub (4MCxgS5p) in one serialization.
+    CampaignReceiptResp resp{};
+    resp.team_info = std::move(
         (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
-    std::string teamJson{};
-    if (const auto ec = glz::write_json(tw, teamJson); ec)
-    {
-        LOG_WARN << "CampaignReceipt: serialize failed — returning stub";
-        co_return HandleResult::success(R"({"4MCxgS5p":{"pCIRMw04":""}})");
-    }
-
-    // Append receipt key inside the same root object.
-    if (teamJson.size() >= 2 && teamJson.back() == '}')
-    {
-        teamJson.pop_back();
-        teamJson += R"(,"4MCxgS5p":{"pCIRMw04":""}})";
-    }
-
-    co_return HandleResult::success(teamJson);
+    co_return HandleResult::success(glz::write_json(resp).value_or("{}"));
 }

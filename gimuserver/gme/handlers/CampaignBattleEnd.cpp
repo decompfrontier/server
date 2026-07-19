@@ -28,25 +28,9 @@ static constexpr int64_t kMaxZelKarma = 99'999'999LL;
 // CampaignBattleEndReq (login_info + mission_id) is generated from the KDL
 // (packet-generator/assets/net/handlers.kdl).
 
-// ---------------------------------------------------------------------------
-// Response: UserTeamInfo (fEi17cnx) + stub receipt (4MCxgS5p)
-// ---------------------------------------------------------------------------
-struct CampaignBattleEndResp {
-    UserTeamInfo team_info = {};
-    std::string  receipt_payload = "";  // 4MCxgS5p.pCIRMw04
-};
-// Two separate keys — we'll hand-assemble the final JSON from both.
-
-// Helper: wrap UserTeamInfo under "fEi17cnx" as a single-element array.
-struct CbeBattleEndTeamWrapper {
-    UserTeamInfo team_info = {};
-};
-template <> struct glz::meta<CbeBattleEndTeamWrapper> {
-    using T = CbeBattleEndTeamWrapper;
-    static constexpr auto value = glz::object(
-        "fEi17cnx", pkg::glaze::single_array<&T::team_info>()
-    );
-};
+// Response: CampaignReceiptResp (team_info under fEi17cnx + receipt stub under
+// 4MCxgS5p) is generated from the KDL
+// (packet-generator/assets/net/handlers.kdl) and shared with CampaignReceipt.
 
 HANDLEF(CampaignBattleEnd)
 {
@@ -183,26 +167,10 @@ HANDLEF(CampaignBattleEnd)
         LOG_WARN << "CampaignBattleEnd: state clear failed: " << ex.base().what();
     }
 
-    // Build team_info wrapper + receipt stub, then merge into one JSON object.
-    CbeBattleEndTeamWrapper teamWrapper{};
-    teamWrapper.team_info = std::move(
+    // Refreshed team_info (fEi17cnx) + receipt stub (4MCxgS5p) in one pass.
+    CampaignReceiptResp resp{};
+    resp.team_info = std::move(
         (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
-    std::string teamJson{};
-    if (const auto ec = glz::write_json(teamWrapper, teamJson); ec)
-    {
-        LOG_ERROR << "CampaignBattleEnd: serialize teamInfo: " << glz::format_error(ec, teamJson);
-        co_return HandleResult::success("{}");
-    }
-
-    // Inject the receipt key into the response JSON.  We strip the trailing '}'
-    // from teamJson and append the receipt field, then close.
-    // Receipt payload: {"4MCxgS5p":{"pCIRMw04":""}}
-    if (teamJson.size() >= 2 && teamJson.back() == '}')
-    {
-        teamJson.pop_back();
-        teamJson += R"(,"4MCxgS5p":{"pCIRMw04":""}})";
-    }
-
-    co_return HandleResult::success(teamJson);
+    co_return HandleResult::success(glz::write_json(resp).value_or("{}"));
 }
