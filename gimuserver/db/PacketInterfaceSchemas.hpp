@@ -185,7 +185,7 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 		}),
 		// base_rec is INTEGER NOT NULL with NO default, so the INSERT must keep
 		// providing it (INSERT OR IGNORE silently drops the row otherwise). Read
-		// stays on the canonical column; InsertUnitFromMst/addUserUnit write it.
+		// stays on the canonical column; addUserUnit writes it.
 		field<&::UserUnitInfo::base_rec>("base_rec", {
 			.read = true,
 			.update = true,

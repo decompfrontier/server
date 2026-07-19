@@ -65,18 +65,6 @@ public:
         return log;
     }
 
-    /*!
-    * Inserts one user_units row for the given user/MST entry with sane
-    * starter values (lv=1, base stats from min_*, randomised unit_type_id).
-    * Used by the standalone debug CLI (giveunit).
-    * @param db Synchronous DB client
-    * @param userId Packet-format user id
-    * @param unit MST entry to materialise
-    */
-    static void InsertUnitFromMst(drogon::orm::DbClientPtr db,
-                                  const std::string& userId,
-                                  const struct UnitMst& unit);
-
 private:
 
     /*!
