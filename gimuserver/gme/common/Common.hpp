@@ -480,16 +480,4 @@ inline drogon::Task<db::InterfaceResult<UserIdentity>> getUserIdentity(
 }
 
 
-/*!
-* Transitional bridge for quests-branch handlers that predate getUserIdentity.
-* The offline server hosts exactly one user; this returns that user's id, or
-* an empty string when no user exists yet (tutorial not completed).
-* Newly written or ported handlers must use getUserIdentity instead.
-*/
-inline drogon::Task<std::string> getSoleUserId(const db::Database database)
-{
-	const auto rows = co_await database->execSqlCoro("SELECT id FROM user_info LIMIT 1;");
-	co_return rows.size() ? rows[0]["id"].as<std::string>() : std::string{};
-}
-
 }

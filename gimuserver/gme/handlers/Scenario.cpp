@@ -23,10 +23,18 @@ HANDLEF(GetScenarioPlayingInfo)
 	(void)session;
 	LOG_INFO << "GetScenarioPlayingInfo: " << json;
 
-	GetScenarioPlayingInfoResp resp = {};
+	// Identity-only request (no body beyond the login-info tag).
+	GetScenarioPlayingInfoReq req = {};
+	{
+		glz::context ctx{};
+		if (const auto& ec = glz::read<glz::opts{ .error_on_unknown_keys = false }>(req, json, ctx); ec)
+			LOG_WARN << "GetScenarioPlayingInfo: parse error: " << glz::format_error(ec, json);
+	}
 
-	const std::string userId = co_await gme::getSoleUserId(theDb());
-	if (!userId.empty())
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+	const std::string userId = identity.userId;
+
+	GetScenarioPlayingInfoResp resp = {};
 	{
 		const auto rows = co_await theDb()->execSqlCoro(
 			"SELECT scenario_id FROM user_scenarios WHERE user_id = $1;", userId);
@@ -67,11 +75,8 @@ HANDLEF(RaidUpScenarioInfo)
 		co_return HandleResult::error("Deserialization error", fmte);
 	}
 
-	const std::string userId = co_await gme::getSoleUserId(theDb());
-	if (userId.empty())
-	{
-		co_return HandleResult::success("{}");
-	}
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+	const std::string userId = identity.userId;
 
 	const auto now = static_cast<int64_t>(std::chrono::duration_cast<std::chrono::seconds>(
 		std::chrono::system_clock::now().time_since_epoch()).count());

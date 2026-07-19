@@ -52,9 +52,16 @@ HANDLEF(FriendGet)
     (void)session;
     LOG_INFO << "FriendGet: " << json;
 
-    // Transitional bridge: resolve the sole offline user at runtime
-    // (tutorial-created).  TODO port to gme::getUserIdentity.
-    const std::string kUserId = co_await gme::getSoleUserId(theDb());
+    // Identity-only request (no body beyond the login-info tag).
+    FriendGetReq req = {};
+    {
+        glz::context ctx{};
+        if (const auto& ec = glz::read<glz::opts{ .error_on_unknown_keys = false }>(req, json, ctx); ec)
+            LOG_WARN << "FriendGet: parse error: " << glz::format_error(ec, json);
+    }
+
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string kUserId = identity.userId;
 
     FriendGetResp resp{};
 

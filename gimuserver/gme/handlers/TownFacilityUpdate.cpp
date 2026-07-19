@@ -27,13 +27,9 @@ HANDLEF(TownFacilityUpdate)
         co_return HandleResult::success("{}");
     }
 
-    // Resolve the tutorial-created user; the old hardcoded id matched no rows
-    // under the fresh-DB model, so upgrades and karma deduction silently no-op'd.
-    const std::string userId    = co_await gme::getSoleUserId(theDb());
-    if (userId.empty())
-    {
-        co_return HandleResult::success("{}");
-    }
+    // Resolve the current user from the request's login info.
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string userId = identity.userId;
     const int64_t karmaCost     = req.karma_payment.karma;
 
     // Persist each facility's new level.  UPSERT: the natural-progression
