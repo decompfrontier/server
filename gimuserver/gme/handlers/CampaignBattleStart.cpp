@@ -12,31 +12,12 @@
 // to not close the session (empty {} is sufficient for now — flesh out once a
 // real capture is available).
 //
-// Key request fields (inferred from createBody pattern):
-//   "IKqx1Cn9"[0]["B5JQyV8j"] — handle name (createUserInfoTag)
-//   Mission ID is likely in a top-level field; we log the full body so we can
-//   identify the exact key from the first real capture.
-
-struct CampaignBattleStartReq {
-    std::string mission_id = "";  // actual key TBD from capture
-};
-template <> struct glz::meta<CampaignBattleStartReq> {
-    using T = CampaignBattleStartReq;
-    // Minimal struct — we only need lenient parsing to avoid the silent abort
-    // caused by the IKqx1Cn9 envelope key.  Real field keys will be added once
-    // a captured request confirms them.
-    static constexpr auto value = glz::object(
-        "j28VNcUW", &T::mission_id   // j28VNcUW = MissionID (reused across Campaign)
-    );
-};
+// CampaignBattleStartReq (login_info + mission_id) is generated from the KDL
+// (packet-generator/assets/net/handlers.kdl).
 
 HANDLEF(CampaignBattleStart)
 {
     LOG_INFO << "CampaignBattleStart: " << json;
-
-    // Transitional bridge: resolve the sole offline user at runtime
-    // (tutorial-created).  TODO port to gme::getUserIdentity.
-    const std::string kUserId = co_await gme::getSoleUserId(theDb());
 
     CampaignBattleStartReq req{};
     {
@@ -47,6 +28,9 @@ HANDLEF(CampaignBattleStart)
             LOG_WARN << "CampaignBattleStart: parse error: " << glz::format_error(ec, json);
         }
     }
+
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string kUserId = identity.userId;
 
     // Persist active mission so BattleEnd can update the right row.
     if (!req.mission_id.empty())

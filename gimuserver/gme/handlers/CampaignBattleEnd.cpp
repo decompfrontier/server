@@ -25,21 +25,8 @@
 // Client overflows zel/karma above this and resets to 0, so cap every credit.
 static constexpr int64_t kMaxZelKarma = 99'999'999LL;
 
-// ---------------------------------------------------------------------------
-// Minimal request struct — just enough to parse without aborting on the
-// IKqx1Cn9 envelope.  Real fields identified from first capture log.
-// ---------------------------------------------------------------------------
-struct CampaignBattleEndReq {
-    LoginInfoReq login_info;      // IKqx1Cn9 envelope — identifies the user
-    std::string mission_id = "";  // j28VNcUW when present at top level
-};
-template <> struct glz::meta<CampaignBattleEndReq> {
-    using T = CampaignBattleEndReq;
-    static constexpr auto value = glz::object(
-        "IKqx1Cn9", pkg::glaze::single_array<&T::login_info>(),
-        "j28VNcUW", &T::mission_id
-    );
-};
+// CampaignBattleEndReq (login_info + mission_id) is generated from the KDL
+// (packet-generator/assets/net/handlers.kdl).
 
 // ---------------------------------------------------------------------------
 // Response: UserTeamInfo (fEi17cnx) + stub receipt (4MCxgS5p)

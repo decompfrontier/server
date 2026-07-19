@@ -12,15 +12,8 @@
 static constexpr int64_t kReceiptZelReward   = 1000;
 static constexpr int64_t kReceiptKarmaReward = 200;
 
-struct CampaignReceiptReq {
-    std::string mission_id = "";  // j28VNcUW
-};
-template <> struct glz::meta<CampaignReceiptReq> {
-    using T = CampaignReceiptReq;
-    static constexpr auto value = glz::object(
-        "j28VNcUW", &T::mission_id
-    );
-};
+// CampaignReceiptReq (login_info + mission_id) is generated from the KDL
+// (packet-generator/assets/net/handlers.kdl).
 
 // Wraps UserTeamInfo under the "fEi17cnx" single-element array key.
 struct CrTeamWrapper {
@@ -37,16 +30,15 @@ HANDLEF(CampaignReceipt)
 {
     LOG_INFO << "CampaignReceipt: " << json;
 
-    // Transitional bridge: resolve the sole offline user at runtime
-    // (tutorial-created).  TODO port to gme::getUserIdentity.
-    const std::string kUserId = co_await gme::getSoleUserId(theDb());
-
     CampaignReceiptReq req{};
     {
         glz::context ctx{};
         if (const auto ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
             LOG_WARN << "CampaignReceipt: parse error: " << glz::format_error(ec, json);
     }
+
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string kUserId = identity.userId;
 
     // Mark reward as claimed so the mission tile stops showing the receipt badge.
     if (!req.mission_id.empty())
@@ -82,8 +74,7 @@ HANDLEF(CampaignReceipt)
     // Fetch fresh user_info and build fEi17cnx so the HUD updates.
     CrTeamWrapper tw{};
     tw.team_info = std::move(
-        (co_await gme::getTeamInfo(theDb(),
-            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
+        (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
     std::string teamJson{};
     if (const auto ec = glz::write_json(tw, teamJson); ec)
