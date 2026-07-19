@@ -32,11 +32,8 @@ HANDLEF(ItemSell)
 		co_return HandleResult::error("Deserialization error", fmte);
 	}
 
-	const std::string userId = co_await gme::getSoleUserId(theDb());
-	if (userId.empty())
-	{
-		co_return HandleResult::error("ItemSell: no user");
-	}
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+	const std::string userId = identity.userId;
 
 	const auto& itemMst = theServer()->cache().itemMst();
 	const auto sellPrice = [&itemMst](uint32_t itemId) -> int64_t {

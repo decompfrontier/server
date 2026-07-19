@@ -41,11 +41,8 @@ HANDLEF(ItemSphereEqp)
 		co_return HandleResult::error("Deserialization error", fmte);
 	}
 
-	const std::string userId = co_await gme::getSoleUserId(theDb());
-	if (userId.empty())
-	{
-		co_return HandleResult::error("ItemSphereEqp: no user");
-	}
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+	const std::string userId = identity.userId;
 
 	const auto& itemMst = theServer()->cache().itemMst();
 	const auto sphereFrame = [&itemMst](uint32_t itemId) -> int32_t {
@@ -68,7 +65,7 @@ HANDLEF(ItemSphereEqp)
 			co_return;
 		if (oldId != 0)
 		{
-			co_await gme::addUserItem(theDb(), gme::UserIdentity{ .userId = userId }, oldId, 1);
+			co_await gme::addUserItem(theDb(), identity, oldId, 1);
 		}
 		if (newId != 0)
 		{
