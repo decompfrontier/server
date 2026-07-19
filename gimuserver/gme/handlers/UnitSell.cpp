@@ -13,21 +13,8 @@
 //
 // Zel formula: sum UnitMst.sell_price across sold units (server-authoritative).
 
-// The request struct (UnitSellReq + UnitSellEntry) is generated from
-// packet-generator/assets/net/{handlers,unit}.kdl.
-
-// ---------------------------------------------------------------------------
-// Response wrapper (only fEi17cnx needed for sell)
-// ---------------------------------------------------------------------------
-struct UnitSellRespBody {
-    UserTeamInfo team_info = {};
-};
-template <> struct glz::meta<UnitSellRespBody> {
-    using T = UnitSellRespBody;
-    static constexpr auto value = glz::object(
-        "fEi17cnx", pkg::glaze::single_array<&T::team_info>()
-    );
-};
+// The request struct (UnitSellReq + UnitSellEntry) and response struct
+// (UnitSellResp) are generated from packet-generator/assets/net/{handlers,unit}.kdl.
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -109,7 +96,7 @@ HANDLEF(UnitSell)
         totalZel, std::string(kUserId)
     );
 
-    UnitSellRespBody resp = {};
+    UnitSellResp resp = {};
     resp.team_info = std::move(
         (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 

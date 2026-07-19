@@ -13,80 +13,17 @@
 //                {"edy7fq3L":"<id>","mnZ5K4Ii":"2"}, // material   (role 2) x N]
 //
 // Response:
-//   "xZH6EIQ7": [MixReinforceEntry]  — drives the level-up animation
+//   "xZH6EIQ7": [UnitReinforceEntry] — drives the level-up animation
 //   "qC2tJs4E": [UserUnitInfo]       — incremental unit cache update
 //   "fEi17cnx": [UserTeamInfo]       — updated zel
 
 // The request struct (UnitMixReq + UnitMixUnitEntry/UnitMixZelEntry) is
 // generated from packet-generator/assets/net/{handlers,unit}.kdl.
 
-// ---------------------------------------------------------------------------
-// Response structs
-// ---------------------------------------------------------------------------
-// Reinforcement animation entry (xZH6EIQ7 array element).
-struct MixReinforceEntry {
-    std::string handle_name;
-    int32_t     target_lv     = 0;
-    std::string unit_mst_id;      // plain MST id (no _100 suffix)
-    int32_t base_hp  = 0, base_atk  = 0, base_def  = 0, base_heal  = 0;
-    int32_t add_hp   = 0, add_atk   = 0, add_def   = 0, add_heal   = 0;
-    int32_t ext_hp   = 0, ext_atk   = 0, ext_def   = 0;
-    std::string skill_id, extra_skill_id;
-    int32_t skill_lv = 0, extra_skill_lv = 0, unit_type_id = 0;
-    std::string mission_id;
-};
-template <> struct glz::meta<MixReinforceEntry> {
-    using T = MixReinforceEntry;
-    static constexpr auto value = glz::object(
-        "B5JQyV8j", &T::handle_name,
-        "4A6LzBxr", glz::quoted_num<&T::target_lv>,
-        "pn16CNah", &T::unit_mst_id,
-        "e7DK0FQT", glz::quoted_num<&T::base_hp>,
-        "67CApcti", glz::quoted_num<&T::base_atk>,
-        "q08xLEsy", glz::quoted_num<&T::base_def>,
-        "PWXu25cg", glz::quoted_num<&T::base_heal>,
-        "cuIWp89g", glz::quoted_num<&T::add_hp>,
-        "RT4CtH5d", glz::quoted_num<&T::add_atk>,
-        "GcMD0hy6", glz::quoted_num<&T::add_def>,
-        "C1HZr3pb", glz::quoted_num<&T::add_heal>,
-        "TokWs1B3", glz::quoted_num<&T::ext_hp>,
-        "t4m1RH6Y", glz::quoted_num<&T::ext_atk>,
-        "e6mY8Z0k", glz::quoted_num<&T::ext_def>,
-        "nj9Lw7mV", &T::skill_id,
-        "3NbeC8AB", glz::quoted_num<&T::skill_lv>,
-        "iEFZ6H19", &T::extra_skill_id,
-        "RQ5GnFE2", glz::quoted_num<&T::extra_skill_lv>,
-        "nBTx56W9", glz::quoted_num<&T::unit_type_id>,
-        "Ge8Yo32T", &T::mission_id
-    );
-};
-
-// Incremental unit cache update (qC2tJs4E).  Uses the same UserUnitInfo fields
-// as 4ceMWH6k but under a different wrapper key so only the fused unit is
-// updated rather than the entire client unit list being replaced.
-struct UnitMixUnitUpdate {
-    std::vector<UserUnitInfo> entries;
-};
-template <> struct glz::meta<UnitMixUnitUpdate> {
-    using T = UnitMixUnitUpdate;
-    static constexpr auto value = glz::object(
-        "qC2tJs4E", &T::entries
-    );
-};
-
-struct UnitMixRespBody {
-    std::vector<MixReinforceEntry> reinforce;
-    std::vector<UserUnitInfo>      unit_update;
-    UserTeamInfo                   team_info = {};
-};
-template <> struct glz::meta<UnitMixRespBody> {
-    using T = UnitMixRespBody;
-    static constexpr auto value = glz::object(
-        "xZH6EIQ7", &T::reinforce,
-        "qC2tJs4E", &T::unit_update,
-        "fEi17cnx", pkg::glaze::single_array<&T::team_info>()
-    );
-};
+// The response struct (UnitMixResp + the shared UnitReinforceEntry under
+// xZH6EIQ7) is generated from packet-generator/assets/net/{handlers,unit}.kdl.
+// unit_update rides UserUnitInfo under qC2tJs4E; team_info rides UserTeamInfo
+// under fEi17cnx.
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -296,11 +233,11 @@ HANDLEF(UnitMix)
 
 
     // Build response.
-    UnitMixRespBody resp = {};
+    UnitMixResp resp = {};
 
     // Reinforcement animation entry.
     {
-        MixReinforceEntry rd = {};
+        UnitReinforceEntry rd = {};
         rd.handle_name    = "DecompDev";
         rd.target_lv      = newLevel;
         rd.unit_mst_id    = baseMstId;

@@ -23,81 +23,10 @@
 // UnitEvoZelEntry/UnitEvoElemEntry) is generated from
 // packet-generator/assets/net/{handlers,unit}.kdl.
 
-// ---------------------------------------------------------------------------
-// Response structs
-// ---------------------------------------------------------------------------
-struct EvoResultEntry {
-    int32_t evolved_unit_id = 0;  // pn16CNah — target MST id (what it evolved into)
-    int32_t user_unit_id    = 0;  // edy7fq3L — DB instance id of the evolved unit
-    int32_t unk_t9FEW2KC   = 0;  // t9FEW2KC — unknown, send 0
-    int32_t unk_u1ECvfg8   = 0;  // u1ECvfg8 — unknown, send 0
-    int32_t unk_dV3qji4I   = 0;  // dV3qji4I — unknown, send 0
-};
-template <> struct glz::meta<EvoResultEntry> {
-    using T = EvoResultEntry;
-    static constexpr auto value = glz::object(
-        "pn16CNah", glz::quoted_num<&T::evolved_unit_id>,
-        "edy7fq3L", glz::quoted_num<&T::user_unit_id>,
-        "t9FEW2KC", glz::quoted_num<&T::unk_t9FEW2KC>,
-        "u1ECvfg8", glz::quoted_num<&T::unk_u1ECvfg8>,
-        "dV3qji4I", glz::quoted_num<&T::unk_dV3qji4I>
-    );
-};
-
-// EvoReinforceEntry — xZH6EIQ7 payload (same wire format as MixReinforceEntry).
-// The client's animation / stat-display code expects this key after every evo.
-struct EvoReinforceEntry {
-    std::string handle_name;
-    int32_t     target_lv     = 0;
-    std::string unit_mst_id;
-    int32_t base_hp=0, base_atk=0, base_def=0, base_heal=0;
-    int32_t add_hp=0,  add_atk=0,  add_def=0,  add_heal=0;
-    int32_t ext_hp=0,  ext_atk=0,  ext_def=0;
-    std::string skill_id, extra_skill_id;
-    int32_t skill_lv=0, extra_skill_lv=0, unit_type_id=0;
-    std::string mission_id;
-};
-template <> struct glz::meta<EvoReinforceEntry> {
-    using T = EvoReinforceEntry;
-    static constexpr auto value = glz::object(
-        "B5JQyV8j", &T::handle_name,
-        "4A6LzBxr", glz::quoted_num<&T::target_lv>,
-        "pn16CNah", &T::unit_mst_id,
-        "e7DK0FQT", glz::quoted_num<&T::base_hp>,
-        "67CApcti", glz::quoted_num<&T::base_atk>,
-        "q08xLEsy", glz::quoted_num<&T::base_def>,
-        "PWXu25cg", glz::quoted_num<&T::base_heal>,
-        "cuIWp89g", glz::quoted_num<&T::add_hp>,
-        "RT4CtH5d", glz::quoted_num<&T::add_atk>,
-        "GcMD0hy6", glz::quoted_num<&T::add_def>,
-        "C1HZr3pb", glz::quoted_num<&T::add_heal>,
-        "TokWs1B3", glz::quoted_num<&T::ext_hp>,
-        "t4m1RH6Y", glz::quoted_num<&T::ext_atk>,
-        "e6mY8Z0k", glz::quoted_num<&T::ext_def>,
-        "nj9Lw7mV", &T::skill_id,
-        "3NbeC8AB", glz::quoted_num<&T::skill_lv>,
-        "iEFZ6H19", &T::extra_skill_id,
-        "RQ5GnFE2", glz::quoted_num<&T::extra_skill_lv>,
-        "nBTx56W9", glz::quoted_num<&T::unit_type_id>,
-        "Ge8Yo32T", &T::mission_id
-    );
-};
-
-struct UnitEvoRespBody {
-    std::vector<EvoResultEntry>   evo_result;
-    std::vector<UserUnitInfo>     unit_update;
-    UserTeamInfo                  team_info = {};
-    std::vector<EvoReinforceEntry> reinforce;
-};
-template <> struct glz::meta<UnitEvoRespBody> {
-    using T = UnitEvoRespBody;
-    static constexpr auto value = glz::object(
-        "I82p0wCL", &T::evo_result,
-        "qC2tJs4E", &T::unit_update,
-        "fEi17cnx", pkg::glaze::single_array<&T::team_info>(),
-        "xZH6EIQ7", &T::reinforce
-    );
-};
+// The response struct (UnitEvoResp) and its entries (EvoResultEntry under
+// I82p0wCL, the shared UnitReinforceEntry under xZH6EIQ7) are generated from
+// packet-generator/assets/net/{handlers,unit}.kdl.  unit_update rides
+// UserUnitInfo under qC2tJs4E; team_info rides UserTeamInfo under fEi17cnx.
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -264,13 +193,13 @@ HANDLEF(UnitEvo)
     }
 
     // Build response.
-    UnitEvoRespBody resp = {};
+    UnitEvoResp resp = {};
 
     {
         EvoResultEntry er = {};
         er.evolved_unit_id = targetMstId;   // pn16CNah — the unit it evolved INTO
         er.user_unit_id    = baseId;         // edy7fq3L — DB instance id
-        er.unk_t9FEW2KC   = origMstId;       // t9FEW2KC — original ("before") MST id for evo animation
+        er.orig_mst_id     = origMstId;      // t9FEW2KC — original ("before") MST id for evo animation
         resp.evo_result.emplace_back(er);
     }
 
@@ -319,7 +248,7 @@ HANDLEF(UnitEvo)
         (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
     {
-        EvoReinforceEntry rd = {};
+        UnitReinforceEntry rd = {};
         rd.handle_name    = "DecompDev";
         rd.target_lv      = 1;  // level resets to 1 after evo
         rd.unit_mst_id    = std::to_string(targetMstId);
