@@ -19,68 +19,9 @@
 //   "qC2tJs4E": [UserUnitInfo]     — incremental unit cache update
 //   "fEi17cnx": [UserTeamInfo]     — updated zel
 
-// ---------------------------------------------------------------------------
-// Request parsing structs
-// ---------------------------------------------------------------------------
-struct UnitEvoUnitEntry {
-    int32_t     user_unit_id = 0;
-    std::string role;
-};
-template <> struct glz::meta<UnitEvoUnitEntry> {
-    using T = UnitEvoUnitEntry;
-    static constexpr auto value = glz::object(
-        "edy7fq3L", glz::quoted_num<&T::user_unit_id>,
-        "mnZ5K4Ii", &T::role
-    );
-};
-
-struct UnitEvoTargetEntry {
-    int32_t target_mst_id = 0;
-};
-template <> struct glz::meta<UnitEvoTargetEntry> {
-    using T = UnitEvoTargetEntry;
-    static constexpr auto value = glz::object(
-        "pn16CNah", glz::quoted_num<&T::target_mst_id>
-    );
-};
-
-struct UnitEvoZelEntry {
-    int32_t cost = 0;
-};
-template <> struct glz::meta<UnitEvoZelEntry> {
-    using T = UnitEvoZelEntry;
-    static constexpr auto value = glz::object(
-        "Rs7bCE3t", glz::quoted_num<&T::cost>
-    );
-};
-
-struct UnitEvoElemEntry {
-    int32_t     user_unit_id = 0;
-    std::string role;
-};
-template <> struct glz::meta<UnitEvoElemEntry> {
-    using T = UnitEvoElemEntry;
-    static constexpr auto value = glz::object(
-        "inU8Q4gL", glz::quoted_num<&T::user_unit_id>,
-        "mnZ5K4Ii", &T::role
-    );
-};
-
-struct UnitEvoReqFull {
-    std::vector<UnitEvoUnitEntry>   units;
-    std::vector<UnitEvoTargetEntry> target;
-    std::vector<UnitEvoZelEntry>    zel_cost_list;
-    std::vector<UnitEvoElemEntry>   elem_units;
-};
-template <> struct glz::meta<UnitEvoReqFull> {
-    using T = UnitEvoReqFull;
-    static constexpr auto value = glz::object(
-        "Km35HAXv", &T::units,
-        "I82p0wCL", &T::target,
-        "mCE3rUu5", &T::zel_cost_list,
-        "8Z2NQrx1", &T::elem_units
-    );
-};
+// The request struct (UnitEvoReq + UnitEvoUnitEntry/UnitEvoTargetEntry/
+// UnitEvoZelEntry/UnitEvoElemEntry) is generated from
+// packet-generator/assets/net/{handlers,unit}.kdl.
 
 // ---------------------------------------------------------------------------
 // Response structs
@@ -187,12 +128,8 @@ HANDLEF(UnitEvo)
     (void)session;
     LOG_INFO << "UnitEvo: " << json;
 
-    // Transitional bridge: resolve the sole offline user at runtime
-    // (tutorial-created).  TODO port to gme::getUserIdentity.
-    const std::string kUserId = co_await gme::getSoleUserId(theDb());
-
     // Allow unknown keys — UnitEvo requests can carry extra client-side fields.
-    UnitEvoReqFull req = {};
+    UnitEvoReq req = {};
     {
         glz::context ctx{};
         if (const auto& ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
@@ -201,6 +138,10 @@ HANDLEF(UnitEvo)
             co_return HandleResult::error("Deserialization error");
         }
     }
+
+    // Resolve the current user from the request's login info.
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string kUserId = identity.userId;
 
     // Resolve base (role=1) and material (role=2) unit ids.
     int32_t baseId = 0;
@@ -306,8 +247,7 @@ HANDLEF(UnitEvo)
             if (i) matList += ',';
             matList += std::to_string(matIds[i]);
         }
-        co_await gme::returnEquippedSpheres(
-            theDb(), gme::UserIdentity{ .userId = std::string(kUserId) }, matList);
+        co_await gme::returnEquippedSpheres(theDb(), identity, matList);
         co_await theDb()->execSqlCoro(
             "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + matList + ");",
             std::string(kUserId)
@@ -376,8 +316,7 @@ HANDLEF(UnitEvo)
     }
 
     resp.team_info = std::move(
-        (co_await gme::getTeamInfo(theDb(),
-            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
+        (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
     {
         EvoReinforceEntry rd = {};

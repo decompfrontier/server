@@ -17,42 +17,8 @@
 //   "qC2tJs4E": [UserUnitInfo]       — incremental unit cache update
 //   "fEi17cnx": [UserTeamInfo]       — updated zel
 
-// ---------------------------------------------------------------------------
-// Request parsing structs
-// ---------------------------------------------------------------------------
-struct UnitMixUnitEntry {
-    int32_t     user_unit_id = 0;
-    std::string role;          // "1" = base, "2" = material
-};
-template <> struct glz::meta<UnitMixUnitEntry> {
-    using T = UnitMixUnitEntry;
-    static constexpr auto value = glz::object(
-        "edy7fq3L", glz::quoted_num<&T::user_unit_id>,
-        "mnZ5K4Ii", &T::role
-    );
-};
-
-struct UnitMixZelEntry {
-    int32_t cost = 0;
-};
-template <> struct glz::meta<UnitMixZelEntry> {
-    using T = UnitMixZelEntry;
-    static constexpr auto value = glz::object(
-        "Rs7bCE3t", glz::quoted_num<&T::cost>
-    );
-};
-
-struct UnitMixReqBody {
-    std::vector<UnitMixUnitEntry> units;
-    std::vector<UnitMixZelEntry>  zel_cost_list;
-};
-template <> struct glz::meta<UnitMixReqBody> {
-    using T = UnitMixReqBody;
-    static constexpr auto value = glz::object(
-        "Km35HAXv", &T::units,
-        "mCE3rUu5", &T::zel_cost_list
-    );
-};
+// The request struct (UnitMixReq + UnitMixUnitEntry/UnitMixZelEntry) is
+// generated from packet-generator/assets/net/{handlers,unit}.kdl.
 
 // ---------------------------------------------------------------------------
 // Response structs
@@ -171,13 +137,9 @@ HANDLEF(UnitMix)
     (void)session;
     LOG_INFO << "UnitMix: " << json;
 
-    // Transitional bridge: resolve the sole offline user at runtime
-    // (tutorial-created).  TODO port to gme::getUserIdentity.
-    const std::string kUserId = co_await gme::getSoleUserId(theDb());
-
     // Parse request.  Use error_on_unknown_keys=false so the extra "60subGk3"
     // operation-type group sent by the client doesn't abort parsing.
-    UnitMixReqBody req = {};
+    UnitMixReq req = {};
     {
         glz::context ctx{};
         if (const auto& ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
@@ -186,6 +148,10 @@ HANDLEF(UnitMix)
             co_return HandleResult::error("Deserialization error");
         }
     }
+
+    // Resolve the current user from the request's login info.
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string kUserId = identity.userId;
 
     // Split base vs material units.
     int32_t baseId = 0;
@@ -312,8 +278,7 @@ HANDLEF(UnitMix)
     // units — deleting without the return would destroy the equipped items.
     if (!matIds.empty())
     {
-        co_await gme::returnEquippedSpheres(
-            theDb(), gme::UserIdentity{ .userId = std::string(kUserId) }, matList);
+        co_await gme::returnEquippedSpheres(theDb(), identity, matList);
         co_await theDb()->execSqlCoro(
             "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + matList + ");",
             std::string(kUserId)
@@ -402,8 +367,7 @@ HANDLEF(UnitMix)
     }
 
     resp.team_info = std::move(
-        (co_await gme::getTeamInfo(theDb(),
-            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
+        (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
     std::string buffer{};
     if (const auto& ec2 = glz::write_json(resp, buffer); ec2)

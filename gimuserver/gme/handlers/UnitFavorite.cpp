@@ -25,14 +25,11 @@ HANDLEF(UnitFavorite)
 		co_return HandleResult::error("UnitFavorite: empty entries");
 	}
 
-	// Resolve the single offline user created by the tutorial. The old
-	// hardcoded placeholder matched zero rows under the fresh-DB dynamic id, so
-	// favorites never persisted.
-	const std::string userId = co_await gme::getSoleUserId(theDb());
-	if (userId.empty())
-	{
-		co_return HandleResult::error("UnitFavorite: no user");
-	}
+	// Resolve the current user from the request's login info (validates the
+	// gumi id against the stored account rather than assuming the sole offline
+	// user).
+	const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+	const std::string userId = identity.userId;
 
 	for (const auto& e : req.entries)
 	{

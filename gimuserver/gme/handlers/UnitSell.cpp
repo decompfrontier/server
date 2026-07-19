@@ -13,27 +13,8 @@
 //
 // Zel formula: sum UnitMst.sell_price across sold units (server-authoritative).
 
-// ---------------------------------------------------------------------------
-// Request parsing structs (file-scope so glz::meta<> specialisations compile)
-// ---------------------------------------------------------------------------
-struct UnitSellEntry {
-    int32_t user_unit_id = 0;
-};
-template <> struct glz::meta<UnitSellEntry> {
-    using T = UnitSellEntry;
-    static constexpr auto value = glz::object(
-        "edy7fq3L", glz::quoted_num<&T::user_unit_id>
-    );
-};
-struct UnitSellReqBody {
-    std::vector<UnitSellEntry> units;
-};
-template <> struct glz::meta<UnitSellReqBody> {
-    using T = UnitSellReqBody;
-    static constexpr auto value = glz::object(
-        "Km35HAXv", &T::units
-    );
-};
+// The request struct (UnitSellReq + UnitSellEntry) is generated from
+// packet-generator/assets/net/{handlers,unit}.kdl.
 
 // ---------------------------------------------------------------------------
 // Response wrapper (only fEi17cnx needed for sell)
@@ -65,12 +46,8 @@ HANDLEF(UnitSell)
     (void)session;
     LOG_INFO << "UnitSell: " << json;
 
-    // Transitional bridge: resolve the sole offline user at runtime
-    // (tutorial-created).  TODO port to gme::getUserIdentity.
-    const std::string kUserId = co_await gme::getSoleUserId(theDb());
-
     // Parse request.  Allow unknown keys so any extra client fields don't abort parsing.
-    UnitSellReqBody req = {};
+    UnitSellReq req = {};
     {
         glz::context ctx{};
         if (const auto& ec = glz::read<glz::opts{.error_on_unknown_keys = false}>(req, json, ctx); ec)
@@ -84,6 +61,10 @@ HANDLEF(UnitSell)
         LOG_WARN << "UnitSell: empty unit list";
         co_return HandleResult::error("UnitSell: empty unit list");
     }
+
+    // Resolve the current user from the request's login info.
+    const auto identity = (co_await gme::getUserIdentity(theDb(), req.login_info)).nonEmpty();
+    const std::string kUserId = identity.userId;
 
     // Build a SQL IN-clause from validated ids.
     std::string idList;
@@ -116,8 +97,7 @@ HANDLEF(UnitSell)
     // Step 2: return any spheres equipped on the sold units to the warehouse,
     // then delete the units.  Without the return, the equipped items would be
     // destroyed with the row.
-    co_await gme::returnEquippedSpheres(
-        theDb(), gme::UserIdentity{ .userId = kUserId }, idList);
+    co_await gme::returnEquippedSpheres(theDb(), identity, idList);
     co_await theDb()->execSqlCoro(
         "DELETE FROM user_units WHERE user_id=$1 AND user_unit_id IN (" + idList + ");",
         std::string(kUserId)
@@ -131,8 +111,7 @@ HANDLEF(UnitSell)
 
     UnitSellRespBody resp = {};
     resp.team_info = std::move(
-        (co_await gme::getTeamInfo(theDb(),
-            gme::UserIdentity{.userId = std::string(kUserId)})).nonEmpty());
+        (co_await gme::getTeamInfo(theDb(), identity)).nonEmpty());
 
     std::string buffer{};
     if (const auto& ec2 = glz::write_json(resp, buffer); ec2)
