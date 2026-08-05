@@ -25,6 +25,7 @@
 #include <gimuserver/controller/AccountController.hpp>
 #include <gimuserver/controller/BfWebController.hpp>
 #include <gimuserver/controller/GmeController.hpp>
+#include <gimuserver/controller/OfflineModController.hpp>
 // utility
 #include <gimuserver/utils/Drogon.hpp>
 #include <gimuserver/utils/Macros.hpp>

@@ -3,6 +3,8 @@
 
 HANDLEF(BadgeInfo)
 {
+	// Use BadgeInfoResp (the wrapper): it carries the "h23iRjGN" dispatch key the
+	// client requires (see decompfrontier/server PR #23).
 	::BadgeInfoResp resp{};
 	std::string buffer{};
 	const auto& ec = glz::write_json(resp, buffer);

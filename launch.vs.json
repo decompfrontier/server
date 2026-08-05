@@ -1,0 +1,21 @@
+{
+  "version": "0.2.1",
+  "configurations": [
+    {
+      "type": "native",
+      "name": "gimuserverw Debug",
+      "project": "CMakeLists.txt",
+      "projectTarget": "gimuserverw.exe (standalone_frontend\\gimuserverw.exe)",
+      "args": [ "${workspaceRoot}\\deploy\\config.json" ],
+      "env": {}
+    },
+    {
+      "type": "native",
+      "name": "gimuserverw Release",
+      "project": "CMakeLists.txt",
+      "projectTarget": "gimuserverw.exe (standalone_frontend\\gimuserverw.exe)",
+      "args": [ "${workspaceRoot}\\deploy\\config.json" ],
+      "env": {}
+    }
+  ]
+}
