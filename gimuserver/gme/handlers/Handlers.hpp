@@ -96,4 +96,10 @@ namespace GmeHandlers
 	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
+	HANDLE(DungeonEventUpdate);
+	HANDLE(GetScenarioPlayingInfo);
+	HANDLE(RaidUpScenarioInfo);
+	HANDLE(UpdatePermitPlaceInfo);
+	HANDLE(UpdateEventInfo);
+	HANDLE(Chronology);
 }

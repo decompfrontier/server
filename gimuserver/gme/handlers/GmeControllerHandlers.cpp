@@ -87,6 +87,15 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
 	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");
 
+
+	// World-map / Grand Gaia entry sequence stubs.
+	REGISTER("BjAt1D6b", DungeonEventUpdate,     "k5EiNe9x");
+	REGISTER("VRfsv4e3", GetScenarioPlayingInfo, "Bh4WqR01");
+	REGISTER("R38qvphm", RaidUpScenarioInfo,     "72EyFbW8");
+	REGISTER("1MJT6L3W", UpdatePermitPlaceInfo,  "3zip5Htw");
+	REGISTER("rCB7ZI8x", UpdateEventInfo,        "L1o4eGbi");
+	REGISTER("5o8ZlDGX", Chronology,             "SNrhAG29");
+
 	}
 }
 
@@ -150,6 +159,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") database exception: " << ex.base().what();
+				logReq << "EXCEPTION (db): " << ex.base().what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
@@ -159,6 +169,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const std::exception& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") exception: " << ex.what();
+				logReq << "EXCEPTION (std): " << ex.what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
