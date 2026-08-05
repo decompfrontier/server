@@ -9,6 +9,10 @@
 namespace
 {
 
+// The healing potion every first-time player receives; the early tutorial
+// uses it to explain usable battle items.
+constexpr uint32_t kTutorialPotionItemId = 20000;
+
 std::optional<uint32_t> getStarterUnit(uint32_t element)
 {
 	switch (element)
@@ -147,6 +151,12 @@ HANDLEF(CreateUser)
 					.disp_order = 1,
 				},
 				{ db::Data("user_id", identity.userId) })).nonEmpty();
+
+				// Every first-time player gets one healing potion (item 20000),
+				// the item the early tutorial uses to explain usable battle
+				// items.  Natural provisioning — replaces the old UserInfo
+				// hardcode that faked this row for the tutorial account.
+				(co_await gme::addUserItem(transaction, identity, kTutorialPotionItemId));
 		}
 		catch (...)
 		{
