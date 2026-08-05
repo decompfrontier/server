@@ -66,6 +66,7 @@ public:
     }
 
 private:
+
     /*!
     * DLC error file.
     */
