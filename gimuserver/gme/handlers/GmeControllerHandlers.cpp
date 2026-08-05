@@ -77,6 +77,7 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("2o4axPIC", FriendGet, "EoYuZ2nbImhCU1c0");
 	REGISTER("F7JvPk5H", GachaAction, "bL9fipzaSy7xN2w1");
 	REGISTER("Uo86DcRh", GachaList, "8JbxFvuSaB2CK7Ln");
+	REGISTER("k57TdKDj", UnitSelectorGachaTicket, "1IJ8SaNk");
 	REGISTER("NiYWKdzs", HomeInfo, "f6uOewOD");
 	REGISTER("9TvyNR5H", MissionEnd, "oINq0rfUFPx5MgmT");
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
@@ -86,6 +87,7 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("T1nCVvx4", TutorialUpdate, "7hqzmR3T");
 	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
 	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");
+
 
 	}
 }
@@ -150,6 +152,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") database exception: " << ex.base().what();
+				logReq << "EXCEPTION (db): " << ex.base().what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
@@ -159,6 +162,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const std::exception& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") exception: " << ex.what();
+				logReq << "EXCEPTION (std): " << ex.what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
