@@ -96,4 +96,7 @@ namespace GmeHandlers
 	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
+	HANDLE(TownUpdate);
+	HANDLE(TownFacilityUpdate);
+	HANDLE(EventTokenInfo);
 }
