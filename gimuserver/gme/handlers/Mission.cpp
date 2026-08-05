@@ -4,7 +4,9 @@
 #include <gimuserver/archive/MissionArchiver.hpp>
 #include <gimuserver/gme/common/Common.hpp>
 
+#include <chrono>
 #include <sstream>
+#include <utility>
 #include <vector>
 
 namespace
@@ -52,6 +54,51 @@ std::vector<UserUnitInfo> parseUnitDrops(const std::string& unitDrops)
 	}
 
 	return units;
+}
+
+// Parses the client-reported item drops from MissionBattleResultInfo.item_rewards
+// (wire key 4T0Q2Bh5).
+//
+// UNVERIFIED wire format: assumed to mirror unit_rewards as a comma-separated
+// list of "itemId:count" pairs.  No live capture of an item drop exists yet —
+// this is the first thing to confirm with a Frida / http_log capture of a
+// mission that drops an item, then correct the split here if it differs.
+// Returns (item_id, count) pairs; malformed entries are skipped, not fatal.
+std::vector<std::pair<uint32_t, uint32_t>> parseItemDrops(const std::string& itemDrops)
+{
+	std::vector<std::pair<uint32_t, uint32_t>> items;
+	std::istringstream drops(itemDrops);
+	for (std::string drop; std::getline(drops, drop, ',');)
+	{
+		if (drop.empty())
+		{
+			continue;
+		}
+
+		std::istringstream parts(drop);
+		std::string id;
+		std::string count;
+		std::getline(parts, id, ':');
+		// count is optional; default to 1 when the entry is a bare item id.
+		const bool hasCount = static_cast<bool>(std::getline(parts, count, ':'));
+		try
+		{
+			const auto itemId = static_cast<uint32_t>(std::stoul(id));
+			const auto qty = hasCount && !count.empty()
+				? static_cast<uint32_t>(std::stoul(count))
+				: 1u;
+			if (itemId != 0)
+			{
+				items.emplace_back(itemId, qty);
+			}
+		}
+		catch (const std::exception&)
+		{
+			LOG_ERROR << "Invalid mission drop item entry: " << drop;
+		}
+	}
+
+	return items;
 }
 
 std::string encodeUnitDrops(
@@ -220,6 +267,28 @@ HANDLEF(MissionEnd)
 					})).nonEmpty();
 			}
 
+			// Record the clear in the mission clear-history
+			// (user_campaign_missions, state=2).  UserInfo reports this set as
+			// UT1SVg59 (UserClearMissionInfo) — the list the client evaluates
+			// feature unlocks against (F_FUNCTION_RELEASE_MST conditions and
+			// the hardcoded town/early-feature gates), so every victorious
+			// MissionEnd must land here.
+			{
+				const auto clearedAt = static_cast<int64_t>(
+					std::chrono::duration_cast<std::chrono::seconds>(
+						std::chrono::system_clock::now().time_since_epoch()).count());
+				co_await transaction->execSqlCoro(
+					"INSERT INTO user_campaign_missions"
+					" (user_id, mission_id, state, attain_percent, clear_count, last_cleared_at)"
+					" VALUES ($1, $2, 2, 100, 1, $3)"
+					" ON CONFLICT(user_id, mission_id) DO UPDATE SET"
+					" state=2, attain_percent=100,"
+					" clear_count=clear_count+1, last_cleared_at=$3;",
+					identity.userId,
+					std::to_string(req.mission_num.serial_id),
+					clearedAt);
+			}
+
 			auto loginInfo = std::move((co_await gme::getLoginInfo(transaction, identity)).nonEmpty());
 			auto teamInfo = std::move((co_await gme::getTeamInfo(transaction, identity)).nonEmpty());
 
@@ -253,6 +322,16 @@ HANDLEF(MissionEnd)
 							db::Lookup("user_id", identity.userId),
 							db::Lookup("unit_id", dropped.unit_id),
 						})).nonEmpty().front()));
+			}
+
+			// Credit item/sphere drops reported by the client to the player's
+			// warehouse.  Spheres travel the same path as any other item — they
+			// just carry stat params in ItemMst.  The client already renders
+			// the obtained-item cards from its own battle-result state, so we
+			// only need to persist ownership here.
+			for (const auto& [itemId, qty] : parseItemDrops(req.battle_result.item_rewards))
+			{
+				(co_await gme::addUserItem(transaction, identity, itemId, qty));
 			}
 
 			resp.reward_info.clear_mission_id = req.mission_num.serial_id;
