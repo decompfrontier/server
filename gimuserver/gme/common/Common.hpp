@@ -92,6 +92,87 @@ inline drogon::Task<db::InterfaceResult<UserUnitInfo>> addUserUnit(
 }
 
 /*!
+* Credits an item stack to the owning user's warehouse.
+*
+* Stacks are keyed by (user_id, item_id): a repeat drop increments item_num
+* rather than creating a second row.  Returns the resulting quantity.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that owns the item.
+* @param itemId Item master id to credit.
+* @param quantity Amount to add (default 1).
+* @return Number of affected rows.
+*/
+inline drogon::Task<db::InterfaceResult<>> addUserItem(
+	const db::Database database,
+	const UserIdentity identity,
+	const uint32_t itemId,
+	const uint32_t quantity = 1)
+{
+	if (!database || identity.userId.empty() || itemId == 0)
+	{
+		LOG_ERROR << "Invalid addUserItem call: "
+			<< "db=" << static_cast<bool>(database)
+			<< ", user_id_empty=" << identity.userId.empty()
+			<< ", item_id=" << itemId;
+		throw std::invalid_argument("Invalid addUserItem call");
+	}
+
+	// UPSERT: bump the stack if it exists, else insert a new one.  item_id and
+	// quantity are server-trusted integers, safe to bind.
+	auto result = co_await database->execSqlCoro(
+		"INSERT INTO user_items (user_id, item_id, item_num) VALUES ($1, $2, $3) "
+		"ON CONFLICT(user_id, item_id) "
+		"DO UPDATE SET item_num = item_num + $3;",
+		identity.userId,
+		itemId,
+		quantity);
+
+	co_return db::InterfaceResult<>{
+		.data = {},
+		.affected = result.affectedRows(),
+	};
+}
+
+/*!
+* Returns any spheres equipped on soon-to-be-consumed units to the owner's
+* warehouse.
+*
+* UnitSell / UnitMix / UnitEvo delete user_units rows (sold units, fusion
+* fodder, evo materials).  Spheres equipped on those units are owned items —
+* deleting the row without this call would destroy them silently.  Call BEFORE
+* the DELETE, with the same pre-validated integer id list its IN clause uses.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that owns the units.
+* @param userUnitIdList Comma-joined user_unit_id list (validated integers).
+*/
+inline drogon::Task<void> returnEquippedSpheres(
+	const db::Database database,
+	const UserIdentity identity,
+	const std::string& userUnitIdList)
+{
+	if (!database || identity.userId.empty() || userUnitIdList.empty())
+		co_return;
+
+	const auto rows = co_await database->execSqlCoro(
+		"SELECT eqip_item_id, eqip_item_id2 FROM user_units "
+		"WHERE user_id = $1 AND user_unit_id IN (" + userUnitIdList + ");",
+		identity.userId);
+	for (const auto& row : rows)
+	{
+		for (const auto col : { "eqip_item_id", "eqip_item_id2" })
+		{
+			const auto itemId = row[col].as<uint32_t>();
+			if (itemId != 0)
+			{
+				co_await addUserItem(database, identity, itemId, 1);
+			}
+		}
+	}
+}
+
+/*!
 * Looks up player progression MST data for a specific user level.
 *
 * The progression cache is expected to be ordered by level, with level 1 at
@@ -301,6 +382,8 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 	{
 		packet.deck_cost = mst->deck_cost;
 		packet.max_action_point = mst->energy;
+		packet.max_friend_count = mst->friend_count;
+		packet.add_friend_count = mst->add_friend_count;
 	}
 
 	// Calculate the current energy points of the user.
@@ -395,5 +478,6 @@ inline drogon::Task<db::InterfaceResult<UserIdentity>> getUserIdentity(
 		.affected = user.affected,
 	};
 }
+
 
 }

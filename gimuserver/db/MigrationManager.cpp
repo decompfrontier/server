@@ -1,9 +1,10 @@
 #include "App.hpp"
 #include "MigrationManager.hpp"
 
-using MigrationMap = std::unordered_map<std::string, std::function<void(drogon::orm::DbClientPtr& db)>>;
+using MigrationEntry = std::pair<std::string, std::function<void(drogon::orm::DbClientPtr&)>>;
+using MigrationMap = std::vector<MigrationEntry>;
 
-#define migrate(name, func) map.insert_or_assign(name, [](drogon::orm::DbClientPtr& p) func )
+#define migrate(name, func) map.emplace_back(name, [](drogon::orm::DbClientPtr& p) func )
 
 /*!
 * Register all the available migrations
@@ -99,6 +100,67 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// Extra user_units columns used by the quests-branch handlers
+	// (UnitMix/UnitEvo/UnitSell/UnitFavorite, GachaAction, FriendGet,
+	// CampaignBattleStart).  Consolidates the former
+	// 13032025_AddStatsToUserUnitsTable + 09042026_AddSphereSlotsToUserUnits +
+	// 14042026_AddFavoriteFlgToUserUnits migrations onto the upstream table
+	// shape.  Upstream columns (unit_lvl/base_rec/ext_rec/bb_*) remain the
+	// source of truth for upstream handlers; these serve the not-yet-ported
+	// quests handlers and are consolidated away as each moves to
+	// PacketInterface.
+	migrate("02072026_ExtendUserUnitsForUnitOps", {
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN unit_lv INTEGER NOT NULL DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN base_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_hp INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_atk INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_def INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN ext_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_hp INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_atk INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_def INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN exp INTEGER NOT NULL DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN total_exp INTEGER NOT NULL DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN skill_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN skill_lv INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN extra_skill_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN extra_skill_lv INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN leader_skill_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN element TEXT NOT NULL DEFAULT 'fire'");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN fe_bp INTEGER NOT NULL DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN fe_max_usable_bp INTEGER NOT NULL DEFAULT 200");
+		// Sphere equipment slots (UserUnitInfo: Ge8Yo32T/0R3qTPK9, mZA7fH2v/RXfC31FA).
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_frame_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_id2 INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_frame_id2 INTEGER NOT NULL DEFAULT 0");
+		// Lock/favorite flag (UnitFavoriteRequest: req["3kcmQy7B"][0]["5JbjC3Pp"]).
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN favorite_flg INTEGER NOT NULL DEFAULT 0");
+	});
+
+	migrate("25042026_CreateUserTownTables", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_town_facilities ("
+			"user_id     TEXT    NOT NULL,"
+			"facility_id INTEGER NOT NULL,"
+			"lv          INTEGER NOT NULL DEFAULT 1,"
+			"karma       INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, facility_id)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_town_locations ("
+			"user_id     TEXT    NOT NULL,"
+			"location_id INTEGER NOT NULL,"
+			"lv          INTEGER NOT NULL DEFAULT 1,"
+			"karma       INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, location_id)"
+			");"
+		);
+	});
+
 	migrate("03072026_CreateUserUnitDictionaryTable", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_unit_dictionary ("
@@ -110,6 +172,82 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// Owned-item inventory: potions, materials, spheres.  One row per stack.
+	// instance_id is the warehouse row id the client references (UserWarehouse
+	// n6E8iMf3 / legacy ItemSphereEqp wh ids).  Populated naturally — the
+	// tutorial seeds a test potion in CreateUser, mission drops append here.
+	migrate("05072026_CreateUserItemsTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_items ("
+			"instance_id  INTEGER PRIMARY KEY AUTOINCREMENT,"
+			"user_id      TEXT    NOT NULL,"
+			"item_id      INTEGER NOT NULL,"
+			"item_num     INTEGER NOT NULL DEFAULT 1,"
+			"favorite_flg INTEGER NOT NULL DEFAULT 0,"
+			"disp_order   INTEGER NOT NULL DEFAULT 0,"
+			"UNIQUE(user_id, item_id)"
+			");"
+		);
+	});
+
+	// Viewed-cutscene state: one row per scenario the user has watched.
+	// GetScenarioPlayingInfo returns this set (sBbp47fi) so the client skips
+	// already-seen cutscenes; RaidUpScenarioInfo appends to it.  Structural
+	// only — never seeded; a fresh account sees every cutscene once.
+	migrate("17072026_CreateUserScenariosTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_scenarios ("
+			"user_id     TEXT    NOT NULL,"
+			"scenario_id INTEGER NOT NULL,"
+			"viewed_at   INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, scenario_id)"
+			");"
+		);
+	});
+
+	migrate("25042026_CreateUserCampaignTables", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_missions ("
+			"user_id          TEXT    NOT NULL,"
+			"mission_id       TEXT    NOT NULL,"
+			"state            INTEGER NOT NULL DEFAULT 0,"
+			"attain_percent   INTEGER NOT NULL DEFAULT 0,"
+			"clear_count      INTEGER NOT NULL DEFAULT 0,"
+			"last_cleared_at  INTEGER NOT NULL DEFAULT 0,"
+			"reward_claimed   INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, mission_id)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_decks ("
+			"user_id      TEXT    NOT NULL,"
+			"deck_num     INTEGER NOT NULL,"
+			"member_type  INTEGER NOT NULL,"
+			"user_unit_id INTEGER NOT NULL,"
+			"disporder    INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, deck_num, disporder)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_state ("
+			"user_id            TEXT PRIMARY KEY,"
+			"active_mission_id  TEXT    NOT NULL DEFAULT '',"
+			"active_battle_seed INTEGER NOT NULL DEFAULT 0,"
+			"saved_state        TEXT    NOT NULL DEFAULT ''"
+			");"
+		);
+	});
+
+	migrate("13052026_CreateUserSummonTicketsV2", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_summon_tickets_v2 ("
+			"user_id   TEXT    NOT NULL,"
+			"ticket_id INTEGER NOT NULL,"
+			"count     INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, ticket_id)"
+			");"
+		);
+	});
 }
 
 /*!
@@ -142,6 +280,21 @@ void MigrationManager::RunMigrations(drogon::orm::DbClientPtr ptr)
 {
 	MigrationMap migrations;
 	RegisterMigrations(migrations);
+
+	// Migrations are a vector so they run in declared order (a hash map ran them
+	// unordered).  The vector doesn't dedup, so guard the uniqueness the map used
+	// to give us: a duplicate name would run twice / mask an intended migration.
+	std::vector<std::string> seenNames;
+	for (const auto& [name, _] : migrations)
+	{
+		if (std::find(seenNames.begin(), seenNames.end(), name) != seenNames.end())
+		{
+			LOG_ERROR << "Duplicate migration name: " << name;
+			drogon::app().quit();
+			return;
+		}
+		seenNames.push_back(name);
+	}
 
 	std::vector<std::string> runnedMigratons;
 	GetMigrationStatus(ptr, runnedMigratons);
