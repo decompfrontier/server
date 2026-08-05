@@ -80,12 +80,18 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("NiYWKdzs", HomeInfo, "f6uOewOD");
 	REGISTER("9TvyNR5H", MissionEnd, "oINq0rfUFPx5MgmT");
 	REGISTER("jE6Sp0q4", MissionStart, "csiVLDKkxEwBfR70");
+	REGISTER("ruoB7bD8", ItemEdit, "DHEfRexCu0q5TAQm");
+	REGISTER("0IXGiC9t", ItemSphereEqp, "CZE56XAY");
+	REGISTER("I8il6EiI", ItemFavorite, "aRoIftRy");
+	REGISTER("qDQerU74", ItemSell, "73aFNjPu");
+	REGISTER("4P5GELTF", ItemMix, "AFqKIJ8Z4mHPB9xg");
 	REGISTER("TA4MnZX8", NgwordCheck, "r4Smw5TX");
 	REGISTER("uV6yH5MX", CreateUser, "4agnATy2DrJsWzQk");
 	REGISTER("d36DaiJl", TutorialSkip, "p3qD61db");
 	REGISTER("T1nCVvx4", TutorialUpdate, "7hqzmR3T");
 	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
 	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");
+
 
 	}
 }
@@ -150,6 +156,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") database exception: " << ex.base().what();
+				logReq << "EXCEPTION (db): " << ex.base().what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
@@ -159,6 +166,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const std::exception& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") exception: " << ex.what();
+				logReq << "EXCEPTION (std): " << ex.what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
