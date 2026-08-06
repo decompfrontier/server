@@ -62,16 +62,16 @@ HANDLEF(CampaignBattleStart)
     try
     {
         const auto reinforceRows = co_await theDb()->execSqlCoro(
-            "SELECT user_unit_id, unit_id, unit_lv,"
+            "SELECT user_unit_id, unit_id, unit_lvl,"
             " base_hp,  add_hp,  ext_hp,"
             " base_atk, add_atk, ext_atk,"
             " base_def, add_def, ext_def,"
-            " base_heal,add_heal,ext_heal,"
+            " base_rec,add_rec,ext_rec,"
             " skill_id, skill_lv, extra_skill_id, extra_skill_lv,"
             " unit_type_id, element"
             " FROM user_units"
             " WHERE user_id=$1"
-            " ORDER BY unit_lv DESC, user_unit_id DESC LIMIT 1;",
+            " ORDER BY unit_lvl DESC, user_unit_id DESC LIMIT 1;",
             std::string(kUserId));
 
         if (!reinforceRows.empty())
@@ -100,7 +100,7 @@ HANDLEF(CampaignBattleStart)
             friend_entry.friend_type        = 1;
             friend_entry.last_login_date    = static_cast<int32_t>(std::time(nullptr));
             friend_entry.unit_id            = mstId;
-            friend_entry.unit_lv            = r["unit_lv"].as<int32_t>();
+            friend_entry.unit_lv            = r["unit_lvl"].as<int32_t>();
             friend_entry.base_hp            = r["base_hp"].as<int32_t>();
             friend_entry.add_hp             = r["add_hp"].as<int32_t>();
             friend_entry.ext_hp             = r["ext_hp"].as<int32_t>();
@@ -110,9 +110,9 @@ HANDLEF(CampaignBattleStart)
             friend_entry.base_def           = r["base_def"].as<int32_t>();
             friend_entry.add_def            = r["add_def"].as<int32_t>();
             friend_entry.ext_def            = r["ext_def"].as<int32_t>();
-            friend_entry.base_heal          = r["base_heal"].as<int32_t>();
-            friend_entry.add_heal           = r["add_heal"].as<int32_t>();
-            friend_entry.ext_heal           = r["ext_heal"].as<int32_t>();
+            friend_entry.base_heal          = r["base_rec"].as<int32_t>();
+            friend_entry.add_heal           = r["add_rec"].as<int32_t>();
+            friend_entry.ext_heal           = r["ext_rec"].as<int32_t>();
             friend_entry.skill_id           = std::to_string(r["skill_id"].as<int32_t>());
             friend_entry.skill_lv           = r["skill_lv"].as<int32_t>();
             friend_entry.extra_skill_id     = std::to_string(r["extra_skill_id"].as<int32_t>());
