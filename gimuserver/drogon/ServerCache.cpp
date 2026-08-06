@@ -110,7 +110,6 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_userrsp.resummon_gacha = LoadJson<ResummonGachaMstCache>(mstRoot, "resummon_gacha_mst.json").data;
 
 		m_unitMst = LoadJson<UnitMstCache>(mstRoot, "unit_mst.json").data;
-		m_missionMst = LoadJson<MissionMstCache>(mstRoot, "mission_mst.json").data;
 		m_itemMst = LoadJson<ItemMstCache>(mstRoot, "item_mst.json").data;
 
 		// cache: GachaList response (gacha_info comes from GachaArchiver at
