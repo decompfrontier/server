@@ -118,20 +118,18 @@ inline drogon::Task<db::InterfaceResult<>> addUserItem(
 		throw std::invalid_argument("Invalid addUserItem call");
 	}
 
-	// UPSERT: bump the stack if it exists, else insert a new one.  item_id and
-	// quantity are server-trusted integers, safe to bind.
-	auto result = co_await database->execSqlCoro(
-		"INSERT INTO user_items (user_id, item_id, item_num) VALUES ($1, $2, $3) "
-		"ON CONFLICT(user_id, item_id) "
-		"DO UPDATE SET item_num = item_num + $3;",
-		identity.userId,
-		itemId,
-		quantity);
-
-	co_return db::InterfaceResult<>{
-		.data = {},
-		.affected = result.affectedRows(),
-	};
+	// Bump the stack if it exists, else insert a new one.  item_num accumulates
+	// rather than being replaced, so repeated grants stack.
+	co_return co_await db::DatabaseInterface::upsert(
+		database,
+		"user_items",
+		{
+			db::Data("user_id", identity.userId),
+			db::Data("item_id", itemId),
+			db::Data("item_num", quantity),
+		},
+		{ "user_id", "item_id" },
+		{ "item_num" });
 }
 
 /*!
@@ -155,11 +153,43 @@ inline drogon::Task<void> returnEquippedSpheres(
 	if (!database || identity.userId.empty() || userUnitIdList.empty())
 		co_return;
 
-	const auto rows = co_await database->execSqlCoro(
-		"SELECT eqip_item_id, eqip_item_id2 FROM user_units "
-		"WHERE user_id = $1 AND user_unit_id IN (" + userUnitIdList + ");",
-		identity.userId);
-	for (const auto& row : rows)
+	// Callers hand us the same comma-joined id string their DELETE uses, so
+	// split it back into bound values rather than splicing it into SQL.  When
+	// those DELETEs move onto the typed interface this should take the id
+	// vector directly and the round trip disappears.
+	db::Values userUnitIds;
+	for (size_t start = 0; start <= userUnitIdList.size();)
+	{
+		const auto end = userUnitIdList.find(',', start);
+		const auto token = userUnitIdList.substr(
+			start, end == std::string::npos ? std::string::npos : end - start);
+		if (!token.empty())
+		{
+			userUnitIds.emplace_back(
+				static_cast<uint64_t>(std::stoull(token)));
+		}
+
+		if (end == std::string::npos)
+		{
+			break;
+		}
+
+		start = end + 1;
+	}
+
+	if (userUnitIds.empty())
+		co_return;
+
+	const auto result = co_await db::DatabaseInterface::read(
+		database,
+		"user_units",
+		{
+			db::Data("eqip_item_id"),
+			db::Data("eqip_item_id2"),
+			db::Lookup("user_id", identity.userId),
+			db::LookupIn("user_unit_id", userUnitIds),
+		});
+	for (const auto& row : result.data)
 	{
 		for (const auto col : { "eqip_item_id", "eqip_item_id2" })
 		{

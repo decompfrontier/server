@@ -73,6 +73,32 @@ public:
 		const Cells cells);
 
 	/*!
+	* Inserts a row, or merges into the existing one on key conflict.
+	*
+	* Exists because plain insert ignores conflicting rows, which cannot express
+	* "add to the stack I already own".  Without it callers fall back to raw
+	* execSqlCoro and the typed layer stops seeing their queries.
+	*
+	* Data cells are the inserted columns.  On conflict with `conflict`, columns
+	* named in `accumulate` are ADDED to (col = col + excluded.col) and every
+	* other non-key data column is replaced.  With an empty `accumulate` this is
+	* a plain insert-or-replace.
+	*
+	* @param database Database client or transaction to use.
+	* @param table SQL table name.
+	* @param cells Data cells for the insert.
+	* @param conflict Columns forming the conflict target.
+	* @param accumulate Data columns to accumulate instead of replace.
+	* @return Number of affected rows.
+	*/
+	static drogon::Task<InterfaceResult<>> upsert(
+		const Database database,
+		const std::string table,
+		const Cells cells,
+		const Keys conflict,
+		const Keys accumulate = {});
+
+	/*!
 	* Deletes rows from a table.
 	*
 	* Lookup cells specify the WHERE predicates. Table-wide deletes are not
@@ -127,6 +153,38 @@ private:
 				<< ", cells_empty=" << cells.empty();
 			throw std::invalid_argument("Invalid database interface call");
 		}
+	}
+
+	/*!
+	* Builds a WHERE clause from lookup cells.
+	*
+	* Handles both equality (Lookup) and IN (LookupIn) predicates, numbering
+	* placeholders from `from` and appending the values to bind — one cell per
+	* placeholder, IN lists expanded — to `binds` in that same order.  Callers
+	* then bind `binds` rather than the original lookup cells.
+	*
+	* @param lookup Lookup cells to turn into predicates.
+	* @param from First placeholder number to use.
+	* @param binds Receives the values to bind, in placeholder order.
+	* @return SQL predicate text, without the leading WHERE.
+	*/
+	static std::string buildWhere(const Cells& lookup, size_t from, Cells& binds);
+
+	/*!
+	* Collects every predicate cell — equality and IN alike — in caller order.
+	*/
+	static Cells getLookupCells(const Cells& cells)
+	{
+		Cells output;
+		for (const auto& cell : cells)
+		{
+			if (cell.use == Use::Lookup || cell.use == Use::LookupIn)
+			{
+				output.push_back(cell);
+			}
+		}
+
+		return output;
 	}
 
 	/*!
