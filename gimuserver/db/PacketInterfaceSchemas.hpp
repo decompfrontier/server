@@ -163,7 +163,7 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 			.update = true,
 			.insert = true,
 		}),
-		field<&::UserUnitInfo::unit_lvl>("unit_lv", {
+		field<&::UserUnitInfo::unit_lvl>("unit_lvl", {
 			.read = true,
 			.update = true,
 			.insert = true,
@@ -206,7 +206,7 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 			.update = true,
 			.insert = true,
 		}),
-		field<&::UserUnitInfo::ext_rec>("ext_heal", {
+		field<&::UserUnitInfo::ext_rec>("ext_rec", {
 			.read = true,
 			.update = true,
 			.insert = true,
@@ -239,11 +239,11 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 		field<&::UserUnitInfo::add_hp>("add_hp", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::add_atk>("add_atk", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::add_def>("add_def", { .read = true, .update = true, .insert = true, }),
-		field<&::UserUnitInfo::add_rec>("add_heal", { .read = true, .update = true, .insert = true, }),
+		field<&::UserUnitInfo::add_rec>("add_rec", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::limit_over_hp>("limit_over_hp", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::limit_over_atk>("limit_over_atk", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::limit_over_def>("limit_over_def", { .read = true, .update = true, .insert = true, }),
-		field<&::UserUnitInfo::limit_over_rec>("limit_over_heal", { .read = true, .update = true, .insert = true, }),
+		field<&::UserUnitInfo::limit_over_rec>("limit_over_rec", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::element>("element", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::leader_skill_id>("leader_skill_id", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::fe_bp>("fe_bp", { .read = true, .update = true, .insert = true, }),

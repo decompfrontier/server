@@ -100,6 +100,14 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// NOTE: the unit_lv / base_heal / ext_heal columns added here duplicate the
+	// unit_lvl / base_rec / ext_rec columns 08032025 already created, and
+	// add_heal / limit_over_heal use the wrong vocabulary for a column.
+	// 06082026_ConsolidateUserUnitStatColumns (bottom of this file) collapses
+	// all five.  This migration is left as-is rather than corrected in place so
+	// that databases which already ran it and databases created fresh converge
+	// on the same schema.
+	//
 	// Extra user_units columns used by the quests-branch handlers
 	// (UnitMix/UnitEvo/UnitSell/UnitFavorite, GachaAction, FriendGet,
 	// CampaignBattleStart).  Consolidates the former
@@ -247,6 +255,42 @@ static void RegisterMigrations(MigrationMap& map)
 			"PRIMARY KEY (user_id, ticket_id)"
 			");"
 		);
+	});
+
+	// Collapses the duplicate stat columns 02072026 added beside the ones
+	// 08032025 already created.  They exist because the client names the same
+	// stat differently in different packets — UserUnitInfo says base_rec /
+	// ext_rec / unit_lvl, while FriendInfo and ReinforcementInfo say base_heal
+	// / ext_heal / unit_lv (both spellings come from IDA; see
+	// net/friends.kdl).  A column was added per spelling, so a unit could hold
+	// two recovery values that disagree.
+	//
+	// One column per concept from here.  The rec/lvl spelling wins because
+	// 08032025_CreateUserUnitsTable established it; PacketInterfaceFor<T> maps
+	// either packet vocabulary onto it, which is what it is for.
+	//
+	// Merge rule: the duplicate wins only where the canonical column is still
+	// at its default, since the quests-branch handlers wrote the duplicates
+	// while upstream handlers wrote the canonical ones.  Where both hold real
+	// values they are expected to agree; if they do not, the canonical value is
+	// kept.
+	migrate("06082026_ConsolidateUserUnitStatColumns", {
+		p->execSqlSync("UPDATE user_units SET unit_lvl = unit_lv "
+			"WHERE unit_lvl = 0 AND unit_lv != 0;");
+		p->execSqlSync("UPDATE user_units SET base_rec = base_heal "
+			"WHERE base_rec = 0 AND base_heal != 0;");
+		p->execSqlSync("UPDATE user_units SET ext_rec = ext_heal "
+			"WHERE ext_rec = 0 AND ext_heal != 0;");
+
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN unit_lv;");
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN base_heal;");
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN ext_heal;");
+
+		// These two had no canonical counterpart — they are not duplicates,
+		// just the wrong vocabulary for a column.
+		p->execSqlSync("ALTER TABLE user_units RENAME COLUMN add_heal TO add_rec;");
+		p->execSqlSync("ALTER TABLE user_units "
+			"RENAME COLUMN limit_over_heal TO limit_over_rec;");
 	});
 }
 

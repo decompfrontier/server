@@ -3,11 +3,14 @@
 #include <gimuserver/archive/UnitArchiver.hpp>
 #include <gimuserver/db/PacketInterface.hpp>
 #include <gimuserver/gme/common/Energy.hpp>
+#include <gimuserver/utils/Random.hpp>
 
 #include <drogon/orm/DbClient.h>
 
 #include <cstdint>
+#include <mutex>
 #include <optional>
+#include <random>
 #include <set>
 #include <stdexcept>
 #include <string>
@@ -200,6 +203,84 @@ inline drogon::Task<void> returnEquippedSpheres(
 			}
 		}
 	}
+}
+
+/*!
+* Maps a numeric element id (UnitMst.element) to the string form stored in
+* user_units.element.
+*
+* @param id Element id 1-6.
+* @return Element name; "fire" for out-of-range ids.
+*/
+inline std::string_view elementIdToString(const int32_t id)
+{
+	switch (id)
+	{
+	case 2: return "water";
+	case 3: return "earth";
+	case 4: return "thunder";
+	case 5: return "light";
+	case 6: return "dark";
+	default: return "fire";
+	}
+}
+
+/*!
+* Grants a fresh level-1 unit to the user from its UnitMst row.
+*
+* Column mapping mirrors the debug CLI's InsertUnitFromMst (the proven insert
+* shape for this schema): base stats from the MST minimums, skill levels 10
+* when the unit has the skill, and a random unit type (1-6) — types are rolled
+* on acquisition, matching live behaviour.  Reward flows (CampaignReceipt) use
+* this for present_type=6 unit rewards.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that receives the unit.
+* @param unit Unit master row to instantiate.
+*/
+inline drogon::Task<void> addUserUnit(
+	const db::Database database,
+	const UserIdentity identity,
+	const UnitMst& unit)
+{
+	if (!database || identity.userId.empty())
+	{
+		LOG_ERROR << "Invalid addUserUnit call: "
+			<< "db=" << static_cast<bool>(database)
+			<< ", user_id_empty=" << identity.userId.empty();
+		throw std::invalid_argument("Invalid addUserUnit call");
+	}
+
+	const int32_t skillLv      = unit.skill_id       > 0 ? 10 : 0;
+	const int32_t extraSkillLv = unit.extra_skill_id > 0 ? 10 : 0;
+
+	int32_t unitType = 1;
+	{
+		std::lock_guard lock(RandomMutex());
+		unitType = std::uniform_int_distribution<int32_t>(1, 6)(RandomEngine());
+	}
+
+	co_await database->execSqlCoro(
+		"INSERT INTO user_units "
+		"(user_id, unit_id, unit_lvl,"
+		" base_hp,  add_hp,  ext_hp,  limit_over_hp,"
+		" base_atk, add_atk, ext_atk, limit_over_atk,"
+		" base_def, add_def, ext_def, limit_over_def,"
+		" base_rec, base_rec,add_rec,ext_rec,limit_over_rec,"
+		" exp, total_exp,"
+		" skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
+		" element, fe_bp, fe_max_usable_bp, unit_type_id) "
+		"VALUES ($1,$2,1,"
+		" $3,0,0,0, $4,0,0,0, $5,0,0,0,"
+		" $6,$6,0,0,0,"
+		" 1,1,"
+		" $7,$8,$9,$10,$11,"
+		" $12,100,200,$13);",
+		identity.userId, std::to_string(unit.id),
+		unit.min_hp, unit.min_atk, unit.min_def, unit.min_rec,
+		unit.skill_id, skillLv, unit.extra_skill_id, extraSkillLv, unit.leader_skill_id,
+		std::string(elementIdToString(unit.element)),
+		unitType);
 }
 
 /*!
