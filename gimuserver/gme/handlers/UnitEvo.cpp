@@ -111,9 +111,9 @@ HANDLEF(UnitEvo)
     // Step 1: SELECT current base unit (need IMP/ext/limitOver cols to preserve).
     // Also fetch unit_id so we can extract the original MST id for the animation.
     const auto baseRows = co_await theDb()->execSqlCoro(
-        "SELECT user_unit_id, unit_id, add_hp, add_atk, add_def, add_heal,"
-        " ext_hp, ext_atk, ext_def, ext_heal,"
-        " limit_over_hp, limit_over_atk, limit_over_def, limit_over_heal,"
+        "SELECT user_unit_id, unit_id, add_hp, add_atk, add_def, add_rec,"
+        " ext_hp, ext_atk, ext_def, ext_rec,"
+        " limit_over_hp, limit_over_atk, limit_over_def, limit_over_rec,"
         " fe_bp, fe_max_usable_bp, unit_type_id,"
         " eqip_item_id, eqip_item_frame_id, eqip_item_id2, eqip_item_frame_id2"
         " FROM user_units WHERE user_id=$1 AND user_unit_id=$2 LIMIT 1;",
@@ -141,7 +141,7 @@ HANDLEF(UnitEvo)
     const int32_t keepAddHp   = br["add_hp"].as<int32_t>();
     const int32_t keepAddAtk  = br["add_atk"].as<int32_t>();
     const int32_t keepAddDef  = br["add_def"].as<int32_t>();
-    const int32_t keepAddHeal = br["add_heal"].as<int32_t>();
+    const int32_t keepAddHeal = br["add_rec"].as<int32_t>();
 
     const std::string newElement = unitEvo_elementStr(targetMst->element);
 
@@ -151,9 +151,9 @@ HANDLEF(UnitEvo)
     co_await theDb()->execSqlCoro(
         "UPDATE user_units SET"
         " unit_id=$1,"
-        " unit_lv=1, exp=0, total_exp=0,"
-        " base_hp=$2,  base_atk=$3,  base_def=$4,  base_heal=$5, base_rec=$5,"
-        " add_hp=$6,   add_atk=$7,   add_def=$8,   add_heal=$9,"
+        " unit_lvl=1, exp=0, total_exp=0,"
+        " base_hp=$2,  base_atk=$3,  base_def=$4,  base_rec=$5, base_rec=$5,"
+        " add_hp=$6,   add_atk=$7,   add_def=$8,   add_rec=$9,"
         " leader_skill_id=$10, skill_id=$11, extra_skill_id=$12,"
         " skill_lv=1, extra_skill_lv=0,"
         " element=$13"
@@ -226,8 +226,8 @@ HANDLEF(UnitEvo)
         ud.limit_over_def      = br["limit_over_def"].as<int32_t>();
         ud.base_rec           = targetMst->min_rec;
         ud.add_rec            = keepAddHeal;
-        ud.ext_rec            = br["ext_heal"].as<int32_t>();
-        ud.limit_over_rec     = br["limit_over_heal"].as<int32_t>();
+        ud.ext_rec            = br["ext_rec"].as<int32_t>();
+        ud.limit_over_rec     = br["limit_over_rec"].as<int32_t>();
         ud.element             = newElement;
         ud.leader_skill_id     = targetMst->leader_skill_id;
         ud.bb_id            = std::to_string(targetMst->skill_id);

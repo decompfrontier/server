@@ -118,10 +118,10 @@ HANDLEF(UnitMix)
     // Step 1: SELECT base unit full stats.
     const auto baseRows = co_await theDb()->execSqlCoro(
         "SELECT user_unit_id, unit_id, total_exp,"
-        " base_hp, base_atk, base_def, base_heal,"
-        " add_hp, add_atk, add_def, add_heal,"
-        " ext_hp, ext_atk, ext_def, ext_heal,"
-        " limit_over_hp, limit_over_atk, limit_over_def, limit_over_heal,"
+        " base_hp, base_atk, base_def, base_rec,"
+        " add_hp, add_atk, add_def, add_rec,"
+        " ext_hp, ext_atk, ext_def, ext_rec,"
+        " limit_over_hp, limit_over_atk, limit_over_def, limit_over_rec,"
         " skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
         " element, fe_bp, fe_max_usable_bp, unit_type_id,"
         " eqip_item_id, eqip_item_frame_id, eqip_item_id2, eqip_item_frame_id2"
@@ -206,7 +206,7 @@ HANDLEF(UnitMix)
 
     // Step 3: UPDATE base unit level/exp (preserve IMP add_* cols).
     co_await theDb()->execSqlCoro(
-        "UPDATE user_units SET unit_lv=$1, exp=$2, total_exp=$3"
+        "UPDATE user_units SET unit_lvl=$1, exp=$2, total_exp=$3"
         " WHERE user_unit_id=$4 AND user_id=$5;",
         newLevel, newExp, newTotalExp, baseId, std::string(kUserId)
     );
@@ -244,11 +244,11 @@ HANDLEF(UnitMix)
         rd.base_hp        = br["base_hp"].as<int32_t>();
         rd.base_atk       = br["base_atk"].as<int32_t>();
         rd.base_def       = br["base_def"].as<int32_t>();
-        rd.base_heal      = br["base_heal"].as<int32_t>();
+        rd.base_heal      = br["base_rec"].as<int32_t>();
         rd.add_hp         = br["add_hp"].as<int32_t>();
         rd.add_atk        = br["add_atk"].as<int32_t>();
         rd.add_def        = br["add_def"].as<int32_t>();
-        rd.add_heal       = br["add_heal"].as<int32_t>();
+        rd.add_heal       = br["add_rec"].as<int32_t>();
         rd.ext_hp         = br["ext_hp"].as<int32_t>();
         rd.ext_atk        = br["ext_atk"].as<int32_t>();
         rd.ext_def        = br["ext_def"].as<int32_t>();
@@ -283,10 +283,10 @@ HANDLEF(UnitMix)
         ud.add_def            = br["add_def"].as<int32_t>();
         ud.ext_def            = br["ext_def"].as<int32_t>();
         ud.limit_over_def     = br["limit_over_def"].as<int32_t>();
-        ud.base_rec          = br["base_heal"].as<int32_t>();
-        ud.add_rec           = br["add_heal"].as<int32_t>();
-        ud.ext_rec           = br["ext_heal"].as<int32_t>();
-        ud.limit_over_rec    = br["limit_over_heal"].as<int32_t>();
+        ud.base_rec          = br["base_rec"].as<int32_t>();
+        ud.add_rec           = br["add_rec"].as<int32_t>();
+        ud.ext_rec           = br["ext_rec"].as<int32_t>();
+        ud.limit_over_rec    = br["limit_over_rec"].as<int32_t>();
         ud.element            = br["element"].as<std::string>();
         ud.leader_skill_id    = br["leader_skill_id"].as<int32_t>();
         ud.bb_id           = std::to_string(br["skill_id"].as<int32_t>());
