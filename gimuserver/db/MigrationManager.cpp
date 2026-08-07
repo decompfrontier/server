@@ -305,6 +305,15 @@ static void RegisterMigrations(MigrationMap& map)
 		p->execSqlSync("ALTER TABLE user_units DROP COLUMN fe_bp;");
 		p->execSqlSync("ALTER TABLE user_units DROP COLUMN fe_max_usable_bp;");
 	});
+
+	// leader_skill_id is SPECIES data: every copy of a unit has the same leader
+	// skill, so it belongs to UnitMst, not to a per-user row.  UnitEvo already
+	// sourced it from targetMst; UnitMix now does the same instead of copying
+	// the stored duplicate.  The packet field stays — the client still gets the
+	// key — only the redundant per-user copy goes.
+	migrate("06082026_DropLeaderSkillIdColumn", {
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN leader_skill_id;");
+	});
 }
 
 /*!

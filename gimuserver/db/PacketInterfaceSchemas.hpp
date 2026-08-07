@@ -245,7 +245,6 @@ PacketInterfaceFor<::UserUnitInfo>::fields()
 		field<&::UserUnitInfo::limit_over_def>("limit_over_def", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::limit_over_rec>("limit_over_rec", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::element>("element", { .read = true, .update = true, .insert = true, }),
-		field<&::UserUnitInfo::leader_skill_id>("leader_skill_id", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::equipitem_id>("eqip_item_id", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::equipitem_frame_id>("eqip_item_frame_id", { .read = true, .update = true, .insert = true, }),
 		field<&::UserUnitInfo::equipitem_id2>("eqip_item_id2", { .read = true, .update = true, .insert = true, }),

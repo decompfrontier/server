@@ -268,17 +268,17 @@ inline drogon::Task<void> addUserUnit(
 		" base_def, add_def, ext_def, limit_over_def,"
 		" base_rec, add_rec, ext_rec, limit_over_rec,"
 		" exp, total_exp,"
-		" skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
+		" skill_id, skill_lv, extra_skill_id, extra_skill_lv,"
 		" element, unit_type_id) "
 		"VALUES ($1,$2,1,"
 		" $3,0,0,0, $4,0,0,0, $5,0,0,0,"
 		" $6,0,0,0,"
 		" 1,1,"
-		" $7,$8,$9,$10,$11,"
-		" $12,$13);",
+		" $7,$8,$9,$10,"
+		" $11,$12);",
 		identity.userId, std::to_string(unit.id),
 		unit.min_hp, unit.min_atk, unit.min_def, unit.min_rec,
-		unit.skill_id, skillLv, unit.extra_skill_id, extraSkillLv, unit.leader_skill_id,
+		unit.skill_id, skillLv, unit.extra_skill_id, extraSkillLv,
 		std::string(elementIdToString(unit.element)),
 		unitType);
 }
