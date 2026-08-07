@@ -1,0 +1,9 @@
+{
+  "uYHZWC73": [
+    {"0Cq2AlXW": "1", "5vZPshoA": "MST_DUNGEONS_GATE_1_NAME", "v0OseM39": "0", "ip4q1qC7": "landimg", "bagWQVt9": "bf005_worldmap.mp3", "CvVtDnVM": "1", "1gDkL6XR": "areaselect_grandgaia_btn.png", "gW70zeZ5": "90,166,0,0", "iP4oueV8": "350,350", "yu18xScw": "1", "jfN15EdJ": "0", "HSRhkf70": "0", "N4XVE1uA": "0", "qp37xTDh": "MST_DUNGEONS_GATE_1_Description"},
+    {"0Cq2AlXW": "2", "5vZPshoA": "MST_DUNGEONS_GATE_2_NAME", "v0OseM39": "0", "ip4q1qC7": "landishugliaimg", "bagWQVt9": "bf066_ishu_worldmap.mp3", "CvVtDnVM": "1", "1gDkL6XR": "areaselect_ishgria_btn.png", "gW70zeZ5": "90,649,0,0", "iP4oueV8": "350,700", "yu18xScw": "2", "jfN15EdJ": "1", "HSRhkf70": "1577", "N4XVE1uA": "0", "qp37xTDh": "MST_DUNGEONS_GATE_2_Description"},
+    {"0Cq2AlXW": "99", "5vZPshoA": "MST_DUNGEONS_GATE_99_NAME", "v0OseM39": "1", "ip4q1qC7": "", "bagWQVt9": "", "CvVtDnVM": "1", "1gDkL6XR": "", "gW70zeZ5": "", "iP4oueV8": "", "yu18xScw": "3", "jfN15EdJ": "99", "HSRhkf70": "0", "N4XVE1uA": "0", "qp37xTDh": "MST_DUNGEONS_GATE_99_Description"},
+    {"0Cq2AlXW": "100", "5vZPshoA": "異界", "v0OseM39": "2", "ip4q1qC7": "land_part3_img", "bagWQVt9": "bf095_another_worldmap.mp3", "CvVtDnVM": "1", "1gDkL6XR": "", "gW70zeZ5": "", "iP4oueV8": "", "yu18xScw": "3", "jfN15EdJ": "3", "HSRhkf70": "0", "N4XVE1uA": "0", "qp37xTDh": "ベクタス説明"},
+    {"0Cq2AlXW": "999", "5vZPshoA": "第三部召喚術研究所", "v0OseM39": "3", "ip4q1qC7": "land_part3_img", "bagWQVt9": "bf095_another_worldmap.mp3", "CvVtDnVM": "1", "1gDkL6XR": "", "gW70zeZ5": "", "iP4oueV8": "", "yu18xScw": "3", "jfN15EdJ": "3", "HSRhkf70": "0", "N4XVE1uA": "0", "qp37xTDh": "ベクタス説明"}
+  ]
+}

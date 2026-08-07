@@ -26,6 +26,15 @@ static std::string BuildJson(const T& d)
 void ServerCache::Setup(const Json::Value& serverObj)
 {
 	const auto& mstRoot = serverObj["mst_root"].asString();
+	// Not every file the server loads at boot is a decoded MST.  features/
+	// brave_slots/notice_info are server config and response fixtures, so they
+	// live in system_root while mst_root holds only reference tables.
+	const auto& systemRoot = serverObj.get("system_root", "./system").asString();
+
+	// fps_cap is the client-side render cap delivered to the offline-proxy
+	// libcurl shim via the /offline_mod/fps_cap endpoint. Default 60 (matches
+	// the proxy's compile-time default); 0 disables the cap entirely.
+	m_serverConfig.fpsCap = serverObj.get("fps_cap", 60u).asUInt();
 
 
 	{
@@ -50,67 +59,71 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		}
 	}
 
-	m_feature = LoadJson<FeatureCheck>(mstRoot, "features.json");
-	m_controlCenterRsp = LoadJson<SlotGameInfoR>(mstRoot, "brave_slots.json");
+	m_feature = LoadJson<FeatureCheck>(systemRoot, "features.json");
+	m_controlCenterRsp = LoadJson<SlotGameInfoR>(systemRoot, "brave_slots.json");
 
 	{
 		// Cache: Initialize response
-		m_initrsp.login_campagin = LoadJson<LoginCampaignMst>(mstRoot, "login_campaign.json");
-		m_initrsp.login_campaign_reward = LoadJson<LoginCampaignRewardCache>(mstRoot, "login_campaign_reward.json").data;
-		m_initrsp.progression = LoadJson<UserLevelMstCache>(mstRoot, "user_level.json").data;
-		m_initrsp.mst = LoadJson<VersionInfoCache>(mstRoot, "version_info.json").data;
-		m_initrsp.town_facility = LoadJson<TownFacilityMstCache>(mstRoot, "town_facility.json").data;
-		m_initrsp.town_facility_lv = LoadJson<TownFacilityLvMstCache>(mstRoot, "town_facility_lv.json").data;
-		m_initrsp.town_location = LoadJson<TownLocationMstCache>(mstRoot, "town_location.json").data;
-		m_initrsp.town_location_lv = LoadJson<TownLocationLvMstCache>(mstRoot, "town_location_lv.json").data;
-		m_initrsp.dungeon_keys = LoadJson<DungeonKeyMstCache>(mstRoot, "dungeon_keys.json").data;
-		m_initrsp.arena_ranks = LoadJson<ArenaRankMstCache>(mstRoot, "arena_rank.json").data;
-		m_initrsp.gacha_effects = LoadJson<GachaEffectMstCache>(mstRoot, "gacha_effects.json").data;
-		m_initrsp.gachas = LoadJson<GachaMstCache>(mstRoot, "gacha.json").data;
-		m_initrsp.npcs = LoadJson<NpcMstCache>(mstRoot, "npc.json").data;
-		m_initrsp.banner_info = LoadJson<BannerInfoMstCache>(mstRoot, "banner_info.json").data;
-		m_initrsp.extra_passive_skills = LoadJson<ExtraPassiveSkillMstCache>(mstRoot, "extra_passive_skills.json").data;
-		m_initrsp.notice_info = LoadJson<NoticeInfo>(mstRoot, "notice_info.json");
-		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines.json");
-		m_initrsp.video_ad_slots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ads_slot_game_info.json");
-		m_initrsp.exp_pattern = LoadJson<UnitExpPatternMstCache>(mstRoot, "unit_exp_pattern.json").data;
-		m_initrsp.receipe = LoadJson<ReceipeMstCache>(mstRoot, "receipes.json").data;
-		m_initrsp.trophy = LoadJson<TrophyMstCache>(mstRoot, "trophy.json").data;
-		m_initrsp.trophy_group = LoadJson<TrophyGroupMstCache>(mstRoot, "trophy_group.json").data;
-		m_initrsp.trophy_grade = LoadJson<TrophyGradeMstCache>(mstRoot, "trophy_grade.json").data;
-		m_initrsp.information = LoadJson<InformationMstCache>(mstRoot, "information.json").data;
-		m_initrsp.help = LoadJson<HelpMstCache>(mstRoot, "help.json").data;
-		m_initrsp.help_sub = LoadJson<HelpSubMstCache>(mstRoot, "help_sub.json").data;
-		m_initrsp.url = LoadJson<UrlMstCache>(mstRoot, "url.json").data;
-		m_initrsp.challenge = LoadJson<ChallengeMstCache>(mstRoot, "challenge.json").data;
-		m_initrsp.challenge_hr = LoadJson<ChallengeHrMstCache>(mstRoot, "challenge_hr.json").data;
-		m_initrsp.challenge_mis = LoadJson<ChallengeMisMstCache>(mstRoot, "challenge_mis.json").data;
-		m_initrsp.challenge_grade = LoadJson<ChallengeGradeMstCache>(mstRoot, "challenge_grade.json").data;
-		m_initrsp.challenge_reward = LoadJson<ChallengeRewardMstCache>(mstRoot, "challenge_reward.json").data;
-		m_initrsp.challenge_item = LoadJson<ChallengeItemMstCache>(mstRoot, "challenge_item.json").data;
-		m_initrsp.challenge_rank_reward = LoadJson<ChallengeRankRewardMstCache>(mstRoot, "challenge_rank_reward.json").data;
-		m_initrsp.challenge_mvp = LoadJson<ChallengeMvpMstCache>(mstRoot, "challenge_mvp.json").data;
-		m_initrsp.interactive_banner = LoadJson<InteractiveBannerInfoMstCache>(mstRoot, "interactive_banner_info.json").data;
-		m_initrsp.sound = LoadJson<SoundMstCache>(mstRoot, "sound.json").data;
+		m_initrsp.login_campagin = LoadJson<LoginCampaignMst>(mstRoot, "login_campaign_mst.json");
+		m_initrsp.login_campaign_reward = LoadJson<LoginCampaignRewardCache>(mstRoot, "login_campaign_reward_mst.json").data;
+		m_initrsp.progression = LoadJson<UserLevelMstCache>(mstRoot, "user_level_mst.json").data;
+		m_initrsp.mst = LoadJson<VersionInfoCache>(mstRoot, "version_info_mst.json").data;
+		m_initrsp.town_facility = LoadJson<TownFacilityMstCache>(mstRoot, "town_facility_mst.json").data;
+		m_initrsp.town_facility_lv = LoadJson<TownFacilityLvMstCache>(mstRoot, "town_facility_lv_mst.json").data;
+		m_initrsp.town_location = LoadJson<TownLocationMstCache>(mstRoot, "town_location_mst.json").data;
+		m_initrsp.town_location_lv = LoadJson<TownLocationLvMstCache>(mstRoot, "town_location_lv_mst.json").data;
+		m_initrsp.dungeon_keys = LoadJson<DungeonKeyMstCache>(mstRoot, "dungeon_key_mst.json").data;
+		m_initrsp.arena_ranks = LoadJson<ArenaRankMstCache>(mstRoot, "arena_rank_mst.json").data;
+		m_initrsp.gacha_effects = LoadJson<GachaEffectMstCache>(mstRoot, "gacha_effect_mst.json").data;
+		m_initrsp.gachas = LoadJson<GachaMstCache>(mstRoot, "gacha_mst.json").data;
+		m_initrsp.npcs = LoadJson<NpcMstCache>(mstRoot, "npc_mst.json").data;
+		m_initrsp.banner_info = LoadJson <BannerInfoMstCache>(mstRoot, "banner_info_mst.json").data;
+		m_initrsp.extra_passive_skills = LoadJson<ExtraPassiveSkillMstCache>(mstRoot, "extra_passive_skill_mst.json").data;
+		m_initrsp.notice_info = LoadJson<NoticeInfo>(systemRoot, "notice_info.json");
+		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines_mst.json");
+		m_initrsp.video_ad_slots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ad_slot_game_info_mst.json");
+		m_initrsp.exp_pattern = LoadJson<UnitExpPatternMstCache>(mstRoot, "unit_exp_pattern_mst.json").data;
+		m_initrsp.receipe = LoadJson<ReceipeMstCache>(mstRoot, "recipe_mst.json").data;
+		m_initrsp.trophy = LoadJson<TrophyMstCache>(mstRoot, "trophy_mst.json").data;
+		m_initrsp.trophy_group = LoadJson<TrophyGroupMstCache>(mstRoot, "trophy_group_mst.json").data;
+		m_initrsp.trophy_grade = LoadJson<TrophyGradeMstCache>(mstRoot, "trophy_grade_mst.json").data;
+		m_initrsp.information = LoadJson<InformationMstCache>(mstRoot, "information_mst.json").data;
+		m_initrsp.help = LoadJson<HelpMstCache>(mstRoot, "help_mst.json").data;
+		m_initrsp.help_sub = LoadJson<HelpSubMstCache>(mstRoot, "help_sub_mst.json").data;
+		m_initrsp.url = LoadJson<UrlMstCache>(mstRoot, "url_mst.json").data;
+		m_initrsp.challenge = LoadJson<ChallengeMstCache>(mstRoot, "challenge_mst.json").data;
+		m_initrsp.challenge_hr = LoadJson<ChallengeHrMstCache>(mstRoot, "challenge_hr_mst.json").data;
+		m_initrsp.challenge_mis = LoadJson<ChallengeMisMstCache>(mstRoot, "chlng_mission_mst.json").data;
+		m_initrsp.challenge_grade = LoadJson<ChallengeGradeMstCache>(mstRoot, "chlng_mission_grade_mst.json").data;
+		m_initrsp.challenge_reward = LoadJson<ChallengeRewardMstCache>(mstRoot, "chlng_mission_reward_mst.json").data;
+		m_initrsp.challenge_item = LoadJson<ChallengeItemMstCache>(mstRoot, "chlng_mission_item_set_mst.json").data;
+		m_initrsp.challenge_rank_reward = LoadJson<ChallengeRankRewardMstCache>(mstRoot, "challenge_rank_reward_mst.json").data;
+		m_initrsp.challenge_mvp = LoadJson<ChallengeMvpMstCache>(mstRoot, "challenge_mvp_mst.json").data;
+		m_initrsp.interactive_banner = LoadJson<InteractiveBannerInfoMstCache>(mstRoot, "interactive_banner_info_mst.json").data;
+		m_initrsp.sound = LoadJson<SoundMstCache>(mstRoot, "sound_mst.json").data;
 		
 		// cache: UserInfo response
 		m_userrsp.notice_info = m_initrsp.notice_info;
-		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region.json").data;
-		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info.json").data;
-		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeons.json").data;
-		m_userrsp.gift = LoadJson<GiftItemMstCache>(mstRoot, "gift.json").data;
-		m_userrsp.general_event = LoadJson<GeneralEventMstCache>(mstRoot, "general_event.json").data;
-		m_userrsp.first_desc = LoadJson<FirstDescMstCache>(mstRoot, "first_desc.json").data;
-		m_userrsp.summon_ticket_v2 = LoadJson<SummonTicketV2MstCache>(mstRoot, "summon_tickets_v2.json").data;
-		m_userrsp.resummon_gacha = LoadJson<ResummonGachaMstCache>(mstRoot, "resummon_gacha.json").data;
+		m_userrsp.video_ad_region = LoadJson<VideoAdRegionCache>(mstRoot, "video_ad_region_mst.json").data;
+		m_userrsp.video_ad_info = LoadJson<VideoAdInfoCache>(mstRoot, "video_ad_info_mst.json").data;
+		m_userrsp.excluded_dungeon_missions = LoadJson<ExcludedDungeonMissionMstCache>(mstRoot, "excluded_dungeon_mission_mst.json").data;
+		m_userrsp.gift = LoadJson<GiftItemMstCache>(mstRoot, "gift_item_mst.json").data;
+		m_userrsp.general_event = LoadJson<GeneralEventMstCache>(mstRoot, "general_event_mst.json").data;
+		m_userrsp.first_desc = LoadJson<FirstDescMstCache>(mstRoot, "first_desc_mst.json").data;
+		m_userrsp.summon_ticket_v2 = LoadJson<SummonTicketV2MstCache>(mstRoot, "summon_ticket_v2_mst.json").data;
+		m_userrsp.resummon_gacha = LoadJson<ResummonGachaMstCache>(mstRoot, "resummon_gacha_mst.json").data;
 
-		// cache: GachaList response
-		m_gachaListRsp.gacha_categories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_category.json").data;
+		m_unitMst = LoadJson<UnitMstCache>(mstRoot, "unit_mst.json").data;
+		m_itemMst = LoadJson<ItemMstCache>(mstRoot, "item_mst.json").data;
+
+		// cache: GachaList response (gacha_info comes from GachaArchiver at
+		// request time; only the category banners are cached here)
+		m_gachaListRsp.gacha_categories = LoadJson<GachaCategoryCache>(mstRoot, "gacha_category_mst.json").data;
 
 		// TODO(arves): move this to generated per-used as there's no support for the claim
-		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "TEMP_daily_tasks_bonus.json");
-		m_initrsp.daily_task_prizes = LoadJson<DailyTaskPrizeMstCache>(mstRoot, "TEMP_daily_tasks_prizes.json").data;
-		m_initrsp.daily_tasks = LoadJson<DailyTaskMstCache>(mstRoot, "TEMP_daily_tasks.json").data;
+		m_initrsp.daily_task_bonuses = LoadJson<DailyTaskBonusMst>(mstRoot, "daily_task_bonus_mst.json");
+		m_initrsp.daily_task_prizes = LoadJson<DailyTaskPrizeMstCache>(mstRoot, "daily_task_prize_mst.json").data;
+		m_initrsp.daily_tasks = LoadJson<DailyTaskMstCache>(mstRoot, "daily_task_mst.json").data;
 		// ---
 	}
 }

@@ -54,7 +54,8 @@
                     "wallpaper_banner": "/wallpaper/title_logo20151028.jpg", // login wallpaper
                     "game_version": 21900, // game version (must be this one or it might cry about an update)
                     "notice_url": "http://ios21900.bfww.gumi.sg/pages/versioninfo", // notice url (this points to a drogon orm page)
-                    "mst_root": "./system", // MST cache directory
+                    "mst_root": "./mst", // Decoded MST tables (read-only reference data)
+                    "system_root": "./system", // Server config + response fixtures that are NOT MSTs
                     "archive_root": "./archive", // Server-owned curated archive data directory
 					"initial_level": 1,
 					"initial_free_gems": 5,
