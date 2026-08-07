@@ -122,7 +122,7 @@ HANDLEF(UnitMix)
         " add_hp, add_atk, add_def, add_rec,"
         " ext_hp, ext_atk, ext_def, ext_rec,"
         " limit_over_hp, limit_over_atk, limit_over_def, limit_over_rec,"
-        " skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
+        " skill_id, skill_lv, extra_skill_id, extra_skill_lv,"
         " element, unit_type_id,"
         " eqip_item_id, eqip_item_frame_id, eqip_item_id2, eqip_item_frame_id2"
         " FROM user_units WHERE user_id=$1 AND user_unit_id=$2 LIMIT 1;",
@@ -288,7 +288,9 @@ HANDLEF(UnitMix)
         ud.ext_rec           = br["ext_rec"].as<int32_t>();
         ud.limit_over_rec    = br["limit_over_rec"].as<int32_t>();
         ud.element            = br["element"].as<std::string>();
-        ud.leader_skill_id    = br["leader_skill_id"].as<int32_t>();
+        // Species data: read from the MST rather than a stored copy.  The
+        // column was dropped -- see 06082026_DropLeaderSkillIdColumn.
+        ud.leader_skill_id    = baseMstData ? baseMstData->leader_skill_id : 0;
         ud.bb_id           = std::to_string(br["skill_id"].as<int32_t>());
         ud.bb_lvl           = br["skill_lv"].as<int32_t>();
         ud.sbb_id     = std::to_string(br["extra_skill_id"].as<int32_t>());

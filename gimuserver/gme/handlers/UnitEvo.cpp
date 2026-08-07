@@ -154,14 +154,14 @@ HANDLEF(UnitEvo)
         " unit_lvl=1, exp=0, total_exp=0,"
         " base_hp=$2,  base_atk=$3,  base_def=$4,  base_rec=$5, base_rec=$5,"
         " add_hp=$6,   add_atk=$7,   add_def=$8,   add_rec=$9,"
-        " leader_skill_id=$10, skill_id=$11, extra_skill_id=$12,"
+        " skill_id=$10, extra_skill_id=$11,"
         " skill_lv=1, extra_skill_lv=0,"
         " element=$13"
         " WHERE user_unit_id=$14 AND user_id=$15;",
         unitEvo_addSuffix(targetMstId),
         targetMst->min_hp,  targetMst->min_atk,  targetMst->min_def,  targetMst->min_rec,
         keepAddHp,           keepAddAtk,           keepAddDef,          keepAddHeal,
-        targetMst->leader_skill_id, targetMst->skill_id, targetMst->extra_skill_id,
+        targetMst->skill_id, targetMst->extra_skill_id,
         newElement,
         baseId, std::string(kUserId)
     );
