@@ -292,6 +292,19 @@ static void RegisterMigrations(MigrationMap& map)
 		p->execSqlSync("ALTER TABLE user_units "
 			"RENAME COLUMN limit_over_heal TO limit_over_rec;");
 	});
+
+	// Drops two columns that failed the "do we understand it, does the client
+	// need it" test (handbook §6.15).  fe_bp / fe_max_usable_bp were only ever
+	// INSERTed as the literals 100 and 200 and read straight back into the
+	// packet — never computed from anything, never consumed by any handler,
+	// and Frontier Evolution is not implemented.  The packet FIELDS stay in the
+	// KDL, so the client still receives the keys (defaulting to 0); only the
+	// per-user persistence goes.  Re-add them with the subsystem that needs
+	// them, at which point the values will mean something.
+	migrate("06082026_DropUnusedFeBpColumns", {
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN fe_bp;");
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN fe_max_usable_bp;");
+	});
 }
 
 /*!
