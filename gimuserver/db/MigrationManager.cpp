@@ -1,9 +1,10 @@
 #include "App.hpp"
 #include "MigrationManager.hpp"
 
-using MigrationMap = std::unordered_map<std::string, std::function<void(drogon::orm::DbClientPtr& db)>>;
+using MigrationEntry = std::pair<std::string, std::function<void(drogon::orm::DbClientPtr&)>>;
+using MigrationMap = std::vector<MigrationEntry>;
 
-#define migrate(name, func) map.insert_or_assign(name, [](drogon::orm::DbClientPtr& p) func )
+#define migrate(name, func) map.emplace_back(name, [](drogon::orm::DbClientPtr& p) func )
 
 /*!
 * Register all the available migrations
@@ -99,6 +100,75 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// NOTE: the unit_lv / base_heal / ext_heal columns added here duplicate the
+	// unit_lvl / base_rec / ext_rec columns 08032025 already created, and
+	// add_heal / limit_over_heal use the wrong vocabulary for a column.
+	// 06082026_ConsolidateUserUnitStatColumns (bottom of this file) collapses
+	// all five.  This migration is left as-is rather than corrected in place so
+	// that databases which already ran it and databases created fresh converge
+	// on the same schema.
+	//
+	// Extra user_units columns used by the quests-branch handlers
+	// (UnitMix/UnitEvo/UnitSell/UnitFavorite, GachaAction, FriendGet,
+	// CampaignBattleStart).  Consolidates the former
+	// 13032025_AddStatsToUserUnitsTable + 09042026_AddSphereSlotsToUserUnits +
+	// 14042026_AddFavoriteFlgToUserUnits migrations onto the upstream table
+	// shape.  Upstream columns (unit_lvl/base_rec/ext_rec/bb_*) remain the
+	// source of truth for upstream handlers; these serve the not-yet-ported
+	// quests handlers and are consolidated away as each moves to
+	// PacketInterface.
+	migrate("02072026_ExtendUserUnitsForUnitOps", {
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN unit_lv INTEGER NOT NULL DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN base_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_hp INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_atk INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_def INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN add_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN ext_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_hp INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_atk INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_def INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN limit_over_heal INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN exp INTEGER NOT NULL DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN total_exp INTEGER NOT NULL DEFAULT 1");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN skill_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN skill_lv INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN extra_skill_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN extra_skill_lv INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN leader_skill_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN element TEXT NOT NULL DEFAULT 'fire'");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN fe_bp INTEGER NOT NULL DEFAULT 100");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN fe_max_usable_bp INTEGER NOT NULL DEFAULT 200");
+		// Sphere equipment slots (UserUnitInfo: Ge8Yo32T/0R3qTPK9, mZA7fH2v/RXfC31FA).
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_frame_id INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_id2 INTEGER NOT NULL DEFAULT 0");
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN eqip_item_frame_id2 INTEGER NOT NULL DEFAULT 0");
+		// Lock/favorite flag (UnitFavoriteRequest: req["3kcmQy7B"][0]["5JbjC3Pp"]).
+		p->execSqlSync("ALTER TABLE user_units ADD COLUMN favorite_flg INTEGER NOT NULL DEFAULT 0");
+	});
+
+	migrate("25042026_CreateUserTownTables", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_town_facilities ("
+			"user_id     TEXT    NOT NULL,"
+			"facility_id INTEGER NOT NULL,"
+			"lv          INTEGER NOT NULL DEFAULT 1,"
+			"karma       INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, facility_id)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_town_locations ("
+			"user_id     TEXT    NOT NULL,"
+			"location_id INTEGER NOT NULL,"
+			"lv          INTEGER NOT NULL DEFAULT 1,"
+			"karma       INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, location_id)"
+			");"
+		);
+	});
+
 	migrate("03072026_CreateUserUnitDictionaryTable", {
 		p->execSqlSync(
 			"CREATE TABLE IF NOT EXISTS user_unit_dictionary ("
@@ -110,6 +180,140 @@ static void RegisterMigrations(MigrationMap& map)
 		);
 	});
 
+	// Owned-item inventory: potions, materials, spheres.  One row per stack.
+	// instance_id is the warehouse row id the client references (UserWarehouse
+	// n6E8iMf3 / legacy ItemSphereEqp wh ids).  Populated naturally — the
+	// tutorial seeds a test potion in CreateUser, mission drops append here.
+	migrate("05072026_CreateUserItemsTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_items ("
+			"instance_id  INTEGER PRIMARY KEY AUTOINCREMENT,"
+			"user_id      TEXT    NOT NULL,"
+			"item_id      INTEGER NOT NULL,"
+			"item_num     INTEGER NOT NULL DEFAULT 1,"
+			"favorite_flg INTEGER NOT NULL DEFAULT 0,"
+			"disp_order   INTEGER NOT NULL DEFAULT 0,"
+			"UNIQUE(user_id, item_id)"
+			");"
+		);
+	});
+
+	// Viewed-cutscene state: one row per scenario the user has watched.
+	// GetScenarioPlayingInfo returns this set (sBbp47fi) so the client skips
+	// already-seen cutscenes; RaidUpScenarioInfo appends to it.  Structural
+	// only — never seeded; a fresh account sees every cutscene once.
+	migrate("17072026_CreateUserScenariosTable", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_scenarios ("
+			"user_id     TEXT    NOT NULL,"
+			"scenario_id INTEGER NOT NULL,"
+			"viewed_at   INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, scenario_id)"
+			");"
+		);
+	});
+
+	migrate("25042026_CreateUserCampaignTables", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_missions ("
+			"user_id          TEXT    NOT NULL,"
+			"mission_id       TEXT    NOT NULL,"
+			"state            INTEGER NOT NULL DEFAULT 0,"
+			"attain_percent   INTEGER NOT NULL DEFAULT 0,"
+			"clear_count      INTEGER NOT NULL DEFAULT 0,"
+			"last_cleared_at  INTEGER NOT NULL DEFAULT 0,"
+			"reward_claimed   INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, mission_id)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_decks ("
+			"user_id      TEXT    NOT NULL,"
+			"deck_num     INTEGER NOT NULL,"
+			"member_type  INTEGER NOT NULL,"
+			"user_unit_id INTEGER NOT NULL,"
+			"disporder    INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, deck_num, disporder)"
+			");"
+		);
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_campaign_state ("
+			"user_id            TEXT PRIMARY KEY,"
+			"active_mission_id  TEXT    NOT NULL DEFAULT '',"
+			"active_battle_seed INTEGER NOT NULL DEFAULT 0,"
+			"saved_state        TEXT    NOT NULL DEFAULT ''"
+			");"
+		);
+	});
+
+	migrate("13052026_CreateUserSummonTicketsV2", {
+		p->execSqlSync(
+			"CREATE TABLE IF NOT EXISTS user_summon_tickets_v2 ("
+			"user_id   TEXT    NOT NULL,"
+			"ticket_id INTEGER NOT NULL,"
+			"count     INTEGER NOT NULL DEFAULT 0,"
+			"PRIMARY KEY (user_id, ticket_id)"
+			");"
+		);
+	});
+
+	// Collapses the duplicate stat columns 02072026 added beside the ones
+	// 08032025 already created.  They exist because the client names the same
+	// stat differently in different packets — UserUnitInfo says base_rec /
+	// ext_rec / unit_lvl, while FriendInfo and ReinforcementInfo say base_heal
+	// / ext_heal / unit_lv (both spellings come from IDA; see
+	// net/friends.kdl).  A column was added per spelling, so a unit could hold
+	// two recovery values that disagree.
+	//
+	// One column per concept from here.  The rec/lvl spelling wins because
+	// 08032025_CreateUserUnitsTable established it; PacketInterfaceFor<T> maps
+	// either packet vocabulary onto it, which is what it is for.
+	//
+	// Merge rule: the duplicate wins only where the canonical column is still
+	// at its default, since the quests-branch handlers wrote the duplicates
+	// while upstream handlers wrote the canonical ones.  Where both hold real
+	// values they are expected to agree; if they do not, the canonical value is
+	// kept.
+	migrate("06082026_ConsolidateUserUnitStatColumns", {
+		p->execSqlSync("UPDATE user_units SET unit_lvl = unit_lv "
+			"WHERE unit_lvl = 0 AND unit_lv != 0;");
+		p->execSqlSync("UPDATE user_units SET base_rec = base_heal "
+			"WHERE base_rec = 0 AND base_heal != 0;");
+		p->execSqlSync("UPDATE user_units SET ext_rec = ext_heal "
+			"WHERE ext_rec = 0 AND ext_heal != 0;");
+
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN unit_lv;");
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN base_heal;");
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN ext_heal;");
+
+		// These two had no canonical counterpart — they are not duplicates,
+		// just the wrong vocabulary for a column.
+		p->execSqlSync("ALTER TABLE user_units RENAME COLUMN add_heal TO add_rec;");
+		p->execSqlSync("ALTER TABLE user_units "
+			"RENAME COLUMN limit_over_heal TO limit_over_rec;");
+	});
+
+	// Drops two columns that failed the "do we understand it, does the client
+	// need it" test (handbook §6.15).  fe_bp / fe_max_usable_bp were only ever
+	// INSERTed as the literals 100 and 200 and read straight back into the
+	// packet — never computed from anything, never consumed by any handler,
+	// and Frontier Evolution is not implemented.  The packet FIELDS stay in the
+	// KDL, so the client still receives the keys (defaulting to 0); only the
+	// per-user persistence goes.  Re-add them with the subsystem that needs
+	// them, at which point the values will mean something.
+	migrate("06082026_DropUnusedFeBpColumns", {
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN fe_bp;");
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN fe_max_usable_bp;");
+	});
+
+	// leader_skill_id is SPECIES data: every copy of a unit has the same leader
+	// skill, so it belongs to UnitMst, not to a per-user row.  UnitEvo already
+	// sourced it from targetMst; UnitMix now does the same instead of copying
+	// the stored duplicate.  The packet field stays — the client still gets the
+	// key — only the redundant per-user copy goes.
+	migrate("06082026_DropLeaderSkillIdColumn", {
+		p->execSqlSync("ALTER TABLE user_units DROP COLUMN leader_skill_id;");
+	});
 }
 
 /*!
@@ -142,6 +346,21 @@ void MigrationManager::RunMigrations(drogon::orm::DbClientPtr ptr)
 {
 	MigrationMap migrations;
 	RegisterMigrations(migrations);
+
+	// Migrations are a vector so they run in declared order (a hash map ran them
+	// unordered).  The vector doesn't dedup, so guard the uniqueness the map used
+	// to give us: a duplicate name would run twice / mask an intended migration.
+	std::vector<std::string> seenNames;
+	for (const auto& [name, _] : migrations)
+	{
+		if (std::find(seenNames.begin(), seenNames.end(), name) != seenNames.end())
+		{
+			LOG_ERROR << "Duplicate migration name: " << name;
+			drogon::app().quit();
+			return;
+		}
+		seenNames.push_back(name);
+	}
 
 	std::vector<std::string> runnedMigratons;
 	GetMigrationStatus(ptr, runnedMigratons);

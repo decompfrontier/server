@@ -3,11 +3,14 @@
 #include <gimuserver/archive/UnitArchiver.hpp>
 #include <gimuserver/db/PacketInterface.hpp>
 #include <gimuserver/gme/common/Energy.hpp>
+#include <gimuserver/utils/Random.hpp>
 
 #include <drogon/orm/DbClient.h>
 
 #include <cstdint>
+#include <mutex>
 #include <optional>
+#include <random>
 #include <set>
 #include <stdexcept>
 #include <string>
@@ -89,6 +92,195 @@ inline drogon::Task<db::InterfaceResult<UserUnitInfo>> addUserUnit(
 		.data = std::move(packet),
 		.affected = result.affected,
 	};
+}
+
+/*!
+* Credits an item stack to the owning user's warehouse.
+*
+* Stacks are keyed by (user_id, item_id): a repeat drop increments item_num
+* rather than creating a second row.  Returns the resulting quantity.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that owns the item.
+* @param itemId Item master id to credit.
+* @param quantity Amount to add (default 1).
+* @return Number of affected rows.
+*/
+inline drogon::Task<db::InterfaceResult<>> addUserItem(
+	const db::Database database,
+	const UserIdentity identity,
+	const uint32_t itemId,
+	const uint32_t quantity = 1)
+{
+	if (!database || identity.userId.empty() || itemId == 0)
+	{
+		LOG_ERROR << "Invalid addUserItem call: "
+			<< "db=" << static_cast<bool>(database)
+			<< ", user_id_empty=" << identity.userId.empty()
+			<< ", item_id=" << itemId;
+		throw std::invalid_argument("Invalid addUserItem call");
+	}
+
+	// Bump the stack if it exists, else insert a new one.  item_num accumulates
+	// rather than being replaced, so repeated grants stack.
+	co_return co_await db::DatabaseInterface::upsert(
+		database,
+		"user_items",
+		{
+			db::Data("user_id", identity.userId),
+			db::Data("item_id", itemId),
+			db::Data("item_num", quantity),
+		},
+		{ "user_id", "item_id" },
+		{ "item_num" });
+}
+
+/*!
+* Returns any spheres equipped on soon-to-be-consumed units to the owner's
+* warehouse.
+*
+* UnitSell / UnitMix / UnitEvo delete user_units rows (sold units, fusion
+* fodder, evo materials).  Spheres equipped on those units are owned items —
+* deleting the row without this call would destroy them silently.  Call BEFORE
+* the DELETE, with the same pre-validated integer id list its IN clause uses.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that owns the units.
+* @param userUnitIdList Comma-joined user_unit_id list (validated integers).
+*/
+inline drogon::Task<void> returnEquippedSpheres(
+	const db::Database database,
+	const UserIdentity identity,
+	const std::string& userUnitIdList)
+{
+	if (!database || identity.userId.empty() || userUnitIdList.empty())
+		co_return;
+
+	// Callers hand us the same comma-joined id string their DELETE uses, so
+	// split it back into bound values rather than splicing it into SQL.  When
+	// those DELETEs move onto the typed interface this should take the id
+	// vector directly and the round trip disappears.
+	db::Values userUnitIds;
+	for (size_t start = 0; start <= userUnitIdList.size();)
+	{
+		const auto end = userUnitIdList.find(',', start);
+		const auto token = userUnitIdList.substr(
+			start, end == std::string::npos ? std::string::npos : end - start);
+		if (!token.empty())
+		{
+			userUnitIds.emplace_back(
+				static_cast<uint64_t>(std::stoull(token)));
+		}
+
+		if (end == std::string::npos)
+		{
+			break;
+		}
+
+		start = end + 1;
+	}
+
+	if (userUnitIds.empty())
+		co_return;
+
+	const auto result = co_await db::DatabaseInterface::read(
+		database,
+		"user_units",
+		{
+			db::Data("eqip_item_id"),
+			db::Data("eqip_item_id2"),
+			db::Lookup("user_id", identity.userId),
+			db::LookupIn("user_unit_id", userUnitIds),
+		});
+	for (const auto& row : result.data)
+	{
+		for (const auto col : { "eqip_item_id", "eqip_item_id2" })
+		{
+			const auto itemId = row[col].as<uint32_t>();
+			if (itemId != 0)
+			{
+				co_await addUserItem(database, identity, itemId, 1);
+			}
+		}
+	}
+}
+
+/*!
+* Maps a numeric element id (UnitMst.element) to the string form stored in
+* user_units.element.
+*
+* @param id Element id 1-6.
+* @return Element name; "fire" for out-of-range ids.
+*/
+inline std::string_view elementIdToString(const int32_t id)
+{
+	switch (id)
+	{
+	case 2: return "water";
+	case 3: return "earth";
+	case 4: return "thunder";
+	case 5: return "light";
+	case 6: return "dark";
+	default: return "fire";
+	}
+}
+
+/*!
+* Grants a fresh level-1 unit to the user from its UnitMst row.
+*
+* Column mapping mirrors the debug CLI's InsertUnitFromMst (the proven insert
+* shape for this schema): base stats from the MST minimums, skill levels 10
+* when the unit has the skill, and a random unit type (1-6) — types are rolled
+* on acquisition, matching live behaviour.  Reward flows (CampaignReceipt) use
+* this for present_type=6 unit rewards.
+*
+* @param database Database client or transaction to use.
+* @param identity Resolved user identity that receives the unit.
+* @param unit Unit master row to instantiate.
+*/
+inline drogon::Task<void> addUserUnit(
+	const db::Database database,
+	const UserIdentity identity,
+	const UnitMst& unit)
+{
+	if (!database || identity.userId.empty())
+	{
+		LOG_ERROR << "Invalid addUserUnit call: "
+			<< "db=" << static_cast<bool>(database)
+			<< ", user_id_empty=" << identity.userId.empty();
+		throw std::invalid_argument("Invalid addUserUnit call");
+	}
+
+	const int32_t skillLv      = unit.skill_id       > 0 ? 10 : 0;
+	const int32_t extraSkillLv = unit.extra_skill_id > 0 ? 10 : 0;
+
+	int32_t unitType = 1;
+	{
+		std::lock_guard lock(RandomMutex());
+		unitType = std::uniform_int_distribution<int32_t>(1, 6)(RandomEngine());
+	}
+
+	co_await database->execSqlCoro(
+		"INSERT INTO user_units "
+		"(user_id, unit_id, unit_lvl,"
+		" base_hp,  add_hp,  ext_hp,  limit_over_hp,"
+		" base_atk, add_atk, ext_atk, limit_over_atk,"
+		" base_def, add_def, ext_def, limit_over_def,"
+		" base_rec, add_rec, ext_rec, limit_over_rec,"
+		" exp, total_exp,"
+		" skill_id, skill_lv, extra_skill_id, extra_skill_lv,"
+		" element, unit_type_id) "
+		"VALUES ($1,$2,1,"
+		" $3,0,0,0, $4,0,0,0, $5,0,0,0,"
+		" $6,0,0,0,"
+		" 1,1,"
+		" $7,$8,$9,$10,"
+		" $11,$12);",
+		identity.userId, std::to_string(unit.id),
+		unit.min_hp, unit.min_atk, unit.min_def, unit.min_rec,
+		unit.skill_id, skillLv, unit.extra_skill_id, extraSkillLv,
+		std::string(elementIdToString(unit.element)),
+		unitType);
 }
 
 /*!
@@ -301,6 +493,8 @@ inline drogon::Task<db::InterfaceResult<UserTeamInfo>> getTeamInfo(
 	{
 		packet.deck_cost = mst->deck_cost;
 		packet.max_action_point = mst->energy;
+		packet.max_friend_count = mst->friend_count;
+		packet.add_friend_count = mst->add_friend_count;
 	}
 
 	// Calculate the current energy points of the user.
@@ -395,5 +589,6 @@ inline drogon::Task<db::InterfaceResult<UserIdentity>> getUserIdentity(
 		.affected = user.affected,
 	};
 }
+
 
 }

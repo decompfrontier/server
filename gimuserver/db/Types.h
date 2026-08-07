@@ -34,11 +34,15 @@ struct Cell
 	{
 		Lookup,
 		Data,
+		// WHERE <name> IN (...), values taken from `list` rather than `value`.
+		LookupIn,
 	};
 
 	Use use;
 	Key name;
 	Value value;
+	// Only used by LookupIn cells; empty for every other use.
+	Values list;
 };
 using Cells = std::vector<Cell>;
 
@@ -51,6 +55,26 @@ inline Cell Lookup(Key name, Value value)
 		.use = Cell::Use::Lookup,
 		.name = std::move(name),
 		.value = std::move(value),
+	};
+}
+
+/*!
+* Builds a lookup cell for a WHERE ... IN (...) predicate.
+*
+* Every value is bound as its own placeholder, so callers never interpolate an
+* id list into SQL by hand.  An empty list is rejected by the interface rather
+* than silently widening the query.
+*
+* @param name SQL column name.
+* @param values Values the column must match.
+*/
+inline Cell LookupIn(Key name, Values values)
+{
+	return {
+		.use = Cell::Use::LookupIn,
+		.name = std::move(name),
+		.value = std::monostate{},
+		.list = std::move(values),
 	};
 }
 
