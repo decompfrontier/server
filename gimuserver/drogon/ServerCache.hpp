@@ -57,7 +57,7 @@ public:
 	inline const auto& serverConfig() const { return m_serverConfig; }
 
 	/*!
-	* Unit master data (F_UNIT_MST). Empty until deploy/system/unit_mst.json
+	* Unit master data (F_UNIT_MST). Empty until deploy/mst/unit_mst.json
 	* (hashed-key format, wrapper key "2r9cNSdt") is added and the loader
 	* in ServerCache::Setup is uncommented.
 	* @return Vector of UnitMst entries
@@ -115,7 +115,7 @@ private:
 
 	/*!
 	* Item master data (wrapper key "2C7LDzYk"), looked up by item_id.
-	* Loaded from deploy/system/item_mst.json.
+	* Loaded from deploy/mst/item_mst.json.
 	*/
 	std::vector<ItemMst> m_itemMst;
 };

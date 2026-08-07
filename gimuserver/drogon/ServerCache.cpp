@@ -26,6 +26,10 @@ static std::string BuildJson(const T& d)
 void ServerCache::Setup(const Json::Value& serverObj)
 {
 	const auto& mstRoot = serverObj["mst_root"].asString();
+	// Not every file the server loads at boot is a decoded MST.  features/
+	// brave_slots/notice_info are server config and response fixtures, so they
+	// live in system_root while mst_root holds only reference tables.
+	const auto& systemRoot = serverObj.get("system_root", "./system").asString();
 
 	// fps_cap is the client-side render cap delivered to the offline-proxy
 	// libcurl shim via the /offline_mod/fps_cap endpoint. Default 60 (matches
@@ -55,8 +59,8 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		}
 	}
 
-	m_feature = LoadJson<FeatureCheck>(mstRoot, "features.json");
-	m_controlCenterRsp = LoadJson<SlotGameInfoR>(mstRoot, "brave_slots.json");
+	m_feature = LoadJson<FeatureCheck>(systemRoot, "features.json");
+	m_controlCenterRsp = LoadJson<SlotGameInfoR>(systemRoot, "brave_slots.json");
 
 	{
 		// Cache: Initialize response
@@ -75,7 +79,7 @@ void ServerCache::Setup(const Json::Value& serverObj)
 		m_initrsp.npcs = LoadJson<NpcMstCache>(mstRoot, "npc_mst.json").data;
 		m_initrsp.banner_info = LoadJson <BannerInfoMstCache>(mstRoot, "banner_info_mst.json").data;
 		m_initrsp.extra_passive_skills = LoadJson<ExtraPassiveSkillMstCache>(mstRoot, "extra_passive_skill_mst.json").data;
-		m_initrsp.notice_info = LoadJson<NoticeInfo>(mstRoot, "notice_info.json");
+		m_initrsp.notice_info = LoadJson<NoticeInfo>(systemRoot, "notice_info.json");
 		m_initrsp.defines = LoadJson<DefineMst>(mstRoot, "defines_mst.json");
 		m_initrsp.video_ad_slots = LoadJson<VideoAdsSlotGameInfo>(mstRoot, "video_ad_slot_game_info_mst.json");
 		m_initrsp.exp_pattern = LoadJson<UnitExpPatternMstCache>(mstRoot, "unit_exp_pattern_mst.json").data;
