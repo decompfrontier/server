@@ -123,7 +123,7 @@ HANDLEF(UnitMix)
         " ext_hp, ext_atk, ext_def, ext_rec,"
         " limit_over_hp, limit_over_atk, limit_over_def, limit_over_rec,"
         " skill_id, skill_lv, extra_skill_id, extra_skill_lv, leader_skill_id,"
-        " element, fe_bp, fe_max_usable_bp, unit_type_id,"
+        " element, unit_type_id,"
         " eqip_item_id, eqip_item_frame_id, eqip_item_id2, eqip_item_frame_id2"
         " FROM user_units WHERE user_id=$1 AND user_unit_id=$2 LIMIT 1;",
         std::string(kUserId), baseId
@@ -297,8 +297,6 @@ HANDLEF(UnitMix)
         ud.equipitem_frame_id = br["eqip_item_frame_id"].as<int32_t>();
         ud.equipitem_id2      = br["eqip_item_id2"].as<int32_t>();
         ud.equipitem_frame_id2= br["eqip_item_frame_id2"].as<int32_t>();
-        ud.fe_bp              = br["fe_bp"].as<int32_t>();
-        ud.fe_max_usable_bp   = br["fe_max_usable_bp"].as<int32_t>();
         ud.is_new           = true;
         resp.unit_update.emplace_back(std::move(ud));
     }
