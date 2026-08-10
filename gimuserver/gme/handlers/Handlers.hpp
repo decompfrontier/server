@@ -96,4 +96,13 @@ namespace GmeHandlers
 	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
+	HANDLE(AreaInfo);
+	HANDLE(CampaignStart);
+	HANDLE(CampaignMissionGet);
+	HANDLE(CampaignDeckGet);
+	HANDLE(CampaignBattleStart);
+	HANDLE(CampaignBattleEnd);
+	HANDLE(CampaignReceipt);
+	HANDLE(CampaignEnd);
+	HANDLE(FixGiftInfo);
 }

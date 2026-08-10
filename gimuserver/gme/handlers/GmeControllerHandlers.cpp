@@ -87,6 +87,20 @@ static GmeHandler getHandler(std::string_view cmd)
 	REGISTER("ynB7X5P9", UpdateInfoLight, "7kH9NXwC");
 	REGISTER("cTZ3W2JG", UserInfo, "ScJx6ywWEb0A3njT");
 
+	// Quest / world-map entry point.
+	REGISTER("Zds63G5y", AreaInfo,             "YfAh7gqojdXEtFR1");
+
+	// Campaign subsystem (see HANDLER_BLUEPRINT.md §7).
+	REGISTER("6Y0gaPQN", CampaignStart,        "WM6yr4ej");
+	REGISTER("RSm6p2d4", CampaignMissionGet,   "5jzXN7AH");
+	REGISTER("C3a0VnQK", CampaignDeckGet,      "q2ZtYJ6P");
+	REGISTER("h1RjcD3S", CampaignBattleStart,  "4CKoVAq0");
+	REGISTER("pTNB6yw3", CampaignBattleEnd,    "t06HFsXP");
+	REGISTER("5Imq3wC0", CampaignReceipt,      "4DAgP80B");
+	REGISTER("jF9Kkro4", CampaignEnd,          "4X9tBSg8");
+
+	REGISTER("gLRIn74v", FixGiftInfo,          "15gTE9ft");
+
 	}
 }
 
@@ -150,6 +164,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const drogon::orm::DrogonDbException& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") database exception: " << ex.base().what();
+				logReq << "EXCEPTION (db): " << ex.base().what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
@@ -159,6 +174,7 @@ drogon::Task<GmeAction> GmeController::Handle(drogon::SessionPtr session, const 
 			catch (const std::exception& ex)
 			{
 				LOG_ERROR << "Handler error " << header.id << " (" << handler.name << ") exception: " << ex.what();
+				logReq << "EXCEPTION (std): " << ex.what() << "\n";
 				GmeError err{};
 				err.cmd = GmeErrorCommand::Close;
 				err.flag = GmeErrorFlags::IsInError;
