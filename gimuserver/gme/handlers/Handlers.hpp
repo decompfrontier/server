@@ -96,4 +96,8 @@ namespace GmeHandlers
 	HANDLE(TutorialUpdate);
 	HANDLE(UpdateInfoLight);
 	HANDLE(UserInfo);
+	HANDLE(UnitFavorite);
+	HANDLE(UnitEvo);
+	HANDLE(UnitMix);
+	HANDLE(UnitSell);
 }
